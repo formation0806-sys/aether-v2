@@ -1,4 +1,4 @@
-export default function Home() {
+export default function SignUpPage() {
   return (
     <main
       style={{
@@ -10,7 +10,7 @@ export default function Home() {
         fontWeight: "bold",
       }}
     >
-      THIS IS AETHER 🚀
+      SIGN UP PAGE 🚀
     </main>
   );
 }
