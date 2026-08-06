@@ -1,108 +1,184 @@
+'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Chrome } from 'lucide-react';
 
 export default function SignupForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Form submission will be handled by backend
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md border-slate-700 bg-slate-900 shadow-2xl">
-        <div className="p-6 sm:p-8">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+      <Card className="w-full max-w-2xl border border-gray-300 bg-white shadow-lg">
+        <div className="p-12">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-              Create Account
+            <h1 className="text-3xl font-bold text-black mb-2">
+              Create your Aether Workspace
             </h1>
-            <p className="text-sm text-slate-400">
-              Join us today and get started in seconds
+            <p className="text-gray-700 text-base">
+              Welcome! Create an account to get started
             </p>
           </div>
 
-          {/* Google Sign In Button */}
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full mb-6 border-slate-600 bg-slate-800 text-white hover:bg-slate-700 hover:text-white"
-          >
-            <Chrome className="mr-2 h-4 w-4" />
-            Continue with Google
-          </Button>
-
-          {/* Divider */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-700"></div>
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-slate-900 px-2 text-slate-500">Or</span>
-            </div>
-          </div>
-
-          {/* Email Field */}
-          <div className="mb-5">
-            <Label
-              htmlFor="email"
-              className="text-sm font-medium text-slate-200 mb-2 block"
+          {/* OAuth Buttons */}
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-gray-300 bg-white text-black hover:bg-gray-50 border h-12 font-medium"
             >
-              Email Address
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border-slate-600 bg-slate-800 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Password Field */}
-          <div className="mb-6">
-            <Label
-              htmlFor="password"
-              className="text-sm font-medium text-slate-200 mb-2 block"
+              <svg
+                className="w-5 h-5 mr-2"
+                viewBox="0 0 24 24"
+              >
+                <text x="0" y="0" fontSize="20" fill="#4285F4" fontWeight="bold">G</text>
+              </svg>
+              Google
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="border-gray-300 bg-white text-black hover:bg-gray-50 border h-12 font-medium"
             >
-              Password
-            </Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="border-slate-600 bg-slate-800 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
-            />
+              <svg
+                className="w-5 h-5 mr-2"
+                viewBox="0 0 24 24"
+              >
+                <text x="0" y="0" fontSize="14" fill="#00A4EF" fontWeight="bold">⊞</text>
+              </svg>
+              Microsoft
+            </Button>
           </div>
 
-          {/* Create Account Button */}
-          <Button className="w-full mb-4 bg-blue-600 hover:bg-blue-700 text-white font-medium">
-            Create Account
-          </Button>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* First Name and Last Name */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label
+                  htmlFor="firstName"
+                  className="text-black font-medium text-sm mb-2 block"
+                >
+                  Firstname
+                </Label>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="border-gray-300 bg-white text-black placeholder:text-gray-400 focus:border-gray-400 focus:ring-0 h-11"
+                />
+              </div>
+              <div>
+                <Label
+                  htmlFor="lastName"
+                  className="text-black font-medium text-sm mb-2 block"
+                >
+                  Lastname
+                </Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="border-gray-300 bg-white text-black placeholder:text-gray-400 focus:border-gray-400 focus:ring-0 h-11"
+                />
+              </div>
+            </div>
 
-          {/* Sign In Link */}
-          <p className="text-center text-sm text-slate-400">
-            Already have an account?{' '}
-            <a href="/signin" className="text-blue-400 hover:text-blue-300 font-medium">
-              Sign in
-            </a>
-          </p>
+            {/* Username */}
+            <div>
+              <Label
+                htmlFor="username"
+                className="text-black font-medium text-sm mb-2 block"
+              >
+                Username
+              </Label>
+              <Input
+                id="username"
+                name="username"
+                type="text"
+                value={formData.username}
+                onChange={handleChange}
+                className="border-gray-300 bg-white text-black placeholder:text-gray-400 focus:border-gray-400 focus:ring-0 h-11"
+              />
+            </div>
 
-          {/* Terms */}
-          <p className="text-center text-xs text-slate-500 mt-6">
-            By creating an account, you agree to our{' '}
-            <a href="#" className="text-slate-400 hover:text-slate-300 underline">
-              Terms of Service
-            </a>{' '}
-            and{' '}
-            <a href="#" className="text-slate-400 hover:text-slate-300 underline">
-              Privacy Policy
-            </a>
-          </p>
+            {/* Email */}
+            <div>
+              <Label
+                htmlFor="email"
+                className="text-black font-medium text-sm mb-2 block"
+              >
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border-gray-300 bg-white text-black placeholder:text-gray-400 focus:border-gray-400 focus:ring-0 h-11"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <Label
+                htmlFor="password"
+                className="text-black font-medium text-sm mb-2 block"
+              >
+                Password
+              </Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="border-gray-300 bg-white text-black placeholder:text-gray-400 focus:border-gray-400 focus:ring-0 h-11"
+              />
+            </div>
+
+            {/* Continue Button */}
+            <Button className="w-full bg-black hover:bg-gray-900 text-white font-semibold h-12 rounded-lg transition-colors">
+              Continue
+            </Button>
+          </form>
+
+          {/* Sign In Section */}
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p className="text-gray-700 text-base">
+              Have an account ?{' '}
+              <a href="/signin" className="text-black font-bold hover:underline">
+                Sign In
+              </a>
+            </p>
+          </div>
         </div>
       </Card>
     </div>
