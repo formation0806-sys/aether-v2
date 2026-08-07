@@ -1,14 +1,39 @@
-'use client'
+'use client';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
+  const supabase = createClient();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Login successful!");
+    window.location.href = "/";
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950">
@@ -22,36 +47,41 @@ export default function LoginForm() {
           Sign in to continue.
         </p>
 
-        <div className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-5">
 
           <div>
             <Label>Email</Label>
             <Input
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div>
             <Label>Password</Label>
             <Input
-            type="password"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <Button className="w-full">
-            Login
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? "Signing in..." : "Login"}
           </Button>
 
           <p className="text-center text-sm text-slate-400">
             Forgot password?
           </p>
 
-        </div>
+        </form>
 
       </Card>
     </div>
-  )
+  );
 }
