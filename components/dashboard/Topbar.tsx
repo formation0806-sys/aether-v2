@@ -4,13 +4,12 @@ type Profile = {
 };
 
 interface TopbarProps {
-  profile: Profile | null;
+  profile?: Profile | null;
 }
 
-export default function Topbar({ profile }: TopbarProps) {
+export default function Topbar({ profile = null }: TopbarProps) {
   return (
-    <header className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-8 py-5">
-
+    <header className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-8 py-4">
       <input
         type="text"
         placeholder="Search Aether..."
@@ -18,31 +17,22 @@ export default function Topbar({ profile }: TopbarProps) {
       />
 
       <div className="flex items-center gap-6">
-
-        <button className="text-xl">
-          🔔
-        </button>
+        <button className="text-xl">🔔</button>
 
         <div className="flex items-center gap-3">
-
           <div className="h-10 w-10 rounded-full bg-slate-700" />
 
           <div>
-
             <p className="text-sm font-medium text-white">
               {profile?.full_name || "New User"}
             </p>
 
             <p className="text-xs text-slate-400">
-              {profile?.email}
+              {profile?.email || ""}
             </p>
-
           </div>
-
         </div>
-
       </div>
-
     </header>
   );
 }

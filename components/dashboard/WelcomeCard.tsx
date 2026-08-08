@@ -3,15 +3,16 @@ type Profile = {
 };
 
 interface WelcomeCardProps {
-  profile: Profile | null;
+  profile?: Profile | null;
 }
 
-export default function WelcomeCard({ profile }: WelcomeCardProps) {
+export default function WelcomeCard({
+  profile = null,
+}: WelcomeCardProps) {
   const name = profile?.full_name || "New User";
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900 p-8">
-
+    <section className="rounded-xl border border-slate-700 bg-slate-900 p-8">
       <h2 className="text-3xl font-bold text-white">
         👋 Good Afternoon, {name}
       </h2>
@@ -22,7 +23,6 @@ export default function WelcomeCard({ profile }: WelcomeCardProps) {
       </p>
 
       <div className="mt-8">
-
         <h3 className="mb-4 text-lg font-semibold text-white">
           Today's Focus
         </h3>
@@ -32,9 +32,7 @@ export default function WelcomeCard({ profile }: WelcomeCardProps) {
           <li>🛡️ Complete Authentication Flow</li>
           <li>🧠 Start Building Memory Engine</li>
         </ul>
-
       </div>
-
     </section>
   );
 }
