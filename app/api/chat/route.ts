@@ -12,25 +12,23 @@ import {
 import { extractIdentity } from "@/lib/identity/extractor";
 import { saveIdentityFacts } from "@/lib/identity/store";
 
+import { extractMemories } from "@/lib/memory/extractor";
+import { saveMemory } from "@/lib/memory/supabase";
+
+import { buildBrain } from "@/lib/brain";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
-    console.log("STEP 1");
-
     initializeAI();
 
     const { message } = await req.json();
-
-    console.log("STEP 2");
 
     const supabase = await createClient();
 
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
-    console.log("STEP 3", user?.id);
 
     if (!user) {
       return NextResponse.json(
@@ -39,54 +37,78 @@ export async function POST(req: Request) {
       );
     }
 
+    // -------------------------
+    // Identity
+    // -------------------------
+
     const facts = extractIdentity(message);
+    await saveIdentityFacts(user.id, facts);
 
-    console.log("STEP 4", facts);
+    // -------------------------
+    // Long-term Memory
+    // -------------------------
 
-    try {
-      await saveIdentityFacts(user.id, facts);
-      console.log("STEP 5");
-    } catch (e) {
-      console.error("IDENTITY FAILED", e);
+    const memories = extractMemories(message);
+
+    for (const memory of memories) {
+      try {
+        await saveMemory({
+          userId: user.id,
+          title: memory.title,
+          content: memory.content,
+          role: "system",
+        });
+
+        console.log("MEMORY SAVED:", memory.title);
+      } catch (e) {
+        console.error("MEMORY SAVE FAILED", e);
+      }
     }
 
-    try {
-      await saveUserMessage(user.id, message);
-      console.log("STEP 6");
-    } catch (e) {
-      console.error("SAVE USER FAILED", e);
-    }
+    // -------------------------
+    // Conversation
+    // -------------------------
 
-    const ai = getProvider();
+    await saveUserMessage(user.id, message);
 
-    console.log("STEP 7");
+    const brain = await buildBrain({
+      userId: user.id,
+      message,
+    });
 
     const conversation = buildConversation();
 
-    console.log("STEP 8", conversation);
+    conversation.unshift({
+      role: "system",
+      content: brain.prompt,
+    });
+
+    // -------------------------
+    // Ollama
+    // -------------------------
+
+    const ai = getProvider();
 
     const response = await ai.chat(conversation);
 
-    console.log("STEP 9", response);
-
-    try {
-      await saveAssistantMessage(user.id, response);
-      console.log("STEP 10");
-    } catch (e) {
-      console.error("SAVE AI FAILED", e);
-    }
+    await saveAssistantMessage(user.id, response);
 
     return NextResponse.json({
       response,
     });
   } catch (error) {
-    console.error("FATAL ERROR", error);
+    console.error(error);
 
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : "Unknown error",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }
