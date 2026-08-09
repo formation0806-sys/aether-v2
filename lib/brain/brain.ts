@@ -1,29 +1,41 @@
-import { getProvider } from "@/lib/ai/provider";
-import type { ChatMessage } from "@/lib/ai/types";
-import type { BrainInput, BrainOutput } from "./types";
+import { retrieveMemories } from "@/lib/memory/retrieve";
 
-export class Brain {
-  async process(input: BrainInput): Promise<BrainOutput> {
-    const provider = getProvider();
+export interface BrainInput {
+  userId: string;
+  message: string;
+}
 
-    const conversation: ChatMessage[] = [
-      {
-        role: "user",
-        content: input.message,
-      },
-    ];
+export interface BrainOutput {
+  prompt: string;
+}
 
-    const reply = await provider.chat(conversation);
+export async function buildBrain(
+  input: BrainInput
+): Promise<BrainOutput> {
+  const memories = await retrieveMemories(input.userId);
 
-    return {
-      reply,
-      context: {
-        identity: {},
-        memories: [],
-        knowledge: [],
-        goals: [],
-        tasks: [],
-      },
-    };
-  }
+  const memoryText =
+    memories.length === 0
+      ? "No memories."
+      : memories
+          .map((m) => `- ${m.content}`)
+          .join("\n");
+
+  const prompt = `
+You are Aether.
+
+Known memories:
+
+${memoryText}
+
+User message:
+
+${input.message}
+
+Answer naturally while using the memories when relevant.
+`;
+
+  return {
+    prompt,
+  };
 }

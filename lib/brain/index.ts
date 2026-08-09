@@ -1,2 +1,7 @@
-export * from "./brain";
-export * from "./types";
+export { buildBrain } from "./brain";
+
+export type {
+  BrainContext,
+  BrainInput,
+  BrainOutput,
+} from "./types";
