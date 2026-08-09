@@ -12,7 +12,7 @@ export class OllamaProvider implements AIProvider {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "qwen2.5:3b",
+        model: "qwen3:4b",
         messages,
         stream: false,
       }),
@@ -28,14 +28,14 @@ export class OllamaProvider implements AIProvider {
   }
 
   async embed(text: string): Promise<EmbeddingResult> {
-    const response = await fetch("http://127.0.0.1:11434/api/embeddings", {
+    const response = await fetch("http://127.0.0.1:11434/api/embed", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "qwen2.5:3b",
-        prompt: text,
+        model: "qwen3:4b",
+        input: text,
       }),
     });
 
@@ -46,7 +46,7 @@ export class OllamaProvider implements AIProvider {
     const data = await response.json();
 
     return {
-      embedding: data.embedding,
+      embedding: data.embeddings[0],
     };
   }
 

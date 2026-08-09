@@ -1,4 +1,4 @@
-import { retrieveMemories } from "@/lib/memory/retrieve";
+import { buildContext } from "@/lib/context/builder";
 
 export interface BrainInput {
   userId: string;
@@ -12,27 +12,38 @@ export interface BrainOutput {
 export async function buildBrain(
   input: BrainInput
 ): Promise<BrainOutput> {
-  const memories = await retrieveMemories(input.userId);
+  const context = await buildContext(input.userId);
+
+  const identityText = context.identity
+    ? `
+Name: ${context.identity.fullName}
+Email: ${context.identity.email}
+`
+    : "Unknown user";
 
   const memoryText =
-    memories.length === 0
+    context.memories.length === 0
       ? "No memories."
-      : memories
+      : context.memories
           .map((m) => `- ${m.content}`)
           .join("\n");
 
   const prompt = `
 You are Aether.
 
-Known memories:
+USER
+
+${identityText}
+
+LONG TERM MEMORY
 
 ${memoryText}
 
-User message:
+CURRENT MESSAGE
 
 ${input.message}
 
-Answer naturally while using the memories when relevant.
+Reply naturally.
 `;
 
   return {

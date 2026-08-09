@@ -1,46 +1,48 @@
-import { supabase } from "./supabase";
-import { MemoryRecord } from "./types";
+import { createClient } from "@/lib/supabase/server";
 
-export async function saveMemory(memory: MemoryRecord) {
+export interface SaveMemoryInput {
+  userId: string;
+  title: string;
+  content: string;
+  role?: string;
+}
+
+export async function saveMemory({
+  userId,
+  title,
+  content,
+  role = "system",
+}: SaveMemoryInput) {
+  const supabase = await createClient();
+
   const { error } = await supabase
     .from("memories")
     .insert({
-      user_id: memory.userId,
-      role: memory.role,
-      title: memory.title,
-      content: memory.content,
+      user_id: userId,
+      title,
+      content,
+      role,
     });
 
   if (error) {
-    console.error("Save memory failed:", error);
+    console.error(error);
     throw error;
   }
 }
 
 export async function getMemories(userId: string) {
+  const supabase = await createClient();
+
   const { data, error } = await supabase
     .from("memories")
     .select("*")
     .eq("user_id", userId)
-    .order("created_at", {
-      ascending: true,
-    });
+    .order("created_at", { ascending: true });
 
   if (error) {
-    console.error("Load memories failed:", error);
-    return [];
+    console.error(error);
+    throw error;
   }
 
-  return data;
-}
-
-export async function clearMemories(userId: string) {
-  const { error } = await supabase
-    .from("memories")
-    .delete()
-    .eq("user_id", userId);
-
-  if (error) {
-    console.error("Clear memories failed:", error);
-  }
+  return data ?? [];
 }

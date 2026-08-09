@@ -1,27 +1,33 @@
 import { ChatMessage } from "../types";
 import { addMessage, getHistory } from "./history";
+
 import { saveMemory } from "@/lib/memory/memory";
+import { aiExtractMemories } from "@/lib/memory/aiExtractor";
 
 export async function saveUserMessage(
   userId: string,
   content: string
 ) {
-  const message: ChatMessage = {
+  addMessage({
     role: "user",
     content,
-  };
+  });
 
-  addMessage(message);
+  const memories = await aiExtractMemories(content);
 
-  try {
-    await saveMemory({
-      userId,
-      role: "user",
-      title: content.slice(0, 50),
-      content,
-    });
-  } catch (error) {
-    console.error("Memory save failed:", error);
+  console.log("AI MEMORY RAW:", memories);
+
+  for (const memory of memories) {
+    try {
+      await saveMemory({
+        userId,
+        role: "system",
+        title: memory.title,
+        content: memory.content,
+      });
+    } catch (error) {
+      console.error("Memory save failed:", error);
+    }
   }
 }
 
@@ -29,23 +35,10 @@ export async function saveAssistantMessage(
   userId: string,
   content: string
 ) {
-  const message: ChatMessage = {
+  addMessage({
     role: "assistant",
     content,
-  };
-
-  addMessage(message);
-
-  try {
-    await saveMemory({
-      userId,
-      role: "assistant",
-      title: content.slice(0, 50),
-      content,
-    });
-  } catch (error) {
-    console.error("Memory save failed:", error);
-  }
+  });
 }
 
 export function buildConversation(): ChatMessage[] {

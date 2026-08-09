@@ -12,8 +12,8 @@ import {
 import { extractIdentity } from "@/lib/identity/extractor";
 import { saveIdentityFacts } from "@/lib/identity/store";
 
-import { extractMemories } from "@/lib/memory/extractor";
-import { saveMemory } from "@/lib/memory/supabase";
+import { aiExtractMemories } from "@/lib/memory/aiExtractor";
+import { saveMemory } from "@/lib/memory/memory";
 
 import { buildBrain } from "@/lib/brain";
 import { createClient } from "@/lib/supabase/server";
@@ -45,10 +45,12 @@ export async function POST(req: Request) {
     await saveIdentityFacts(user.id, facts);
 
     // -------------------------
-    // Long-term Memory
+    // AI Memory Extraction
     // -------------------------
 
-    const memories = extractMemories(message);
+    const memories = await aiExtractMemories(message);
+
+    console.log("AI MEMORY RAW:", memories);
 
     for (const memory of memories) {
       try {
@@ -84,7 +86,7 @@ export async function POST(req: Request) {
     });
 
     // -------------------------
-    // Ollama
+    // AI Response
     // -------------------------
 
     const ai = getProvider();

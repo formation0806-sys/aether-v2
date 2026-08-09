@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/memory/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { IdentityFact } from "./extractor";
 
 export async function saveIdentityFacts(
@@ -32,6 +32,8 @@ export async function saveIdentityFacts(
         break;
     }
   }
+
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from("profiles")

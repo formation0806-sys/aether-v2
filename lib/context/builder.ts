@@ -1,38 +1,20 @@
-import { ChatMessage } from "@/lib/ai/types";
-import { UserIdentity } from "@/lib/identity";
+import { getIdentity } from "@/lib/identity/identity";
+import { retrieveMemories } from "@/lib/memory/retrieve";
 
-export interface ContextInput {
-  identity: UserIdentity | null;
-
-  memories: ChatMessage[];
+export interface Context {
+  identity: Awaited<ReturnType<typeof getIdentity>>;
+  memories: Awaited<ReturnType<typeof retrieveMemories>>;
 }
 
-export function buildContext({
-  identity,
-  memories,
-}: ContextInput): ChatMessage[] {
-  const context: ChatMessage[] = [];
+export async function buildContext(
+  userId: string
+): Promise<Context> {
+  const identity = await getIdentity(userId);
 
-  if (identity) {
-    context.push({
-      role: "system",
-      content: `
-You are Aether.
+  const memories = await retrieveMemories(userId);
 
-Current User:
-
-Name: ${identity.fullName}
-
-Email: ${identity.email}
-
-Username: ${identity.id}
-
-Always remember who this user is.
-`,
-    });
-  }
-
-  context.push(...memories);
-
-  return context;
+  return {
+    identity,
+    memories,
+  };
 }
