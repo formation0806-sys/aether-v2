@@ -23,7 +23,7 @@ export default function SignupForm() {
   email,
   password,
   options: {
-    emailRedirectTo: "http://localhost:3000/auth/callback",
+    emailRedirectTo: "http://127.0.0.1:3000/auth/callback",
   },
 });
 

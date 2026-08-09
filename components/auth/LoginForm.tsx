@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { createClient } from "@/lib/supabase/client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +12,7 @@ import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
   const supabase = createClient();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,13 +35,13 @@ export default function LoginForm() {
       return;
     }
 
-    alert("Login successful!");
-    window.location.href = "/";
+    router.push("/dashboard");
+    router.refresh();
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950">
-      <Card className="w-full max-w-md p-8 bg-slate-900 border-slate-700">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 p-6">
+      <Card className="w-full max-w-md p-8 bg-slate-900 border-slate-800">
 
         <h1 className="text-3xl font-bold text-white mb-2">
           Welcome Back

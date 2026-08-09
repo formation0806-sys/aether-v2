@@ -1,0 +1,198 @@
+========== app/api/chat/route.ts ==========
+import { NextResponse } from "next/server";
+
+import { initializeAI } from "@/lib/ai/bootstrap";
+import { getProvider } from "@/lib/ai/provider";
+
+import {
+  saveUserMessage,
+  saveAssistantMessage,
+  buildConversation,
+} from "@/lib/ai/conversation/manager";
+
+import { extractIdentity } from "@/lib/identity/extractor";
+import { saveIdentityFacts } from "@/lib/identity/store";
+
+import { createClient } from "@/lib/supabase/server";
+
+export async function POST(req: Request) {
+  try {
+    console.log("STEP 1");
+
+    initializeAI();
+
+    const { message } = await req.json();
+
+    console.log("STEP 2");
+
+    const supabase = await createClient();
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log("STEP 3", user?.id);
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Not authenticated" },
+        { status: 401 }
+      );
+    }
+
+    const facts = extractIdentity(message);
+
+    console.log("STEP 4", facts);
+
+    try {
+      await saveIdentityFacts(user.id, facts);
+      console.log("STEP 5");
+    } catch (e) {
+      console.error("IDENTITY FAILED", e);
+    }
+
+    try {
+      await saveUserMessage(user.id, message);
+      console.log("STEP 6");
+    } catch (e) {
+      console.error("SAVE USER FAILED", e);
+    }
+
+    const ai = getProvider();
+
+    console.log("STEP 7");
+
+    const conversation = buildConversation();
+
+    console.log("STEP 8", conversation);
+
+    const response = await ai.chat(conversation);
+
+    console.log("STEP 9", response);
+
+    try {
+      await saveAssistantMessage(user.id, response);
+      console.log("STEP 10");
+    } catch (e) {
+      console.error("SAVE AI FAILED", e);
+    }
+
+    return NextResponse.json({
+      response,
+    });
+  } catch (error) {
+    console.error("FATAL ERROR", error);
+
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
+  }
+}
+========== lib/ai/provider.ts ==========
+import { AIProvider } from "./types";
+
+let provider: AIProvider | null = null;
+
+/**
+ * Register the active AI provider.
+ */
+export function registerProvider(ai: AIProvider) {
+  provider = ai;
+}
+
+/**
+ * Get the active AI provider.
+ */
+export function getProvider(): AIProvider {
+  if (!provider) {
+    throw new Error("No AI provider has been registered.");
+  }
+
+  return provider;
+}
+========== lib/ai/bootstrap.ts ==========
+import { registerProvider } from "./provider";
+import { OllamaProvider } from "./providers/ollama";
+
+let initialized = false;
+
+export function initializeAI() {
+  if (initialized) return;
+
+  registerProvider(new OllamaProvider());
+
+  initialized = true;
+}
+========== lib/ai/conversation/history.ts ==========
+import { ChatMessage } from "../types";
+
+const history: ChatMessage[] = [];
+
+export function getHistory(): ChatMessage[] {
+  return [...history];
+}
+
+export function addMessage(message: ChatMessage) {
+  history.push(message);
+}
+
+export function clearHistory() {
+  history.length = 0;
+}
+========== lib/ai/conversation/manager.ts ==========
+import { ChatMessage } from "../types";
+import { addMessage, getHistory } from "./history";
+import { saveMemory } from "@/lib/memory/memory";
+
+export async function saveUserMessage(
+  userId: string,
+  content: string
+) {
+  const message: ChatMessage = {
+    role: "user",
+    content,
+  };
+
+  addMessage(message);
+
+  try {
+    await saveMemory({
+      userId,
+      role: "user",
+      title: content.slice(0, 50),
+      content,
+    });
+  } catch (error) {
+    console.error("Memory save failed:", error);
+  }
+}
+
+export async function saveAssistantMessage(
+  userId: string,
+  content: string
+) {
+  const message: ChatMessage = {
+    role: "assistant",
+    content,
+  };
+
+  addMessage(message);
+
+  try {
+    await saveMemory({
+      userId,
+      role: "assistant",
+      title: content.slice(0, 50),
+      content,
+    });
+  } catch (error) {
+    console.error("Memory save failed:", error);
+  }
+}
+
+export function buildConversation(): ChatMessage[] {
+  return getHistory();
+}
