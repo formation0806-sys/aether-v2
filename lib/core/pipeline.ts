@@ -3,7 +3,7 @@ import { Runtime } from "./runtime";
 import { getIdentity } from "@/lib/identity";
 import { retrieveMemories } from "@/lib/memory";
 import { retrieveKnowledge } from "@/lib/knowledge";
-import { retrievePlans } from "@/lib/planner";
+import { retrievePlanner } from "@/lib/planner";
 
 import { buildContext } from "@/lib/context";
 import { buildBrain } from "@/lib/brain";
@@ -19,11 +19,10 @@ export async function runPipeline(runtime: Runtime) {
   );
 
   const knowledge = await retrieveKnowledge(
-    state.userId,
-    state.message
+    state.userId
   );
 
-  const plans = await retrievePlans(state.userId);
+  const plans = await retrievePlanner(state.userId);
 
   runtime.update({
     identity,

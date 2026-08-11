@@ -5,7 +5,7 @@ export async function saveUserMessage(
   userId: string,
   content: string
 ) {
-  addMessage({
+  await addMessage(userId, {
     role: "user",
     content,
   });
@@ -15,12 +15,14 @@ export async function saveAssistantMessage(
   userId: string,
   content: string
 ) {
-  addMessage({
+  await addMessage(userId, {
     role: "assistant",
     content,
   });
 }
 
-export function buildConversation(): ChatMessage[] {
-  return getHistory();
+export async function buildConversation(
+  userId: string
+): Promise<ChatMessage[]> {
+  return getHistory(userId);
 }

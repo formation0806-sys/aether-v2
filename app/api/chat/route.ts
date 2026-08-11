@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       message,
     });
 
-    const conversation = buildConversation();
+    const conversation = await buildConversation(user.id);
 
     conversation.unshift({
       role: "system",

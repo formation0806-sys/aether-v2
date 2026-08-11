@@ -1,3 +1,6 @@
+import type { ContextResult } from "@/lib/context";
+import type { PlannerResult } from "@/lib/planner";
+
 export interface RuntimeState {
   userId: string;
 
@@ -9,9 +12,9 @@ export interface RuntimeState {
 
   knowledge?: unknown[];
 
-  plans?: unknown[];
+  plans?: PlannerResult;
 
-  context?: string;
+  context?: ContextResult;
 
   prompt?: string;
 
