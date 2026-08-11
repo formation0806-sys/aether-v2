@@ -6,17 +6,29 @@ import {
 
 export class OllamaProvider implements AIProvider {
   async chat(messages: ChatMessage[]): Promise<string> {
-    const response = await fetch("http://127.0.0.1:11434/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "qwen3:4b",
-        messages,
-        stream: false,
-      }),
-    });
+    const response = await fetch(
+      "http://127.0.0.1:11434/api/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "qwen2.5:3b",
+
+          stream: false,
+
+          options: {
+            temperature: 0.2,
+            num_predict: 200,
+            top_p: 0.9,
+            num_ctx: 2048,
+          },
+
+          messages,
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to talk to Ollama.");
@@ -28,16 +40,19 @@ export class OllamaProvider implements AIProvider {
   }
 
   async embed(text: string): Promise<EmbeddingResult> {
-    const response = await fetch("http://127.0.0.1:11434/api/embed", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "qwen3:4b",
-        input: text,
-      }),
-    });
+    const response = await fetch(
+      "http://127.0.0.1:11434/api/embed",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "nomic-embed-text",
+          input: text,
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Embedding failed.");
@@ -50,7 +65,7 @@ export class OllamaProvider implements AIProvider {
     };
   }
 
-  name(): string {
+  name() {
     return "Ollama";
   }
 }

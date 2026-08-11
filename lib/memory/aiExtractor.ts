@@ -1,5 +1,3 @@
-import { getProvider } from "@/lib/ai/provider";
-
 export interface ExtractedMemory {
   title: string;
   content: string;
@@ -8,79 +6,122 @@ export interface ExtractedMemory {
 export async function aiExtractMemories(
   message: string
 ): Promise<ExtractedMemory[]> {
-  const ai = getProvider();
-
-  const response = await ai.chat([
+  const response = await fetch(
+    "http://127.0.0.1:11434/api/chat",
     {
-      role: "system",
-      content: `
-You are a JSON API.
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "qwen2.5:3b",
+        stream: false,
+        messages: [
+          {
+            role: "system",
+            content: `
+You are an INFORMATION EXTRACTION ENGINE.
 
-You NEVER explain.
+DO NOT answer the user.
 
-You NEVER chat.
+DO NOT explain.
 
-Extract long-term memories from the user message.
+DO NOT chat.
 
-Return ONLY a JSON array.
+ONLY return valid JSON.
 
-Example:
+Return ONLY this format:
 
+[
+  {
+    "title": "...",
+    "content": "..."
+  }
+]
+
+Extract ONLY long-term information.
+
+Examples:
+
+User:
+My name is Prince.
+
+Output:
 [
   {
     "title":"User Name",
     "content":"The user's name is Prince."
-  },
+  }
+]
+
+User:
+I'm building Aether.
+
+Output:
+[
+  {
+    "title":"Project",
+    "content":"The user is building Aether."
+  }
+]
+
+User:
+My dog is Bruno.
+
+Output:
+[
+  {
+    "title":"Pet",
+    "content":"The user's dog is Bruno."
+  }
+]
+
+User:
+I live in Mumbai.
+
+Output:
+[
   {
     "title":"Location",
     "content":"The user lives in Mumbai."
   }
 ]
 
-Remember:
+User:
+Blue is my favorite color.
 
-- name
-- city
-- country
-- age
-- job
-- preferences
-- pets
-- goals
-- projects
-- skills
+Output:
+[
+  {
+    "title":"Preference",
+    "content":"The user's favorite color is blue."
+  }
+]
 
-Ignore:
-
-- greetings
-- jokes
-- temporary questions
-- requests
-
-If nothing should be stored return exactly:
+If nothing should be remembered:
 
 []
 `,
-    },
-    {
-      role: "user",
-      content: message,
-    },
-  ]);
+          },
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  const text = data.message.content.trim();
 
   console.log("OLLAMA RAW:");
-  console.log(response);
+  console.log(text);
 
   try {
-    const cleaned = response
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
-
-    return JSON.parse(cleaned);
-  } catch (err) {
-    console.error("FAILED TO PARSE");
-    console.log(response);
+    return JSON.parse(text);
+  } catch {
     return [];
   }
 }

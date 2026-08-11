@@ -1,10 +1,18 @@
 import { createClient } from "@/lib/supabase/server";
+import { embed } from "@/lib/ai/embeddings/embed";
 
 export interface SaveMemoryInput {
   userId: string;
   title: string;
   content: string;
   role?: string;
+}
+
+export interface MemoryRecord {
+  id: string;
+  title: string;
+  content: string;
+  similarity?: number;
 }
 
 export async function saveMemory({
@@ -15,6 +23,35 @@ export async function saveMemory({
 }: SaveMemoryInput) {
   const supabase = await createClient();
 
+  const vector = await embed(content);
+
+  const { data: existing } = await supabase
+    .from("memories")
+    .select("id,content")
+    .eq("user_id", userId)
+    .eq("title", title)
+    .limit(1);
+
+  if (existing && existing.length > 0) {
+    if (existing[0].content === content) {
+      console.log("MEMORY SKIPPED");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("memories")
+      .update({
+        content,
+        embedding: vector.embedding,
+      })
+      .eq("id", existing[0].id);
+
+    if (error) throw error;
+
+    console.log("MEMORY UPDATED");
+    return;
+  }
+
   const { error } = await supabase
     .from("memories")
     .insert({
@@ -22,27 +59,31 @@ export async function saveMemory({
       title,
       content,
       role,
+      embedding: vector.embedding,
     });
 
-  if (error) {
-    console.error(error);
-    throw error;
-  }
+  if (error) throw error;
+
+  console.log("MEMORY INSERTED");
 }
 
-export async function getMemories(userId: string) {
+export async function getRelevantMemories(
+  userId: string,
+  query: string
+): Promise<MemoryRecord[]> {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from("memories")
-    .select("*")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: true });
+  const vector = await embed(query);
 
-  if (error) {
-    console.error(error);
-    throw error;
-  }
+  const { data, error } = await supabase.rpc("match_memories", {
+    query_embedding: vector.embedding,
+    match_user: userId,
+    match_count: 8,
+  });
 
-  return data ?? [];
+  if (error) throw error;
+
+  console.log("RETRIEVED MEMORIES:", data);
+
+  return (data ?? []) as MemoryRecord[];
 }

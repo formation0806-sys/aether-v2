@@ -1,15 +1,14 @@
 import { retrieveMemories } from "@/lib/memory/retrieve";
 
 export default async function MemoryPage() {
-  const memories = await retrieveMemories("57845a97-0315-4252-9d1b-2206588e5b13");
+  const memories = await retrieveMemories(
+    "57845a97-0315-4252-9d1b-2206588e5b13",
+    ""
+  );
 
   return (
     <main style={{ padding: 40 }}>
-      <h1>Memory Test</h1>
-
-      <pre>
-        {JSON.stringify(memories, null, 2)}
-      </pre>
+      <pre>{JSON.stringify(memories, null, 2)}</pre>
     </main>
   );
 }

@@ -1,52 +1,58 @@
-import { buildContext } from "@/lib/context/builder";
+import { buildContext } from "@/lib/context";
 
-export interface BrainInput {
+interface BrainInput {
   userId: string;
   message: string;
 }
 
-export interface BrainOutput {
-  prompt: string;
-}
-
-export async function buildBrain(
-  input: BrainInput
-): Promise<BrainOutput> {
-  const context = await buildContext(input.userId);
-
-  const identityText = context.identity
-    ? `
-Name: ${context.identity.fullName}
-Email: ${context.identity.email}
-`
-    : "Unknown user";
-
-  const memoryText =
-    context.memories.length === 0
-      ? "No memories."
-      : context.memories
-          .map((m) => `- ${m.content}`)
-          .join("\n");
+export async function buildBrain({
+  userId,
+  message,
+}: BrainInput) {
+  const context = await buildContext(userId, message);
 
   const prompt = `
 You are Aether.
 
-USER
+========================
+IDENTITY
+========================
 
-${identityText}
+${JSON.stringify(context.identity, null, 2)}
 
-LONG TERM MEMORY
+========================
+MEMORIES
+========================
 
-${memoryText}
+${JSON.stringify(context.memories, null, 2)}
 
-CURRENT MESSAGE
+========================
+KNOWLEDGE
+========================
 
-${input.message}
+${JSON.stringify(context.knowledge, null, 2)}
 
-Reply naturally.
+========================
+PLANNER
+========================
+
+${JSON.stringify(context.planner, null, 2)}
+
+========================
+RULES
+========================
+
+- Never invent memories.
+- Never invent identity.
+- Never invent planner data.
+- Never invent knowledge.
+- If something does not exist, simply continue normally.
+- Be proactive.
+- Think like a human teammate.
 `;
 
   return {
     prompt,
+    context,
   };
 }
