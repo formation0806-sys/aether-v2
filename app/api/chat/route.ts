@@ -1,22 +1,9 @@
 import { NextResponse } from "next/server";
 
 import { initializeAI } from "@/lib/ai/bootstrap";
-import { getProvider } from "@/lib/ai/provider";
-
-import {
-  saveUserMessage,
-  saveAssistantMessage,
-  buildConversation,
-} from "@/lib/ai/conversation/manager";
-
-import { extractIdentity } from "@/lib/identity/extractor";
-import { saveIdentityFacts } from "@/lib/identity/store";
-
-import { aiExtractMemories } from "@/lib/memory/aiExtractor";
-import { saveMemory } from "@/lib/memory/memory";
-
-import { buildBrain } from "@/lib/brain";
 import { createClient } from "@/lib/supabase/server";
+
+import { Runtime, runPipeline } from "@/lib/core";
 
 export async function POST(req: Request) {
   try {
@@ -37,66 +24,15 @@ export async function POST(req: Request) {
       );
     }
 
-    // -------------------------
-    // Identity
-    // -------------------------
-
-    const facts = extractIdentity(message);
-    await saveIdentityFacts(user.id, facts);
-
-    // -------------------------
-    // AI Memory Extraction
-    // -------------------------
-
-    const memories = await aiExtractMemories(message);
-
-    console.log("AI MEMORY RAW:", memories);
-
-    for (const memory of memories) {
-      try {
-        await saveMemory({
-          userId: user.id,
-          title: memory.title,
-          content: memory.content,
-          role: "system",
-        });
-
-        console.log("MEMORY SAVED:", memory.title);
-      } catch (e) {
-        console.error("MEMORY SAVE FAILED", e);
-      }
-    }
-
-    // -------------------------
-    // Conversation
-    // -------------------------
-
-    await saveUserMessage(user.id, message);
-
-    const brain = await buildBrain({
+    const runtime = new Runtime({
       userId: user.id,
       message,
     });
 
-    const conversation = await buildConversation(user.id);
-
-    conversation.unshift({
-      role: "system",
-      content: brain.prompt,
-    });
-
-    // -------------------------
-    // AI Response
-    // -------------------------
-
-    const ai = getProvider();
-
-    const response = await ai.chat(conversation);
-
-    await saveAssistantMessage(user.id, response);
+    const state = await runPipeline(runtime);
 
     return NextResponse.json({
-      response,
+      response: state.response,
     });
   } catch (error) {
     console.error(error);

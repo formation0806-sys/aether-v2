@@ -1,17 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
+import { searchKnowledgeByContent } from "@/lib/repositories/knowledge.repository";
 
 export async function searchKnowledge(
   userId: string,
   query: string
 ) {
-  const supabase = await createClient();
-
-  const { data } = await supabase
-    .from("knowledge")
-    .select("*")
-    .eq("user_id", userId)
-    .ilike("content", `%${query}%`)
-    .limit(10);
+  const { data } = await searchKnowledgeByContent(userId, query);
 
   return data ?? [];
 }

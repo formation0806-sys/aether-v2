@@ -1,16 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
+import { getProfile } from "@/lib/repositories/identity.repository";
 import { UserIdentity } from "./types";
 
 export async function getIdentity(
   userId: string
 ): Promise<UserIdentity | null> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", userId)
-    .single();
+  const { data, error } = await getProfile(userId);
 
   if (error || !data) {
     console.error("Identity error:", error);

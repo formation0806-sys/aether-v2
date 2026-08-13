@@ -1,14 +1,17 @@
-import { createClient } from "@/lib/supabase/server";
+import {
+  insertGoal,
+  insertProject,
+  insertMilestone,
+  insertTask,
+} from "@/lib/repositories/planner.repository";
 import { PlannerResult } from "./types";
 
 export async function savePlan(
   userId: string,
   plan: PlannerResult
 ) {
-  const supabase = await createClient();
-
   for (const goal of plan.goals) {
-    await supabase.from("goals").insert({
+    await insertGoal({
       id: goal.id,
       user_id: userId,
       title: goal.title,
@@ -17,7 +20,7 @@ export async function savePlan(
   }
 
   for (const project of plan.projects) {
-    await supabase.from("projects").insert({
+    await insertProject({
       id: project.id,
       user_id: userId,
       title: project.title,
@@ -27,7 +30,7 @@ export async function savePlan(
   }
 
   for (const milestone of plan.milestones) {
-    await supabase.from("milestones").insert({
+    await insertMilestone({
       id: milestone.id,
       project_id: milestone.projectId,
       title: milestone.title,
@@ -35,7 +38,7 @@ export async function savePlan(
   }
 
   for (const task of plan.tasks) {
-    await supabase.from("tasks").insert({
+    await insertTask({
       id: task.id,
       milestone_id: task.milestoneId ?? null,
       title: task.title,

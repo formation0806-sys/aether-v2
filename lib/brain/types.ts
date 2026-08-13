@@ -1,9 +1,10 @@
 import { ChatMessage } from "@/lib/ai/types";
+import type { ContextResult } from "@/lib/context";
 
 export interface BrainInput {
-  userId: string;
-
   message: string;
+
+  context: ContextResult;
 }
 
 export interface BrainContext {
@@ -19,7 +20,5 @@ export interface BrainContext {
 }
 
 export interface BrainOutput {
-  reply: string;
-
-  context: BrainContext;
+  prompt: string;
 }

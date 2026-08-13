@@ -1,44 +1,75 @@
 import { createClient } from "@/lib/supabase/server";
+import {
+  matchMemories,
+  incrementMemoryUsage,
+} from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
 
 export async function retrieveMemories(
   userId: string,
   query: string
 ) {
-  const supabase = await createClient();
-
-  console.time("QUERY EMBEDDING");
-
-  const vector = await embed(query);
-
-  console.timeEnd("QUERY EMBEDDING");
-
-  console.time("VECTOR SEARCH");
-
-  const { data, error } = await supabase.rpc(
-    "match_memories",
-    {
-      query_embedding: vector.embedding,
-      match_user: userId,
-      match_count: 8,
-    }
+  console.log(
+    "ENTER retrieveMemories | userId:",
+    userId,
+    "| CALL STACK:",
+    new Error().stack
   );
+  try {
+    console.log("========== RETRIEVE ==========");
+    console.log("QUERY:", query);
+    console.log("USER ID PASSED:", userId);
 
-  console.timeEnd("VECTOR SEARCH");
+    // AUTH DEBUG
+    const supabase = await createClient();
 
-  if (error) throw error;
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
-  if (!data) return [];
+    console.log("========== AUTH ==========");
+    console.log("AUTH USER:", user);
+    console.log("AUTH ERROR:", authError);
 
-  for (const memory of data) {
-    await supabase
-      .from("memories")
-      .update({
-        times_used: (memory.times_used ?? 0) + 1,
-        last_used: new Date().toISOString(),
-      })
-      .eq("id", memory.id);
+    // EMBEDDING
+    const vector = await embed(query);
+
+    console.log("========== EMBEDDING ==========");
+    console.log("Embedding length:", vector.embedding.length);
+    console.log("First 5:", vector.embedding.slice(0, 5));
+
+    // RPC
+    const result = await matchMemories(
+      vector.embedding,
+      userId,
+      8
+    );
+
+    console.log("========== RPC ==========");
+    console.log(result);
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const memories = result.data ?? [];
+
+    console.log("========== MEMORIES ==========");
+    console.log(memories);
+
+    for (const memory of memories) {
+      await incrementMemoryUsage(
+        memory.id,
+        (memory.times_used ?? 0) + 1,
+        new Date().toISOString()
+      );
+    }
+
+    return memories;
+  } catch (err) {
+    console.error("========== ERROR ==========");
+    console.error(err);
+    throw err;
   }
-
-  return data;
 }

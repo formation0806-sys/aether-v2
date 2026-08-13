@@ -1,16 +1,13 @@
-import { buildContext } from "@/lib/context";
+import type { ContextResult } from "@/lib/context";
 
 interface BrainInput {
-  userId: string;
   message: string;
+  context: ContextResult;
 }
 
 export async function buildBrain({
-  userId,
-  message,
+  context,
 }: BrainInput) {
-  const context = await buildContext(userId, message);
-
   const prompt = `
 You are Aether.
 
@@ -53,6 +50,5 @@ RULES
 
   return {
     prompt,
-    context,
   };
 }

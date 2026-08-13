@@ -20,21 +20,12 @@ export default function TaskList({ refresh }: Props) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTasks();
-  }, [refresh]);
-
-  async function loadTasks() {
-    setLoading(true);
-
+  async function fetchTasks(): Promise<Task[]> {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
-      setLoading(false);
-      return;
-    }
+    if (!user) return [];
 
     const { data } = await supabase
       .from("tasks")
@@ -42,9 +33,27 @@ export default function TaskList({ refresh }: Props) {
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
-    setTasks(data ?? []);
-    setLoading(false);
+    return data ?? [];
   }
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetchTasks()
+      .then((list) => {
+        if (!cancelled) {
+          setTasks(list);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [refresh]);
 
   async function toggleTask(id: string, completed: boolean) {
     await supabase
@@ -54,7 +63,7 @@ export default function TaskList({ refresh }: Props) {
       })
       .eq("id", id);
 
-    loadTasks();
+    setTasks(await fetchTasks());
   }
 
   async function deleteTask(id: string) {
@@ -69,7 +78,7 @@ export default function TaskList({ refresh }: Props) {
       .delete()
       .eq("id", id);
 
-    loadTasks();
+    setTasks(await fetchTasks());
   }
 
   if (loading) {

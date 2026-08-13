@@ -3,7 +3,7 @@ export default function FocusCard() {
     <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
 
       <p className="text-sm uppercase tracking-wider text-blue-400">
-        Today's Focus
+        Today&apos;s Focus
       </p>
 
       <h2 className="mt-3 text-2xl font-bold text-white">

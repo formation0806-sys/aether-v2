@@ -20,36 +20,40 @@ export default function MemoryList({
   const [memories, setMemories] = useState<Memory[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadMemories();
-  }, [refresh]);
-
-  async function loadMemories() {
-    setLoading(true);
-
+  async function fetchMemories(): Promise<Memory[]> {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    console.log("AUTH USER:", user);
+    if (!user) return [];
 
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("memories")
       .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
-    console.log("MEMORIES DATA:", data);
-    console.log("MEMORIES ERROR:", error);
-
-    setMemories(data ?? []);
-    setLoading(false);
+    return data ?? [];
   }
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetchMemories()
+      .then((list) => {
+        if (!cancelled) {
+          setMemories(list);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [refresh]);
 
   async function deleteMemory(id: string) {
     const { error } = await supabase
@@ -62,7 +66,7 @@ export default function MemoryList({
       return;
     }
 
-    loadMemories();
+    setMemories(await fetchMemories());
   }
 
   if (loading) {

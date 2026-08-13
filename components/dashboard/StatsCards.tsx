@@ -21,33 +21,37 @@ export default function StatsCards() {
   });
 
   useEffect(() => {
-    loadStats();
+    let cancelled = false;
+
+    (async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user || cancelled) return;
+
+      const { data, error } = await supabase
+        .from("tasks")
+        .select("completed")
+        .eq("user_id", user.id);
+
+      if (error || !data || cancelled) return;
+
+      const total = data.length;
+      const completed = data.filter((t) => t.completed).length;
+      const pending = total - completed;
+
+      setStats({
+        total,
+        completed,
+        pending,
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
-
-  async function loadStats() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from("tasks")
-      .select("completed")
-      .eq("user_id", user.id);
-
-    if (error || !data) return;
-
-    const total = data.length;
-    const completed = data.filter((t) => t.completed).length;
-    const pending = total - completed;
-
-    setStats({
-      total,
-      completed,
-      pending,
-    });
-  }
 
   const cards = [
     {

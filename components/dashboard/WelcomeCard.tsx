@@ -24,7 +24,7 @@ export default function WelcomeCard({
 
       <div className="mt-8">
         <h3 className="mb-4 text-lg font-semibold text-white">
-          Today's Focus
+          Today&apos;s Focus
         </h3>
 
         <ul className="space-y-3 text-slate-300">

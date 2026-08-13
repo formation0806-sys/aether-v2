@@ -17,25 +17,31 @@ export default function RecentTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    loadTasks();
+    let cancelled = false;
+
+    (async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user || cancelled) return;
+
+      const { data } = await supabase
+        .from("tasks")
+        .select("id,title,completed")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+      if (!cancelled) {
+        setTasks(data ?? []);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
-
-  async function loadTasks() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) return;
-
-    const { data } = await supabase
-      .from("tasks")
-      .select("id,title,completed")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
-      .limit(5);
-
-    setTasks(data ?? []);
-  }
 
   return (
     <div className="rounded-xl border border-slate-700 bg-slate-900 p-6">

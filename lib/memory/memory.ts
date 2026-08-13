@@ -1,4 +1,9 @@
-import { createClient } from "@/lib/supabase/server";
+import {
+  findMemoryByTitle,
+  insertMemory,
+  updateMemoryById,
+  matchMemories,
+} from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
 
 export interface SaveMemoryInput {
@@ -21,16 +26,9 @@ export async function saveMemory({
   content,
   role = "system",
 }: SaveMemoryInput) {
-  const supabase = await createClient();
-
   const vector = await embed(content);
 
-  const { data: existing } = await supabase
-    .from("memories")
-    .select("id,content")
-    .eq("user_id", userId)
-    .eq("title", title)
-    .limit(1);
+  const { data: existing } = await findMemoryByTitle(userId, title);
 
   if (existing && existing.length > 0) {
     if (existing[0].content === content) {
@@ -38,13 +36,10 @@ export async function saveMemory({
       return;
     }
 
-    const { error } = await supabase
-      .from("memories")
-      .update({
-        content,
-        embedding: vector.embedding,
-      })
-      .eq("id", existing[0].id);
+    const { error } = await updateMemoryById(existing[0].id, {
+      content,
+      embedding: vector.embedding,
+    });
 
     if (error) throw error;
 
@@ -52,15 +47,13 @@ export async function saveMemory({
     return;
   }
 
-  const { error } = await supabase
-    .from("memories")
-    .insert({
-      user_id: userId,
-      title,
-      content,
-      role,
-      embedding: vector.embedding,
-    });
+  const { error } = await insertMemory({
+    user_id: userId,
+    title,
+    content,
+    role,
+    embedding: vector.embedding,
+  });
 
   if (error) throw error;
 
@@ -71,15 +64,9 @@ export async function getRelevantMemories(
   userId: string,
   query: string
 ): Promise<MemoryRecord[]> {
-  const supabase = await createClient();
-
   const vector = await embed(query);
 
-  const { data, error } = await supabase.rpc("match_memories", {
-    query_embedding: vector.embedding,
-    match_user: userId,
-    match_count: 8,
-  });
+  const { data, error } = await matchMemories(vector.embedding, userId, 8);
 
   if (error) throw error;
 

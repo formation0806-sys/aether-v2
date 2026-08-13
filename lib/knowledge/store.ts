@@ -1,4 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import {
+  findKnowledgeByTitle,
+  insertKnowledge,
+  updateKnowledge,
+} from "@/lib/repositories/knowledge.repository";
 
 export async function saveKnowledge(
   userId: string,
@@ -6,28 +10,18 @@ export async function saveKnowledge(
   content: string,
   category = "general"
 ) {
-  const supabase = await createClient();
-
-  const { data: existing } = await supabase
-    .from("knowledge")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("title", title)
-    .maybeSingle();
+  const { data: existing } = await findKnowledgeByTitle(userId, title);
 
   if (existing) {
-    await supabase
-      .from("knowledge")
-      .update({
-        content,
-        category,
-      })
-      .eq("id", existing.id);
+    await updateKnowledge(existing.id, {
+      content,
+      category,
+    });
 
     return;
   }
 
-  await supabase.from("knowledge").insert({
+  await insertKnowledge({
     user_id: userId,
     title,
     content,

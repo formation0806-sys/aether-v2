@@ -1,28 +1,20 @@
-import { createClient } from "@/lib/supabase/server";
+import {
+  selectGoals,
+  selectProjects,
+  selectMilestones,
+  selectTasks,
+} from "@/lib/repositories/planner.repository";
 
 export async function retrievePlanner(userId: string) {
-  const supabase = await createClient();
-
   const [goals, projects, milestones, tasks] =
     await Promise.all([
+      selectGoals(userId),
 
-      supabase
-        .from("goals")
-        .select("*")
-        .eq("user_id", userId),
+      selectProjects(userId),
 
-      supabase
-        .from("projects")
-        .select("*")
-        .eq("user_id", userId),
+      selectMilestones(),
 
-      supabase
-        .from("milestones")
-        .select("*"),
-
-      supabase
-        .from("tasks")
-        .select("*"),
+      selectTasks(),
     ]);
 
   return {

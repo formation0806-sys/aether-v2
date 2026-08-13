@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { updateProfile } from "@/lib/repositories/identity.repository";
 import { IdentityFact } from "./extractor";
 
 export async function saveIdentityFacts(
@@ -33,12 +33,7 @@ export async function saveIdentityFacts(
     }
   }
 
-  const supabase = await createClient();
-
-  const { error } = await supabase
-    .from("profiles")
-    .update(updates)
-    .eq("id", userId);
+    const { error } = await updateProfile(userId, updates);
 
   if (error) {
     console.error("Identity save failed:", error);

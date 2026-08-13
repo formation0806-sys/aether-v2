@@ -1,4 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import {
+  getMemoryByTitle,
+  insertMemory,
+  updateMemoryById,
+} from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
 
 export async function upsertMemory(
@@ -6,30 +10,20 @@ export async function upsertMemory(
   title: string,
   content: string
 ) {
-  const supabase = await createClient();
-
-  const { data: existing } = await supabase
-    .from("memories")
-    .select("id,content")
-    .eq("user_id", userId)
-    .eq("title", title)
-    .maybeSingle();
+  const { data: existing } = await getMemoryByTitle(userId, title);
 
   const vector = await embed(content);
 
   if (existing) {
-    await supabase
-      .from("memories")
-      .update({
-        content,
-        embedding: vector.embedding,
-      })
-      .eq("id", existing.id);
+    await updateMemoryById(existing.id, {
+      content,
+      embedding: vector.embedding,
+    });
 
     return;
   }
 
-  await supabase.from("memories").insert({
+  await insertMemory({
     user_id: userId,
     title,
     content,

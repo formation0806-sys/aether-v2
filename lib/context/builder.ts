@@ -22,6 +22,9 @@ export async function buildContext(
   userId: string,
   message: string
 ): Promise<ContextResult> {
+  console.log("CALLER: lib/context/builder.ts");
+  console.log("USER PASSED:", userId);
+
   const [
     identity,
     memories,

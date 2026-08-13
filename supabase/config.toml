@@ -1,0 +1,13 @@
+# Supabase CLI configuration for Aether.
+# Set project_id to your cloud project reference before running
+# `supabase db push` / `supabase db pull`. Migrations live in
+# supabase/migrations/ and are applied in filename order.
+
+project_id = "aether-v2"      # TODO: replace with the actual Supabase project reference
+
+[db]
+major_version = 15            # typical for new Supabase projects; adjust if needed
+
+# The migrations directory is defaulted by the CLI; keep it explicit.
+# Include extra search_path entries if you use dedicated schemas.
+search_path = "public"
