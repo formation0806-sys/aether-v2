@@ -11,8 +11,8 @@
 
 ## Milestone status (MASTER_PLAN phases)
 - **Phase 0 – Foundation:** ✅ Complete (Runtime, pipeline runner, provider registry, AI bootstrap).
-- **Phase 1 – Memory Foundation:** ⚠️ Partial (DB schema + TS foundation complete; operational layer still legacy — see Memory V2).
-- **Phase 2 – Retriever:** ⏸ Not started (live path still uses the legacy `match_memories` RPC).
+- **Phase 1 – Memory Foundation:** ✅ Complete (DB schema + TS foundation + repository bridge present; retriever wired to V2 — operational layer partial, see Memory V2).
+- **Phase 2 – Retriever:** ✅ Complete (live path migrated to `matchMemoriesV2` + `score.ts` + `effectiveScore` sort + MMR + token budget + `touchMemories`; public API unchanged).
 - **Phase 3 – Memory Writer:** ⏸ Not started (only legacy extractor/upserter exist).
 - **Phase 4 – Reflection Engine:** ⏸ Not started (decay/forget/merge RPCs exist in DB but are never invoked).
 - **Phase 5/6/7 – Identity / Knowledge / Planner:** ✅ Service + repository modules present (`lib/identity`, `lib/knowledge`, `lib/planner` + their repositories).
@@ -20,11 +20,11 @@
 
 ## Memory V2 state (the real picture)
 - **Database schema — ✅ Complete.** Migrations `0000–0005` deliver the entire V2 surface: 3 enums (`memory_type`, `memory_status`, `memory_source`); V2 columns on `memories`; auxiliary tables (`memory_clusters`, `memory_edges`, `memory_events`, `conversations`, `memory_jobs`); 11 indexes; 6 RPCs (`match_memories_v2`, `touch_memories`, `find_near_duplicates`, `apply_memory_decay`, `forget_archived`, `merge_memories`); `updated_at` triggers; RLS; and the `0005` backfill + `migration_meta`.
-- **TS V2 foundation — ✅ Written, UNWIRED.** `lib/memory/types.ts`, `lib/memory/constants.ts`, `lib/memory/score.ts` are complete, but `lib/memory/index.ts` only re-exports the legacy trio (`memory`, `retrieve`, `upsertMemory`). The V2 modules are dead code.
-- **Operational layer — ⚠️ Legacy.** `lib/repositories/memory.repository.ts`, `lib/memory/retrieve.ts`, `lib/memory/upsertMemory.ts`, `lib/memory/memory.ts`, `extractor.ts`, `aiExtractor.ts` all use the legacy `match_memories` RPC and legacy columns. **The live chat path has not yet been migrated to V2.**
+- **TS V2 foundation — ✅ Written, wired.** `lib/memory/types.ts`, `lib/memory/constants.ts`, `lib/memory/score.ts` are complete and consumed by `retrieve.ts` (V2 pipeline). `lib/memory/index.ts` only re-exports the legacy trio (`memory`, `retrieve`, `upsertMemory`); the V2 modules are live.
+- **Operational layer — ⚠️ Mixed.** `lib/memory/retrieve.ts` is now on V2 (`matchMemoriesV2` → `scoreRetrievalCandidate` → `effectiveScore` sort → MMR → token budget → `touchMemories`); `lib/repositories/memory.repository.ts` bridges V1 + V2. `lib/memory/upsertMemory.ts`, `lib/memory/memory.ts`, `extractor.ts`, `aiExtractor.ts` still use the legacy `match_memories` RPC and legacy columns. The live chat path is now **partially** migrated to V2 (retriever only).
 
 ## Latest milestone (this session)
-Repository-layer bridge to V2 in `lib/repositories/memory.repository.ts`: added `matchMemoriesV2`, `touchMemories`, `insertMemoryV2`, `updateMemoryV2` (and their input types) wrapping the **existing** V2 RPCs/tables. All six legacy functions are byte-for-byte preserved; `build` + `lint` pass.
+Retriever V2 in `lib/memory/retrieve.ts`: rewrote `retrieveMemories(userId, query)` to the V2 pipeline — `matchMemoriesV2()` → `scoreRetrievalCandidate()` → `effectiveScore` sort → MMR rerank (`mmrScore` + pairwise cosine over re-fetched candidate embeddings, graceful fallback) → token-budget selection (`TOTAL_MEMORY_TOKEN_CAP` + per-type `TOKEN_BUDGETS`) → `touchMemories()`. Public API unchanged; `build` + `lint` pass (0 errors). Only `lib/memory/retrieve.ts` modified.
 
 ## Known defects (flagged, not fixed)
 1. `0004_memory_v2_rpcs.sql`: `find_near_duplicates` is missing its closing `$$;` — its body runs into the next `create function` block, so the RPC definition is malformed. Not wired (see ENGINEERING_LOG).

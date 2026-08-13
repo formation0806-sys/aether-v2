@@ -2,6 +2,30 @@
 
 All notable changes to Aether are recorded here. Newest entry first.
 
+## [Memory V2 — Retriever] — 2026-08-13
+**Scope:** Migrate the LIVE memory retrieval pipeline to V2. Only `lib/memory/retrieve.ts` changed; no SQL, migrations, UI, chat route, planner, identity, knowledge, or memory writer modified.
+
+### Changed
+- Rewrote `retrieveMemories(userId, query)` in `lib/memory/retrieve.ts` to the V2 pipeline:
+  1. Embed the query via `embed()`.
+  2. Retrieve via `matchMemoriesV2()` (→ `match_memories_v2` RPC) using `RETRIEVAL_TOP_K` / `MIN_SIMILARITY` from `@/lib/memory/constants`.
+  3. Score each candidate with `scoreRetrievalCandidate()` (fusion of similarity, importance, recency, confidence, typeWeight, and usage).
+  4. Sort by `effective_score` (lifecycle priority).
+  5. Re-rank with MMR via `mmrScore()` (lambda `MMR_LAMBDA`), using pairwise cosine similarity over candidate embeddings re-fetched from `memories` (the `match_memories_v2` RPC does not return embeddings). Embedding-fetch failure is non-fatal → falls back to relevance-only order.
+  6. Greedily enforce the token budget — global `TOTAL_MEMORY_TOKEN_CAP` plus per-type `TOKEN_BUDGETS`.
+  7. Bump usage for surfaced memories via batched `touchMemories()` (→ `touch_memories` RPC).
+- Added ordered helpers `approxTokens`, `memoryTokenCount`, `cosine`, `selectWithinTokenBudget` (defined before use).
+
+### Preserved (unchanged)
+- Public API: `retrieveMemories(userId: string, query: string)` signature + return shape unchanged; caller `lib/context/builder.ts` unaffected. All legacy repository functions preserved; writer (`upsertMemory.ts` / `memory.ts`) untouched.
+
+### Deferred (intentional, this milestone)
+- Memory Writer phase (`lib/memory/upsertMemory.ts` → `insertMemoryV2` + V2 classification/dedupe). See `docs/ENGINEERING_LOG.md` and `docs/NEXT_TASK.md`.
+
+### Quality gates
+- `npm run build` → ✅ Compiled successfully (3.1s); TypeScript clean (3.1s); 14/14 static pages; `/api/chat` remains `ƒ` (Dynamic).
+- `npm run lint` → ✅ 0 errors (4 pre-existing `react-hooks/exhaustive-deps` warnings in untouched UI components).
+
 ## [Memory V2 — Repository Bridge] — 2026-08-13
 **Scope:** Migrate the data-access repository to Memory V2. **No SQL, UI, retriever, or writer changes. Additive only.**
 
