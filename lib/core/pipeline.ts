@@ -8,31 +8,38 @@ import {
   buildConversation,
 } from "@/lib/ai/conversation/manager";
 import { getProvider } from "@/lib/ai/provider";
+import { aiExtractMemories } from "@/lib/memory/aiExtractor";
+import { saveMemory } from "@/lib/memory/memory";
 
 export async function runPipeline(runtime: Runtime) {
+  console.time("TOTAL");
+
   const state = runtime.get();
 
-  const context = await buildContext(
-    state.userId,
-    state.message
-  );
+  console.time("Context");
+  const context = await buildContext(state.userId, state.message);
+  console.timeEnd("Context");
 
-  runtime.update({
-    context,
-  });
+  runtime.update({ context });
 
+  console.time("Brain");
   const brain = await buildBrain({
     message: state.message,
     context,
   });
+  console.timeEnd("Brain");
 
   runtime.update({
     prompt: brain.prompt,
   });
 
+  console.time("Save User");
   await saveUserMessage(state.userId, state.message);
+  console.timeEnd("Save User");
 
+  console.time("Conversation");
   const conversation = await buildConversation(state.userId);
+  console.timeEnd("Conversation");
 
   conversation.unshift({
     role: "system",
@@ -40,13 +47,40 @@ export async function runPipeline(runtime: Runtime) {
   });
 
   const ai = getProvider();
-  const response = await ai.chat(conversation);
 
+  console.time("LLM");
+  const response = await ai.chat(conversation);
+  console.timeEnd("LLM");
+
+  console.time("Save Assistant");
   await saveAssistantMessage(state.userId, response);
+  console.timeEnd("Save Assistant");
 
   runtime.update({
     response,
   });
+
+  console.time("Extract memories");
+  try {
+    const memories = await aiExtractMemories(state.message);
+
+    for (const memory of memories) {
+      try {
+        await saveMemory({
+          userId: state.userId,
+          title: memory.title,
+          content: memory.content,
+        });
+      } catch (e) {
+        console.error("MEMORY SAVE FAILED", e);
+      }
+    }
+  } catch (e) {
+    console.error("MEMORY EXTRACTION FAILED", e);
+  }
+  console.timeEnd("Extract memories");
+
+  console.timeEnd("TOTAL");
 
   return runtime.get();
 }
