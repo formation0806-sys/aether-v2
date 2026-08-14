@@ -18,4 +18,3 @@ create index if not exists memories_project_idx     on memories(project_id) wher
 create index if not exists memory_events_user_idx   on memory_events(user_id, created_at desc);
 create index if not exists memory_edges_user_idx    on memory_edges(user_id, source_id);
 create index if not exists memory_jobs_status_idx   on memory_jobs(status, created_at);
-create index if not exists conversations_user_session_idx on conversations(user_id, session_id);

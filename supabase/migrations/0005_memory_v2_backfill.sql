@@ -1,41 +1,51 @@
 -- ============================================================
--- 0005_memory_v2_backfill.sql — Aether Memory V2 | Phase P2
--- Idempotent one-off backfill of existing `memories` rows into
--- the V2 columns added in 0002. Never touches new rows once the
--- writer starts stamping these fields.
+-- 0005_memory_v2_backfill.sql
+-- Aether Memory V2
+-- Backfill existing memories into V2 columns
+-- Compatible with current schema
 -- ============================================================
 
--- Backfill only rows that have not yet been classified (they carry
--- the default 'semantic'/'candidate' from the add-column migration
--- or had never been classified). We skip rows that already carry a
--- non-default source so we never overwrite writer output.
 update memories
-set memory_type = 'semantic',
-    status       = 'active',
-    summary      = case
-                     when summary = '' then left(regexp_replace(content, '\s+', ' ', 'g'), 280)
-                     else summary
-                   end,
-    importance   = 0.5,
-    confidence   = 0.5,
-    tags         = case
-                     when cardinality(tags) = 0 then '{}'
-                     else tags
-                   end,
-    source       = 'import',
-    last_scored  = now(),
-    effective_score = 0.5
-where memory_type = 'semantic'
-  and status = 'candidate'
-  and source = 'extractor';
+set
+    memory_type = 'semantic',
+    status = 'active',
 
--- Indexes are already created by 0003; record completion marker.
+    summary = case
+        when summary = '' then left(regexp_replace(content, '\s+', ' ', 'g'), 280)
+        else summary
+    end,
+
+    importance_v2 = 0.50,
+    confidence_v2 = 0.50,
+
+    tags = case
+        when cardinality(tags) = 0 then '{}'
+        else tags
+    end,
+
+    source_v2 = 'import',
+
+    last_scored = now(),
+    effective_score = 0.50
+
+where
+    memory_type = 'semantic'
+    and status = 'candidate'
+    and source_v2 = 'extractor';
+
+-- ------------------------------------------------------------
+-- Record migration completion
+-- ------------------------------------------------------------
+
 create table if not exists migration_meta (
-  name        text primary key,
-  applied_at  timestamptz not null default now(),
-  note        text
+    name text primary key,
+    applied_at timestamptz not null default now(),
+    note text
 );
 
 insert into migration_meta (name, note)
-values ('0005_memory_v2_backfill', 'Memories backfilled to V2 columns')
+values (
+    '0005_memory_v2_backfill',
+    'Backfilled existing memories into Memory V2'
+)
 on conflict (name) do nothing;

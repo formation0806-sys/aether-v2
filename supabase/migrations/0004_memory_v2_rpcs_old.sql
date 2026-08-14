@@ -51,6 +51,9 @@ language sql security definer stable as $$
     and m.embedding is not null
     and m.status::text in ('active','fading')
     and 1 - (m.embedding <=> p_embedding) >= p_threshold
+  order by similarity desc
+  limit 50;
+$$;
   -- ---------- Decay sweep: recompute effective_score ----------
 create or replace function apply_memory_decay(p_user_id uuid default null)
 returns int language plpgsql security definer as $$
@@ -140,10 +143,6 @@ drop trigger if exists memories_updated_at on memories;
 create trigger memories_updated_at before update on memories
   for each row execute function set_updated_at();
 
-drop trigger if exists conversations_updated_at on conversations;
-create trigger conversations_updated_at before update on conversations
-  for each row execute function set_updated_at();
-
 drop trigger if exists memory_clusters_updated_at on memory_clusters;
 create trigger memory_clusters_updated_at before update on memory_clusters
   for each row execute function set_updated_at();
@@ -153,7 +152,7 @@ alter table memories enable row level security;
 alter table memory_clusters enable row level security;
 alter table memory_edges enable row level security;
 alter table memory_events enable row level security;
-alter table conversations enable row level security;
+
 alter table memory_jobs enable row level security;
 
 drop policy if exists memories_select on memories;

@@ -123,13 +123,10 @@ export async function matchMemoriesV2(
   const supabase = await createClient();
 
   return supabase.rpc("match_memories_v2", {
-    query_embedding: queryEmbedding,
     p_user_id: userId,
+    p_query_embedding: queryEmbedding,
+    p_match_threshold: options.minSimilarity ?? MIN_SIMILARITY,
     p_match_count: options.matchCount ?? RETRIEVAL_TOP_K,
-    p_min_similarity: options.minSimilarity ?? MIN_SIMILARITY,
-    p_types: options.types ?? null,
-    p_statuses: options.statuses ?? ["active"],
-    p_project_id: options.projectId ?? null,
   });
 }
 
@@ -148,16 +145,22 @@ export interface InsertMemoryV2Input {
   title: string;
   content: string;
   embedding?: number[] | null;
+
   memory_type?: MemoryType;
   status?: MemoryStatus;
+
   summary?: string;
   tags?: string[];
-  importance?: number;
-  confidence?: number;
-  source?: MemorySource;
+
+  importance_v2?: number;
+  confidence_v2?: number;
+  source_v2?: MemorySource;
+
   source_ref?: string | null;
   project_id?: string | null;
+
   metadata?: Record<string, unknown>;
+
   effective_score?: number;
   last_scored?: string;
 }
@@ -173,16 +176,22 @@ export interface UpdateMemoryV2Input {
   title?: string;
   content?: string;
   embedding?: number[] | null;
+
   memory_type?: MemoryType;
   status?: MemoryStatus;
+
   summary?: string;
   tags?: string[];
-  importance?: number;
-  confidence?: number;
-  source?: MemorySource;
+
+  importance_v2?: number;
+  confidence_v2?: number;
+  source_v2?: MemorySource;
+
   source_ref?: string | null;
   project_id?: string | null;
+
   metadata?: Record<string, unknown>;
+
   effective_score?: number;
   last_scored?: string;
 }

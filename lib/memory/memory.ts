@@ -2,7 +2,7 @@ import {
   findMemoryByTitle,
   insertMemory,
   updateMemoryById,
-  matchMemories,
+  matchMemoriesV2,
 } from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
 
@@ -66,7 +66,13 @@ export async function getRelevantMemories(
 ): Promise<MemoryRecord[]> {
   const vector = await embed(query);
 
-  const { data, error } = await matchMemories(vector.embedding, userId, 8);
+  const { data, error } = await matchMemoriesV2(
+  vector.embedding,
+  userId,
+  {
+    matchCount: 8,
+  }
+);
 
   if (error) throw error;
 

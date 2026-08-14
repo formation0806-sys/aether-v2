@@ -1,0 +1,39 @@
+[35mdocs/CHANGELOG.md[m[36m:[m[32m12[m[36m:[m  3. Score each candidate with `scoreRetrievalCandidate()` (fusion of similarity, [1;31mimportance[m, recency, confidence, typeWeight, and usage).
+[35mdocs/ENGINEERING_LOG.md[m[36m:[m[32m18[m[36m:[m- **Score:** `scoreRetrievalCandidate(candidate)` (from `score.ts`) fuses similarity, [1;31mimportance[m, recency, confidence, typeWeight, and usage into the relevance signal.
+[35mlib/memory/constants.ts[m[36m:[m[32m43[m[36m:[m/** Default extraction [1;31mimportance[m (1..10) when the extractor omits it. */
+[35mlib/memory/constants.ts[m[36m:[m[32m60[m[36m:[m  [1;31mimportance[m: 0.15,
+[35mlib/memory/constants.ts[m[36m:[m[32m105[m[36m:[m/** Shares in effectiveScore = a*[1;31mimportance[m + b*recency (matches SQL). */
+[35mlib/memory/retrieve.ts[m[36m:[m[32m55[m[36m:[m  [1;31mimportance[m: number;
+[35mlib/memory/retrieve.ts[m[36m:[m[32m106[m[36m:[m *      similarity / [1;31mimportance[m / recency / confidence / typeWeight / usage).
+[35mlib/memory/retrieve.ts[m[36m:[m[32m140[m[36m:[m    [1;31mimportance[m: row.[1;31mimportance[m,
+[35mlib/memory/retrieve.ts[m[36m:[m[32m155[m[36m:[m  // 4: effectiveScore sort (lifecycle priority: [1;31mimportance[m * recency weighting).
+[35mlib/memory/score.ts[m[36m:[m[32m31[m[36m:[m/** Normalize an extractor [1;31mimportance[m in 1..10 into 0..1. */
+[35mlib/memory/score.ts[m[36m:[m[32m59[m[36m:[m * Composite [1;31mimportance[m for a newly extracted memory (0..1).
+[35mlib/memory/score.ts[m[36m:[m[32m60[m[36m:[m *   [1;31mimportance[m = 0.35*explicitImportance + 0.25*typeWeight
+[35mlib/memory/score.ts[m[36m:[m[32m64[m[36m:[mexport function [1;31mimportance[mScore(input: {
+[35mlib/memory/score.ts[m[36m:[m[32m98[m[36m:[m *   retrieval = 0.50*similarity + 0.15*[1;31mimportance[m + 0.10*recency
+[35mlib/memory/score.ts[m[36m:[m[32m104[m[36m:[m  [1;31mimportance[m: number;
+[35mlib/memory/score.ts[m[36m:[m[32m114[m[36m:[m    [1;31mimportance[m,
+[35mlib/memory/score.ts[m[36m:[m[32m129[m[36m:[m    RETRIEVAL_WEIGHTS.[1;31mimportance[m * clamp01([1;31mimportance[m) +
+[35mlib/memory/score.ts[m[36m:[m[32m154[m[36m:[m    [1;31mimportance[m: candidate.[1;31mimportance[m,
+[35mlib/memory/score.ts[m[36m:[m[32m177[m[36m:[m * equivalent: effective = 0.7*[1;31mimportance[m + 0.2*recency(base 0.2 when never used).
+[35mlib/memory/score.ts[m[36m:[m[32m180[m[36m:[m  [1;31mimportance[m: number,
+[35mlib/memory/score.ts[m[36m:[m[32m190[m[36m:[m    EFFECTIVE_SCORE_IMPORTANCE_SHARE * clamp01([1;31mimportance[m) + recencyTerm;
+[35mlib/memory/score.ts[m[36m:[m[32m197[m[36m:[m  [1;31mimportance[m: number,
+[35mlib/memory/score.ts[m[36m:[m[32m202[m[36m:[m  return effectiveScore([1;31mimportance[m, lastUsed, halfLifeDays(memoryType), now);
+[35mlib/memory/score.ts[m[36m:[m[32m205[m[36m:[m/** Score a writer candidate at capture time ([1;31mimportance[m only). */
+[35mlib/memory/score.ts[m[36m:[m[32m207[m[36m:[m  [1;31mimportance[m: number;
+[35mlib/memory/score.ts[m[36m:[m[32m211[m[36m:[m  const [1;31mimportance[m = [1;31mimportance[mScore({
+[35mlib/memory/score.ts[m[36m:[m[32m213[m[36m:[m    extractedImportance: candidate.[1;31mimportance[m,
+[35mlib/memory/score.ts[m[36m:[m[32m218[m[36m:[m  return { [1;31mimportance[m, confidence };
+[35mlib/memory/types.ts[m[36m:[m[32m72[m[36m:[m  [1;31mimportance[m: number; // 0..1 composite
+[35mlib/memory/types.ts[m[36m:[m[32m100[m[36m:[m  [1;31mimportance[m: number | null;
+[35mlib/memory/types.ts[m[36m:[m[32m120[m[36m:[m  [1;31mimportance[m?: number; // 1..10 raw
+[35mlib/memory/types.ts[m[36m:[m[32m136[m[36m:[m  [1;31mimportance[m: number;
+[35mlib/memory/types.ts[m[36m:[m[32m151[m[36m:[m/** Weights for composite [1;31mimportance[m scoring. */
+[35mlib/memory/types.ts[m[36m:[m[32m164[m[36m:[m  [1;31mimportance[m: number;
+[35mlib/repositories/memory.repository.ts[m[36m:[m[32m111[m[36m:[m  [1;31mimportance[m?: number;
+[35mlib/repositories/memory.repository.ts[m[36m:[m[32m134[m[36m:[m  [1;31mimportance[m?: number;
+[35msupabase/migrations/0002_memory_v2_tables.sql[m[36m:[m[32m23[m[36m:[madd column if not exists [1;31mimportance[m_v2 numeric(3,2) not null default 0.5;
+[35msupabase/migrations/0002_memory_v2_tables.sql[m[36m:[m[32m65[m[36m:[m    avg_[1;31mimportance[m numeric(3,2) default 0,
+[35msupabase/migrations/0005_memory_v2_backfill.sql[m[36m:[m[32m18[m[36m:[m    [1;31mimportance[m_v2 = 0.50,

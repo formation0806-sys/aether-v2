@@ -11,6 +11,35 @@ import { getProvider } from "@/lib/ai/provider";
 import { aiExtractMemories } from "@/lib/memory/aiExtractor";
 import { saveMemory } from "@/lib/memory/memory";
 
+const MEMORY_GATE_SKIP = new Set([
+  "hi",
+  "hello",
+  "hey",
+  "thanks",
+  "thank you",
+  "ok",
+  "okay",
+  "cool",
+  "nice",
+  "yes",
+  "no",
+  "good morning",
+  "good night",
+  "bye",
+  "lol",
+  "haha",
+]);
+
+function shouldExtractMemory(message: string): boolean {
+  const t = message.trim().toLowerCase();
+  if (t.length < 15) return false;
+  return !MEMORY_GATE_SKIP.has(t);
+}
+
+async function runReflection(userId: string) {
+  console.log("REFLECTION START", userId);
+}
+
 export async function runPipeline(runtime: Runtime) {
   console.time("TOTAL");
 
@@ -61,24 +90,38 @@ export async function runPipeline(runtime: Runtime) {
   });
 
   console.time("Extract memories");
-  try {
-    const memories = await aiExtractMemories(state.message);
+  let didExtractMemory = false;
+  if (!shouldExtractMemory(state.message)) {
+    console.log("MEMORY GATE: skipped");
+  } else {
+    try {
+      const memories = await aiExtractMemories(state.message);
+      didExtractMemory = memories.length > 0;
 
-    for (const memory of memories) {
-      try {
-        await saveMemory({
-          userId: state.userId,
-          title: memory.title,
-          content: memory.content,
-        });
-      } catch (e) {
-        console.error("MEMORY SAVE FAILED", e);
+      for (const memory of memories) {
+        try {
+          await saveMemory({
+            userId: state.userId,
+            title: memory.title,
+            content: memory.content,
+          });
+        } catch (e) {
+          console.error("MEMORY SAVE FAILED", e);
+        }
       }
+    } catch (e) {
+      console.error("MEMORY EXTRACTION FAILED", e);
     }
-  } catch (e) {
-    console.error("MEMORY EXTRACTION FAILED", e);
   }
   console.timeEnd("Extract memories");
+
+  if (didExtractMemory) {
+    try {
+      await runReflection(state.userId);
+    } catch (error) {
+      console.error("REFLECTION FAILED", error);
+    }
+  }
 
   console.timeEnd("TOTAL");
 

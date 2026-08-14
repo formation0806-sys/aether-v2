@@ -97,10 +97,10 @@ export interface MemoryRow {
   content: string;
   summary: string;
   tags: string[] | null;
-  importance: number | null;
-  confidence: number | null;
+  importance_v2: number | null;
+  confidence_v2: number | null;
   embedding: number[] | null;
-  source: MemorySource | null;
+  source_v2: MemorySource | null;
   source_ref: string | null;
   metadata: Record<string, unknown> | null;
   times_used: number | null;
