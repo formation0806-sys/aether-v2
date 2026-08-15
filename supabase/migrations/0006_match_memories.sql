@@ -1,3 +1,5 @@
+drop function if exists public.match_memories_v2(uuid, vector, double precision, integer);
+
 -- ==========================================================
 -- 0006_match_memories.sql
 -- Aether Memory V2 RPCs
