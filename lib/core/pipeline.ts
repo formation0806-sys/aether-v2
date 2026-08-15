@@ -11,7 +11,8 @@ import { getProvider } from "@/lib/ai/provider";
 import { aiExtractMemories } from "@/lib/memory/aiExtractor";
 import { saveMemory } from "@/lib/memory/memory";
 import { generateReflections } from "@/lib/memory/reflector";
-import { getAllMemories } from "@/lib/repositories/memory.repository";
+import { getAllMemories, purgeArchived } from "@/lib/repositories/memory.repository";
+import { evaluateLifecycle } from "@/lib/memory/lifecycle";
 
 const MEMORY_GATE_SKIP = new Set([
   "hi",
@@ -46,11 +47,19 @@ async function runReflection(userId: string) {
   }
   const safeMemories = memories ?? [];
   console.log("REFLECTION MEMORIES", safeMemories.length);
+  /**
+   * Sprint 23: Candidate memories are eligible for reflection if they meet
+   * the same confidence_v2 >= 0.7 and importance_v2 >= 0.5 quality gates.
+   * Active memories remain unconditionally eligible.
+   * Empirical testing showed candidate-level content at these thresholds
+   * produces useful reflections, while weaker content is naturally rejected
+   * by the model (returns []).
+   */
   const reflectionCandidates = safeMemories.filter(
     (m) =>
-      m.status === "active" &&
-      m.confidence_v2 >= 0.7 &&
-      m.importance_v2 >= 0.5
+      (m.status === "active" || m.status === "candidate") &&
+      (m.confidence_v2 ?? 0) >= 0.7 &&
+      (m.importance_v2 ?? 0) >= 0.5
   );
   console.log("REFLECTION CANDIDATES", reflectionCandidates.length);
   const reflectionGroups = reflectionCandidates.reduce(
@@ -207,6 +216,26 @@ export async function runPipeline(runtime: Runtime) {
     } catch (error) {
       console.error("REFLECTION FAILED", error);
     }
+  }
+
+  // Sprint 24: evaluate and advance memory lifecycle after reflection.
+  try {
+    const lifecycleResult = await evaluateLifecycle(state.userId);
+    if (lifecycleResult.transitions.length > 0) {
+      console.log("LIFECYCLE TRANSITIONS", lifecycleResult.transitions.length);
+    }
+  } catch (lifecycleError) {
+    console.error("LIFECYCLE EVALUATION FAILED", lifecycleError);
+  }
+
+  // Sprint 25: purge archived memories past the grace period.
+  try {
+    const purgeResult = await purgeArchived(state.userId);
+    if (purgeResult.count > 0) {
+      console.log("PURGED ARCHIVED", purgeResult.count);
+    }
+  } catch (purgeError) {
+    console.error("PURGE ARCHIVED FAILED", purgeError);
   }
 
   console.timeEnd("TOTAL");

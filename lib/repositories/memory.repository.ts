@@ -1,5 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
-import { RETRIEVAL_TOP_K, MIN_SIMILARITY } from "@/lib/memory/constants";
+import {
+  RETRIEVAL_TOP_K,
+  MIN_SIMILARITY,
+} from "@/lib/memory/constants";
 import type {
   MemoryType,
   MemoryStatus,
@@ -223,3 +226,24 @@ export async function getAllMemories(userId: string) {
 /* malformed until the SQL is fixed — a SQL change out of scope here. Will be   */
 /* added once 0004 is corrected. See ENGINEERING_LOG for the full analysis.      */
 /* -------------------------------------------------------------------------- */
+
+/** Sprint 24: Fetch memories with lifecycle-relevant columns for a specific user. */
+export async function getMemoriesForLifecycle(userId: string) {
+  const supabase = await createClient();
+  return supabase.from("memories").select("id,memory_type,status,importance_v2,confidence_v2,effective_score,last_scored,last_used,created_at,updated_at").eq("user_id", userId);
+}
+
+/** Sprint 24: Batch-update lifecycle fields for multiple memories (user-scoped via caller). */
+export async function batchUpdateLifecycle(
+  updates: Array<{ id: string; status: string; effective_score: number; last_scored: string }>
+) {
+  const supabase = await createClient();
+  for (const u of updates) {
+    const { error } = await supabase.from("memories").update({ status: u.status, effective_score: u.effective_score, last_scored: u.last_scored }).eq("id", u.id);
+    if (error) console.error("LIFECYCLE UPDATE FAILED", u.id, error);
+  }
+  return { updated: updates.length };
+}
+export async function purgeArchived(userId: string) { const supabase = await createClient(); const { data, error } = await supabase.rpc('purge_archived', { p_user_id: userId }); return { count: data ?? 0, error }; }
+
+
