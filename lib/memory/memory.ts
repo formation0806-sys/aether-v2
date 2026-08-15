@@ -7,7 +7,7 @@ import {
 import { embed } from "@/lib/ai/embeddings/embed";
 import { scoreExtractedMemory, effectiveScoreForType } from "./score";
 import { PROMOTE_ACTIVE_THRESHOLD } from "./constants";
-import type { MemoryType } from "./types";
+import type { MemoryType, MemorySource } from "./types";
 
 export interface SaveMemoryInput {
   userId: string;
@@ -18,6 +18,8 @@ export interface SaveMemoryInput {
   importance?: number;
   confidence?: number;
   explicit?: boolean;
+  /** Source label persisted to the V2 `source_v2` column. Defaults to "extractor". */
+  source?: MemorySource;
 }
 
 export interface MemoryRecord {
@@ -35,6 +37,7 @@ export async function saveMemory({
   importance,
   confidence,
   explicit,
+  source,
 }: SaveMemoryInput) {
   const vector = await embed(content);
 
@@ -70,6 +73,7 @@ export async function saveMemory({
       effective_score: effectiveScore,
       last_scored: lastScored,
       ...(promoteToActive ? ({ status: "active" } as const) : {}),
+      ...(source ? { source_v2: source } : {}),
     });
 
     if (error) throw error;
@@ -88,7 +92,7 @@ export async function saveMemory({
     memory_type: memoryType,
     importance_v2: importanceV2,
     confidence_v2: confidenceV2,
-    source_v2: "extractor",
+    source_v2: source ?? "extractor",
     status: promoteToActive ? "active" : "candidate",
     effective_score: effectiveScore,
     last_scored: lastScored,

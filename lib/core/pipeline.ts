@@ -10,6 +10,7 @@ import {
 import { getProvider } from "@/lib/ai/provider";
 import { aiExtractMemories } from "@/lib/memory/aiExtractor";
 import { saveMemory } from "@/lib/memory/memory";
+import { generateReflections } from "@/lib/memory/reflector";
 import { getAllMemories } from "@/lib/repositories/memory.repository";
 
 const MEMORY_GATE_SKIP = new Set([
@@ -85,7 +86,40 @@ async function runReflection(userId: string) {
     "REFLECTION INPUT GROUPS",
     reflectionInput.length
   );
-  return;
+
+  if (reflectionInput.length === 0) {
+    console.log("REFLECTION SKIPPED: no input groups");
+    return;
+  }
+
+  try {
+    const reflections = await generateReflections(reflectionInput);
+
+    if (reflections.length === 0) {
+      console.log("REFLECTION GENERATED 0");
+      return;
+    }
+
+    console.log("REFLECTION GENERATED", reflections.length);
+
+    for (const reflection of reflections) {
+      try {
+        await saveMemory({
+          userId,
+          title: reflection.title,
+          content: reflection.content,
+          memoryType: "reflection",
+          importance: reflection.importance,
+          confidence: reflection.confidence,
+          source: "reflection",
+        });
+      } catch (e) {
+        console.error("REFLECTION SAVE FAILED", e);
+      }
+    }
+  } catch (e) {
+    console.error("REFLECTION GENERATION FAILED", e);
+  }
 }
 
 export async function runPipeline(runtime: Runtime) {
