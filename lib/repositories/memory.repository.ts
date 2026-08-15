@@ -205,6 +205,17 @@ export async function updateMemoryV2(
   return supabase.from("memories").update(updates).eq("id", id);
 }
 
+export async function getAllMemories(userId: string) {
+  const supabase = await createClient();
+
+  return supabase
+    .from("memories")
+    .select(
+      "id,title,content,summary,memory_type,status,importance_v2,confidence_v2,created_at,updated_at"
+    )
+    .eq("user_id", userId);
+}
+
 /* -------------------------------------------------------------------------- */
 /* DEFERRED: findNearDuplicates -> find_near_duplicates RPC.                    */
 /* 0004_memory_v2_rpcs.sql defines find_near_duplicates without its closing     */

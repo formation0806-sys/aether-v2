@@ -10,6 +10,7 @@ import {
 import { getProvider } from "@/lib/ai/provider";
 import { aiExtractMemories } from "@/lib/memory/aiExtractor";
 import { saveMemory } from "@/lib/memory/memory";
+import { getAllMemories } from "@/lib/repositories/memory.repository";
 
 const MEMORY_GATE_SKIP = new Set([
   "hi",
@@ -37,7 +38,21 @@ function shouldExtractMemory(message: string): boolean {
 }
 
 async function runReflection(userId: string) {
-  console.log("REFLECTION START", userId);
+  const { data: memories, error } = await getAllMemories(userId);
+  if (error) {
+    console.error("REFLECTION LOAD FAILED", error);
+    return;
+  }
+  const safeMemories = memories ?? [];
+  console.log("REFLECTION MEMORIES", safeMemories.length);
+  const reflectionCandidates = safeMemories.filter(
+    (m) =>
+      m.status === "active" &&
+      m.confidence_v2 >= 0.7 &&
+      m.importance_v2 >= 0.5
+  );
+  console.log("REFLECTION CANDIDATES", reflectionCandidates.length);
+  return;
 }
 
 export async function runPipeline(runtime: Runtime) {
