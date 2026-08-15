@@ -152,6 +152,10 @@ export async function runPipeline(runtime: Runtime) {
             userId: state.userId,
             title: memory.title,
             content: memory.content,
+            memoryType: memory.memoryType,
+            importance: memory.importance,
+            confidence: memory.confidence,
+            explicit: memory.explicit,
           });
         } catch (e) {
           console.error("MEMORY SAVE FAILED", e);
