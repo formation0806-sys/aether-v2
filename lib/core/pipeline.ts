@@ -70,6 +70,21 @@ async function runReflection(userId: string) {
     "REFLECTION GROUPS",
     Object.keys(reflectionGroups).length
   );
+  const reflectionInput = Object.entries(reflectionGroups).map(
+    ([memoryType, memories]) => ({
+      memoryType,
+      memories: memories.map((memory) => ({
+        id: memory.id,
+        title: memory.title,
+        content: memory.content,
+        summary: memory.summary,
+      })),
+    })
+  );
+  console.log(
+    "REFLECTION INPUT GROUPS",
+    reflectionInput.length
+  );
   return;
 }
 
