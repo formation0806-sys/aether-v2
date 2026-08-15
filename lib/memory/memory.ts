@@ -5,7 +5,8 @@ import {
   matchMemoriesV2,
 } from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
-import { scoreExtractedMemory } from "./score";
+import { scoreExtractedMemory, effectiveScoreForType } from "./score";
+import { PROMOTE_ACTIVE_THRESHOLD } from "./constants";
 import type { MemoryType } from "./types";
 
 export interface SaveMemoryInput {
@@ -40,6 +41,18 @@ export async function saveMemory({
   const { importance: importanceV2, confidence: confidenceV2 } =
     scoreExtractedMemory({ title, content, memoryType, importance, confidence, explicit });
 
+  // Sprint 20 (Option A): deterministic lifecycle gate at write time.
+  // Uses the existing effective-score scorer and the frozen
+  // PROMOTE_ACTIVE_THRESHOLD. Never demotes; only promotes to active.
+  const effective = effectiveScoreForType(
+    importanceV2,
+    null,
+    memoryType ?? "semantic"
+  );
+  const promoteToActive = effective >= PROMOTE_ACTIVE_THRESHOLD;
+  const effectiveScore = Number(effective.toFixed(3));
+  const lastScored = new Date().toISOString();
+
   const { data: existing } = await findMemoryByTitle(userId, title);
 
   if (existing && existing.length > 0) {
@@ -54,9 +67,14 @@ export async function saveMemory({
       memory_type: memoryType,
       importance_v2: importanceV2,
       confidence_v2: confidenceV2,
+      effective_score: effectiveScore,
+      last_scored: lastScored,
+      ...(promoteToActive ? ({ status: "active" } as const) : {}),
     });
 
     if (error) throw error;
+
+    if (promoteToActive) console.log("MEMORY PROMOTED");
 
     console.log("MEMORY UPDATED");
     return;
@@ -71,9 +89,14 @@ export async function saveMemory({
     importance_v2: importanceV2,
     confidence_v2: confidenceV2,
     source_v2: "extractor",
+    status: promoteToActive ? "active" : "candidate",
+    effective_score: effectiveScore,
+    last_scored: lastScored,
   });
 
   if (error) throw error;
+
+  if (promoteToActive) console.log("MEMORY PROMOTED");
 
   console.log("MEMORY INSERTED");
 }
