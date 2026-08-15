@@ -52,6 +52,24 @@ async function runReflection(userId: string) {
       m.importance_v2 >= 0.5
   );
   console.log("REFLECTION CANDIDATES", reflectionCandidates.length);
+  const reflectionGroups = reflectionCandidates.reduce(
+    (groups, memory) => {
+      const type = memory.memory_type;
+
+      if (!groups[type]) {
+        groups[type] = [];
+      }
+
+      groups[type].push(memory);
+
+      return groups;
+    },
+    {} as Record<string, typeof reflectionCandidates>
+  );
+  console.log(
+    "REFLECTION GROUPS",
+    Object.keys(reflectionGroups).length
+  );
   return;
 }
 
