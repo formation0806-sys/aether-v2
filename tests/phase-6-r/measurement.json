@@ -1,0 +1,116 @@
+{
+  "phase": "6-R",
+  "measuredAt": "2026-08-21T01:37:35.271Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "snapshot": {
+    "eligibleTotal": 16,
+    "reflectionEligible": 10,
+    "nonReflectionEligible": 6,
+    "composition": {
+      "reflection": 10,
+      "project": 4,
+      "identity": 2
+    }
+  },
+  "selection": {
+    "embeddingModel": "nomic-embed-text:latest",
+    "threshold": 0.65,
+    "componentCount": 4,
+    "largestComponentSize": 3,
+    "selectedSubsetSize": 3,
+    "selectionMethod": "largest connected component at cosine >= 0.65, deterministic tie-break (total intra-similarity, then max pair, then id-hash order)",
+    "selectedIds": [
+      "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+    ],
+    "pairCount": 3,
+    "similarity": {
+      "count": 3,
+      "min": 0.63,
+      "mean": 0.73,
+      "median": 0.68,
+      "max": 0.88
+    },
+    "selectedComposition": {
+      "project": 3
+    }
+  },
+  "experiment": {
+    "model": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_ctx": 4096,
+    "num_predict": 300,
+    "reflector": "real lib/memory/reflector.ts",
+    "importMechanism": "native node type-stripping",
+    "productionMutation": false
+  },
+  "conditions": {
+    "A_fullNonReflection": {
+      "inputCount": 6,
+      "inputComposition": {
+        "project": 4,
+        "identity": 2
+      },
+      "runs": [
+        {
+          "run": "A1",
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY"
+        },
+        {
+          "run": "A2",
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY"
+        }
+      ]
+    },
+    "B_groundedSubset": {
+      "inputCount": 3,
+      "inputComposition": {
+        "project": 3
+      },
+      "runs": [
+        {
+          "run": "B1",
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY"
+        },
+        {
+          "run": "B2",
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "outcome": "BOTH_EMPTY",
+    "groundedSubsetEffect": "NONE",
+    "causalEvidence": "NONE"
+  },
+  "limitations": [
+    "Two runs per condition are a coarse reproducibility check, not statistical proof.",
+    "Cosine similarity is an opportunity/connectability signal, not proof of logical grounding.",
+    "The experiment uses a single user's real memory pool.",
+    "No production persistence is performed."
+  ],
+  "decision": {
+    "productionChangeJustified": false,
+    "automaticContinuation": false
+  },
+  "embeddingStatus": "AVAILABLE",
+  "detail": "Read-only controlled grounded-subset reflector probe; no production mutation performed.",
+  "reflectorInvocations": {
+    "total": 4,
+    "expected": 4,
+    "a": 2,
+    "b": 2
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "startedAt": "2026-08-23T18:15:27.011Z",
+  "experiment": "phase-6-aj-fresh-identity-candidate-e2e",
+  "productionWrites": 0,
+  "safety": {
+    "productionWrites": 0,
+    "noDBWrites": true,
+    "auditRpcCalls": [],
+    "auditWriteRpcCalls": [],
+    "auditWriteTableCalls": [],
+    "safetyStop": false,
+    "ollamaUnavailable": true,
+    "rawModelTextPersisted": false,
+    "frozenFilesChanged": true,
+    "embedFetchCalls": 1,
+    "extractorChatCalls": 1,
+    "verifierChatCalls": 0
+  },
+  "environment": {
+    "supabaseConfigured": true,
+    "userId": "b8288155..."
+  },
+  "probes": {
+    "probe0_static": {
+      "matchMemoriesV2DefinitionCount": 1,
+      "expected": 1,
+      "frozenFileMismatches": [
+        "lib/memory/identity.ts changed",
+        "lib/repositories/memory.repository.ts changed"
+      ],
+      "frozenFilesChanged": true
+    },
+    "probe0b": {
+      "getAllMemoriesError": null,
+      "totalMemories": 37,
+      "aetherRepairedRows": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "shortId": "0a97a74a",
+          "title": "User Project: Aether [en75rlnh]",
+          "memoryType": "project",
+          "status": "active"
+        },
+        {
+          "id": "f7c5b99b-dc2d-4edd-87f4-36a69672a023",
+          "shortId": "f7c5b99b",
+          "title": "User Project: Aether [v975pduo]",
+          "memoryType": "project",
+          "status": "merged"
+        },
+        {
+          "id": "962f14fa-c2a8-4021-a4a0-89146ceaa6a5",
+          "shortId": "962f14fa",
+          "title": "User Project: Aether [0cvjmc2n]",
+          "memoryType": "project",
+          "status": "merged"
+        },
+        {
+          "id": "7fcdac75-6365-4b6c-a0ff-bb82e6a62581",
+          "shortId": "7fcdac75",
+          "title": "User Project: Aether [ponohp26]",
+          "memoryType": "project",
+          "status": "merged"
+        },
+        {
+          "id": "dcf0c503-7c1b-479c-9370-97b4cf742a54",
+          "shortId": "dcf0c503",
+          "title": "User Project: Aether [6mtqu8h1]",
+          "memoryType": "project",
+          "status": "merged"
+        }
+      ],
+      "aetherCount": 5,
+      "embeddingScanCount": 37,
+      "constantEmbeddingRowCount": 0,
+      "constantEmbeddingRows": []
+    },
+    "probe1": {
+      "targetId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "targetShortId": "0a97a74a",
+      "title": "User Project: Aether [en75rlnh]",
+      "content": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+      "memoryType": "project",
+      "status": "active"
+    },
+    "probe2": {
+      "freshObservationInput": "The Aether project is being developed using Next.js, with Supabase handling its backend and data layer.",
+      "extractorError": "fetch failed",
+      "extractorChatCalls": 1,
+      "extractedItemCount": 0,
+      "extractedItems": [],
+      "extractionFallbackUsed": true,
+      "traceItem": {
+        "title": "User Project: Aether (fresh observation)",
+        "content": "The Aether project is being developed using Next.js, with Supabase handling its backend and data layer.",
+        "memoryType": "project"
+      }
+    },
+    "probe3": {
+      "embedError": "fetch failed"
+    },
+    "probe4": {
+      "embedError": "fetch failed"
+    },
+    "probe4b": {
+      "embedError": "fetch failed"
+    },
+    "probe5": {
+      "embedError": "fetch failed"
+    },
+    "probe6": {
+      "rpcCalls": [],
+      "unexpectedWriteRpcCalls": [],
+      "writeTableCalls": [],
+      "memorySelectCalls": 1,
+      "safetyStop": false,
+      "productionWrites": 0,
+      "noDBWrites": true,
+      "ollamaUnavailable": true
+    }
+  },
+  "comparison": {
+    "phase6ag": "5 Aether memories -> 0 candidates at 0.85",
+    "phase6ai": "same memories repaired -> self-retrieve 1.0, cross-retrieve ~0.94-0.98",
+    "phase6aj": {
+      "freshCandidateCountAt085": null,
+      "freshAetherAppeared": null,
+      "aetherPrefixes": [],
+      "wideCandidateCountAt065": null,
+      "verifierInvocations": null,
+      "verifierDecisions": [],
+      "finalDecision": null
+    }
+  },
+  "classification": "NOT_ESTABLISHED",
+  "classificationNote": ""
+}

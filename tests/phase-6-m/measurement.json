@@ -1,0 +1,29 @@
+{
+  "phase": "6-M",
+  "measuredAt": "2026-08-21T00:15:27.858Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "eligibleCount": 16,
+  "groupCount": 3,
+  "groups": {
+    "reflection": 10,
+    "project": 4,
+    "identity": 2
+  },
+  "reflection": {
+    "attempted": true,
+    "generatedCount": 0,
+    "emptyCount": 0,
+    "acceptedCount": 0,
+    "rawCountNotExposed": true,
+    "error": null,
+    "details": []
+  },
+  "env": {
+    "urlPresent": true,
+    "serviceRolePresent": true,
+    "userIdPresent": true
+  },
+  "detail": "OK"
+}

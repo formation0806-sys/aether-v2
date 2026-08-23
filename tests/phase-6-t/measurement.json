@@ -1,0 +1,320 @@
+{
+  "phase": "6-T",
+  "measuredAt": "2026-08-21T06:51:30.422Z",
+  "access": "AVAILABLE",
+  "productionWrites": 0,
+  "experiment": {
+    "model": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_ctx": 4096,
+    "num_predict": 300,
+    "top_p": 0.8,
+    "reflector": "real lib/memory/reflector.ts",
+    "importMechanism": "native node type-stripping",
+    "productionMutation": false,
+    "reflectorInvocationsTotal": 6,
+    "conditions": {
+      "A_real": {
+        "inputCount": 3,
+        "runs": [
+          {
+            "run": 1,
+            "condition": "REAL",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 2,
+              "isEmptyText": false,
+              "isBracketEmpty": true,
+              "isNonEmptyJson": false
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 0
+            },
+            "sanitizer": {
+              "acceptedCount": 0,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 0,
+            "finalResult": "EMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          },
+          {
+            "run": 2,
+            "condition": "REAL",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 2,
+              "isEmptyText": false,
+              "isBracketEmpty": true,
+              "isNonEmptyJson": false
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 0
+            },
+            "sanitizer": {
+              "acceptedCount": 0,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 0,
+            "finalResult": "EMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          },
+          {
+            "run": 3,
+            "condition": "REAL",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 2,
+              "isEmptyText": false,
+              "isBracketEmpty": true,
+              "isNonEmptyJson": false
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 0
+            },
+            "sanitizer": {
+              "acceptedCount": 0,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 0,
+            "finalResult": "EMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          }
+        ],
+        "summary": {
+          "totalRuns": 3,
+          "emptyCount": 3,
+          "nonEmptyCount": 0,
+          "errorCount": 0,
+          "emptyRate": 1,
+          "nonEmptyRate": 0,
+          "meanFinalCount": 0,
+          "finalCountDistribution": {
+            "0": 3
+          }
+        }
+      },
+      "B_synthetic": {
+        "inputCount": 2,
+        "runs": [
+          {
+            "run": 1,
+            "condition": "SYNTHETIC",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 238,
+              "isEmptyText": false,
+              "isBracketEmpty": false,
+              "isNonEmptyJson": true
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 1
+            },
+            "sanitizer": {
+              "acceptedCount": 1,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 1,
+            "finalResult": "NONEMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          },
+          {
+            "run": 2,
+            "condition": "SYNTHETIC",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 238,
+              "isEmptyText": false,
+              "isBracketEmpty": false,
+              "isNonEmptyJson": true
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 1
+            },
+            "sanitizer": {
+              "acceptedCount": 1,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 1,
+            "finalResult": "NONEMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          },
+          {
+            "run": 3,
+            "condition": "SYNTHETIC",
+            "productionWrites": 0,
+            "rawModel": {
+              "length": 253,
+              "isEmptyText": false,
+              "isBracketEmpty": false,
+              "isNonEmptyJson": true
+            },
+            "parse": {
+              "success": true,
+              "rootType": "array",
+              "candidateCountPreSanitizer": 1
+            },
+            "sanitizer": {
+              "acceptedCount": 1,
+              "rejectedCount": 0,
+              "reasonCounts": {
+                "nonObject": 0,
+                "missingTitle": 0,
+                "missingContent": 0,
+                "emptyAfterTrim": 0,
+                "invalidImportance": 0,
+                "invalidConfidence": 0
+              }
+            },
+            "final": {
+              "acceptedCount": 0,
+              "result": "EMPTY",
+              "source": "real return value"
+            },
+            "threw": null,
+            "finalAcceptedCount": 1,
+            "finalResult": "NONEMPTY",
+            "logs": {
+              "rawMarkerPresent": true,
+              "parsedMarker": true,
+              "parseFailedMarker": false
+            }
+          }
+        ],
+        "summary": {
+          "totalRuns": 3,
+          "emptyCount": 0,
+          "nonEmptyCount": 3,
+          "errorCount": 0,
+          "emptyRate": 0,
+          "nonEmptyRate": 1,
+          "meanFinalCount": 1,
+          "finalCountDistribution": {
+            "1": 3
+          }
+        }
+      }
+    },
+    "comparison": {
+      "outcome": "CONTENT_INSUFFICIENT",
+      "interpretation": "H2 SUPPORTED: Real memories produce [] while synthetic fixture produces reflections through the same generateReflections() path. The real memory content is the limiting factor."
+    },
+    "classification": {
+      "outcome": "MODEL_EMPTY",
+      "primaryRejectionStage": "model_output_empty_array",
+      "reason": "Real 3-memory subset returns [] (model returns empty JSON array). Synthetic fixture with equivalent grounding produces reflections. Locus: memory content insufficiency, not model/prompt/wrapper defect."
+    }
+  },
+  "limitations": [
+    "6 total invocations (3 per condition). Pattern observation, not statistical proof.",
+    "Single model qwen2.5:3b. Results may not generalize.",
+    "Single user memory pool for Condition A.",
+    "Phase 6-E fixtures reused; Phase 6-T validates via generateReflections() wrapper path.",
+    "No persistence: raw model output reduced to counters only."
+  ],
+  "decision": {
+    "productionChangeJustified": false,
+    "automaticContinuation": false
+  },
+  "detail": "Read-only comparative probe: 3 synthetic fixture + 3 real memory invocations through real generateReflections(). No production mutation."
+}

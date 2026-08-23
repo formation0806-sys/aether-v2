@@ -7,6 +7,8 @@
 import { effectiveScoreForType, daysBetween } from "./score";
 import {
   PROMOTE_ACTIVE_THRESHOLD,
+  PROMOTE_USED_COUNT,
+  PROMOTE_CONFIDENCE,
   DEMOTE_FADING_THRESHOLD,
   DEMOTE_HOLD_DAYS,
   ARCHIVE_THRESHOLD,
@@ -52,7 +54,7 @@ export async function evaluateLifecycle(
   const updates: Array<{ id: string; status: string; effective_score: number; last_scored: string }> = [];
 
   for (const m of safe) {
-    if (m.status === "archived" || m.status === "deleted") continue;
+    if (m.status === "archived" || m.status === "deleted" || m.status === "merged") continue;
 
     const importance = m.importance_v2 ?? 0.5;
     const memoryType = (m.memory_type ?? "semantic") as MemoryType;
@@ -63,8 +65,18 @@ export async function evaluateLifecycle(
 
     let newStatus: MemoryStatus | null = null;
 
-    if (m.status === "candidate" && effectiveScore >= PROMOTE_ACTIVE_THRESHOLD) {
-      newStatus = "active";
+    // Candidate promotion: effective-score threshold (existing) OR the
+    // usage+confidence rule declared by PROMOTE_USED_COUNT / PROMOTE_CONFIDENCE.
+    // effective_score is monotonic non-increasing for stored memories (fixed
+    // importance + decaying recency), so usage is the signal that lets an
+    // existing candidate accumulate enough evidence to go active.
+    if (m.status === "candidate") {
+      const usedAndConfirmed =
+        (m.times_used ?? 0) >= PROMOTE_USED_COUNT &&
+        (m.confidence_v2 ?? 0) >= PROMOTE_CONFIDENCE;
+      if (effectiveScore >= PROMOTE_ACTIVE_THRESHOLD || usedAndConfirmed) {
+        newStatus = "active";
+      }
     } else if (m.status === "active") {
       if (effectiveScore < DEMOTE_FADING_THRESHOLD && daysSinceScored >= DEMOTE_HOLD_DAYS) {
         newStatus = "fading";

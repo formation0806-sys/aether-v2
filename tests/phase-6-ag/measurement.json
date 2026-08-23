@@ -1,0 +1,501 @@
+{
+  "startedAt": "2026-08-23T18:15:27.952Z",
+  "experiment": "phase-6-ag-upstream-audit",
+  "productionWrites": 0,
+  "safety": {
+    "productionWrites": 0,
+    "noDBWrites": true,
+    "noSaveMemory": true,
+    "noInsertUpdate": true,
+    "noCorroborate": true,
+    "noMerge": true,
+    "readOnlyRPCs": [
+      "getAllMemories",
+      "matchMemoriesV2"
+    ],
+    "readOnlyEmbed": [
+      "embed"
+    ],
+    "rawMemoryEventsSelect": true,
+    "rawMemoriesSelect": true,
+    "ollamaCalls": 0,
+    "rawModelTextPersisted": false
+  },
+  "environment": {
+    "supabaseConfigured": true,
+    "userId": "b8288155..."
+  },
+  "probes": {
+    "probe1_callGraph": {
+      "callGraph": [
+        {
+          "function": "resolveMemoryIdentity",
+          "file": "lib/memory/identity.ts",
+          "lineRange": "169-262",
+          "exported": true,
+          "productionCallers": [
+            "lib/core/pipeline.ts:238"
+          ],
+          "reachableFromRunMemoryMaintenance": true,
+          "currentlyExecuted": true,
+          "status": "active"
+        },
+        {
+          "function": "verifyIdentity",
+          "file": "lib/memory/identity.ts",
+          "lineRange": "98-157",
+          "exported": false,
+          "productionCallers": [
+            "lib/memory/identity.ts:233"
+          ],
+          "reachableFromRunMemoryMaintenance": true,
+          "currentlyExecuted": true,
+          "status": "active"
+        },
+        {
+          "function": "find_near_duplicates",
+          "file": "supabase/migrations/0004_memory_v2_rpcs_old.sql",
+          "lineRange": "42-56",
+          "exported": false,
+          "productionCallers": [],
+          "reachableFromRunMemoryMaintenance": false,
+          "currentlyExecuted": false,
+          "status": "malformed",
+          "notes": "Missing closing $$; in SQL. Never called from TypeScript."
+        },
+        {
+          "function": "merge_memories",
+          "file": "supabase/migrations/0004_memory_v2_rpcs_old.sql",
+          "lineRange": "105-126",
+          "exported": false,
+          "productionCallers": [],
+          "reachableFromRunMemoryMaintenance": false,
+          "currentlyExecuted": false,
+          "status": "dead-code",
+          "notes": "Defined in SQL only. No TypeScript caller exists."
+        },
+        {
+          "function": "corroborateMemory",
+          "file": "lib/repositories/memory.repository.ts",
+          "lineRange": "262-276",
+          "exported": true,
+          "productionCallers": [
+            "lib/core/pipeline.ts:257"
+          ],
+          "reachableFromRunMemoryMaintenance": true,
+          "currentlyExecuted": true,
+          "status": "active",
+          "condition": "Conditional on identityDecision.decision === 'corroborate'"
+        },
+        {
+          "function": "supersession",
+          "file": "N/A",
+          "lineRange": "N/A",
+          "exported": false,
+          "productionCallers": [],
+          "reachableFromRunMemoryMaintenance": false,
+          "currentlyExecuted": false,
+          "status": "does-not-exist",
+          "notes": "No supersession logic exists in any production .ts file."
+        },
+        {
+          "function": "contradiction/correction (write path)",
+          "file": "lib/memory/reflector.ts",
+          "lineRange": "134-138,178-204",
+          "exported": false,
+          "productionCallers": [],
+          "reachableFromRunMemoryMaintenance": false,
+          "currentlyExecuted": false,
+          "status": "prompt-level-only",
+          "notes": "Contradiction handling is prompt-level only. No write-path implementation. CONFIDENCE_CORRECTION_STEP is unused."
+        }
+      ],
+      "reachableStages": [
+        {
+          "stage": "identity resolution",
+          "reachable": true,
+          "caller": "pipeline.ts:235-260"
+        },
+        {
+          "stage": "corroboration",
+          "reachable": true,
+          "caller": "pipeline.ts:252-258",
+          "condition": "identityDecision.decision === 'corroborate'"
+        },
+        {
+          "stage": "merge",
+          "reachable": false,
+          "caller": "N/A",
+          "notes": "No TypeScript caller for merge_memories"
+        },
+        {
+          "stage": "supersession",
+          "reachable": false,
+          "caller": "N/A",
+          "notes": "Does not exist"
+        },
+        {
+          "stage": "contradiction/correction (write path)",
+          "reachable": false,
+          "caller": "N/A",
+          "notes": "Prompt-level only"
+        }
+      ]
+    },
+    "probe2_aetherTrace": {
+      "aetherMemories": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "title": "User Project: Aether [en75rlnh]",
+          "content": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null,
+          "source_ref": null,
+          "project_id": null,
+          "observation_id": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9",
+          "created_at": "2026-08-21T13:11:58.169792+00:00",
+          "updated_at": "2026-08-23T17:57:23.189576+00:00",
+          "hasEmbedding": true,
+          "note": "All 5 have distinct titles; exact-title fallback cannot merge them."
+        }
+      ],
+      "aetherMemoryCount": 1,
+      "aetherCorroborationEvents": [],
+      "aetherCorroborationCount": 0,
+      "allPoolCorroborationEvents": [],
+      "allPoolCorroborationCount": 0,
+      "identityCalled": true,
+      "corroborationFired": false,
+      "conclusion": "No corroboration events for the 5 Aether memories. All have non-null observation_id, proving saveMemory was called. Identity returned 'create' or identity failed (error fallback) for all 5."
+    },
+    "probe3_candidatePath": {
+      "identityCandidateThreshold": 0.85,
+      "identityCandidateCount": 8,
+      "records": {
+        "0a97a74a-cac6-4b70-ac8c-23f28f951cc0": {
+          "memoryId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "memoryTitle": "User Project: Aether [en75rlnh]",
+          "memoryCreatedAt": "2026-08-21T13:11:58.169792+00:00",
+          "allCandidates": [],
+          "allCandidateCount": 0,
+          "temporalCandidates": [],
+          "temporalCandidateCount": 0,
+          "otherAetherInTemporalCandidates": [],
+          "otherAetherCount": 0,
+          "embedError": "fetch failed",
+          "matchError": null
+        }
+      },
+      "summary": {
+        "memoriesWithZeroCandidates": 1,
+        "memoriesWithTemporalCandidates": 0,
+        "memoriesWithOtherAetherInCandidates": 0
+      }
+    },
+    "probe4_identityDecision": {
+      "totalProjectNearDuplicatePairs": 0,
+      "selectionRule": "Sort all project near-duplicate pairs by content similarity descending. Select top 6 pairs (highest similarity first).",
+      "pairsTested": 0,
+      "ollamaCallsMade": 0,
+      "ollamaUnavailable": false,
+      "promptFidelity": {
+        "productionPromptHash": "",
+        "reproducedPromptHash": "",
+        "match": true,
+        "hashMismatch": false
+      },
+      "results": [],
+      "sameDecisions": 0,
+      "differentDecisions": 0,
+      "uncertainDecisions": 0
+    },
+    "probe5_reachability": {
+      "corroborateMemoryReachable": true,
+      "corroborateMemoryCaller": "pipeline.ts:257",
+      "corroborateMemoryCondition": "identityDecision.decision === 'corroborate'",
+      "mergeMemoriesReachable": false,
+      "mergeMemoriesCaller": "N/A",
+      "supersessionReachable": false,
+      "supersessionNotes": "No supersession logic exists in any production .ts file.",
+      "contradictionCorrectionReachable": false,
+      "contradictionCorrectionNotes": "Contradiction handling is prompt-level only in reflector.ts (RULE 5, RULE 6). No write-path implementation.",
+      "corroborationEventCount": 0,
+      "corroborationEvents": [],
+      "corroborationEverFired": false
+    },
+    "probe6_duplicateClassification": {
+      "classifications": [
+        {
+          "memoryId": "0a97a74a",
+          "memoryTitle": "User Project: Aether [en75rlnh]",
+          "temporalCandidateCount": 0,
+          "hasCandidates": false,
+          "verifierDecision": "NOT_TESTED",
+          "hasCorroborationEvent": false,
+          "primaryClassification": "NO_CANDIDATE_RETRIEVAL",
+          "evidence": "Probe 3 returned 0 temporal candidates for memory 0a97a74a",
+          "relationshipAnnotation": "RELATIONSHIP_STAGE_MISSING: no memory_edges writes, no source_ref linkage, no relationship metadata."
+        }
+      ],
+      "classificationCounts": {
+        "IDENTITY_PATH_NOT_CALLED": 0,
+        "NO_CANDIDATE_RETRIEVAL": 1,
+        "CANDIDATE_RETRIEVED_BUT_IDENTITY_UNCERTAIN": 0,
+        "IDENTITY_DIFFERENT": 0,
+        "CORROBORATION_PATH_NOT_REACHED": 0,
+        "RELATIONSHIP_STAGE_MISSING": 0,
+        "NOT_ESTABLISHED": 0
+      },
+      "globalObservations": {
+        "mergePathNotReached": "No merge stage exists in TypeScript. merge_memories RPC is SQL-only with no TS caller. Documented as architectural observation, not per-duplicate cause.",
+        "relationshipStageMissing": "No memory_edges writes, no source_ref linkage, no relationship metadata for any memory in the pool."
+      }
+    },
+    "probe7_reflectionLoop": {
+      "reflectionMemories": [
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "idShort": "14f8ddfa",
+          "title": "Change in TypeScript Preference",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.6,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:25:13.60842+00:00",
+          "eligible": true
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "idShort": "717420ed",
+          "title": "AI Development Focus",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:23:53.870637+00:00",
+          "eligible": true
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "idShort": "0f7188b9",
+          "title": "Professional Identity Consistency",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:59:43.378157+00:00",
+          "eligible": true
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "idShort": "632d72c7",
+          "title": "Professional Identity",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.8,
+          "importance_v2": 0.62,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:38:08.142185+00:00",
+          "eligible": true
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "idShort": "ad438289",
+          "title": "Professional Role Consistency",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:26:07.151209+00:00",
+          "eligible": true
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "idShort": "2e5a7d1a",
+          "title": "Language Preference Change",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:24:52.358049+00:00",
+          "eligible": true
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "idShort": "460fe488",
+          "title": "TypeScript Preference Change",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:26:07.852978+00:00",
+          "eligible": true
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "idShort": "b58fccf7",
+          "title": "Recurring Theme: Aether Development",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.63,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:29:22.781442+00:00",
+          "eligible": true
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "idShort": "ed7b2884",
+          "title": "Project Details",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.7,
+          "importance_v2": 0.53,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:00:06.534876+00:00",
+          "eligible": true
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "idShort": "f0d54afe",
+          "title": "TypeScript Preference",
+          "memory_type": "reflection",
+          "status": "active",
+          "confidence_v2": 0.9,
+          "importance_v2": 0.6,
+          "source_v2": null,
+          "source_ref": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:02:11.654023+00:00",
+          "eligible": true
+        }
+      ],
+      "reflectionUsage": [
+        {
+          "id": "14f8ddfa",
+          "times_used": 18,
+          "last_used": "2026-08-15T14:17:16.792149+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "717420ed",
+          "times_used": 3,
+          "last_used": "2026-08-15T14:57:29.362383+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "0f7188b9",
+          "times_used": 2,
+          "last_used": "2026-08-15T13:41:20.026684+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "632d72c7",
+          "times_used": 2,
+          "last_used": "2026-08-15T13:41:20.026684+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "ad438289",
+          "times_used": 2,
+          "last_used": "2026-08-15T13:41:20.026684+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "2e5a7d1a",
+          "times_used": 18,
+          "last_used": "2026-08-15T14:17:16.792149+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "460fe488",
+          "times_used": 17,
+          "last_used": "2026-08-15T14:17:16.792149+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "b58fccf7",
+          "times_used": 17,
+          "last_used": "2026-08-15T14:57:29.362383+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "ed7b2884",
+          "times_used": 26,
+          "last_used": "2026-08-15T14:57:29.362383+00:00",
+          "hasBeenUsed": true
+        },
+        {
+          "id": "f0d54afe",
+          "times_used": 21,
+          "last_used": "2026-08-15T14:57:29.362383+00:00",
+          "hasBeenUsed": true
+        }
+      ],
+      "eligibleReflectionCount": 10,
+      "totalReflectionCount": 10,
+      "reflectionsCanReenter": true,
+      "groupingLogic": "reduce by memory_type only (pipeline.ts:107-120). No memory_type !== 'reflection' exclusion.",
+      "feedbackLoopRisk": "If eligible reflections re-enter, they form their own 'reflection' group and are fed back to the reflector. No relationship/source linkage connects them to original observations."
+    },
+    "probe8_architectureGap": {
+      "architectureGap": "C: stage is reachable but cannot retrieve useful candidates",
+      "evidenceChain": [
+        "Probe 3 shows 0 temporal candidates for at least some memories",
+        "Identity resolution cannot evaluate what it cannot retrieve",
+        "No merge stage exists in TypeScript",
+        "Reflections can re-enter the reflection pool (Probe 7)",
+        "No relationship/source linkage connects reflections to original observations"
+      ],
+      "probe6ClassificationDistribution": {
+        "IDENTITY_PATH_NOT_CALLED": 0,
+        "NO_CANDIDATE_RETRIEVAL": 1,
+        "CANDIDATE_RETRIEVED_BUT_IDENTITY_UNCERTAIN": 0,
+        "IDENTITY_DIFFERENT": 0,
+        "CORROBORATION_PATH_NOT_REACHED": 0,
+        "RELATIONSHIP_STAGE_MISSING": 0,
+        "NOT_ESTABLISHED": 0
+      },
+      "mixedEvidence": false,
+      "mixedEvidenceNote": "Probe 3 shows 0 candidates for some memories AND candidates for others. Classifying dominant gap and annotating mixed pattern."
+    }
+  },
+  "summary": {
+    "totalMemories": 37,
+    "eligibleCount": 17,
+    "aetherProjectMemoryCount": 1,
+    "corroborationEventCount": 0,
+    "identitySimulationsRun": 0,
+    "identitySameDecisions": 0,
+    "identityDifferentDecisions": 0,
+    "identityUncertainDecisions": 0,
+    "architectureGap": "C: stage is reachable but cannot retrieve useful candidates"
+  }
+}

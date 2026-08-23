@@ -1,25 +1,39 @@
-import {
-  findMemoryByTitle,
+﻿import {
+  getMemoryByTitle,
   insertMemoryV2,
   updateMemoryV2,
   matchMemoriesV2,
 } from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
-import { scoreExtractedMemory, effectiveScoreForType } from "./score";
+import { assertEmbeddingValid } from "./embedding-validation";
+import { scoreExtractedMemory } from "./score";
+import { effectiveScoreForType } from "./score";
 import { PROMOTE_ACTIVE_THRESHOLD } from "./constants";
-import type { MemoryType, MemorySource } from "./types";
+import type { MemoryType, MemoryStatus, MemorySource } from "./types";
 
 export interface SaveMemoryInput {
   userId: string;
   title: string;
   content: string;
-  role?: string;
+
   memoryType?: MemoryType;
+  status?: MemoryStatus;
+
+  summary?: string;
+  tags?: string[];
+
   importance?: number;
   confidence?: number;
+
   explicit?: boolean;
-  /** Source label persisted to the V2 `source_v2` column. Defaults to "extractor". */
+
   source?: MemorySource;
+  sourceRef?: string | null;
+
+  projectId?: string | null;
+  metadata?: Record<string, unknown>;
+
+  observationId?: string | null;
 }
 
 export interface MemoryRecord {
@@ -33,74 +47,113 @@ export async function saveMemory({
   userId,
   title,
   content,
-  memoryType,
-  importance,
-  confidence,
+
+  memoryType = "semantic",
+  status,
+
+  summary = "",
+  tags = [],
+
+  importance = 0.5,
+  confidence = 0.8,
+
   explicit,
-  source,
+
+  source = "extractor",
+  sourceRef = null,
+
+  projectId = null,
+  metadata = {},
+  observationId = null,
 }: SaveMemoryInput) {
-  const vector = await embed(content);
+  const { importance: normalizedImportance, confidence: normalizedConfidence } =
+    scoreExtractedMemory({
+      title,
+      content,
+      memoryType,
+      importance,
+      confidence,
+      explicit,
+    });
 
-  const { importance: importanceV2, confidence: confidenceV2 } =
-    scoreExtractedMemory({ title, content, memoryType, importance, confidence, explicit });
-
-  // Sprint 20 (Option A): deterministic lifecycle gate at write time.
-  // Uses the existing effective-score scorer and the frozen
-  // PROMOTE_ACTIVE_THRESHOLD. Never demotes; only promotes to active.
-  const effective = effectiveScoreForType(
-    importanceV2,
-    null,
-    memoryType ?? "semantic"
-  );
+  const effective = effectiveScoreForType(normalizedImportance, null, memoryType);
   const promoteToActive = effective >= PROMOTE_ACTIVE_THRESHOLD;
   const effectiveScore = Number(effective.toFixed(3));
   const lastScored = new Date().toISOString();
 
-  const { data: existing } = await findMemoryByTitle(userId, title);
+  const vector = await embed(content);
+  // Phase 6-AI: prevent obviously invalid embeddings from being persisted.
+  assertEmbeddingValid(vector.embedding);
 
-  if (existing && existing.length > 0) {
-    if (existing[0].content === content) {
+  const { data: existing, error: lookupError } =
+    await getMemoryByTitle(userId, title);
+
+  if (lookupError) throw lookupError;
+
+  if (existing) {
+    if (existing.content === content) {
       console.log("MEMORY SKIPPED");
-      return;
+      return existing;
     }
 
-    const { error } = await updateMemoryV2(existing[0].id, {
+    const { error } = await updateMemoryV2(existing.id, {
+      title,
       content,
       embedding: vector.embedding,
+
       memory_type: memoryType,
-      importance_v2: importanceV2,
-      confidence_v2: confidenceV2,
-      effective_score: effectiveScore,
-      last_scored: lastScored,
-      ...(promoteToActive ? ({ status: "active" } as const) : {}),
-      ...(source ? { source_v2: source } : {}),
+      ...(status ? { status } : {}),
+
+      summary,
+      tags,
+
+      importance_v2: normalizedImportance,
+      confidence_v2: normalizedConfidence,
+      source_v2: source,
+
+      source_ref: sourceRef,
+      project_id: projectId,
+
+      metadata,
+      observation_id: observationId,
     });
 
     if (error) throw error;
 
-    if (promoteToActive) console.log("MEMORY PROMOTED");
-
     console.log("MEMORY UPDATED");
+
     return;
   }
 
   const { error } = await insertMemoryV2({
     user_id: userId,
+
     title,
     content,
+
     embedding: vector.embedding,
+
     memory_type: memoryType,
-    importance_v2: importanceV2,
-    confidence_v2: confidenceV2,
-    source_v2: source ?? "extractor",
-    status: promoteToActive ? "active" : "candidate",
+    status: status ?? (promoteToActive ? "active" : "candidate"),
+
+    summary,
+    tags,
+
+    importance_v2: normalizedImportance,
+    confidence_v2: normalizedConfidence,
+    source_v2: source,
+
+    source_ref: sourceRef,
+    project_id: projectId,
+
+    metadata,
+    observation_id: observationId,
+
     effective_score: effectiveScore,
     last_scored: lastScored,
   });
 
   if (error) throw error;
-
-  if (promoteToActive) console.log("MEMORY PROMOTED");
 
   console.log("MEMORY INSERTED");
 }
@@ -112,16 +165,14 @@ export async function getRelevantMemories(
   const vector = await embed(query);
 
   const { data, error } = await matchMemoriesV2(
-  vector.embedding,
-  userId,
-  {
-    matchCount: 8,
-  }
-);
+    vector.embedding,
+    userId,
+    {
+      matchCount: 8,
+    }
+  );
 
   if (error) throw error;
-
-  console.log("RETRIEVED MEMORIES:", data);
 
   return (data ?? []) as MemoryRecord[];
 }

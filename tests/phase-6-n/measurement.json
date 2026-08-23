@@ -1,0 +1,459 @@
+{
+  "phase": "6-N",
+  "measuredAt": "2026-08-21T00:36:07.934Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "eligibleCount": 16,
+  "groups": {
+    "reflection": 10,
+    "project": 4,
+    "identity": 2
+  },
+  "groupComposition": {
+    "reflection": {
+      "count": 10,
+      "active": 10,
+      "candidate": 0,
+      "confidence": {
+        "count": 10,
+        "min": 0.7,
+        "mean": 0.87,
+        "median": 0.9,
+        "max": 0.9
+      },
+      "importance": {
+        "count": 10,
+        "min": 0.53,
+        "mean": 0.613,
+        "median": 0.63,
+        "max": 0.63
+      }
+    },
+    "project": {
+      "count": 4,
+      "active": 3,
+      "candidate": 1,
+      "confidence": {
+        "count": 4,
+        "min": 0.8,
+        "mean": 0.863,
+        "median": 0.85,
+        "max": 0.95
+      },
+      "importance": {
+        "count": 4,
+        "min": 0.52,
+        "mean": 0.628,
+        "median": 0.655,
+        "max": 0.68
+      }
+    },
+    "identity": {
+      "count": 2,
+      "active": 2,
+      "candidate": 0,
+      "confidence": {
+        "count": 2,
+        "min": 0.95,
+        "mean": 0.975,
+        "median": 0.975,
+        "max": 1
+      },
+      "importance": {
+        "count": 2,
+        "min": 0.72,
+        "mean": 0.81,
+        "median": 0.81,
+        "max": 0.9
+      }
+    }
+  },
+  "contentLengths": {
+    "reflection": {
+      "title": {
+        "count": 10,
+        "min": 15,
+        "mean": 25.9,
+        "median": 27,
+        "max": 35
+      },
+      "content": {
+        "count": 10,
+        "min": 60,
+        "mean": 135.6,
+        "median": 143,
+        "max": 175
+      },
+      "summary": {
+        "count": 10,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "combined": {
+        "count": 10,
+        "min": 81,
+        "mean": 161.5,
+        "median": 171.5,
+        "max": 210
+      },
+      "note": "character length"
+    },
+    "project": {
+      "title": {
+        "count": 4,
+        "min": 7,
+        "mean": 15.75,
+        "median": 15.5,
+        "max": 25
+      },
+      "content": {
+        "count": 4,
+        "min": 51,
+        "mean": 55.75,
+        "median": 52.5,
+        "max": 67
+      },
+      "summary": {
+        "count": 4,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "combined": {
+        "count": 4,
+        "min": 64,
+        "mean": 71.5,
+        "median": 71.5,
+        "max": 79
+      },
+      "note": "character length"
+    },
+    "identity": {
+      "title": {
+        "count": 2,
+        "min": 10,
+        "mean": 13.5,
+        "median": 13.5,
+        "max": 17
+      },
+      "content": {
+        "count": 2,
+        "min": 49,
+        "mean": 78,
+        "median": 78,
+        "max": 107
+      },
+      "summary": {
+        "count": 2,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "combined": {
+        "count": 2,
+        "min": 59,
+        "mean": 91.5,
+        "median": 91.5,
+        "max": 124
+      },
+      "note": "character length"
+    }
+  },
+  "reflectionVsNonReflection": {
+    "reflection": {
+      "count": 10,
+      "percentage": 62.5,
+      "active": 10,
+      "candidate": 0,
+      "confidence": {
+        "count": 10,
+        "min": 0.7,
+        "mean": 0.87,
+        "median": 0.9,
+        "max": 0.9
+      },
+      "importance": {
+        "count": 10,
+        "min": 0.53,
+        "mean": 0.613,
+        "median": 0.63,
+        "max": 0.63
+      },
+      "contentLength": {
+        "count": 10,
+        "min": 60,
+        "mean": 135.6,
+        "median": 143,
+        "max": 175
+      }
+    },
+    "nonReflection": {
+      "count": 6,
+      "percentage": 37.5,
+      "active": 5,
+      "candidate": 1,
+      "confidence": {
+        "count": 6,
+        "min": 0.8,
+        "mean": 0.9,
+        "median": 0.925,
+        "max": 1
+      },
+      "importance": {
+        "count": 6,
+        "min": 0.52,
+        "mean": 0.688,
+        "median": 0.68,
+        "max": 0.9
+      },
+      "contentLength": {
+        "count": 6,
+        "min": 49,
+        "mean": 63.167,
+        "median": 52.5,
+        "max": 107
+      }
+    }
+  },
+  "pairwiseConnectability": {
+    "withinGroup": {
+      "reflection": {
+        "pairCount": 45,
+        "similarity": {
+          "count": 45,
+          "min": 0.444,
+          "mean": 0.69,
+          "median": 0.696,
+          "max": 0.969
+        },
+        "bins": {
+          "ge0_65": 30,
+          "ge0_80": 8,
+          "ge0_88": 6,
+          "ge0_95": 1
+        },
+        "note": "thresholds are existing AETHER reference points (MIN_SIMILARITY=0.65, DEDUPE_RELATED=0.80, DEDUPE_UPDATE=0.88, DEDUPE_MERGE=0.95); not a reflection-quality boundary"
+      },
+      "project": {
+        "pairCount": 6,
+        "similarity": {
+          "count": 6,
+          "min": 0.424,
+          "mean": 0.597,
+          "median": 0.571,
+          "max": 0.88
+        },
+        "bins": {
+          "ge0_65": 2,
+          "ge0_80": 1,
+          "ge0_88": 0,
+          "ge0_95": 0
+        },
+        "note": "thresholds are existing AETHER reference points (MIN_SIMILARITY=0.65, DEDUPE_RELATED=0.80, DEDUPE_UPDATE=0.88, DEDUPE_MERGE=0.95); not a reflection-quality boundary"
+      },
+      "identity": {
+        "pairCount": 1,
+        "similarity": {
+          "count": 1,
+          "min": 0.529,
+          "mean": 0.529,
+          "median": 0.529,
+          "max": 0.529
+        },
+        "bins": {
+          "ge0_65": 0,
+          "ge0_80": 0,
+          "ge0_88": 0,
+          "ge0_95": 0
+        },
+        "note": "thresholds are existing AETHER reference points (MIN_SIMILARITY=0.65, DEDUPE_RELATED=0.80, DEDUPE_UPDATE=0.88, DEDUPE_MERGE=0.95); not a reflection-quality boundary"
+      }
+    },
+    "crossGroup": {
+      "reflection__project": {
+        "pairCount": 40,
+        "similarity": {
+          "count": 40,
+          "min": 0.391,
+          "mean": 0.548,
+          "median": 0.544,
+          "max": 0.732
+        },
+        "bins": {
+          "ge0_65": 6,
+          "ge0_80": 0,
+          "ge0_88": 0,
+          "ge0_95": 0
+        }
+      },
+      "reflection__identity": {
+        "pairCount": 20,
+        "similarity": {
+          "count": 20,
+          "min": 0.48,
+          "mean": 0.589,
+          "median": 0.557,
+          "max": 0.826
+        },
+        "bins": {
+          "ge0_65": 5,
+          "ge0_80": 2,
+          "ge0_88": 0,
+          "ge0_95": 0
+        }
+      },
+      "project__identity": {
+        "pairCount": 8,
+        "similarity": {
+          "count": 8,
+          "min": 0.423,
+          "mean": 0.494,
+          "median": 0.492,
+          "max": 0.598
+        },
+        "bins": {
+          "ge0_65": 0,
+          "ge0_80": 0,
+          "ge0_88": 0,
+          "ge0_95": 0
+        }
+      }
+    }
+  },
+  "reflectionDomination": {
+    "reflectionCount": 10,
+    "reflectionPercentage": 62.5,
+    "nonReflectionCount": 6,
+    "nonReflectionPercentage": 37.5,
+    "reflectionPairwise": {
+      "pairCount": 45,
+      "similarity": {
+        "count": 45,
+        "min": 0.444,
+        "mean": 0.69,
+        "median": 0.696,
+        "max": 0.969
+      },
+      "bins": {
+        "ge0_65": 30,
+        "ge0_80": 8,
+        "ge0_88": 6,
+        "ge0_95": 1
+      }
+    },
+    "note": "diagnostic only; does not prove causality"
+  },
+  "provenance": {
+    "sourceV2Distribution": {
+      "reflection": 10,
+      "extractor": 6
+    },
+    "withNonNullSourceRef": 0,
+    "withNullSourceRef": 16,
+    "withNonNullMetadata": 0,
+    "withNullMetadata": 16,
+    "reflection": {
+      "count": 10,
+      "distinctSourceRef": 0,
+      "repeatedSourceRef": 0
+    }
+  },
+  "inputShapeComparison": {
+    "fixtureGroupStructure": "Fixture A: 1 group (semantic, 2 memories); Fixture B: 2 groups (identity 1, semantic 1); Fixture C: 1 group (semantic 3) + 1 group (identity 2)",
+    "realGroupStructure": [
+      {
+        "type": "reflection",
+        "count": 10
+      },
+      {
+        "type": "project",
+        "count": 4
+      },
+      {
+        "type": "identity",
+        "count": 2
+      }
+    ],
+    "fixtureReflectionCount": 0,
+    "realReflectionCount": 10,
+    "fixtureGroupSizeDistribution": [
+      1,
+      1,
+      2,
+      2,
+      3
+    ],
+    "realGroupSizeDistribution": [
+      10,
+      4,
+      2
+    ],
+    "realCandidatePairs": {
+      "reflection": 45,
+      "project": 6,
+      "identity": 1
+    },
+    "fixtureCandidatePairs": {
+      "approxTotal": 6,
+      "note": "diagnostic; A=1, B=2 (1+1 cross), C=3"
+    },
+    "fixtureApproxInputSize": "small (< ~1k chars); diagnostic",
+    "realApproxInputChars": 2084,
+    "note": "structural comparison only; no fixture/report content reproduced"
+  },
+  "tokenContextEstimate": {
+    "approxCharsPerToken": 4,
+    "num_ctx": 4096,
+    "num_predict": 300,
+    "perGroupEstimatedTokens": {
+      "reflection": 404,
+      "project": 72,
+      "identity": 46
+    },
+    "totalEstimatedInputTokens": 521,
+    "totalChars": 2084,
+    "note": "APPROXIMATE TOKEN ESTIMATE: ~4 chars/token; not an exact tokenization"
+  },
+  "hypotheses": {
+    "A": {
+      "verdict": "PARTIAL",
+      "evidence": "Within-group mean similarities: [0.69,0.597,0.529]. Low same-group similarity => few grounded connections; high would weaken this."
+    },
+    "B": {
+      "verdict": "WEAKENED",
+      "evidence": "Grouping alone not proven: Phase 6-E showed the reflector receives the whole JSON array and can synthesize ACROSS groups (grouped B=80%, C=100% vs combined=100%[]). Strong within+weak cross would be necessary but not sufficient."
+    },
+    "C": {
+      "verdict": "WEAKENED",
+      "evidence": "Reflection-type is 62.5% of eligible pool. Broadly low within-group similarity (mean<0.65) with no coherent same-group structure => heterogeneity."
+    },
+    "D": {
+      "verdict": "SUPPORTED",
+      "evidence": "Real input is reflection-dominated (10 reflection memories) whereas Phase 6-E fixtures had 0 reflection-type memories; real group sizes [10,4,2] vs fixtures [1,1,2,2,3]."
+    },
+    "E": {
+      "verdict": "WEAKENED",
+      "evidence": "Reflection↔reflection: pairCount=45, mean sim=0.69. Low mutual similarity / heterogeneity supports contamination; coherent or high would weaken."
+    },
+    "F": {
+      "verdict": "SUPPORTED",
+      "evidence": "Reflection max pairwise sim=0.969 (>=0.88 => redundancy signal); repeated source_ref count=0."
+    },
+    "G": {
+      "verdict": "WEAKENED",
+      "evidence": "Estimated total input tokens ≈ 521 vs num_ctx=4096. Far below context => not a pressure driver."
+    },
+    "H": {
+      "verdict": "PARTIAL",
+      "evidence": "16 of 16 eligible memories have empty/absent summary fields. Reduces synthesis surface but not alone decisive."
+    }
+  },
+  "embeddingStatus": "AVAILABLE",
+  "detail": "OK",
+  "embeddingStatusNote": "mirror_request(nomic-embed-text:latest,/api/embed) — embed.ts native import blocked by extensionless type import"
+}

@@ -1,0 +1,69 @@
+{
+  "phase": "6-P",
+  "measuredAt": "2026-08-21T01:11:55.223Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "snapshot": {
+    "eligibleCount": 16,
+    "reflectionCount": 10,
+    "nonReflectionCount": 6,
+    "composition": {
+      "reflection": 10,
+      "project": 4,
+      "identity": 2
+    }
+  },
+  "experiment": {
+    "model": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_ctx": 4096,
+    "num_predict": 300,
+    "reflector": "real lib/memory/reflector.ts",
+    "importMechanism": "native node type-stripping"
+  },
+  "conditions": {
+    "A_mixed": {
+      "reflectionInputs": 10,
+      "nonReflectionInputs": 6,
+      "runs": [
+        {
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY",
+          "run": "A1"
+        },
+        {
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY",
+          "run": "A2"
+        }
+      ]
+    },
+    "B_nonReflectionOnly": {
+      "reflectionInputs": 0,
+      "nonReflectionInputs": 6,
+      "runs": [
+        {
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY",
+          "run": "B1"
+        },
+        {
+          "generatedCount": 0,
+          "acceptedCount": 0,
+          "result": "EMPTY",
+          "run": "B2"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "outcome": "ALL_EMPTY_NO_DIFFERENCE",
+    "selfFeedCausalEvidence": "NONE",
+    "interpretation": "removing reflection memories did not change the reflector outcome (both conditions empty). self-feed composition NOT demonstrated as the direct cause."
+  },
+  "detail": "Read-only controlled experiment; no production mutation performed."
+}

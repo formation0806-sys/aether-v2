@@ -1,0 +1,7 @@
+{
+  "measuredAt": "2026-08-19T12:25:12.719Z",
+  "envPresent": true,
+  "access": "INDETERMINATE",
+  "detail": "Read-only probe returned HTTP 200 with 0 rows. Cannot distinguish an empty table from RLS blocking an unauthenticated anon client (auth.uid() is null). A session/service key would be required to distinguish.",
+  "schema": null
+}

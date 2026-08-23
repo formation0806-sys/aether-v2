@@ -18,6 +18,30 @@ export interface ContextResult {
   };
 }
 
+/**
+ * Memory retrieval is optional context enrichment. A failure anywhere in the
+ * memory branch — Ollama embedding, the `match_memories_v2` RPC, scoring/MMR,
+ * or `touchMemories` — must not reject context assembly or the chat request.
+ * The identity / knowledge / planner branches remain fatal so unrelated
+ * failures stay visible.
+ */
+async function retrieveMemoriesSafe(
+  userId: string,
+  message: string
+): Promise<unknown[]> {
+  try {
+    return await retrieveMemories(userId, message);
+  } catch (error) {
+    console.warn({
+      event: "retrieval_degraded",
+      userId,
+      error,
+    });
+
+    return [];
+  }
+}
+
 export async function buildContext(
   userId: string,
   message: string
@@ -33,7 +57,7 @@ export async function buildContext(
   ] = await Promise.all([
     getIdentity(userId),
 
-    retrieveMemories(userId, message),
+    retrieveMemoriesSafe(userId, message),
 
     retrieveKnowledge(userId),
 

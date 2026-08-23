@@ -1,0 +1,199 @@
+{
+  "phase": "6-U",
+  "measuredAt": "2026-08-21T12:38:26.955Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "blocked": false,
+  "missingEnv": [],
+  "investigationA": {
+    "eligibleTotal": 16,
+    "reflectionEligible": 10,
+    "nonReflectionEligible": 6,
+    "projectCount": 4,
+    "identityCount": 2,
+    "snapshotMatchesExpected": true,
+    "memories": [
+      {
+        "memoryType": "project",
+        "status": "candidate",
+        "importanceV2": 0.52,
+        "confidenceV2": 0.8,
+        "titleLength": 13,
+        "contentLength": 51,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 13,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      },
+      {
+        "memoryType": "project",
+        "status": "active",
+        "importanceV2": 0.68,
+        "confidenceV2": 0.9,
+        "titleLength": 7,
+        "contentLength": 67,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 17,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      },
+      {
+        "memoryType": "project",
+        "status": "active",
+        "importanceV2": 0.63,
+        "confidenceV2": 0.8,
+        "titleLength": 25,
+        "contentLength": 54,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 14,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      },
+      {
+        "memoryType": "identity",
+        "status": "active",
+        "importanceV2": 0.72,
+        "confidenceV2": 0.95,
+        "titleLength": 10,
+        "contentLength": 49,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 13,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      },
+      {
+        "memoryType": "project",
+        "status": "active",
+        "importanceV2": 0.68,
+        "confidenceV2": 0.95,
+        "titleLength": 18,
+        "contentLength": 51,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 13,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      },
+      {
+        "memoryType": "identity",
+        "status": "active",
+        "importanceV2": 0.9,
+        "confidenceV2": 1,
+        "titleLength": 17,
+        "contentLength": 107,
+        "summaryLength": 0,
+        "emptySummary": true,
+        "estimatedTokens": 27,
+        "hasStructuralMarkers": false,
+        "fieldPresence": {
+          "summary": false,
+          "tags": false,
+          "metadata": false,
+          "sourceRef": false,
+          "projectId": false,
+          "observationId": false
+        }
+      }
+    ]
+  },
+  "investigationB": {
+    "summaryPipelineExists": false,
+    "emptySummaryCount": 6,
+    "nonEmptySummaryCount": 0
+  },
+  "investigationC": {
+    "extractorPreservesRelationships": false,
+    "extractorPreservesCausal": false,
+    "extractorPreservesTemporal": false,
+    "extractorPreservesProject": false,
+    "extractorPreservesProvenance": false,
+    "structuralMismatch": true
+  },
+  "investigationD": {
+    "atomicityLevel": "single_fact",
+    "relationalContextPreserved": false
+  },
+  "investigationE": {
+    "fieldsDiscarded": [
+      "summary",
+      "explicit",
+      "projectRef",
+      "observation_id",
+      "source_ref"
+    ],
+    "fieldsTransformed": [
+      "importance",
+      "confidence"
+    ],
+    "provenanceGap": true,
+    "observationIdNeverWritten": true
+  },
+  "investigationF": {
+    "groupingStrategy": "memory_type_only",
+    "summaryAlwaysEmpty": true,
+    "crossTypeSynthesisBlocked": true
+  },
+  "diagnosis": {
+    "primaryLossPoint": "extraction",
+    "secondaryLossPoints": [
+      "write_path",
+      "summary_pipeline",
+      "reflection_input_construction",
+      "provenance"
+    ],
+    "notTheProblem": [
+      "reflector_mechanism",
+      "parser_sanitizer",
+      "model",
+      "eligibility_gate",
+      "self_feed",
+      "embedding_retrieval"
+    ]
+  },
+  "memoryJobs": {
+    "totalJobs": 0,
+    "jobsExist": false,
+    "jobsWithMessageId": 0,
+    "observationIdGapConfirmed": true
+  }
+}

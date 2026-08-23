@@ -1,0 +1,49 @@
+{
+  "startedAt": "2026-08-23T18:15:26.322Z",
+  "experiment": "phase-6-ak1-verifier-stability-duplicate-study",
+  "productionWrites": 0,
+  "safety": {
+    "status": "PASS",
+    "writeCalls": [],
+    "rpcCalls": [],
+    "allowedRpcCalls": [
+      "match_memories_v2"
+    ],
+    "rawLlmTextPersisted": false,
+    "safetyStop": false,
+    "ollamaUnavailable": false,
+    "embedFetchCalls": 0,
+    "extractorChatCalls": 0,
+    "verifierChatCalls": 0
+  },
+  "baselineIntegrity": {
+    "filesChecked": 25,
+    "mismatchesBeforeRun": [
+      "lib/repositories/memory.repository.ts"
+    ],
+    "gitStatusBaselineCaptured": true
+  },
+  "observations": {},
+  "retrieval": {},
+  "verifierStudy": {
+    "A": [],
+    "B": []
+  },
+  "stability": {},
+  "comparison": {
+    "phase6AJ": {
+      "candidateCount": 5,
+      "verifiedCandidates": 2,
+      "bothSame": true
+    },
+    "phase6AK1": {
+      "candidateCountA": 0,
+      "candidateCountB": 0,
+      "allFiveMeasured": false,
+      "duplicateRepresentationSupported": false
+    }
+  },
+  "classification": "NOT_ESTABLISHED",
+  "classificationNote": "",
+  "metaError": "FROZEN FILES CHANGED BEFORE RUN: lib/repositories/memory.repository.ts"
+}

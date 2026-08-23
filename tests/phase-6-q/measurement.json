@@ -1,0 +1,373 @@
+{
+  "phase": "6-Q",
+  "measuredAt": "2026-08-21T01:17:17.180Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "snapshot": {
+    "eligibleTotal": 16,
+    "nonReflectionEligible": 6,
+    "composition": {
+      "project": 4,
+      "identity": 2
+    }
+  },
+  "pairwiseConnectability": {
+    "pairCount": 15,
+    "similarity": {
+      "count": 15,
+      "min": 0.423,
+      "mean": 0.538,
+      "median": 0.509,
+      "max": 0.88
+    },
+    "ge065": 2,
+    "ge080": 1,
+    "ge088": 0,
+    "ge095": 0,
+    "bins": {
+      "0_50_0_59": 6,
+      "lt_0_50": 6,
+      "0_60_0_69": 2,
+      "0_80_0_87": 1
+    }
+  },
+  "byPairType": {
+    "project_project": {
+      "pairCount": 6,
+      "similarity": {
+        "count": 6,
+        "min": 0.424,
+        "mean": 0.597,
+        "median": 0.571,
+        "max": 0.88
+      },
+      "ge065": 2,
+      "ge080": 1,
+      "ge088": 0,
+      "ge095": 0,
+      "bins": {
+        "0_50_0_59": 1,
+        "lt_0_50": 2,
+        "0_60_0_69": 2,
+        "0_80_0_87": 1
+      }
+    },
+    "identity_identity": {
+      "pairCount": 1,
+      "similarity": {
+        "count": 1,
+        "min": 0.529,
+        "mean": 0.529,
+        "median": 0.529,
+        "max": 0.529
+      },
+      "ge065": 0,
+      "ge080": 0,
+      "ge088": 0,
+      "ge095": 0,
+      "bins": {
+        "0_50_0_59": 1
+      }
+    },
+    "project_identity": {
+      "pairCount": 8,
+      "similarity": {
+        "count": 8,
+        "min": 0.423,
+        "mean": 0.494,
+        "median": 0.492,
+        "max": 0.598
+      },
+      "ge065": 0,
+      "ge080": 0,
+      "ge088": 0,
+      "ge095": 0,
+      "bins": {
+        "lt_0_50": 4,
+        "0_50_0_59": 4
+      }
+    }
+  },
+  "graphs": {
+    "threshold065": {
+      "componentCount": 4,
+      "componentSizes": [
+        3,
+        1,
+        1,
+        1
+      ],
+      "isolatedCount": 3,
+      "largestComponentSize": 3,
+      "edgeCount": 2
+    },
+    "threshold080": {
+      "componentCount": 5,
+      "componentSizes": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "isolatedCount": 4,
+      "largestComponentSize": 2,
+      "edgeCount": 1
+    },
+    "threshold088": {
+      "componentCount": 6,
+      "componentSizes": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "isolatedCount": 6,
+      "largestComponentSize": 1,
+      "edgeCount": 0
+    }
+  },
+  "structuralProfile": {
+    "project": {
+      "count": 4,
+      "active": 3,
+      "candidate": 1,
+      "confidence": {
+        "count": 4,
+        "min": 0.8,
+        "mean": 0.863,
+        "median": 0.85,
+        "max": 0.95
+      },
+      "importance": {
+        "count": 4,
+        "min": 0.52,
+        "mean": 0.628,
+        "median": 0.655,
+        "max": 0.68
+      },
+      "titleLength": {
+        "count": 4,
+        "min": 7,
+        "mean": 15.75,
+        "median": 15.5,
+        "max": 25
+      },
+      "contentLength": {
+        "count": 4,
+        "min": 51,
+        "mean": 55.75,
+        "median": 52.5,
+        "max": 67
+      },
+      "combinedLength": {
+        "count": 4,
+        "min": 64,
+        "mean": 71.5,
+        "median": 71.5,
+        "max": 79
+      },
+      "summaryLength": {
+        "count": 4,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "emptySummary": 4
+    },
+    "identity": {
+      "count": 2,
+      "active": 2,
+      "candidate": 0,
+      "confidence": {
+        "count": 2,
+        "min": 0.95,
+        "mean": 0.975,
+        "median": 0.975,
+        "max": 1
+      },
+      "importance": {
+        "count": 2,
+        "min": 0.72,
+        "mean": 0.81,
+        "median": 0.81,
+        "max": 0.9
+      },
+      "titleLength": {
+        "count": 2,
+        "min": 10,
+        "mean": 13.5,
+        "median": 13.5,
+        "max": 17
+      },
+      "contentLength": {
+        "count": 2,
+        "min": 49,
+        "mean": 78,
+        "median": 78,
+        "max": 107
+      },
+      "combinedLength": {
+        "count": 2,
+        "min": 59,
+        "mean": 91.5,
+        "median": 91.5,
+        "max": 124
+      },
+      "summaryLength": {
+        "count": 2,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "emptySummary": 2
+    },
+    "all": {
+      "count": 6,
+      "active": 5,
+      "candidate": 1,
+      "confidence": {
+        "count": 6,
+        "min": 0.8,
+        "mean": 0.9,
+        "median": 0.925,
+        "max": 1
+      },
+      "importance": {
+        "count": 6,
+        "min": 0.52,
+        "mean": 0.688,
+        "median": 0.68,
+        "max": 0.9
+      },
+      "titleLength": {
+        "count": 6,
+        "min": 7,
+        "mean": 15,
+        "median": 15,
+        "max": 25
+      },
+      "contentLength": {
+        "count": 6,
+        "min": 49,
+        "mean": 63.167,
+        "median": 52.5,
+        "max": 107
+      },
+      "combinedLength": {
+        "count": 6,
+        "min": 59,
+        "mean": 78.167,
+        "median": 71.5,
+        "max": 124
+      },
+      "summaryLength": {
+        "count": 6,
+        "min": 0,
+        "mean": 0,
+        "median": 0,
+        "max": 0
+      },
+      "emptySummary": 6
+    }
+  },
+  "tokenEstimate": {
+    "approxCharsPerToken": 4,
+    "perMemory": {
+      "mem0": 16,
+      "mem1": 19,
+      "mem2": 20,
+      "mem3": 15,
+      "mem4": 18,
+      "mem5": 31
+    },
+    "projectGroup": 73,
+    "identityGroup": 46,
+    "allSixEstimatedTokens": 119,
+    "numCtx": 4096,
+    "numPredict": 300,
+    "note": "APPROXIMATE TOKEN ESTIMATE: ~4 chars/token; not exact tokenization"
+  },
+  "phase6EComparison": {
+    "realMemories": 6,
+    "fixtureMemoriesPerGroup": {
+      "A": 2,
+      "B": "1+1",
+      "C": "3+2"
+    },
+    "realGroups": {
+      "project": 4,
+      "identity": 2
+    },
+    "fixtureGroups": {
+      "A": "1 group",
+      "B": "2 groups",
+      "C": "2 groups"
+    },
+    "realSummaryPresence": "all empty",
+    "fixtureSummaryPresence": "present in grounded fixtures (short summaries)",
+    "realReflectionPresence": 0,
+    "fixtureReflectionPresence": 0,
+    "realSingleGroupCount": 0,
+    "realPairCount": 15,
+    "fixturePairApprox": {
+      "A": 1,
+      "B": 1,
+      "C": 6
+    },
+    "realConnectability": {
+      "ge065": 2,
+      "ge080": 1,
+      "ge088": 0,
+      "largestComponent065": 3
+    },
+    "realApproxTokens": 119,
+    "note": "structural comparison only; no fixture/report content reproduced"
+  },
+  "groundingClassification": {
+    "classification": "WEAK_CONNECTABILITY",
+    "reason": "embedding-based connectability: 2 pairs >=0.65, 1 pairs >=0.80, largest component at 0.65 = 3 of 6. Analytical signal only, not proof of logical/causal grounding."
+  },
+  "hypotheses": {
+    "H1_insufficientCrossMemoryRelationships": {
+      "verdict": "PARTIAL",
+      "evidence": "2 pairs >=0.65 of 15; largest component 3."
+    },
+    "H2_projectConnectivity": {
+      "verdict": "PARTIAL",
+      "evidence": "project_project: 2 pairs >=0.65, 1 >=0.80 of 6."
+    },
+    "H3_identityGrounding": {
+      "verdict": "WEAKENED",
+      "evidence": "identity_identity: 0 >=0.65; project_identity: 0 >=0.65, 0 >=0.80."
+    },
+    "H4_projectIdentityDisconnect": {
+      "verdict": "SUPPORTED",
+      "evidence": "project_identity: 0 pairs >=0.65 of 8."
+    },
+    "H5_tokenPressure": {
+      "verdict": "WEAKENED",
+      "evidence": "all-six estimated tokens ≈ 119 vs num_ctx 4096."
+    },
+    "H6_inputSparsity": {
+      "verdict": "OBSERVATION",
+      "evidence": "6 of 6 summaries empty; input is sparsely populated (shape observation only, not causal)."
+    },
+    "H7_reflectorDefect": {
+      "verdict": "UNKNOWN_NOT_TESTED",
+      "evidence": "Phase 6-Q does not invoke the reflector; no reflector defect claim."
+    }
+  },
+  "decision": {
+    "primaryFinding": "WEAK_CONNECTABILITY: 2 of 15 pairs >=0.65; largest connected component 3.",
+    "supportsNextInvestigation": true,
+    "productionChangeJustified": false
+  },
+  "embeddingStatus": "AVAILABLE",
+  "detail": "Read-only non-reflection synthesizability audit; reflector not invoked."
+}

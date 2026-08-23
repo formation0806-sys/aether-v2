@@ -1,0 +1,147 @@
+{
+  "phase": "6-O",
+  "measuredAt": "2026-08-21T01:03:24.938Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "reflectionCount": 13,
+  "reflectionActive": 11,
+  "reflectionCandidate": 2,
+  "reflectionEligibility": {
+    "total": 13,
+    "statusPass": 13,
+    "confidencePass": 13,
+    "importancePass": 10,
+    "fullyEligible": 10
+  },
+  "reflectionInNextRunReflection": {
+    "count": 10
+  },
+  "chronology": {
+    "reflection": {
+      "createdAt": {
+        "earliest": "2026-08-14T15:28:26.197Z",
+        "latest": "2026-08-15T13:54:15.404Z",
+        "count": 13
+      },
+      "updatedAt": {
+        "earliest": "2026-08-14T15:28:26.197Z",
+        "latest": "2026-08-15T13:54:15.404Z",
+        "count": 13
+      },
+      "byDay": {
+        "2026-08-15": 12,
+        "2026-08-14": 1
+      },
+      "byWeek": {
+        "2026-08-10": 13
+      }
+    },
+    "project": {
+      "createdAt": {
+        "earliest": "2026-08-10T17:45:23.405Z",
+        "latest": "2026-08-15T11:47:57.032Z",
+        "count": 4
+      },
+      "byWeek": {
+        "2026-08-10": 4
+      }
+    },
+    "identity": {
+      "createdAt": {
+        "earliest": "2026-08-10T17:44:51.928Z",
+        "latest": "2026-08-15T04:03:29.106Z",
+        "count": 2
+      },
+      "byWeek": {
+        "2026-08-10": 2
+      }
+    },
+    "extractorAll": {
+      "createdAt": {
+        "earliest": "2026-08-10T05:04:31.820Z",
+        "latest": "2026-08-15T14:17:38.091Z",
+        "count": 22
+      },
+      "byWeek": {
+        "2026-08-10": 22
+      }
+    }
+  },
+  "provenance": {
+    "sourceV2Distribution": {
+      "extractor": 22,
+      "reflection": 10
+    },
+    "sourceRef": {
+      "nonNull": 0,
+      "null": 32,
+      "reflectionDistinct": 0,
+      "reflectionDuplicate": 0
+    },
+    "metadata": {
+      "nonEmpty": 0,
+      "empty": 32
+    },
+    "note": "PROVENANCE NOT AVAILABLE FROM CURRENT DATA"
+  },
+  "generationDepth": {
+    "verdict": "NOT_PROVABLE",
+    "reason": "no source_ref/provenance exists; timestamps alone cannot uniquely establish reflection->reflection lineage. Reflections span 1 distinct week bucket(s); consistent with waves but not proof."
+  },
+  "selfFeed": {
+    "mechanismEnabled": true,
+    "exclusion": false,
+    "depthGuard": false,
+    "structuralNote": "getAllMemories() returns reflection memories with no memory_type filter; runReflection() eligibility gate (status active/candidate && confidence>=0.7 && importance>=0.5) does NOT exclude memory_type==='reflection'; no reflection-depth/recursion guard exists. Therefore reflection memories ARE structurally eligible inputs to the next runReflection().",
+    "productionEvidence": "10 of 13 reflection memories currently satisfy the gate and WOULD be included in the next runReflection(). This proves structural enablement, NOT that a prior reflection run produced them."
+  },
+  "redundancy": {
+    "source": "Phase 6-N measurement",
+    "reflectionPairs": 45,
+    "meanSim": 0.69,
+    "maxSim": 0.969,
+    "ge0_88": 6,
+    "ge0_95": 1,
+    "note": "reused from Phase 6-N; not a new measurement"
+  },
+  "codeFindings": {
+    "savePath": "runReflection() -> saveMemory({memoryType:'reflection', source:'reflection'}) writes memory_type='reflection', source_v2='reflection', source_ref=null (default), metadata={} (default), summary='' (schema not-null default). Status is set by normal scoring/promotion (effective_score >= 0.6 -> active, else candidate). No special handling for reflections.",
+    "lifecycle": "lifecycle.ts applies uniform rules; reflection memories can candidate->active (effectiveScore>=0.6 OR times_used>=3 && confidence>=0.7), active->fading->archived, then purge, exactly like other types. No reflection special-casing.",
+    "retrieval": "match_memories_v2 (migrations 0006/0009) only filters status NOT IN ('archived','deleted'); it does NOT exclude memory_type='reflection'. Therefore reflection memories are retrievable with normal scoring/limits.",
+    "provenanceWiring": "getAllMemories() selects only id,title,content,summary,memory_type,status,importance_v2,confidence_v2,created_at,updated_at (NOT source_v2/source_ref/metadata), so provenance never reaches the reflection prompt. Migration 0012 adds observation_id but saveMemory() does not set it and getAllMemories() does not select it -> no wired provenance chain."
+  },
+  "rootCauseImplications": {
+    "compositionProblem": {
+      "verdict": "SUPPORTED",
+      "note": "reflection is 62.5% of the eligible pool (10/16); reflection-dominated input"
+    },
+    "reflectionSelfFeed": {
+      "verdict": "SUPPORTED",
+      "note": "10/13 reflection memories pass the gate and are structurally eligible for the next run; no exclusion/depth guard."
+    },
+    "missingProvenance": {
+      "verdict": "SUPPORTED",
+      "note": "source_ref=null and metadata empty across rows; no provenance chain wired into reflection input."
+    },
+    "emptySummaries": {
+      "verdict": "SUPPORTED",
+      "note": "summary is schema default '' and never populated by saveMemory/reflector/extractor; all measured summaries empty."
+    },
+    "reflectorImplementationDefect": {
+      "verdict": "UNKNOWN",
+      "note": "Phase 6-O does not test the reflector; no claim of a reflector defect."
+    },
+    "inputShapeProblem": {
+      "verdict": "SUPPORTED",
+      "note": "input has no provenance, no summaries, is reflection-dominated, and phase-6-e fixtures had 0 reflections => materially different shape."
+    }
+  },
+  "detail": "OK",
+  "summary": {
+    "reflectionEmpty": 13,
+    "reflectionNonEmpty": 0,
+    "nonReflectionEmpty": 19,
+    "nonReflectionNonEmpty": 0
+  }
+}

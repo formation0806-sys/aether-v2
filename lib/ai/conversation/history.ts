@@ -1,14 +1,16 @@
 import { ChatMessage } from "../types";
-import {
-  getMessages,
-  insertMessage,
-  deleteMessages,
-} from "@/lib/repositories/conversation.repository";
+import { createClient } from "@/lib/supabase/server";
 
 export async function getHistory(
   userId: string
 ): Promise<ChatMessage[]> {
-  const { data, error } = await getMessages(userId);
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("messages") 
+    .select("role,content")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: true });
 
   if (error) {
     console.error("History load failed:", error);
@@ -22,7 +24,13 @@ export async function addMessage(
   userId: string,
   message: ChatMessage
 ) {
-  const { error } = await insertMessage(userId, message);
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("messages").insert({
+    user_id: userId,
+    role: message.role,
+    content: message.content,
+  });
 
   if (error) {
     console.error("History save failed:", error);
@@ -30,7 +38,12 @@ export async function addMessage(
 }
 
 export async function clearHistory(userId: string) {
-  const { error } = await deleteMessages(userId);
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("messages")
+    .delete()
+    .eq("user_id", userId);
 
   if (error) {
     console.error("History clear failed:", error);

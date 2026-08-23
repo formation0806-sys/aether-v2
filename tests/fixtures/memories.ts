@@ -1,0 +1,26 @@
+export const sampleMemories = [
+  {
+    id: "mem-001",
+    user_id: "user-123",
+    title: "First memory",
+    content: "This is my first memory.",
+    memory_type: "semantic",
+    status: "active",
+    importance_v2: 0.8,
+    confidence_v2: 0.9,
+    times_used: 5,
+    last_used: "2024-01-15T10:30:00Z",
+  },
+  {
+    id: "mem-002",
+    user_id: "user-123",
+    title: "Second memory",
+    content: "This is my second memory.",
+    memory_type: "episodic",
+    status: "candidate",
+    importance_v2: 0.5,
+    confidence_v2: 0.6,
+    times_used: 1,
+    last_used: "2024-01-20T14:00:00Z",
+  },
+];

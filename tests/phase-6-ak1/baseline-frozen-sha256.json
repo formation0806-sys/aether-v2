@@ -1,0 +1,33 @@
+{
+    "capturedAt":  "2026-08-22T22:21:47.1820237Z",
+    "note":  "post-Phase-6-AL approved state: lib/memory/identity.ts is the single approved production modification",
+    "gitStatus":  " M app/api/chat/route.ts\n M components/memory/MemoryList.tsx\n M lib/ai/conversation/history.ts\n M lib/context/builder.ts\n M lib/core/pipeline.ts\n M lib/core/types.ts\n M lib/memory/lifecycle.ts\n M lib/memory/memory.ts\n M lib/memory/reflector.ts\n M lib/repositories/conversation.repository.ts\n M lib/repositories/memory.repository.ts\n M package-lock.json\n M package.json\n?? .kilo/\n?? AETHER_MEMORY_AUDIT.txt\n?? PIPELINE_DIFF.txt\n?? lib/memory/embedding-validation.ts\n?? lib/memory/identity.ts\n?? lib/repositories/memory-job.repository.ts\n?? supabase/migrations/0008_memory_v2_updated_at_trigger.sql\n?? supabase/migrations/0009_memory_v2_status_filter.sql\n?? supabase/migrations/0010_memory_edges_rls.sql\n?? supabase/migrations/0011_memory_events_corroboration.sql\n?? supabase/migrations/0012_memory_observation_provenance.sql\n?? supabase/migrations/0013_memory_jobs_durable.sql\n?? test.txt\n?? tests/\n?? vitest.config.ts",
+    "gitDiffStat":  " app/api/chat/route.ts                       |   26 +-\n components/memory/MemoryList.tsx            |   46 +-\n lib/ai/conversation/history.ts              |   29 +-\n lib/context/builder.ts                      |   26 +-\n lib/core/pipeline.ts                        |  515 +++++-\n lib/core/types.ts                           |    3 +\n lib/memory/lifecycle.ts                     |   16 +-\n lib/memory/memory.ts                        |  151 +-\n lib/memory/reflector.ts                     |  376 ++--\n lib/repositories/conversation.repository.ts |   45 +-\n lib/repositories/memory.repository.ts       |   33 +-\n package-lock.json                           | 2489 +++++++++++++++++++++------\n package.json                                |    7 +-\n 13 files changed, 2905 insertions(+), 857 deletions(-)",
+    "hashes":  {
+                   "lib/memory/identity.ts":  "AB163A96B5F5A3F4CF82F0BF5460784FA45E01BF88020F84968F55D00C37B794",
+                   "lib/memory/aiExtractor.ts":  "85301D8E39CA1F89B71A0472BB2EA90BE68D0EABD7FB79D312FDC5A9D1952CA5",
+                   "lib/ai/embeddings/embed.ts":  "9E2E0543ADC886EA5D4981AC730890897821A1CADA013A93C10299DC0B0A92A9",
+                   "lib/repositories/memory.repository.ts":  "114DAA3181FBA040B1982B1C182337AFAFA71B0FEBDA99DE9A756AA3405E6D1A",
+                   "lib/memory/score.ts":  "E1AF2D0ECB8B1FE2C87A1CA6F5B5B75A76A1ED2936FD01E27CD77763F32D3512",
+                   "lib/memory/types.ts":  "83DE2B311DF797DD6C1F36166B19189CFD5F4A8908DBAFB4CED902ACC7B2D9A6",
+                   "lib/memory/constants.ts":  "BD1A982CCD1CCB7AB5E1DA5A5064C724900AB72422A3D0032B8C5BEA0D901DC6",
+                   "lib/memory/retrieve.ts":  "6F91D0C7FDB12BE887A035337FD28770B7648AEA7A42992C47C03A3751FDDB9E",
+                   "lib/memory/reflector.ts":  "FF5A5C9D122AD8D4FD3D104E5313253E1D4861C01BC2E71F51F5F72C56B51FBD",
+                   "lib/core/pipeline.ts":  "FD4043238E47D878AC54F00F56656F487CF7DBCE8445FAB9CE657E15394CA4A0",
+                   "lib/memory/memory.ts":  "254221BE4D655AB196091EF112A15CA8CB16BE9A16146681D3EF1736C832F315",
+                   "supabase/migrations/0000_baseline.sql":  "1CEAD113550CE2D5091E807CA7ABC5F134761687816416E4B08D6EC31FA199BA",
+                   "supabase/migrations/0001_memory_v2_enums.sql":  "576DDC7CDE51C7BBBD2FCEE712FD7B0ECBE683C6FE5ED56AD0A2CF7E8425DDC4",
+                   "supabase/migrations/0002_memory_v2_tables.sql":  "26B422ACB13391C538D690EEC6F5A45C75B9C6BC824AB5B7BE0A2B7DF0E26E24",
+                   "supabase/migrations/0003_memory_v2_indexes.sql":  "ACFA9066D570A2D289C87F4A18413198FEADF4C39051DF502314191120E1B14C",
+                   "supabase/migrations/0004_memory_v2_rpcs_old.sql":  "B9466E3E099BD978BA3E6613B82567E8E13AB51527FBC0976B43E36E9B19896E",
+                   "supabase/migrations/0005_memory_v2_backfill.sql":  "29BD2D497EB052A7186798D347452AAC27313E5F4671E03F0EB1695A8C22EAB0",
+                   "supabase/migrations/0006_match_memories.sql":  "43382DDEBDD408E80AC078A3FFCCB69F6F36062ADB865B101D29967172913D13",
+                   "supabase/migrations/0007_lifecycle_fixes.sql":  "4674C3053A7C0366E33586786A9960C954578AB552094AC909ABB93C55284578",
+                   "supabase/migrations/0008_memory_v2_updated_at_trigger.sql":  "808EAAD2077748AB184AE708704A9420AE22B80709293B5ABFF38D535C8226E1",
+                   "supabase/migrations/0009_memory_v2_status_filter.sql":  "D7E49617AAD468684EE3237C37285D060DF4E65072EDD4DE9E2E8420D106E29B",
+                   "supabase/migrations/0010_memory_edges_rls.sql":  "F01AA81A82968BE1EB2401D3B3EFEEFB9A928B636C9154216007F1CBC9B62BDC",
+                   "supabase/migrations/0011_memory_events_corroboration.sql":  "A2B4C4F43629B950CBF049B69B4E6405DE0921C71FF4C7D1EC32438D8D949E8E",
+                   "supabase/migrations/0012_memory_observation_provenance.sql":  "BD2CFE98374E972FD66BFFD1C81323DB83B959EAA1E6F7B27A7B535ACFE8203D",
+                   "supabase/migrations/0013_memory_jobs_durable.sql":  "0A298372820079511B80CB1402E92066E703D1AA0A950084928172333F7F458D"
+               }
+}

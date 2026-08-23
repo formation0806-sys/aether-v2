@@ -1,0 +1,110 @@
+{
+  "phase": "6-S",
+  "measuredAt": "2026-08-21T05:44:05.912Z",
+  "access": "AVAILABLE",
+  "scopedToUser": "redacted",
+  "productionWrites": 0,
+  "snapshot": {
+    "eligibleTotal": 16,
+    "reflectionEligible": 10,
+    "nonReflectionEligible": 6,
+    "composition": {
+      "reflection": 10,
+      "project": 4,
+      "identity": 2
+    }
+  },
+  "selection": {
+    "embeddingModel": "nomic-embed-text:latest",
+    "threshold": 0.65,
+    "componentCount": 4,
+    "largestComponentSize": 3,
+    "selectedSubsetSize": 3,
+    "selectionMethod": "largest connected component at cosine >= 0.65, deterministic tie-break (total intra-similarity, then max pair, then id-hash order) — recomputed, not hardcoded",
+    "selectedIds": [
+      "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+    ],
+    "selectedComposition": {
+      "project": 3
+    },
+    "pairCount": 3,
+    "similarity": {
+      "count": 3,
+      "min": 0.63,
+      "mean": 0.73,
+      "median": 0.68,
+      "max": 0.88
+    }
+  },
+  "experiment": {
+    "model": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_ctx": 4096,
+    "num_predict": 300,
+    "reflector": "real lib/memory/reflector.ts",
+    "importMechanism": "native node type-stripping",
+    "productionMutation": false,
+    "reflectorInvocations": 1
+  },
+  "probe": {
+    "rawModel": {
+      "length": 2,
+      "isEmptyText": false,
+      "isBracketEmpty": true,
+      "isNonEmptyJson": false
+    },
+    "parse": {
+      "success": true,
+      "rootType": "array",
+      "parseFailureLogged": false,
+      "candidateCountPreSanitizer": 0
+    },
+    "sanitizer": {
+      "acceptedCount": 0,
+      "rejectedCount": 0,
+      "reasonCounts": {
+        "nonObject": 0,
+        "missingTitle": 0,
+        "missingContent": 0,
+        "emptyAfterTrim": 0,
+        "invalidImportance": 0,
+        "invalidConfidence": 0
+      }
+    },
+    "final": {
+      "acceptedCount": 0,
+      "result": "EMPTY",
+      "source": "real return value"
+    },
+    "logs": {
+      "rawMarkerPresent": true,
+      "parsedMarker": "REFLECTION PARSED 0"
+    },
+    "shimNote": "Local read-only shim mirrors sanitizer rules; production reflector.ts not modified; real return value is source of truth.",
+    "shimCrossCheck": {
+      "shimAcceptedCount": 0,
+      "shimRejectedCount": 0,
+      "realAcceptedCount": 0,
+      "consistent": true,
+      "note": "If parse failed or root not array, shim pre-count is n/a; real return is authoritative."
+    }
+  },
+  "classification": {
+    "outcome": "MODEL_EMPTY",
+    "primaryRejectionStage": "model_output_empty_array",
+    "reason": "Model returned an empty JSON array []; no candidates to sanitize."
+  },
+  "limitations": [
+    "Single real call — coarse reproducibility, not statistical proof.",
+    "Grounding rules (2-memory minimum, prefer []) live in the system prompt, enforced by model generation, not by post-code in generateReflections.",
+    "Captured raw model output is reduced to counters only; never persisted."
+  ],
+  "decision": {
+    "productionChangeJustified": false,
+    "automaticContinuation": false
+  },
+  "embeddingStatus": "AVAILABLE",
+  "detail": "Read-only reflector output-contract / rejection-stage diagnostic; one real generateReflections() probe on the deterministic grounded subset; no production mutation."
+}

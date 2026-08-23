@@ -1,0 +1,129 @@
+{
+  "startedAt": "2026-08-22T22:26:47.596Z",
+  "experiment": {
+    "input": {
+      "totalMemories": 37,
+      "eligibleCount": 21,
+      "typeGroups": [
+        {
+          "memoryType": "project",
+          "count": 9
+        },
+        {
+          "memoryType": "reflection",
+          "count": 10
+        },
+        {
+          "memoryType": "identity",
+          "count": 2
+        }
+      ]
+    },
+    "conditions": {
+      "A": {
+        "name": "Baseline (production prompt)",
+        "parseSuccess": true,
+        "rootType": "array",
+        "candidateCount": 0,
+        "sanitizedAccepted": 0,
+        "sanitizedRejected": 0,
+        "finalResult": 0,
+        "latencyMs": 76,
+        "isProductionPath": true,
+        "reflections": []
+      },
+      "B": {
+        "name": "RULE 8 relaxed",
+        "rawModelTextLength": 2,
+        "isEmptyText": false,
+        "isLiteralEmptyArray": true,
+        "parseSuccess": true,
+        "rootType": "array",
+        "candidateCount": 0,
+        "sanitizedAccepted": 0,
+        "sanitizedRejected": 0,
+        "finalResult": 0,
+        "latencyMs": 163,
+        "isProductionPath": false,
+        "reflections": []
+      },
+      "C": {
+        "name": "RULE 12 relaxed",
+        "rawModelTextLength": 2,
+        "isEmptyText": false,
+        "isLiteralEmptyArray": true,
+        "parseSuccess": true,
+        "rootType": "array",
+        "candidateCount": 0,
+        "sanitizedAccepted": 0,
+        "sanitizedRejected": 0,
+        "finalResult": 0,
+        "latencyMs": 159,
+        "isProductionPath": false,
+        "reflections": []
+      },
+      "D": {
+        "name": "FINAL CHECK relaxed",
+        "rawModelTextLength": 2,
+        "isEmptyText": false,
+        "isLiteralEmptyArray": true,
+        "parseSuccess": true,
+        "rootType": "array",
+        "candidateCount": 0,
+        "sanitizedAccepted": 0,
+        "sanitizedRejected": 0,
+        "finalResult": 0,
+        "latencyMs": 148,
+        "isProductionPath": false,
+        "reflections": []
+      },
+      "E": {
+        "name": "Minimal combined (B+C+D)",
+        "rawModelTextLength": 2,
+        "isEmptyText": false,
+        "isLiteralEmptyArray": true,
+        "parseSuccess": true,
+        "rootType": "array",
+        "candidateCount": 0,
+        "sanitizedAccepted": 0,
+        "sanitizedRejected": 0,
+        "finalResult": 0,
+        "latencyMs": 140,
+        "isProductionPath": false,
+        "reflections": []
+      }
+    },
+    "nonemptyVariants": [],
+    "invocationBudget": {
+      "primary": 5,
+      "confirmation": 0,
+      "total": 5
+    }
+  },
+  "productionWrites": 0,
+  "productionFilesModified": [],
+  "safety": {
+    "productionWrites": 0,
+    "noDBWrites": true,
+    "noSaveMemory": true,
+    "mockSupabase": true,
+    "readOnlySource": "getAllMemories (read-only SELECT)"
+  },
+  "model": {
+    "name": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_predict": 300,
+    "top_p": 0.8,
+    "num_ctx": 4096,
+    "endpoint": "http://127.0.0.1:11434/api/chat"
+  },
+  "promptFidelity": {
+    "baselinePromptLength": 5136,
+    "baselinePromptHash": "24aa25c19b439cb5fa988729535a90ebf756498e132e4c5c6157a7a516970975",
+    "expectedHash": "24aa25c19b439cb5fa988729535a90ebf756498e132e4c5c6157a7a516970975",
+    "hashMatch": true
+  },
+  "causalClassification": "INPUT_DOMINANT",
+  "classification": "INPUT_DOMINANT",
+  "productionChangeJustified": false
+}

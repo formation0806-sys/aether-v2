@@ -1,0 +1,1276 @@
+{
+  "startedAt": "2026-08-22T22:26:41.991Z",
+  "experiment": "phase-6-af-input-audit",
+  "productionWrites": 0,
+  "productionFilesModified": [],
+  "safety": {
+    "productionWrites": 0,
+    "noDBWrites": true,
+    "noSaveMemory": true,
+    "noInsertUpdate": true,
+    "noCorroborate": true,
+    "readOlnyRPCs": [
+      "getAllMemories",
+      "matchMemoriesV2"
+    ],
+    "ollamaCalls": 6,
+    "rawModelTextPersisted": false
+  },
+  "model": {
+    "name": "qwen2.5:3b",
+    "endpoint": "http://127.0.0.1:11434/api/chat",
+    "identityVerifier": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    }
+  },
+  "environment": {
+    "supabaseConfigured": true,
+    "userId": "b8288155..."
+  },
+  "probes": {
+    "probe1_eligibility": {
+      "totalMemories": 37,
+      "eligibleCount": 21,
+      "ineligibleCount": 16,
+      "eligibilityFilter": "status IN (active,candidate) AND confidence_v2 >= 0.7 AND importance_v2 >= 0.5",
+      "ineligibleBreakdown": [
+        {
+          "id": "90cf0eea",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "3e5287d8",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "bcad8a7e",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "1b5c1e60",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "c10f17cd",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "b6735ee2",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "97513dd8",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "b03c2b0a",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "9be5fdd1",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "1737c54f",
+          "memory_type": "semantic",
+          "status": "active",
+          "importance_v2": 0.5,
+          "confidence_v2": 0.5,
+          "failedFilters": {
+            "status": false,
+            "confidence": true,
+            "importance": false
+          },
+          "source_v2": null
+        },
+        {
+          "id": "abed0cce",
+          "memory_type": "reflection",
+          "status": "candidate",
+          "importance_v2": 0.47,
+          "confidence_v2": 0.75,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        },
+        {
+          "id": "e0b11442",
+          "memory_type": "working",
+          "status": "candidate",
+          "importance_v2": 0.32,
+          "confidence_v2": 0.8,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        },
+        {
+          "id": "67b3ce13",
+          "memory_type": "reflection",
+          "status": "candidate",
+          "importance_v2": 0.47,
+          "confidence_v2": 0.75,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        },
+        {
+          "id": "9e2288f7",
+          "memory_type": "working",
+          "status": "candidate",
+          "importance_v2": 0.35,
+          "confidence_v2": 0.8,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        },
+        {
+          "id": "731eae31",
+          "memory_type": "working",
+          "status": "candidate",
+          "importance_v2": 0.34,
+          "confidence_v2": 0.75,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        },
+        {
+          "id": "c8a32e0a",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.46,
+          "confidence_v2": 0.7,
+          "failedFilters": {
+            "status": false,
+            "confidence": false,
+            "importance": true
+          },
+          "source_v2": null
+        }
+      ],
+      "eligibleBreakdown": [
+        {
+          "id": "0a97a74a",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "14f8ddfa",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.6,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "558ad91c",
+          "memory_type": "project",
+          "status": "candidate",
+          "importance_v2": 0.52,
+          "confidence_v2": 0.8,
+          "source_v2": null
+        },
+        {
+          "id": "588f81e8",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "0be6f80c",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.8,
+          "source_v2": null
+        },
+        {
+          "id": "ab39fc3e",
+          "memory_type": "identity",
+          "status": "active",
+          "importance_v2": 0.72,
+          "confidence_v2": 0.95,
+          "source_v2": null
+        },
+        {
+          "id": "717420ed",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "f7c5b99b",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "962f14fa",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "eba42f5e",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.95,
+          "source_v2": null
+        },
+        {
+          "id": "e31e95a0",
+          "memory_type": "identity",
+          "status": "active",
+          "importance_v2": 0.9,
+          "confidence_v2": 1,
+          "source_v2": null
+        },
+        {
+          "id": "0f7188b9",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "632d72c7",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.62,
+          "confidence_v2": 0.8,
+          "source_v2": null
+        },
+        {
+          "id": "ad438289",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "2e5a7d1a",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "460fe488",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "b58fccf7",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.63,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "ed7b2884",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.53,
+          "confidence_v2": 0.7,
+          "source_v2": null
+        },
+        {
+          "id": "7fcdac75",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "f0d54afe",
+          "memory_type": "reflection",
+          "status": "active",
+          "importance_v2": 0.6,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        },
+        {
+          "id": "dcf0c503",
+          "memory_type": "project",
+          "status": "active",
+          "importance_v2": 0.68,
+          "confidence_v2": 0.9,
+          "source_v2": null
+        }
+      ]
+    },
+    "probe2_grouping": {
+      "groupingMechanism": "reduce by memory_type only (pipeline.ts:107-120)",
+      "groupCount": 3,
+      "groups": [
+        {
+          "memoryType": "project",
+          "count": 9,
+          "pairwiseSim": {
+            "min": 0.2549019607843137,
+            "mean": 0.5137347077954895,
+            "max": 0.926829268292683
+          },
+          "nearDuplicatePairs": 10
+        },
+        {
+          "memoryType": "reflection",
+          "count": 10,
+          "pairwiseSim": {
+            "min": 0.2097902097902098,
+            "mean": 0.36070425033795994,
+            "max": 1
+          },
+          "nearDuplicatePairs": 1
+        },
+        {
+          "memoryType": "identity",
+          "count": 2,
+          "pairwiseSim": {
+            "min": 0.2429906542056075,
+            "mean": 0.2429906542056075,
+            "max": 0.2429906542056075
+          },
+          "nearDuplicatePairs": 0
+        }
+      ],
+      "crossTypeNearDuplicatePairs": [],
+      "crossTypePairsCount": 0
+    },
+    "probe3_content": [
+      {
+        "id": "0a97a74a",
+        "title": "User Project: Aether [en75rlnh]",
+        "content": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9",
+        "created_at": "2026-08-21T13:11:58.169792+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "14f8ddfa",
+        "title": "Change in TypeScript Preference",
+        "content": "There is evidence of a change in preference from TypeScript to Python for Aether development, which conflicts with previous preferences.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:25:13.60842+00:00",
+        "importance_v2": 0.6,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "558ad91c",
+        "title": "Meal Planning",
+        "content": "The user plans to make chicken briyani for tonight.",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:38:04.422068+00:00",
+        "importance_v2": 0.52,
+        "confidence_v2": 0.8,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "588f81e8",
+        "title": "Project",
+        "content": "The user is building Aether as their long-term AI teammate project.",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-10T17:45:23.405605+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "0be6f80c",
+        "title": "Aether Secret Test Phrase",
+        "content": "The user is seeking the secret test phrase for Aether.",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:47:57.032268+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.8,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "ab39fc3e",
+        "title": "Preference",
+        "content": "The user's favorite programming language is Rust.",
+        "memory_type": "identity",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-10T17:44:51.928713+00:00",
+        "importance_v2": 0.72,
+        "confidence_v2": 0.95,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "717420ed",
+        "title": "AI Development Focus",
+        "content": "Multiple memories consistently indicate a focus on AI development, particularly the creation of a persistent AI teammate.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:23:53.870637+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "f7c5b99b",
+        "title": "User Project: Aether [v975pduo]",
+        "content": "The user is building a project called Aether with Next.js and Supabase. [v975pduo]",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": "85201f65-9c41-4011-b0c9-e641f4972769",
+        "created_at": "2026-08-21T13:09:01.605171+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "962f14fa",
+        "title": "User Project: Aether [0cvjmc2n]",
+        "content": "The user is building a project called Aether with Next.js and Supabase. [0cvjmc2n]",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": "2d66fbf1-f76f-48ca-8074-f8c7b2d150a7",
+        "created_at": "2026-08-21T13:13:53.343037+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "eba42f5e",
+        "title": "Secret Test Phrase",
+        "content": "The user's secret Aether test phrase is ORBIT-7429.",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:47:32.537068+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.95,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "e31e95a0",
+        "title": "Professional Role",
+        "content": "The user identifies as an engineer and this is an important aspect of their professional identity and work.",
+        "memory_type": "identity",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T04:03:29.106138+00:00",
+        "importance_v2": 0.9,
+        "confidence_v2": 1,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "0f7188b9",
+        "title": "Professional Identity Consistency",
+        "content": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:59:43.378157+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "632d72c7",
+        "title": "Professional Identity",
+        "content": "The user is seeking to remember their professional identity.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T11:38:08.142185+00:00",
+        "importance_v2": 0.62,
+        "confidence_v2": 0.8,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "ad438289",
+        "title": "Professional Role Consistency",
+        "content": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:26:07.151209+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "2e5a7d1a",
+        "title": "Language Preference Change",
+        "content": "The user has changed their preference from TypeScript to Python for Aether development, which is a clear preference supported by multiple pieces of evidence.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:24:52.358049+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "460fe488",
+        "title": "TypeScript Preference Change",
+        "content": "Multiple memories indicate a change in preference from TypeScript to Python for Aether development, which is a clear preference supported by multiple pieces of evidence.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:26:07.852978+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "b58fccf7",
+        "title": "Recurring Theme: Aether Development",
+        "content": "The memories consistently indicate a focus on Aether development, including the creation of a secret test phrase and the use of TypeScript as the primary development language.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:29:22.781442+00:00",
+        "importance_v2": 0.63,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "ed7b2884",
+        "title": "Project Details",
+        "content": "The primary development language for Aether is TypeScript, which is a recurring theme in the memories.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:00:06.534876+00:00",
+        "importance_v2": 0.53,
+        "confidence_v2": 0.7,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "7fcdac75",
+        "title": "User Project: Aether [ponohp26]",
+        "content": "The user is building a project called Aether with Next.js and Supabase. [ponohp26]",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": "f488790e-40fb-4af4-8630-5926e09eb99a",
+        "created_at": "2026-08-21T13:10:26.671969+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "f0d54afe",
+        "title": "TypeScript Preference",
+        "content": "Multiple memories consistently indicate a preference for TypeScript, both in terms of AI development and as a primary development language for Aether.",
+        "memory_type": "reflection",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": null,
+        "created_at": "2026-08-15T12:02:11.654023+00:00",
+        "importance_v2": 0.6,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      },
+      {
+        "id": "dcf0c503",
+        "title": "User Project: Aether [6mtqu8h1]",
+        "content": "The user is building a project called Aether with Next.js and Supabase. [6mtqu8h1]",
+        "memory_type": "project",
+        "source_v2": null,
+        "source_ref": null,
+        "observation_id": "7214f942-29c1-436e-8ab2-0162d9011c49",
+        "created_at": "2026-08-21T13:11:06.148098+00:00",
+        "importance_v2": 0.68,
+        "confidence_v2": 0.9,
+        "summary": "",
+        "tags": [],
+        "metadata": {},
+        "summaryPopulated": false,
+        "tagsPopulated": false,
+        "metadataPopulated": false
+      }
+    ],
+    "probe4_duplicates": {
+      "threshold": 0.85,
+      "totalPairs": 11,
+      "nearDuplicatePairs": [
+        {
+          "idA": "0a97a74a",
+          "idB": "f7c5b99b",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [v975pduo]",
+          "similarity": 0.926829268292683,
+          "sameType": true
+        },
+        {
+          "idA": "0a97a74a",
+          "idB": "962f14fa",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [0cvjmc2n]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "0a97a74a",
+          "idB": "7fcdac75",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [ponohp26]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "0a97a74a",
+          "idB": "dcf0c503",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [6mtqu8h1]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "f7c5b99b",
+          "idB": "962f14fa",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [v975pduo]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [0cvjmc2n]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "f7c5b99b",
+          "idB": "7fcdac75",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [v975pduo]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [ponohp26]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "f7c5b99b",
+          "idB": "dcf0c503",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [v975pduo]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [6mtqu8h1]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "962f14fa",
+          "idB": "7fcdac75",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [0cvjmc2n]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [ponohp26]",
+          "similarity": 0.9146341463414634,
+          "sameType": true
+        },
+        {
+          "idA": "962f14fa",
+          "idB": "dcf0c503",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [0cvjmc2n]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [6mtqu8h1]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        },
+        {
+          "idA": "0f7188b9",
+          "idB": "ad438289",
+          "typeA": "reflection",
+          "typeB": "reflection",
+          "contentA": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+          "contentB": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+          "similarity": 1,
+          "sameType": true
+        },
+        {
+          "idA": "7fcdac75",
+          "idB": "dcf0c503",
+          "typeA": "project",
+          "typeB": "project",
+          "contentA": "The user is building a project called Aether with Next.js and Supabase. [ponohp26]",
+          "contentB": "The user is building a project called Aether with Next.js and Supabase. [6mtqu8h1]",
+          "similarity": 0.9024390243902439,
+          "sameType": true
+        }
+      ],
+      "nearDuplicateMemoriesCount": 7,
+      "nearDupsWithinSameType": 11,
+      "nearDupsCrossType": 0,
+      "crossTypePairs": []
+    },
+    "probe5_provenance": {
+      "reflectionMemories": [
+        {
+          "id": "14f8ddfa",
+          "title": "Change in TypeScript Preference",
+          "content": "There is evidence of a change in preference from TypeScript to Python for Aether development, which conflicts with previous preferences.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:25:13.60842+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "717420ed",
+          "title": "AI Development Focus",
+          "content": "Multiple memories consistently indicate a focus on AI development, particularly the creation of a persistent AI teammate.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:23:53.870637+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "0f7188b9",
+          "title": "Professional Identity Consistency",
+          "content": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:59:43.378157+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "632d72c7",
+          "title": "Professional Identity",
+          "content": "The user is seeking to remember their professional identity.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T11:38:08.142185+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "ad438289",
+          "title": "Professional Role Consistency",
+          "content": "Multiple memories consistently indicate a professional identity as an engineer, with a focus on AI development and a preference for TypeScript.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:26:07.151209+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "2e5a7d1a",
+          "title": "Language Preference Change",
+          "content": "The user has changed their preference from TypeScript to Python for Aether development, which is a clear preference supported by multiple pieces of evidence.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:24:52.358049+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "460fe488",
+          "title": "TypeScript Preference Change",
+          "content": "Multiple memories indicate a change in preference from TypeScript to Python for Aether development, which is a clear preference supported by multiple pieces of evidence.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:26:07.852978+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "b58fccf7",
+          "title": "Recurring Theme: Aether Development",
+          "content": "The memories consistently indicate a focus on Aether development, including the creation of a secret test phrase and the use of TypeScript as the primary development language.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:29:22.781442+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "ed7b2884",
+          "title": "Project Details",
+          "content": "The primary development language for Aether is TypeScript, which is a recurring theme in the memories.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:00:06.534876+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        },
+        {
+          "id": "f0d54afe",
+          "title": "TypeScript Preference",
+          "content": "Multiple memories consistently indicate a preference for TypeScript, both in terms of AI development and as a primary development language for Aether.",
+          "source_ref": null,
+          "source_v2": null,
+          "observation_id": null,
+          "created_at": "2026-08-15T12:02:11.654023+00:00",
+          "hasSourceRef": false,
+          "hasObservationId": false
+        }
+      ],
+      "reflectionWithSourceRef": [],
+      "reflectionWithObservationId": [],
+      "orphanedReflectionCount": 10,
+      "orphanedReflectionIds": [
+        "14f8ddfa",
+        "717420ed",
+        "0f7188b9",
+        "632d72c7",
+        "ad438289",
+        "2e5a7d1a",
+        "460fe488",
+        "b58fccf7",
+        "ed7b2884",
+        "f0d54afe"
+      ],
+      "nonReflectionWithSourceRef": []
+    },
+    "probe6_crossType": {
+      "typePairs": [
+        "project+reflection",
+        "project+identity",
+        "reflection+identity"
+      ],
+      "crossTypeRelationships": [
+        {
+          "sourceType": "project",
+          "targetType": "reflection",
+          "highSimPairCount": 1,
+          "highSimPairs": [
+            {
+              "idA": "0be6f80c",
+              "idB": "632d72c7",
+              "contentA": "The user is seeking the secret test phrase for Aether.",
+              "contentB": "The user is seeking to remember their professional identity.",
+              "similarity": 0.5666666666666667,
+              "plausibleReflectionType": "possible_RELATIONSHIP"
+            }
+          ]
+        },
+        {
+          "sourceType": "project",
+          "targetType": "identity",
+          "highSimPairCount": 0,
+          "highSimPairs": []
+        },
+        {
+          "sourceType": "reflection",
+          "targetType": "identity",
+          "highSimPairCount": 0,
+          "highSimPairs": []
+        }
+      ],
+      "totalCrossTypeHighSimPairs": 1
+    },
+    "probe7_diversity": {
+      "groups": [
+        {
+          "memoryType": "project",
+          "totalTokens": 72,
+          "uniqueTokens": 28,
+          "diversityRatio": 0.3888888888888889,
+          "intraGroupJaccard": {
+            "mean": 0.34932775557775564,
+            "max": 0.8
+          },
+          "distinctiveTokenCount": 20,
+          "classification": "DIVERSE"
+        },
+        {
+          "memoryType": "reflection",
+          "totalTokens": 119,
+          "uniqueTokens": 44,
+          "diversityRatio": 0.3697478991596639,
+          "intraGroupJaccard": {
+            "mean": 0.2396116372040902,
+            "max": 1
+          },
+          "distinctiveTokenCount": 36,
+          "classification": "DIVERSE"
+        },
+        {
+          "memoryType": "identity",
+          "totalTokens": 15,
+          "uniqueTokens": 14,
+          "diversityRatio": 0.9333333333333333,
+          "intraGroupJaccard": {
+            "mean": 0.07142857142857142,
+            "max": 0.07142857142857142
+          },
+          "distinctiveTokenCount": 0,
+          "classification": "HOMOGENEOUS"
+        }
+      ],
+      "allHomogeneous": false,
+      "anyDiverse": true
+    },
+    "probe8_identity": {
+      "nearDuplicatePairsTested": 6,
+      "ollamaCallsMade": 6,
+      "results": [
+        {
+          "pairIdA": "0a97a74a",
+          "pairIdB": "f7c5b99b",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.926829268292683,
+          "identityDecision": "SAME",
+          "latencyMs": 540
+        },
+        {
+          "pairIdA": "0a97a74a",
+          "pairIdB": "962f14fa",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.9024390243902439,
+          "identityDecision": "SAME",
+          "latencyMs": 770
+        },
+        {
+          "pairIdA": "0a97a74a",
+          "pairIdB": "7fcdac75",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.9024390243902439,
+          "identityDecision": "SAME",
+          "latencyMs": 505
+        },
+        {
+          "pairIdA": "0a97a74a",
+          "pairIdB": "dcf0c503",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.9024390243902439,
+          "identityDecision": "SAME",
+          "latencyMs": 510
+        },
+        {
+          "pairIdA": "f7c5b99b",
+          "pairIdB": "962f14fa",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.9024390243902439,
+          "identityDecision": "SAME",
+          "latencyMs": 755
+        },
+        {
+          "pairIdA": "f7c5b99b",
+          "pairIdB": "7fcdac75",
+          "typeA": "project",
+          "typeB": "project",
+          "contentSim": 0.9024390243902439,
+          "identityDecision": "SAME",
+          "latencyMs": 737
+        }
+      ],
+      "sameDecisions": 6,
+      "differentDecisions": 0,
+      "uncertainDecisions": 0,
+      "insight": "If near-duplicate pairs (content similarity > 0.85) are classified as SAME by the identity verifier, they represent facts that should have been merged during extraction. If they survived into the 21 eligible set, the identity layer did not prevent them — suggesting they were inserted as distinct memories despite being semantically identical."
+    }
+  },
+  "reflectionMemoriesAnalysis": {
+    "count": 10,
+    "avgContentLength": 135.6,
+    "maxContentLength": 175,
+    "minContentLength": 60,
+    "anyHaveSourceRef": false,
+    "anyHaveObservationId": false,
+    "anyHaveSummary": false,
+    "anyHaveTags": false,
+    "anyHaveMetadata": false
+  },
+  "classification": "CROSS_TYPE_POTENTIAL",
+  "productionChangeJustified": false,
+  "rationale": "Some cross-type content similarity (>0.5) exists but no near-duplicates (>0.85) across types. May indicate relationship opportunities that grouping blocks.",
+  "summary": {
+    "totalMemories": 37,
+    "eligibleCount": 21,
+    "typeGroups": [
+      {
+        "memoryType": "project",
+        "count": 9
+      },
+      {
+        "memoryType": "reflection",
+        "count": 10
+      },
+      {
+        "memoryType": "identity",
+        "count": 2
+      }
+    ],
+    "nearDuplicatePairs": 11,
+    "nearDuplicatesWithinSameType": 11,
+    "nearDuplicatesCrossType": 0,
+    "crossTypeHighSimPairs": 1,
+    "reflectionMemoriesOrphaned": 10,
+    "inputImpoverished": true,
+    "allSummariesEmpty": true,
+    "allTagsEmpty": true,
+    "allMetadataEmpty": true,
+    "identitySimulationsRun": 6,
+    "identitySameDecisions": 6,
+    "identityDifferentDecisions": 0,
+    "identityUncertainDecisions": 0
+  }
+}

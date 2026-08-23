@@ -1,0 +1,52 @@
+[
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "4E18241CE6C79ECD82ECAE20EA3B6325DC49A2544EADB75F2D241D50F09A5AE8",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\identity.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "85301D8E39CA1F89B71A0472BB2EA90BE68D0EABD7FB79D312FDC5A9D1952CA5",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\aiExtractor.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "9E2E0543ADC886EA5D4981AC730890897821A1CADA013A93C10299DC0B0A92A9",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\ai\\embeddings\\embed.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "114DAA3181FBA040B1982B1C182337AFAFA71B0FEBDA99DE9A756AA3405E6D1A",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\repositories\\memory.repository.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "E1AF2D0ECB8B1FE2C87A1CA6F5B5B75A76A1ED2936FD01E27CD77763F32D3512",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\score.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "83DE2B311DF797DD6C1F36166B19189CFD5F4A8908DBAFB4CED902ACC7B2D9A6",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\types.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "BD1A982CCD1CCB7AB5E1DA5A5064C724900AB72422A3D0032B8C5BEA0D901DC6",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\constants.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "6F91D0C7FDB12BE887A035337FD28770B7648AEA7A42992C47C03A3751FDDB9E",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\retrieve.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "FF5A5C9D122AD8D4FD3D104E5313253E1D4861C01BC2E71F51F5F72C56B51FBD",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\memory\\reflector.ts"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "FD4043238E47D878AC54F00F56656F487CF7DBCE8445FAB9CE657E15394CA4A0",
+        "Path":  "C:\\Users\\Piyush\\aether-v2\\lib\\core\\pipeline.ts"
+    }
+]

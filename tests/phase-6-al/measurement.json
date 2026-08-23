@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-08-23T18:15:26.330Z",
+  "experiment": "phase-6-al-identity-duplicate-policy-acceptance",
+  "productionWrites": 0,
+  "safety": {
+    "status": "PASS",
+    "rpcCalls": [],
+    "writeCalls": [],
+    "allowedRpcCalls": [
+      "match_memories_v2"
+    ],
+    "safetyStop": false,
+    "ollamaUnavailable": false,
+    "rawLlmTextPersisted": false,
+    "embedFetchCalls": 0,
+    "extractorChatCalls": 0,
+    "verifierChatCallsRun1": 0,
+    "verifierChatCallsRun2": 0
+  },
+  "fixture": {},
+  "extraction": {},
+  "embedding": {},
+  "retrieval": {
+    "threshold": 0.85,
+    "matchCount": 8
+  },
+  "runs": [],
+  "deterministic": null,
+  "frozenFilesChanged": false,
+  "metaError": "FROZEN FILES CHANGED BEFORE RUN: lib/repositories/memory.repository.ts"
+}

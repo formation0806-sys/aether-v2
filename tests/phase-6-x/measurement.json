@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-08-23T18:15:26.279Z",
+  "experiment": "phase-6-x-diagnostic",
+  "productionWrites": 0,
+  "reflectorInvocations": 0,
+  "classification": "NOT_ENOUGH_POST_REPAIR_DATA",
+  "reason": "fewer than 2 eligible post-repair memories; a reflection connecting >=2 memories is not possible, so no model call is made.",
+  "env": {
+    "supabaseConfigured": true,
+    "userIdPresent": true
+  },
+  "N_total": 37,
+  "N_postRepair": 5,
+  "N_eligible": 1,
+  "selectedIds": [
+    "0a97a74a-cac6-4b70-ac8c-23f28f951cc0"
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "startedAt": "2026-08-23T18:15:26.283Z",
+  "experiment": "phase-6-ac-prompt-decision-audit",
+  "productionWrites": 0,
+  "reflectorInvocations": 0,
+  "classification": "BLOCKED",
+  "causality": "PROMPT_CONTRIBUTORY",
+  "env": {
+    "supabaseConfigured": true,
+    "userIdPresent": true
+  },
+  "selectionRule": "status in (active,candidate) AND confidence_v2>=0.7 AND importance_v2>=0.5",
+  "N_total": 37,
+  "N_eligible": 17,
+  "promptCapture": {
+    "url": "http://127.0.0.1:11434/api/chat",
+    "model": "qwen2.5:3b",
+    "options": {
+      "temperature": 0.1,
+      "num_predict": 300,
+      "top_p": 0.8,
+      "num_ctx": 4096
+    },
+    "systemPromptLength": 5136,
+    "systemPromptHash": "24aa25c19b439cb5",
+    "userPromptLength": 6988,
+    "userPromptHash": "137888efe9f544be",
+    "memoryCount": 17,
+    "groupCount": 3,
+    "groupDetails": [
+      {
+        "memoryType": "project",
+        "memoryCount": 5
+      },
+      {
+        "memoryType": "reflection",
+        "memoryCount": 10
+      },
+      {
+        "memoryType": "identity",
+        "memoryCount": 2
+      }
+    ]
+  },
+  "ruleAnalysis": {
+    "rule8": {
+      "ruleText": "RULE 8: Do not create a reflection merely because several memories mention the same broad topic.",
+      "triggerCondition": "Multiple memories share the same broad topic without a deeper connection.",
+      "currentInputSatisfiesTrigger": true,
+      "evidence": "Type group \"project\" has 5 memories. If they share a broad topic, RULE 8 could apply.",
+      "causalStatus": "correlation",
+      "notes": "RULE 8 alone does not prove causality. It is consistent with the model choosing [], but the model may also return [] for other reasons."
+    },
+    "rule12": {
+      "ruleText": "RULE 12: A reflection must add information that is more useful than simply repeating the source memories.",
+      "triggerCondition": "The model determines that any reflection would merely repeat existing facts rather than add new information.",
+      "currentInputSatisfiesTrigger": true,
+      "evidence": "Large input (17 memories across 3 groups) increases the surface area of existing facts, making it harder to add novel synthesis.",
+      "causalStatus": "correlation",
+      "notes": "RULE 12 is a strong candidate for explaining [], but causality cannot be isolated without testing modified prompts."
+    },
+    "finalCheck": {
+      "ruleText": "FINAL CHECK: Before returning a reflection, silently verify: 1. Is it supported by at least TWO supplied memories? 2. Does it add useful information? 3. Is every claim explicitly grounded? 4. Did I avoid inventing chronology? 5. Did I avoid inventing motivation? 6. Did I avoid choosing between conflicting memories? 7. Is it different from the other reflection? 8. Would [] be safer? If any answer is NO, do not output that reflection. Return [] instead.",
+      "triggerCondition": "The model answers NO to any of the 8 verification questions.",
+      "currentInputSatisfiesTrigger": true,
+      "evidence": "The model returned [] in all 5 Phase 6-AB conditions. This is consistent with the FINAL CHECK biasing toward safety, but does not prove which question triggered the NO.",
+      "causalStatus": "correlation",
+      "notes": "The FINAL CHECK explicitly instructs the model to prefer [] when uncertain. This is a strong structural bias toward empty output."
+    },
+    "rule9": {
+      "ruleText": "RULE 9: Do not create multiple reflections that express essentially the same idea. If several memories support the same pattern, produce ONE reflection.",
+      "triggerCondition": "Multiple memories support the same pattern, and producing multiple reflections would create duplicates.",
+      "currentInputSatisfiesTrigger": true,
+      "evidence": "The input contains reflection memories. If the model treats them as evidence of existing patterns, RULE 9 could limit output to 0 or 1 reflections.",
+      "causalStatus": "correlation",
+      "notes": "RULE 9 is more about deduplication than about rejecting all output. Less likely to be the primary cause of []."
+    },
+    "rule10": {
+      "ruleText": "RULE 10: Do not create a reflection about the reflection itself.",
+      "triggerCondition": "The model considers creating a reflection that summarizes or comments on existing reflection memories.",
+      "currentInputSatisfiesTrigger": false,
+      "evidence": "The prompt does not explicitly instruct the model to avoid reflecting on reflection memories, but RULE 10 could cause the model to skip reflections that merely summarize existing reflections.",
+      "causalStatus": "not established",
+      "notes": "RULE 10 is relevant because the input contains 10 reflection memories, but the rule text does not explicitly address this scenario."
+    },
+    "outputLimit": {
+      "ruleText": "Return AT MOST 2 reflections. Usually return 0 or 1. Only return 2 when there are clearly two independent, high-confidence insights.",
+      "triggerCondition": "The model does not see two clearly independent, high-confidence insights.",
+      "currentInputSatisfiesTrigger": true,
+      "evidence": "The model returned [] in all conditions, so it did not identify even one high-confidence insight. The OUTPUT LIMIT alone does not explain [], but it sets the ceiling low.",
+      "causalStatus": "correlation",
+      "notes": "The OUTPUT LIMIT is a ceiling, not a floor. It cannot explain why the model returned 0 instead of 1."
+    }
+  },
+  "historicalReflectionAnalysis": {
+    "total": 10,
+    "typeDistribution": {
+      "CONTRADICTION": 1,
+      "REPEATED_PATTERN": 8,
+      "CHANGE_OVER_TIME": 1
+    },
+    "distinctTitles": 10,
+    "orphanedCount": 10,
+    "orphanedIds": [
+      "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+      "717420ed-ea5e-480b-8485-634ab825f631",
+      "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+      "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+      "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+    ],
+    "items": [
+      {
+        "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+        "title": "Change in TypeScript Preference",
+        "contentLength": 136,
+        "detectedTypes": [
+          "CONTRADICTION"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:25:13.60842+00:00"
+      },
+      {
+        "id": "717420ed-ea5e-480b-8485-634ab825f631",
+        "title": "AI Development Focus",
+        "contentLength": 121,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T11:23:53.870637+00:00"
+      },
+      {
+        "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+        "title": "Professional Identity Consistency",
+        "contentLength": 143,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T11:59:43.378157+00:00"
+      },
+      {
+        "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+        "title": "Professional Identity",
+        "contentLength": 60,
+        "detectedTypes": [],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T11:38:08.142185+00:00"
+      },
+      {
+        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "title": "Professional Role Consistency",
+        "contentLength": 143,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+      },
+      {
+        "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+        "title": "Language Preference Change",
+        "contentLength": 157,
+        "detectedTypes": [
+          "REPEATED_PATTERN",
+          "CHANGE_OVER_TIME"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:24:52.358049+00:00"
+      },
+      {
+        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "title": "TypeScript Preference Change",
+        "contentLength": 169,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:26:07.852978+00:00"
+      },
+      {
+        "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+        "title": "Recurring Theme: Aether Development",
+        "contentLength": 175,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:29:22.781442+00:00"
+      },
+      {
+        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+        "title": "Project Details",
+        "contentLength": 102,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:00:06.534876+00:00"
+      },
+      {
+        "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+        "title": "TypeScript Preference",
+        "contentLength": 150,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:02:11.654023+00:00"
+      }
+    ]
+  },
+  "historicalComparison": {
+    "historicalReflectionCount": 10,
+    "historicalTypeDistribution": {
+      "CONTRADICTION": 1,
+      "REPEATED_PATTERN": 8,
+      "CHANGE_OVER_TIME": 1
+    },
+    "currentReflectionCount": 10,
+    "currentProjectCount": 5,
+    "currentIdentityCount": 2,
+    "currentAvgContentLength": 106.88,
+    "hasCrossTypeRelationships": true,
+    "keyDifferences": [
+      "Historical reflections are all orphaned (no source_ref), making it impossible to reconstruct their original source inputs.",
+      "Current input contains 17 raw memories across 3 types.",
+      "Historical reflections show REPEATED_PATTERN dominance (8/10), suggesting the reflector previously found repeated facts.",
+      "Current input includes 10 reflection memories as INPUT, which the model may treat as already-synthesized evidence (RULE 10).",
+      "Current input has 5 project memories, many of which are near-identical Aether test observations."
+    ],
+    "assessment": "Historical reflections were produced from inputs that are not fully reconstructable. The current input differs structurally by including reflection memories as input, which may change the model's decision boundary."
+  },
+  "rawModelResponse": {
+    "text": null,
+    "length": null,
+    "isEmpty": true,
+    "isLiteralEmptyArray": false,
+    "parseSuccess": false,
+    "rootType": "none",
+    "candidatesPreSanitizer": 0,
+    "finalAccepted": 0,
+    "classification": "BLOCKED",
+    "networkError": "fetch failed"
+  },
+  "causalityReason": "Multiple rules show strong correlation with [] output, but causality cannot be isolated.",
+  "productionChangeJustified": false,
+  "inputSerialization": {
+    "grouping": "by memory_type (production-verbatim reduce)",
+    "ordering": "insertion order within each type group",
+    "fieldsIncluded": [
+      "id",
+      "title",
+      "content",
+      "summary",
+      "importance",
+      "confidence",
+      "memoryType",
+      "tags",
+      "metadata"
+    ],
+    "fieldsExcluded": [
+      "source_ref",
+      "project_id",
+      "observation_id",
+      "effective_score",
+      "created_at",
+      "updated_at",
+      "status"
+    ],
+    "reflectionMemoriesTreatedAsOrdinaryInput": true,
+    "duplicateRecognitionExplicit": false,
+    "modelInstructedToAvoidRepeatingExistingReflections": false,
+    "summariesIncluded": true,
+    "tagsIncluded": true,
+    "metadataIncluded": true,
+    "provenanceIncluded": false,
+    "observationIdsIncluded": false
+  }
+}

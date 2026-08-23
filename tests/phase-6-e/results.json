@@ -1,0 +1,4500 @@
+{
+  "meta": {
+    "phase": "6-E",
+    "generatedAt": "2026-08-19T12:24:48.483Z",
+    "runsPerCondition": 5,
+    "experiments": [
+      "G"
+    ],
+    "params": {
+      "temperature": 0.1,
+      "num_predict": 300,
+      "top_p": 0.8,
+      "num_ctx": 4096
+    },
+    "models": {
+      "qwen2.5:3b": "baseline",
+      "qwen3:4b": "candidate"
+    },
+    "note": "Experimental artifact. No production files or DB touched."
+  },
+  "summary": {
+    "conditions": [
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P0",
+        "scenario": "A",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 0,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "distribution": {
+              "0": 0,
+              "1": 5,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 5,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 1,
+          "badReflectionRate": 0,
+          "goodRunRate": 1,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P0",
+        "scenario": "B",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0.2,
+          "emptyOutcomeRate": 0.2,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 0.8,
+            "min": 0,
+            "max": 1,
+            "distribution": {
+              "0": 1,
+              "1": 4,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 4,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 1,
+          "badReflectionRate": 0,
+          "goodRunRate": 0.8,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P0",
+        "scenario": "C",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 0,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "distribution": {
+              "0": 0,
+              "1": 5,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 5,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 1,
+          "badReflectionRate": 0,
+          "goodRunRate": 1,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P1",
+        "scenario": "A",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 1,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P1",
+        "scenario": "B",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 1,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P1",
+        "scenario": "C",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 1,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P2",
+        "scenario": "A",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 0,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "distribution": {
+              "0": 0,
+              "1": 5,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 5,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 0,
+          "badReflectionRate": 1,
+          "goodRunRate": 0,
+          "badRunRate": 1
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P2",
+        "scenario": "B",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0.8,
+          "emptyOutcomeRate": 0.8,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 0.2,
+            "min": 0,
+            "max": 1,
+            "distribution": {
+              "0": 4,
+              "1": 1,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 1,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 1,
+          "badReflectionRate": 0,
+          "goodRunRate": 0.2,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P2",
+        "scenario": "C",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0.8,
+          "emptyOutcomeRate": 0.8,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 0.2,
+            "min": 0,
+            "max": 1,
+            "distribution": {
+              "0": 4,
+              "1": 1,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 1,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 0,
+          "badReflectionRate": 1,
+          "goodRunRate": 0,
+          "badRunRate": 0.2
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P3",
+        "scenario": "A",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 0,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "distribution": {
+              "0": 0,
+              "1": 5,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 4,
+          "badReflectionCount": 1,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 0.8,
+          "badReflectionRate": 0.2,
+          "goodRunRate": 0.8,
+          "badRunRate": 0.2
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P3",
+        "scenario": "B",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 0,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "distribution": {
+              "0": 0,
+              "1": 5,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 5,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 1,
+          "badReflectionRate": 0,
+          "goodRunRate": 1,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P3",
+        "scenario": "C",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0.2,
+          "emptyOutcomeRate": 0.2,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": 1,
+          "reflectionCount": {
+            "mean": 0.8,
+            "min": 0,
+            "max": 1,
+            "distribution": {
+              "0": 1,
+              "1": 4,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 2,
+          "badReflectionCount": 2,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": 0.5,
+          "badReflectionRate": 0.5,
+          "goodRunRate": 0.4,
+          "badRunRate": 0.4
+        }
+      },
+      {
+        "model": "qwen3:4b",
+        "promptVariant": "P0",
+        "scenario": "A",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 5,
+          "validJsonRate": 0,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen3:4b",
+        "promptVariant": "P0",
+        "scenario": "B",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 5,
+          "validJsonRate": 0,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen3:4b",
+        "promptVariant": "P0",
+        "scenario": "C",
+        "variant": "grouped",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 0,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 5,
+          "validJsonRate": 0,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P0",
+        "scenario": "B",
+        "variant": "combined",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 1,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      },
+      {
+        "model": "qwen2.5:3b",
+        "promptVariant": "P0",
+        "scenario": "C",
+        "variant": "combined",
+        "metrics": {
+          "runs": 5,
+          "emptyArrayRate": 1,
+          "emptyOutcomeRate": 1,
+          "emptyTextCount": 0,
+          "validJsonRate": 1,
+          "malformedRate": 0,
+          "callFailureCount": 0,
+          "sanitizerAcceptanceRate": null,
+          "reflectionCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0,
+            "distribution": {
+              "0": 5,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "goodReflectionCount": 0,
+          "badReflectionCount": 0,
+          "neutralReflectionCount": 0,
+          "goodReflectionRate": null,
+          "badReflectionRate": null,
+          "goodRunRate": 0,
+          "badRunRate": 0
+        }
+      }
+    ]
+  },
+  "runs": [
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:13:30.689Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:13:43.869Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:13:45.424Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode for software interfaces and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:13:47.030Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:13:48.627Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode Preference and OLED Theme Choice\",\n    \"content\": \"The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode Preference and OLED Theme Choice",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode Preference and OLED Theme Choice",
+          "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode Preference and OLED Theme Choice",
+            "content": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:13:50.192Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:13:50.976Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user has a consistent morning routine involving black coffee.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user has a consistent morning routine involving black coffee.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "involving"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:13:52.405Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user has a consistent morning routine involving black coffee.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user has a consistent morning routine involving black coffee.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "involving"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:13:53.733Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user has a consistent morning routine involving black coffee.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user has a consistent morning routine involving black coffee.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "involving"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:13:55.097Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user has a consistent morning routine involving black coffee.\",\n    \"importance\": 5,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user has a consistent morning routine involving black coffee.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user has a consistent morning routine involving black coffee.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "involving"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:13:56.663Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:13:58.317Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode and always chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode and always chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:13:59.807Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"Multiple memories indicate a preference for dark mode and the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "memories"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:01.327Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"The user consistently prefers dark mode and chooses the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and chooses the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "The user consistently prefers dark mode and chooses the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "The user consistently prefers dark mode and chooses the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:02.927Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Mode and OLED Theme Preference\",\n    \"content\": \"Multiple memories indicate a preference for dark mode and the OLED pure-black theme.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Mode and OLED Theme Preference",
+            "content": "Multiple memories indicate a preference for dark mode and the OLED pure-black theme.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "memories"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:04.461Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:05.502Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:06.215Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:06.934Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:07.664Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:08.369Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:09.270Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:09.999Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:10.694Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:11.429Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:12.165Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:13.155Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:13.866Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:14.573Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P1",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:15.311Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:16.049Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:18.165Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:19.674Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:21.174Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:22.686Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:24.184Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user consistently drinks black coffee in the morning, starting their day at 5:30 AM.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user consistently drinks black coffee in the morning, starting their day at 5:30 AM.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user consistently drinks black coffee in the morning, starting their day at 5:30 AM.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user consistently drinks black coffee in the morning, starting their day at 5:30 AM.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "starting"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:25.856Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:26.562Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:27.274Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:28.017Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:28.744Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Dark Display Preference\",\n    \"content\": \"Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.\",\n    \"importance\": 5,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Dark Display Preference",
+          "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+          "memoryType": "reflection",
+          "importance": 5,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Dark Display Preference",
+            "content": "Multiple memories show the user consistently prefers dark interfaces, choosing both dark mode and OLED black themes.",
+            "memoryType": "reflection",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c2"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "memories",
+                "choosing",
+                "black",
+                "themes"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:30.601Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:31.337Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:32.051Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P2",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:32.763Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:33.461Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"OLED Theme Preference\",\n    \"content\": \"The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.\",\n    \"importance\": 7,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "importance": 7,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "OLED Theme Preference",
+            "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:35.361Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"OLED Theme Preference\",\n    \"content\": \"The user prefers the OLED pure-black theme for all software interfaces.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "OLED Theme Preference",
+            "content": "The user prefers the OLED pure-black theme for all software interfaces.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": false,
+              "count": 1,
+              "usedIds": [
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:36.793Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"OLED Theme Preference\",\n    \"content\": \"The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "OLED Theme Preference",
+            "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:38.315Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"OLED Theme Preference\",\n    \"content\": \"The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "OLED Theme Preference",
+            "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:39.905Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"OLED Theme Preference\",\n    \"content\": \"The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.\",\n    \"importance\": 7,\n    \"confidence\": 0.9\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "importance": 7,
+          "confidence": 0.9
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "OLED Theme Preference",
+          "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.9
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "OLED Theme Preference",
+            "content": "The user prefers the OLED pure-black theme for all software interfaces, consistent with their preference for dark mode.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.9
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "a1",
+                "a2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:41.431Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "aligns",
+                "waking"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:43.124Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of waking up at 5:30 AM.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "aligns",
+                "waking"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:44.802Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user drinks black coffee every morning after waking up at 5:30 AM.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning after waking up at 5:30 AM.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning after waking up at 5:30 AM.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user drinks black coffee every morning after waking up at 5:30 AM.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "waking"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:46.304Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user drinks black coffee every morning before 7 AM, which aligns with their habit of being a morning person who wakes up at 5:30 AM.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of being a morning person who wakes up at 5:30 AM.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of being a morning person who wakes up at 5:30 AM.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user drinks black coffee every morning before 7 AM, which aligns with their habit of being a morning person who wakes up at 5:30 AM.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "aligns"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:48.179Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Morning Coffee Routine\",\n    \"content\": \"The user drinks black coffee every morning at 7 AM, which aligns with their habit of being a morning person.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning at 7 AM, which aligns with their habit of being a morning person.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Morning Coffee Routine",
+          "content": "The user drinks black coffee every morning at 7 AM, which aligns with their habit of being a morning person.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Morning Coffee Routine",
+            "content": "The user drinks black coffee every morning at 7 AM, which aligns with their habit of being a morning person.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "b1",
+                "b2"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": [
+                "aligns"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:14:49.793Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:14:50.566Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Night Owl and Dark Mode Preferences\",\n    \"content\": \"The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Night Owl and Dark Mode Preferences",
+            "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c4"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "low-light",
+                "environments"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:14:52.169Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Night Owl and Dark Mode Preferences\",\n    \"content\": \"The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Night Owl and Dark Mode Preferences",
+            "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 3,
+              "usedIds": [
+                "c1",
+                "c2",
+                "c4"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:14:53.888Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Night Owl and Dark Mode Preferences\",\n    \"content\": \"The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Night Owl and Dark Mode Preferences",
+          "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Night Owl and Dark Mode Preferences",
+            "content": "The user is a night owl and prefers dark mode for all software interfaces, suggesting a preference for low-light environments.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c4"
+              ]
+            },
+            "support": {
+              "pass": false,
+              "unsupported": [
+                "low-light",
+                "environments"
+              ]
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": false,
+            "badHarmful": true,
+            "neutral": false,
+            "classification": "BAD/HARMFUL"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P3",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:14:55.559Z",
+      "callOk": true,
+      "rawOutput": "[\n  {\n    \"title\": \"Night Owl and Dark Mode Preference\",\n    \"content\": \"The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces.\",\n    \"importance\": 7,\n    \"confidence\": 0.8\n  }\n]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 1,
+      "sanitizerAcceptedCount": 1,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 1,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": false,
+      "parsed": [
+        {
+          "title": "Night Owl and Dark Mode Preference",
+          "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces.",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "finalReflections": [
+        {
+          "title": "Night Owl and Dark Mode Preference",
+          "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces.",
+          "memoryType": "reflection",
+          "importance": 7,
+          "confidence": 0.8
+        }
+      ],
+      "rubric": [
+        {
+          "reflection": {
+            "title": "Night Owl and Dark Mode Preference",
+            "content": "The user, who is a night owl and often codes past midnight, prefers dark mode for all software interfaces.",
+            "memoryType": "reflection",
+            "importance": 7,
+            "confidence": 0.8
+          },
+          "result": {
+            "evidence": {
+              "pass": true,
+              "count": 2,
+              "usedIds": [
+                "c1",
+                "c4"
+              ]
+            },
+            "support": {
+              "pass": true,
+              "unsupported": []
+            },
+            "synthesis": {
+              "pass": true
+            },
+            "uncertainty": {
+              "pass": true
+            },
+            "specificity": {
+              "pass": true
+            },
+            "duplication": {
+              "status": "DEFERRED — no live DB"
+            },
+            "futureUsefulness": {
+              "pass": true
+            },
+            "good": true,
+            "badHarmful": false,
+            "neutral": false,
+            "classification": "GOOD"
+          }
+        }
+      ]
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:22:08.949Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:22:22.425Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:22:29.768Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:22:36.858Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "A",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:22:43.813Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:22:51.332Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:22:58.749Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:23:06.090Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:23:13.402Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:23:20.521Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 1,
+      "timestamp": "2026-08-19T12:23:28.287Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 2,
+      "timestamp": "2026-08-19T12:23:36.053Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 3,
+      "timestamp": "2026-08-19T12:23:43.511Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 4,
+      "timestamp": "2026-08-19T12:23:51.114Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen3:4b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "grouped",
+      "run": 5,
+      "timestamp": "2026-08-19T12:23:58.300Z",
+      "callOk": true,
+      "rawOutput": "",
+      "parseSuccess": false,
+      "rootType": null,
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": false,
+      "emptyText": true,
+      "parsed": null,
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "combined",
+      "run": 1,
+      "timestamp": "2026-08-19T12:24:33.230Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "combined",
+      "run": 2,
+      "timestamp": "2026-08-19T12:24:33.981Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "combined",
+      "run": 3,
+      "timestamp": "2026-08-19T12:24:34.717Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "combined",
+      "run": 4,
+      "timestamp": "2026-08-19T12:24:35.413Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "B",
+      "variant": "combined",
+      "run": 5,
+      "timestamp": "2026-08-19T12:24:36.123Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "combined",
+      "run": 1,
+      "timestamp": "2026-08-19T12:24:44.855Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "combined",
+      "run": 2,
+      "timestamp": "2026-08-19T12:24:45.624Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "combined",
+      "run": 3,
+      "timestamp": "2026-08-19T12:24:46.330Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "combined",
+      "run": 4,
+      "timestamp": "2026-08-19T12:24:47.033Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    },
+    {
+      "model": "qwen2.5:3b",
+      "promptVariant": "P0",
+      "scenario": "C",
+      "variant": "combined",
+      "run": 5,
+      "timestamp": "2026-08-19T12:24:47.736Z",
+      "callOk": true,
+      "rawOutput": "[]",
+      "parseSuccess": true,
+      "rootType": "array",
+      "parsedItemCount": 0,
+      "sanitizerAcceptedCount": 0,
+      "sanitizerRejectedCount": 0,
+      "finalCount": 0,
+      "malformed": false,
+      "emptyArray": true,
+      "emptyText": false,
+      "parsed": [],
+      "finalReflections": []
+    }
+  ]
+}

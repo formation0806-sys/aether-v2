@@ -1,0 +1,2280 @@
+﻿===== TYPES =====
+export type MemoryType =
+  | "semantic"
+  | "identity"
+  | "procedural"
+  | "project"
+  | "episodic"
+  | "reflection"
+  | "conversation"
+  | "working";
+
+export type MemoryStatus =
+  | "candidate"
+  | "active"
+  | "fading"
+  | "archived"
+  | "deleted";
+
+export type MemorySource =
+  | "user"
+  | "assistant"
+  | "system"
+  | "extractor"
+  | "reflection"
+  | "consolidation"
+  | "import"
+  | "merge";
+
+export const MEMORY_TYPES: readonly MemoryType[] = [
+  "semantic",
+  "identity",
+  "procedural",
+  "project",
+  "episodic",
+  "reflection",
+  "conversation",
+  "working",
+];
+
+export const MEMORY_STATUSES: readonly MemoryStatus[] = [
+  "candidate",
+  "active",
+  "fading",
+  "archived",
+  "deleted",
+];
+
+export const MEMORY_SOURCES: readonly MemorySource[] = [
+  "user",
+  "assistant",
+  "system",
+  "extractor",
+  "reflection",
+  "consolidation",
+  "import",
+  "merge",
+];
+
+/** The canonical Memory V2 record (DB row contract). */
+export interface MemoryRecord {
+  id: string;
+  userId: string;
+  projectId: string | null;
+
+  memoryType: MemoryType;
+  status: MemoryStatus;
+
+  title: string;
+  content: string;
+  summary: string;
+  tags: string[];
+
+  importance: number; // 0..1 composite
+  confidence: number; // 0..1
+  embedding: number[] | null; // vector(768)
+
+  source: MemorySource;
+  sourceRef: string | null;
+  metadata: Record<string, unknown>;
+
+  timesUsed: number;
+  lastUsed: string | null;
+  lastScored: string;
+  effectiveScore: number;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Raw DB row (snake_case as returned by Supabase). */
+export interface MemoryRow {
+  id: string;
+  user_id: string;
+  project_id: string | null;
+  memory_type: MemoryType;
+  status: MemoryStatus;
+  title: string;
+  content: string;
+  summary: string;
+  tags: string[] | null;
+  importance_v2: number | null;
+  confidence_v2: number | null;
+  embedding: number[] | null;
+  source_v2: MemorySource | null;
+  source_ref: string | null;
+  metadata: Record<string, unknown> | null;
+  times_used: number | null;
+  last_used: string | null;
+  last_scored: string | null;
+  effective_score: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Candidate extracted from a conversation turn by the writer. */
+export interface ExtractedMemory {
+  title: string;
+  content: string;
+  summary?: string;
+  memoryType?: MemoryType;
+  importance?: number; // 1..10 raw
+  confidence?: number; // 0..1
+  explicit?: boolean;
+  tags?: string[];
+  projectRef?: string | null;
+}
+
+/** A single retrieval candidate with its fused score. */
+export interface RetrievalCandidate {
+  id: string;
+  title: string;
+  content: string;
+  summary: string;
+  tags: string[];
+  memoryType: MemoryType;
+  similarity: number; // semantic leg cosine
+  importance: number;
+  confidence: number;
+  effectiveScore: number;
+  timesUsed: number;
+  lastUsed: string | null;
+}
+
+/** Per-candidate attribution for the /memory debug UI. */
+export interface RetrievalTraceItem {
+  memoryId: string;
+  sourceLeg: "vector" | "keyword" | "inject";
+  similarity: number;
+  fusedScore: number;
+}
+
+/** Weights for composite importance scoring. */
+export interface ImportanceWeights {
+  explicitImportance: number;
+  typeWeight: number;
+  confidence: number;
+  explicitFlag: number;
+  feedbackDelta: number;
+  novelty: number;
+}
+
+/** Weights for retrieval-time fusion. */
+export interface RetrievalWeights {
+  similarity: number;
+  importance: number;
+  recency: number;
+  confidence: number;
+  typeWeight: number;
+  usage: number;
+  explicit: number;
+}
+
+
+===== CONSTANTS =====
+import type {
+  ImportanceWeights,
+  MemoryType,
+  RetrievalWeights,
+} from "./types";
+
+/** Embedding dimension of nomic-embed-text (Ollama). */
+export const EMBEDDING_DIM = 768;
+
+/** Default retrieval candidate count for the vector leg. */
+export const RETRIEVAL_TOP_K = 30;
+
+/** Floor for the vector leg; below this similarity a memory is not a candidate. */
+export const MIN_SIMILARITY = 0.65;
+
+/** MMR diversity lambda (higher = more relevance, lower = more diversity). */
+export const MMR_LAMBDA = 0.7;
+
+/* ------------------------------------------------------------------ */
+/* Importance scoring weights (input mix, sums to 1.0)                  */
+/* ------------------------------------------------------------------ */
+export const IMPORTANCE_WEIGHTS: ImportanceWeights = {
+  explicitImportance: 0.35, // extractor's 1..10 scaled to 0..1
+  typeWeight: 0.25, // layer priority
+  confidence: 0.15, // extractor confidence
+  explicitFlag: 0.1, // user asked to remember
+  feedbackDelta: 0.1, // accumulated user feedback in [-1, +1]
+  novelty: 0.05, // 1 - max similarity to existing memories
+};
+
+/** Base type priority used by the typeWeight term. */
+export const TYPE_WEIGHTS: Record<MemoryType, number> = {
+  identity: 1.0,
+  procedural: 0.95,
+  reflection: 0.8,
+  project: 0.85,
+  episodic: 0.7,
+  semantic: 0.6,
+  conversation: 0.4,
+  working: 0.3,
+};
+
+/** Default extraction importance (1..10) when the extractor omits it. */
+export const DEFAULT_EXTRACTED_IMPORTANCE = 5;
+
+/** Default confidence when the extractor omits it. */
+export const DEFAULT_CONFIDENCE = 0.5;
+
+/** Confidence bump applied when evidence corroborates an existing memory. */
+export const CONFIDENCE_CORROBORATION_STEP = 0.05;
+
+/** Confidence penalty applied on user correction / contradiction. */
+export const CONFIDENCE_CORRECTION_STEP = 0.1;
+
+/* ------------------------------------------------------------------ */
+/* Retrieval fusion weights (sums to 1.0)                              */
+/* ------------------------------------------------------------------ */
+export const RETRIEVAL_WEIGHTS: RetrievalWeights = {
+  similarity: 0.5,
+  importance: 0.15,
+  recency: 0.1,
+  confidence: 0.1,
+  typeWeight: 0.05,
+  usage: 0.05,
+  explicit: 0.05,
+};
+
+/* ------------------------------------------------------------------ */
+/* Lifecycle thresholds                                                */
+/* ------------------------------------------------------------------ */
+export const PROMOTE_ACTIVE_THRESHOLD = 0.6;
+export const DEMOTE_FADING_THRESHOLD = 0.25;
+export const ARCHIVE_THRESHOLD = 0.15;
+export const DEMOTE_HOLD_DAYS = 30; // effective_score must stay low this long
+export const ARCHIVE_GRACE_DAYS = 90; // archived -> deleted grace period
+export const PURGE_AFTER_GRACE_DAYS = 30; // deleted -> hard delete tail
+
+export const PROMOTE_USED_COUNT = 3; // times_used >= 3 with conf >= 0.7 promotes
+export const PROMOTE_CONFIDENCE = 0.7;
+export const IDENTITY_CONFIRM_CONFIDENCE = 0.9;
+export const IDENTITY_CORROBORATION_COUNT = 2;
+
+/* ------------------------------------------------------------------ */
+/* Duplicate thresholds (cosine similarity)                            */
+/* ------------------------------------------------------------------ */
+export const DEDUPE_MERGE_THRESHOLD = 0.95; // merge into winner
+export const DEDUPE_UPDATE_THRESHOLD = 0.88; // update existing, same type
+export const DEDUPE_RELATED_THRESHOLD = 0.8; // keep both + 'related_to' edge
+export const CONTRADICTION_SIM_THRESHOLD = 0.8; // reflection contradiction signal
+
+/* ------------------------------------------------------------------ */
+/* Decay half-lives (days) per type                                    */
+/* ------------------------------------------------------------------ */
+export const TYPE_HALF_LIFE_DAYS: Record<MemoryType, number> = {
+  identity: 3650, // near-eternal
+  procedural: 365,
+  reflection: 90,
+  project: 180,
+  episodic: 14,
+  semantic: 180,
+  conversation: 30,
+  working: 1,
+};
+
+/** Shares in effectiveScore = a*importance + b*recency (matches SQL). */
+export const EFFECTIVE_SCORE_IMPORTANCE_SHARE = 0.7;
+export const EFFECTIVE_SCORE_RECENCY_SHARE = 0.2;
+export const EFFECTIVE_SCORE_RECENCY_BASE = 0.2; // recency term when lastUsed is null
+
+/* ------------------------------------------------------------------ */
+/* Token budgets (brain prompt sections)                               */
+/* ------------------------------------------------------------------ */
+export const TOKEN_BUDGETS: Record<MemoryType, number> = {
+  identity: 500,
+  procedural: 600,
+  project: 800,
+  working: 300,
+  semantic: 800,
+  episodic: 400,
+  reflection: 300,
+  conversation: 0, // handled by the conversation window, not this budget
+};
+
+/** Total hard ceiling for the memory sections of the prompt. */
+export const TOTAL_MEMORY_TOKEN_CAP = 3700;
+
+/** Conversation window: number of recent turns injected verbatim. */
+export const CONVERSATION_WINDOW_TURNS = 20;
+
+/** Model context size we target. */
+export const CONTEXT_WINDOW_TOKENS = 8192;
+
+/* ------------------------------------------------------------------ */
+/* Reflection triggers                                                 */
+/* ------------------------------------------------------------------ */
+export const REFLECT_EVERY_N_TURNS = 10;
+export const REFLECTION_CORRECTION_MIN_CONFIDENCE = 0.75;
+
+/* ------------------------------------------------------------------ */
+/* Always-inject caps (layers injected directly, not via VSM)          */
+/* ------------------------------------------------------------------ */
+export const INJECT_CAPS: Partial<Record<MemoryType, number>> = {
+  identity: 50,
+  procedural: 30,
+};
+
+/** Resolve the type weight for a memory type (safe default). */
+export function typeWeight(memoryType: MemoryType): number {
+  return TYPE_WEIGHTS[memoryType] ?? TYPE_WEIGHTS.semantic;
+}
+
+/** Resolve the half-life for a memory type (safe default). */
+export function halfLifeDays(memoryType: MemoryType): number {
+  return TYPE_HALF_LIFE_DAYS[memoryType] ?? TYPE_HALF_LIFE_DAYS.semantic;
+}
+
+===== SCORE =====
+import {
+  DEFAULT_CONFIDENCE,
+  DEFAULT_EXTRACTED_IMPORTANCE,
+  EFFECTIVE_SCORE_IMPORTANCE_SHARE,
+  EFFECTIVE_SCORE_RECENCY_BASE,
+  EFFECTIVE_SCORE_RECENCY_SHARE,
+  MMR_LAMBDA,
+  RETRIEVAL_WEIGHTS,
+  IMPORTANCE_WEIGHTS,
+  halfLifeDays,
+  typeWeight,
+} from "./constants";
+import type {
+  ExtractedMemory,
+  MemoryType,
+  RetrievalCandidate,
+} from "./types";
+
+/** Clamp a number into [0, 1]. */
+export function clamp01(value: number): number {
+  if (Number.isNaN(value)) return 0;
+  return Math.min(1, Math.max(0, value));
+}
+
+/** Clamp into [min, max]; NaN-safe. */
+export function clamp(value: number, min: number, max: number): number {
+  if (Number.isNaN(value)) return min;
+  return Math.min(max, Math.max(min, value));
+}
+
+/** Normalize an extractor importance in 1..10 into 0..1. */
+export function normalizeExtractedImportance(raw: number | undefined): number {
+  const value = raw ?? DEFAULT_EXTRACTED_IMPORTANCE;
+  return clamp(value / 10, 0, 1);
+}
+
+/** Days elapsed between two timestamps (non-negative). */
+export function daysBetween(from: Date, to: Date): number {
+  const ms = to.getTime() - from.getTime();
+  return ms <= 0 ? 0 : ms / 86_400_000;
+}
+
+/**
+ * Exponential decay factor for a single half-life:
+ * factor = e^(-ln(2) * days / halfLife). No decay when lastUsed is null.
+ */
+export function decayFactor(
+  lastUsed: Date | string | null,
+  halfLife: number,
+  now: Date = new Date()
+): number {
+  if (!lastUsed) return 1;
+  const days = daysBetween(new Date(lastUsed), now);
+  if (halfLife <= 0) return 0;
+  return Math.exp((-Math.LN2 * days) / halfLife);
+}
+
+/**
+ * Composite importance for a newly extracted memory (0..1).
+ *   importance = 0.35*explicitImportance + 0.25*typeWeight
+ *              + 0.15*confidence + 0.10*explicit + 0.10*feedback
+ *              + 0.05*novelty
+ */
+export function importanceScore(input: {
+  memoryType: MemoryType;
+  extractedImportance?: number;
+  confidence?: number;
+  explicit?: boolean;
+  feedbackDelta?: number;
+  novelty?: number;
+}): number {
+  const {
+    memoryType,
+    extractedImportance,
+    confidence,
+    explicit = false,
+    feedbackDelta = 0,
+    novelty = 0,
+  } = input;
+
+  const normalized = normalizeExtractedImportance(extractedImportance);
+  const conf = clamp01(confidence ?? DEFAULT_CONFIDENCE);
+  const feedback = clamp(feedbackDelta, -1, 1);
+  const noveltyNorm = clamp01(novelty); // 1 - maxSim, rarely available at write time
+
+  const score =
+    IMPORTANCE_WEIGHTS.explicitImportance * normalized +
+    IMPORTANCE_WEIGHTS.typeWeight * typeWeight(memoryType) +
+    IMPORTANCE_WEIGHTS.confidence * conf +
+    IMPORTANCE_WEIGHTS.explicitFlag * (explicit ? 1 : 0) +
+    IMPORTANCE_WEIGHTS.feedbackDelta * ((feedback + 1) / 2) +
+    IMPORTANCE_WEIGHTS.novelty * noveltyNorm;
+
+  return clamp01(score);
+}
+/**
+ * Retrieval-time fused score (0..1).
+ *   retrieval = 0.50*similarity + 0.15*importance + 0.10*recency
+ *             + 0.10*confidence + 0.05*typeWeight + 0.05*usage
+ *             + 0.05*explicit
+ */
+export function retrievalScore(input: {
+  similarity: number;
+  importance: number;
+  confidence: number;
+  memoryType: MemoryType;
+  timesUsed: number;
+  lastUsed: Date | string | null;
+  explicitBoost?: boolean;
+  now?: Date;
+}): number {
+  const {
+    similarity,
+    importance,
+    confidence,
+    memoryType,
+    timesUsed,
+    lastUsed,
+    explicitBoost = false,
+    now = new Date(),
+  } = input;
+
+  const halfLife = halfLifeDays(memoryType);
+  const recency = decayFactor(lastUsed, halfLife, now);
+  const usage = usageFactor(timesUsed);
+
+  const score =
+    RETRIEVAL_WEIGHTS.similarity * clamp01(similarity) +
+    RETRIEVAL_WEIGHTS.importance * clamp01(importance) +
+    RETRIEVAL_WEIGHTS.recency * clamp01(recency) +
+    RETRIEVAL_WEIGHTS.confidence * clamp01(confidence) +
+    RETRIEVAL_WEIGHTS.typeWeight * typeWeight(memoryType) +
+    RETRIEVAL_WEIGHTS.usage * usage +
+    RETRIEVAL_WEIGHTS.explicit * (explicitBoost ? 1 : 0);
+
+  return clamp01(score);
+}
+
+/**
+ * Growth function for the usage term at query time:
+ * usage_factor = log1p(timesUsed) / log1p(cap). Saturates at `cap`.
+ */
+export function usageFactor(timesUsed: number, cap = 11): number {
+  return Math.log1p(Math.max(0, timesUsed)) / Math.log1p(cap);
+}
+
+/** Score a retrieval candidate using its stored fields. */
+export function scoreRetrievalCandidate(
+  candidate: RetrievalCandidate,
+  now: Date = new Date()
+): number {
+  return retrievalScore({
+    similarity: candidate.similarity,
+    importance: candidate.importance,
+    confidence: candidate.confidence,
+    memoryType: candidate.memoryType,
+    timesUsed: candidate.timesUsed,
+    lastUsed: candidate.lastUsed,
+    now,
+  });
+}
+
+/**
+ * MMR diversity rescore. lambda closer to 1 favors relevance,
+ * closer to 0 favors diversity against already-selected items.
+ */
+export function mmrScore(
+  score: number,
+  maxSimToSelected: number,
+  lambda: number = MMR_LAMBDA
+): number {
+  return lambda * score - (1 - lambda) * maxSimToSelected;
+}
+
+/**
+ * Decayed score used for lifecycle decisions and the SQL apply_memory_decay
+ * equivalent: effective = 0.7*importance + 0.2*recency(base 0.2 when never used).
+ */
+export function effectiveScore(
+  importance: number,
+  lastUsed: Date | string | null,
+  halfLife: number,
+  now: Date = new Date()
+): number {
+  const recencyTerm = lastUsed
+    ? EFFECTIVE_SCORE_RECENCY_SHARE * decayFactor(lastUsed, halfLife, now)
+    : EFFECTIVE_SCORE_RECENCY_BASE;
+
+  const score =
+    EFFECTIVE_SCORE_IMPORTANCE_SHARE * clamp01(importance) + recencyTerm;
+
+  return clamp01(score);
+}
+
+/** Convenience wrapper using a memory type's configured half-life. */
+export function effectiveScoreForType(
+  importance: number,
+  lastUsed: Date | string | null,
+  memoryType: MemoryType,
+  now: Date = new Date()
+): number {
+  return effectiveScore(importance, lastUsed, halfLifeDays(memoryType), now);
+}
+
+/** Score a writer candidate at capture time (importance only). */
+export function scoreExtractedMemory(candidate: ExtractedMemory): {
+  importance: number;
+  confidence: number;
+} {
+  const memoryType = candidate.memoryType ?? "semantic";
+  const importance = importanceScore({
+    memoryType,
+    extractedImportance: candidate.importance,
+    confidence: candidate.confidence,
+    explicit: candidate.explicit,
+  });
+  const confidence = clamp01(candidate.confidence ?? DEFAULT_CONFIDENCE);
+  return { importance, confidence };
+}
+
+===== AI EXTRACTOR =====
+import { MEMORY_TYPES, type ExtractedMemory, type MemoryType } from "./types";
+
+/** Sanitize one parsed extractor item; invalid optional fields are omitted. */
+function sanitizeExtractedMemory(raw: unknown): ExtractedMemory | null {
+  if (typeof raw !== "object" || raw === null) return null;
+
+  const r = raw as Record<string, unknown>;
+  const title = r.title;
+  const content = r.content;
+
+  if (typeof title !== "string" || typeof content !== "string") return null;
+
+  const memory: ExtractedMemory = { title, content };
+
+  if (
+    typeof r.memoryType === "string" &&
+    (MEMORY_TYPES as readonly string[]).includes(r.memoryType)
+  ) {
+    memory.memoryType = r.memoryType as MemoryType;
+  }
+
+  if (
+    typeof r.importance === "number" &&
+    r.importance >= 1 &&
+    r.importance <= 10
+  ) {
+    memory.importance = r.importance;
+  }
+
+  if (
+    typeof r.confidence === "number" &&
+    r.confidence >= 0 &&
+    r.confidence <= 1
+  ) {
+    memory.confidence = r.confidence;
+  }
+
+  if (typeof r.explicit === "boolean") {
+    memory.explicit = r.explicit;
+  }
+
+  return memory;
+}
+
+export async function aiExtractMemories(
+  message: string
+): Promise<ExtractedMemory[]> {
+  const response = await fetch(
+    "http://127.0.0.1:11434/api/chat",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "qwen2.5:3b",
+        stream: false,
+        messages: [
+          {
+            role: "system",
+            content: `
+You are an INFORMATION EXTRACTION ENGINE.
+
+DO NOT answer the user.
+
+DO NOT explain.
+
+DO NOT chat.
+
+ONLY return valid JSON.
+
+Return ONLY this format:
+
+[
+  {
+    "title": "...",
+    "content": "...",
+    "memoryType": "...",
+    "importance": 1-10,
+    "confidence": 0-1,
+    "explicit": true/false
+  }
+]
+
+Optional fields (omit any you are unsure about):
+
+- memoryType must be one of:
+  semantic, identity, procedural, project, episodic, reflection, conversation, working
+- importance: number from 1 (low) to 10 (high)
+- confidence: number from 0 to 1
+- explicit: true only if the user explicitly asked for this to be remembered
+
+Extract ONLY long-term information.
+
+Examples:
+
+User:
+My name is Prince.
+
+Output:
+[
+  {
+    "title":"User Name",
+    "content":"The user's name is Prince.",
+    "memoryType":"identity",
+    "importance":8,
+    "confidence":0.95,
+    "explicit":false
+  }
+]
+
+User:
+I'm building Aether.
+
+Output:
+[
+  {
+    "title":"Project",
+    "content":"The user is building Aether."
+  }
+]
+
+User:
+My dog is Bruno.
+
+Output:
+[
+  {
+    "title":"Pet",
+    "content":"The user's dog is Bruno."
+  }
+]
+
+User:
+I live in Mumbai.
+
+Output:
+[
+  {
+    "title":"Location",
+    "content":"The user lives in Mumbai."
+  }
+]
+
+User:
+Blue is my favorite color.
+
+Output:
+[
+  {
+    "title":"Preference",
+    "content":"The user's favorite color is blue."
+  }
+]
+
+If nothing should be remembered:
+
+[]
+`,
+          },
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  const text = data.message.content.trim();
+
+  console.log("OLLAMA RAW:");
+  console.log(text);
+
+  try {
+    const parsed: unknown = JSON.parse(text);
+
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map((item) => sanitizeExtractedMemory(item))
+      .filter((m): m is ExtractedMemory => m !== null);
+  } catch {
+    return [];
+  }
+}
+
+===== REFLECTOR =====
+import type { ExtractedMemory } from "./types";
+
+/** Input shape produced by `runReflection` in lib/core/pipeline.ts. */
+export interface ReflectionInput {
+  memoryType: string;
+  memories: Array<{
+    id: string;
+    title: string;
+    content: string;
+    summary: string;
+  }>;
+}
+
+/**
+ * Sanitize one parsed reflection item.
+ *
+ * Reflection output is intentionally strict:
+ * - only plain objects are accepted
+ * - title/content are required
+ * - memoryType is always reflection
+ * - importance/confidence are accepted only when valid
+ */
+function sanitizeReflection(raw: unknown): ExtractedMemory | null {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return null;
+  }
+
+  const r = raw as Record<string, unknown>;
+
+  if (typeof r.title !== "string" || typeof r.content !== "string") {
+    return null;
+  }
+
+  const title = r.title.trim();
+  const content = r.content.trim();
+
+  if (!title || !content) {
+    return null;
+  }
+
+  const memory: ExtractedMemory = {
+    title,
+    content,
+    memoryType: "reflection",
+  };
+
+  if (
+    typeof r.importance === "number" &&
+    Number.isInteger(r.importance) &&
+    r.importance >= 1 &&
+    r.importance <= 10
+  ) {
+    memory.importance = r.importance;
+  }
+
+  if (
+    typeof r.confidence === "number" &&
+    r.confidence >= 0 &&
+    r.confidence <= 1
+  ) {
+    memory.confidence = r.confidence;
+  }
+
+  return memory;
+}
+
+/**
+ * Reflection prompt deliberately optimized for a small local model.
+ *
+ * The goal is not to generate many insights.
+ * The goal is to produce only high-confidence, reusable information.
+ */
+const REFLECTION_SYSTEM_PROMPT = `
+You are AETHER'S MEMORY REFLECTION ENGINE.
+
+You analyze existing memories and produce ONLY high-confidence higher-level insights.
+
+You are NOT a chatbot.
+You are NOT an assistant.
+You are NOT allowed to invent facts.
+
+Return ONLY valid JSON.
+
+Your output MUST be a JSON array.
+
+If there is no strong insight, return [].
+
+IMPORTANT:
+Prefer returning [] over making a weak or speculative reflection.
+
+==================================================
+WHAT COUNTS AS A VALID REFLECTION
+==================================================
+
+A valid reflection must connect TWO OR MORE supplied memories.
+
+Allowed reflection types:
+
+1. REPEATED_PATTERN
+A fact, preference, behavior, or theme appears repeatedly.
+
+2. CONTRADICTION
+Two or more memories directly conflict.
+
+3. RELATIONSHIP
+Two or more memories have a strong and explicit relationship.
+
+4. CHANGE_OVER_TIME
+ONLY use this when the supplied memories explicitly contain evidence
+that something changed over time.
+
+==================================================
+STRICT RULES
+==================================================
+
+RULE 1:
+Use ONLY information explicitly present in the supplied memories.
+
+RULE 2:
+Never invent facts.
+
+RULE 3:
+Never invent motivations.
+
+RULE 4:
+Never invent chronology.
+
+RULE 5:
+Never assume that one memory replaces another.
+
+RULE 6:
+If two memories conflict, describe the conflict.
+Do NOT decide which one is correct.
+
+RULE 7:
+Do not create a reflection from only one memory.
+
+RULE 8:
+Do not create a reflection merely because several memories mention
+the same broad topic.
+
+Example:
+
+Memory A:
+"The user is building Aether."
+
+Memory B:
+"The user is testing Aether memory."
+
+This alone is NOT enough to create a new reflection.
+
+RULE 9:
+Do not create multiple reflections that express essentially the same idea.
+
+If several memories support the same pattern, produce ONE reflection.
+
+RULE 10:
+Do not create a reflection about the reflection itself.
+
+RULE 11:
+Do not create vague statements such as:
+"The user has many interests."
+"The user is focused on development."
+"The user works on projects."
+
+These are not useful memories.
+
+RULE 12:
+A reflection must add information that is more useful than simply repeating
+the source memories.
+
+==================================================
+CONTRADICTIONS
+==================================================
+
+When memories conflict, explicitly state the conflict.
+
+GOOD:
+
+[
+  {
+    "title": "Development Language Conflict",
+    "content": "The memories contain conflicting preferences: some indicate TypeScript while another indicates Python.",
+    "importance": 6,
+    "confidence": 0.9
+  }
+]
+
+BAD:
+
+[
+  {
+    "title": "Change to Python",
+    "content": "The user changed from TypeScript to Python."
+  }
+]
+
+The BAD example invents a timeline unless the memories explicitly say
+that the preference changed.
+
+==================================================
+REPEATED PATTERNS
+==================================================
+
+Only create a repeated pattern when the same meaningful fact is supported
+by multiple memories.
+
+GOOD:
+
+Memory A:
+"The user prefers dark mode."
+
+Memory B:
+"The user repeatedly chooses dark interfaces."
+
+Memory C:
+"The user asked to keep the interface dark."
+
+Possible reflection:
+
+[
+  {
+    "title": "Dark Interface Preference",
+    "content": "Multiple memories consistently indicate a preference for dark interfaces.",
+    "importance": 5,
+    "confidence": 0.9
+  }
+]
+
+==================================================
+DEDUPLICATION
+==================================================
+
+Never output several reflections that say approximately the same thing.
+
+For example, these are duplicates:
+
+"TypeScript Preference"
+
+"Strong TypeScript Preference"
+
+"Recurring TypeScript Preference"
+
+"TypeScript Development Preference"
+
+Only ONE should be returned.
+
+==================================================
+OUTPUT LIMIT
+==================================================
+
+Return AT MOST 2 reflections.
+
+Usually return 0 or 1.
+
+Only return 2 when there are clearly two independent,
+high-confidence insights.
+
+==================================================
+OUTPUT FORMAT
+==================================================
+
+Return EXACTLY:
+
+[
+  {
+    "title": "Short descriptive title",
+    "content": "Grounded synthesis supported by multiple supplied memories.",
+    "importance": 1,
+    "confidence": 0.0
+  }
+]
+
+importance:
+Integer from 1 to 10.
+
+confidence:
+Number from 0 to 1.
+
+Do not include:
+- memory IDs
+- memoryType
+- source
+- explanations
+- markdown
+- code fences
+- additional fields
+
+==================================================
+FINAL CHECK BEFORE OUTPUT
+==================================================
+
+Before returning a reflection, silently verify:
+
+1. Is it supported by at least TWO supplied memories?
+2. Does it add useful information?
+3. Is every claim explicitly grounded?
+4. Did I avoid inventing chronology?
+5. Did I avoid inventing motivation?
+6. Did I avoid choosing between conflicting memories?
+7. Is it different from the other reflection?
+8. Would [] be safer?
+
+If any answer is NO, do not output that reflection.
+
+Return [] instead.
+`;
+
+/**
+ * Ask the local Ollama model to reflect over grouped memories.
+ *
+ * This function never writes to the database.
+ * It only returns validated reflection candidates.
+ */
+export async function generateReflections(
+  reflectionInput: ReflectionInput[]
+): Promise<ExtractedMemory[]> {
+  if (!reflectionInput.length) {
+    return [];
+  }
+
+  const response = await fetch(
+    "http://127.0.0.1:11434/api/chat",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "qwen2.5:3b",
+        stream: false,
+
+        options: {
+          temperature: 0.1,
+          num_predict: 300,
+          top_p: 0.8,
+          num_ctx: 4096,
+        },
+
+        messages: [
+          {
+            role: "system",
+            content: REFLECTION_SYSTEM_PROMPT,
+          },
+          {
+            role: "user",
+            content: JSON.stringify(reflectionInput, null, 2),
+          },
+        ],
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Reflection request failed with status ${response.status}.`
+    );
+  }
+
+  const data = await response.json();
+
+  const text =
+    typeof data?.message?.content === "string"
+      ? data.message.content.trim()
+      : "";
+
+  console.log("REFLECTION RAW:");
+  console.log(text);
+
+  if (!text) {
+    console.log("REFLECTION PARSED 0");
+    return [];
+  }
+
+  try {
+    const parsed: unknown = JSON.parse(text);
+
+    if (!Array.isArray(parsed)) {
+      console.log("REFLECTION PARSED 0: root is not array");
+      return [];
+    }
+
+    const reflections = parsed
+      .map((item) => sanitizeReflection(item))
+      .filter((m): m is ExtractedMemory => m !== null)
+      .slice(0, 2);
+
+    console.log("REFLECTION PARSED", reflections.length);
+
+    return reflections;
+  } catch (error) {
+    console.error("REFLECTION JSON PARSE FAILED", error);
+    return [];
+  }
+}
+
+===== MEMORY =====
+import {
+  findMemoryByTitle,
+  insertMemoryV2,
+  updateMemoryV2,
+  matchMemoriesV2,
+} from "@/lib/repositories/memory.repository";
+import { embed } from "@/lib/ai/embeddings/embed";
+import { scoreExtractedMemory, effectiveScoreForType } from "./score";
+import { PROMOTE_ACTIVE_THRESHOLD } from "./constants";
+import type { MemoryType, MemorySource } from "./types";
+
+export interface SaveMemoryInput {
+  userId: string;
+  title: string;
+  content: string;
+  role?: string;
+  memoryType?: MemoryType;
+  importance?: number;
+  confidence?: number;
+  explicit?: boolean;
+  /** Source label persisted to the V2 `source_v2` column. Defaults to "extractor". */
+  source?: MemorySource;
+}
+
+export interface MemoryRecord {
+  id: string;
+  title: string;
+  content: string;
+  similarity?: number;
+}
+
+export async function saveMemory({
+  userId,
+  title,
+  content,
+  memoryType,
+  importance,
+  confidence,
+  explicit,
+  source,
+}: SaveMemoryInput) {
+  const vector = await embed(content);
+
+  const { importance: importanceV2, confidence: confidenceV2 } =
+    scoreExtractedMemory({ title, content, memoryType, importance, confidence, explicit });
+
+  // Sprint 20 (Option A): deterministic lifecycle gate at write time.
+  // Uses the existing effective-score scorer and the frozen
+  // PROMOTE_ACTIVE_THRESHOLD. Never demotes; only promotes to active.
+  const effective = effectiveScoreForType(
+    importanceV2,
+    null,
+    memoryType ?? "semantic"
+  );
+  const promoteToActive = effective >= PROMOTE_ACTIVE_THRESHOLD;
+  const effectiveScore = Number(effective.toFixed(3));
+  const lastScored = new Date().toISOString();
+
+  const { data: existing } = await findMemoryByTitle(userId, title);
+
+  if (existing && existing.length > 0) {
+    if (existing[0].content === content) {
+      console.log("MEMORY SKIPPED");
+      return;
+    }
+
+    const { error } = await updateMemoryV2(existing[0].id, {
+      content,
+      embedding: vector.embedding,
+      memory_type: memoryType,
+      importance_v2: importanceV2,
+      confidence_v2: confidenceV2,
+      effective_score: effectiveScore,
+      last_scored: lastScored,
+      ...(promoteToActive ? ({ status: "active" } as const) : {}),
+      ...(source ? { source_v2: source } : {}),
+    });
+
+    if (error) throw error;
+
+    if (promoteToActive) console.log("MEMORY PROMOTED");
+
+    console.log("MEMORY UPDATED");
+    return;
+  }
+
+  const { error } = await insertMemoryV2({
+    user_id: userId,
+    title,
+    content,
+    embedding: vector.embedding,
+    memory_type: memoryType,
+    importance_v2: importanceV2,
+    confidence_v2: confidenceV2,
+    source_v2: source ?? "extractor",
+    status: promoteToActive ? "active" : "candidate",
+    effective_score: effectiveScore,
+    last_scored: lastScored,
+  });
+
+  if (error) throw error;
+
+  if (promoteToActive) console.log("MEMORY PROMOTED");
+
+  console.log("MEMORY INSERTED");
+}
+
+export async function getRelevantMemories(
+  userId: string,
+  query: string
+): Promise<MemoryRecord[]> {
+  const vector = await embed(query);
+
+  const { data, error } = await matchMemoriesV2(
+  vector.embedding,
+  userId,
+  {
+    matchCount: 8,
+  }
+);
+
+  if (error) throw error;
+
+  console.log("RETRIEVED MEMORIES:", data);
+
+  return (data ?? []) as MemoryRecord[];
+}
+
+===== PIPELINE =====
+import { Runtime } from "./runtime";
+
+import { buildContext } from "@/lib/context";
+import { buildBrain } from "@/lib/brain";
+import {
+  saveUserMessage,
+  saveAssistantMessage,
+  buildConversation,
+} from "@/lib/ai/conversation/manager";
+import { getProvider } from "@/lib/ai/provider";
+import { aiExtractMemories } from "@/lib/memory/aiExtractor";
+import { saveMemory } from "@/lib/memory/memory";
+import { generateReflections } from "@/lib/memory/reflector";
+import {
+  getAllMemories,
+  purgeArchived,
+} from "@/lib/repositories/memory.repository";
+import { evaluateLifecycle } from "@/lib/memory/lifecycle";
+
+const MEMORY_GATE_SKIP = new Set([
+  "hi",
+  "hello",
+  "hey",
+  "thanks",
+  "thank you",
+  "ok",
+  "okay",
+  "cool",
+  "nice",
+  "yes",
+  "no",
+  "good morning",
+  "good night",
+  "bye",
+  "lol",
+  "haha",
+]);
+
+function shouldExtractMemory(message: string): boolean {
+  const t = message.trim().toLowerCase();
+
+  if (t.length < 15) return false;
+
+  return !MEMORY_GATE_SKIP.has(t);
+}
+
+async function runReflection(userId: string) {
+  const { data: memories, error } = await getAllMemories(userId);
+
+  if (error) {
+    console.error("REFLECTION LOAD FAILED", error);
+    return;
+  }
+
+  const safeMemories = memories ?? [];
+
+  console.log("REFLECTION MEMORIES", safeMemories.length);
+
+  const reflectionCandidates = safeMemories.filter(
+    (m) =>
+      (m.status === "active" || m.status === "candidate") &&
+      (m.confidence_v2 ?? 0) >= 0.7 &&
+      (m.importance_v2 ?? 0) >= 0.5
+  );
+
+  console.log(
+    "REFLECTION CANDIDATES",
+    reflectionCandidates.length
+  );
+
+  const reflectionGroups = reflectionCandidates.reduce(
+    (groups, memory) => {
+      const type = memory.memory_type;
+
+      if (!groups[type]) {
+        groups[type] = [];
+      }
+
+      groups[type].push(memory);
+
+      return groups;
+    },
+    {} as Record<string, typeof reflectionCandidates>
+  );
+
+  console.log(
+    "REFLECTION GROUPS",
+    Object.keys(reflectionGroups).length
+  );
+
+  const reflectionInput = Object.entries(reflectionGroups).map(
+    ([memoryType, memories]) => ({
+      memoryType,
+      memories: memories.map((memory) => ({
+        id: memory.id,
+        title: memory.title,
+        content: memory.content,
+        summary: memory.summary,
+      })),
+    })
+  );
+
+  console.log(
+    "REFLECTION INPUT GROUPS",
+    reflectionInput.length
+  );
+
+  if (reflectionInput.length === 0) {
+    console.log("REFLECTION SKIPPED: no input groups");
+    return;
+  }
+
+  try {
+    const reflections = await generateReflections(reflectionInput);
+
+    if (reflections.length === 0) {
+      console.log("REFLECTION GENERATED 0");
+      return;
+    }
+
+    console.log(
+      "REFLECTION GENERATED",
+      reflections.length
+    );
+
+    for (const reflection of reflections) {
+      try {
+        await saveMemory({
+          userId,
+          title: reflection.title,
+          content: reflection.content,
+          memoryType: "reflection",
+          importance: reflection.importance,
+          confidence: reflection.confidence,
+          source: "reflection",
+        });
+      } catch (e) {
+        console.error("REFLECTION SAVE FAILED", e);
+      }
+    }
+  } catch (e) {
+    console.error("REFLECTION GENERATION FAILED", e);
+  }
+}
+
+/**
+ * Runs all non-user-facing memory maintenance work.
+ *
+ * This is deliberately separated from the response path so that
+ * memory extraction, reflection, lifecycle evaluation and archive
+ * purging do not delay the user's response.
+ */
+export async function runMemoryMaintenance(
+  userId: string,
+  message: string
+) {
+  console.time("BACKGROUND MEMORY");
+
+  let didExtractMemory = false;
+
+  console.time("Extract memories");
+
+  if (!shouldExtractMemory(message)) {
+    console.log("MEMORY GATE: skipped");
+  } else {
+    try {
+      const memories = await aiExtractMemories(message);
+
+      didExtractMemory = memories.length > 0;
+
+      console.log(
+        "MEMORIES EXTRACTED",
+        memories.length
+      );
+
+      for (const memory of memories) {
+        try {
+          await saveMemory({
+            userId,
+            title: memory.title,
+            content: memory.content,
+            memoryType: memory.memoryType,
+            importance: memory.importance,
+            confidence: memory.confidence,
+            explicit: memory.explicit,
+          });
+        } catch (e) {
+          console.error("MEMORY SAVE FAILED", e);
+        }
+      }
+    } catch (e) {
+      console.error(
+        "MEMORY EXTRACTION FAILED",
+        e
+      );
+    }
+  }
+
+  console.timeEnd("Extract memories");
+
+  if (didExtractMemory) {
+    try {
+      await runReflection(userId);
+    } catch (error) {
+      console.error(
+        "REFLECTION FAILED",
+        error
+      );
+    }
+  }
+
+  try {
+    const lifecycleResult =
+      await evaluateLifecycle(userId);
+
+    if (lifecycleResult.transitions.length > 0) {
+      console.log(
+        "LIFECYCLE TRANSITIONS",
+        lifecycleResult.transitions.length
+      );
+    }
+  } catch (lifecycleError) {
+    console.error(
+      "LIFECYCLE EVALUATION FAILED",
+      lifecycleError
+    );
+  }
+
+  try {
+    const purgeResult =
+      await purgeArchived(userId);
+
+    if (purgeResult.count > 0) {
+      console.log(
+        "PURGED ARCHIVED",
+        purgeResult.count
+      );
+    }
+  } catch (purgeError) {
+    console.error(
+      "PURGE ARCHIVED FAILED",
+      purgeError
+    );
+  }
+
+  console.timeEnd("BACKGROUND MEMORY");
+}
+
+export async function runPipeline(runtime: Runtime) {
+  console.time("TOTAL");
+
+  const state = runtime.get();
+
+  console.time("Context");
+
+  const context = await buildContext(
+    state.userId,
+    state.message
+  );
+
+  console.timeEnd("Context");
+
+  runtime.update({ context });
+
+  console.time("Brain");
+
+  const brain = await buildBrain({
+    message: state.message,
+    context,
+  });
+
+  console.timeEnd("Brain");
+
+  runtime.update({
+    prompt: brain.prompt,
+  });
+
+  console.time("Save User");
+
+  await saveUserMessage(
+    state.userId,
+    state.message
+  );
+
+  console.timeEnd("Save User");
+
+  console.time("Conversation");
+
+  const conversation =
+    await buildConversation(state.userId);
+
+  console.timeEnd("Conversation");
+
+  conversation.unshift({
+    role: "system",
+    content: brain.prompt,
+  });
+
+  const ai = getProvider();
+
+  console.time("LLM");
+
+  const response = await ai.chat(
+    conversation
+  );
+
+  console.timeEnd("LLM");
+
+  console.time("Save Assistant");
+
+  await saveAssistantMessage(
+    state.userId,
+    response
+  );
+
+  console.timeEnd("Save Assistant");
+
+  runtime.update({
+    response,
+  });
+
+  console.timeEnd("TOTAL");
+
+  return runtime.get();
+}
+
+===== RETRIEVE =====
+import { createClient } from "@/lib/supabase/server";
+import {
+  matchMemoriesV2,
+  touchMemories,
+} from "@/lib/repositories/memory.repository";
+import { embed } from "@/lib/ai/embeddings/embed";
+import { scoreRetrievalCandidate, mmrScore } from "@/lib/memory/score";
+import {
+  RETRIEVAL_TOP_K,
+  MIN_SIMILARITY,
+  MMR_LAMBDA,
+  TOTAL_MEMORY_TOKEN_CAP,
+  TOKEN_BUDGETS,
+} from "@/lib/memory/constants";
+import type { MemoryType, RetrievalCandidate } from "@/lib/memory/types";
+
+/** Approximate token count for a chunk of text (~4 chars/token). */
+function approxTokens(text: string | null | undefined): number {
+  if (!text) return 0;
+  return Math.ceil(text.length / 4);
+}
+
+/** Rough token footprint of a retrieved memory (title + content + summary). */
+function memoryTokenCount(memory: RetrievalCandidate): number {
+  return (
+    approxTokens(memory.title) +
+    approxTokens(memory.content) +
+    approxTokens(memory.summary)
+  );
+}
+
+/** Cosine similarity between two equal-length vectors. */
+function cosine(a: number[], b: number[]): number {
+  if (a.length !== b.length || a.length === 0) return 0;
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  const denom = Math.sqrt(na) * Math.sqrt(nb);
+  return denom === 0 ? 0 : dot / denom;
+}
+
+/** Row shape returned by the `match_memories_v2` RPC. */
+interface MemoryV2Row {
+  id: string;
+  title: string;
+  content: string;
+  summary: string;
+  tags: string[] | null;
+  memory_type: MemoryType;
+  importance: number;
+  confidence: number;
+  similarity: number;
+  effective_score: number;
+  times_used: number;
+  last_used: string | null;
+}
+
+interface MemoryEmbeddingRow {
+  id: string;
+  embedding: number[] | null;
+}
+
+interface ScoredCandidate {
+  candidate: RetrievalCandidate;
+  relevance: number;
+}
+
+/**
+ * Greedily select memories from `ordered` (MMR-ranked) without exceeding the
+ * global `TOTAL_MEMORY_TOKEN_CAP` budget or the per-type `TOKEN_BUDGETS`.
+ */
+function selectWithinTokenBudget(ordered: RetrievalCandidate[]): RetrievalCandidate[] {
+  const selected: RetrievalCandidate[] = [];
+  let used = 0;
+  const usedByType: Partial<Record<MemoryType, number>> = {};
+
+  for (const memory of ordered) {
+    const tokens = memoryTokenCount(memory);
+    if (tokens <= 0) continue;
+
+    const typeBudget = TOKEN_BUDGETS[memory.memoryType] ?? 0;
+    const usedInType = usedByType[memory.memoryType] ?? 0;
+    if (usedInType + tokens > typeBudget) continue;
+    if (used + tokens > TOTAL_MEMORY_TOKEN_CAP) continue;
+
+    selected.push(memory);
+    used += tokens;
+    usedByType[memory.memoryType] = usedInType + tokens;
+  }
+
+  return selected;
+}
+
+/**
+ * Memory V2 retriever.
+ *
+ * Pipeline:
+ *   1. Embed the query.
+ *   2. Retrieve via the `match_memories_v2` RPC (replaces legacy matchMemories).
+ *   3. Score each candidate with `scoreRetrievalCandidate` (fusion of
+ *      similarity / importance / recency / confidence / typeWeight / usage).
+ *   4. Sort by `effectiveScore` (lifecycle priority).
+ *   5. Re-rank with MMR (`mmrScore`) for relevance-vs-diversity, using the
+ *      candidates' embeddings for pairwise cosine similarity.
+ *   6. Greedily select within the token budget (`TOTAL_MEMORY_TOKEN_CAP` +
+ *      per-type `TOKEN_BUDGETS`).
+ *   7. Bump usage for the surfaced memories via the batched `touch_memories` RPC.
+ *
+ * Public API unchanged: `retrieveMemories(userId, query)` returns the surfaced
+ * memory objects; callers (e.g. lib/context/builder.ts) are unaffected.
+ */
+export async function retrieveMemories(
+  userId: string,
+  query: string
+) {
+  const supabase = await createClient();
+  const vector = await embed(query);
+
+  // 1-2: V2 retrieval RPC (replaces legacy matchMemories).
+  const { data: rows, error } = await matchMemoriesV2(vector.embedding, userId, {
+    matchCount: RETRIEVAL_TOP_K,
+    minSimilarity: MIN_SIMILARITY,
+  });
+
+  if (error) throw error;
+
+  const candidates: RetrievalCandidate[] = (rows ?? []).map((row: MemoryV2Row) => ({
+    id: row.id,
+    title: row.title,
+    content: row.content,
+    summary: row.summary,
+    tags: row.tags ?? [],
+    memoryType: row.memory_type,
+    similarity: row.similarity,
+    importance: row.importance,
+    confidence: row.confidence,
+    effectiveScore: row.effective_score,
+    timesUsed: row.times_used,
+    lastUsed: row.last_used,
+  }));
+
+  if (candidates.length === 0) return [];
+
+  // 3: fused retrieval score via the shared scoring module.
+  const scored: ScoredCandidate[] = candidates.map((candidate) => ({
+    candidate,
+    relevance: scoreRetrievalCandidate(candidate),
+  }));
+
+  // 4: effectiveScore sort (lifecycle priority: importance * recency weighting).
+  scored.sort((a, b) => b.candidate.effectiveScore - a.candidate.effectiveScore);
+
+  // 5: MMR reranking with pairwise cosine similarity from embeddings.
+  const ids = candidates.map((c) => c.id);
+  const { data: embData, error: embError } = await supabase
+    .from("memories")
+    .select("id,embedding")
+    .in("id", ids)
+    .eq("user_id", userId);
+
+  const embeddings = new Map<string, number[]>();
+  if (embError) {
+    // Non-fatal: MMR degrades to relevance-only ranking without embeddings.
+    console.warn(
+      "retrieveMemories: embedding fetch failed; falling back to relevance order",
+      embError
+    );
+  } else {
+    for (const row of (embData ?? []) as MemoryEmbeddingRow[]) {
+      if (row.id && Array.isArray(row.embedding) && row.embedding.length > 0) {
+        embeddings.set(row.id, row.embedding);
+      }
+    }
+  }
+
+  const ranked: RetrievalCandidate[] = [];
+  const pool: ScoredCandidate[] = [...scored];
+
+  while (ranked.length < candidates.length && pool.length > 0) {
+    let bestIdx = 0;
+    let bestMmr = -Infinity;
+
+    for (let i = 0; i < pool.length; i++) {
+      const entry = pool[i];
+      const emb = embeddings.get(entry.candidate.id);
+      let maxSimToSelected = 0;
+      if (emb) {
+        for (const sel of ranked) {
+          const selEmb = embeddings.get(sel.id);
+          if (selEmb) {
+            const sim = cosine(emb, selEmb);
+            if (sim > maxSimToSelected) maxSimToSelected = sim;
+          }
+        }
+      }
+      const mmr = mmrScore(entry.relevance, maxSimToSelected, MMR_LAMBDA);
+      if (mmr > bestMmr) {
+        bestMmr = mmr;
+        bestIdx = i;
+      }
+    }
+
+    ranked.push(pool.splice(bestIdx, 1)[0].candidate);
+  }
+
+  // 6: enforce the token budget across the MMR-ranked list.
+  const surfaced = selectWithinTokenBudget(ranked);
+
+  // 7: bump usage for the memories actually surfaced to the prompt.
+  if (surfaced.length > 0) {
+    await touchMemories(surfaced.map((m) => m.id));
+  }
+
+  return surfaced;
+}
+
+===== REPOSITORY =====
+import { createClient } from "@/lib/supabase/server";
+import {
+  RETRIEVAL_TOP_K,
+  MIN_SIMILARITY,
+} from "@/lib/memory/constants";
+import type {
+  MemoryType,
+  MemoryStatus,
+  MemorySource,
+} from "@/lib/memory/types";
+
+export async function findMemoryByTitle(userId: string, title: string) {
+  const supabase = await createClient();
+  return supabase
+    .from("memories")
+    .select("id,content")
+    .eq("user_id", userId)
+    .eq("title", title)
+    .limit(1);
+}
+
+export async function getMemoryByTitle(userId: string, title: string) {
+  const supabase = await createClient();
+  return supabase
+    .from("memories")
+    .select("id,content")
+    .eq("user_id", userId)
+    .eq("title", title)
+    .maybeSingle();
+}
+
+export async function insertMemory(data: {
+  user_id: string;
+  title: string;
+  content: string;
+  role: string;
+  embedding: number[];
+}) {
+  const supabase = await createClient();
+  return supabase.from("memories").insert(data);
+}
+
+export async function updateMemoryById(
+  id: string,
+  updates: {
+    content: string;
+    embedding: number[];
+  }
+) {
+  const supabase = await createClient();
+  return supabase.from("memories").update(updates).eq("id", id);
+}
+
+export async function matchMemories(
+  queryEmbedding: number[],
+  userId: string,
+  matchCount: number
+) {
+  console.log("======== MATCH MEMORIES ========");
+  console.log("Embedding length:", queryEmbedding.length);
+  console.log("First 5 numbers:", queryEmbedding.slice(0, 5));
+  console.log("User ID:", userId);
+  console.log("Match Count:", matchCount);
+
+  const supabase = await createClient();
+
+  const result = await supabase.rpc("match_memories", {
+    query_embedding: queryEmbedding,
+    match_user: userId,
+    match_count: matchCount,
+  });
+
+  console.log("RPC RESULT:");
+  console.log(result);
+
+  return result;
+}
+
+export async function incrementMemoryUsage(
+  id: string,
+  timesUsed: number,
+  lastUsed: string
+) {
+  const supabase = await createClient();
+  return supabase
+    .from("memories")
+    .update({
+      times_used: timesUsed,
+      last_used: lastUsed,
+    })
+    .eq("id", id);
+}
+
+/* ========================================================================== */
+/* Memory V2 data-access (additive)                                            */
+/* These methods wire the repository to the V2 schema/RPCs already present in   */
+/* supabase/migrations 0001-0004. All legacy methods above are preserved        */
+/* unchanged; existing callers (retrieve.ts / upsertMemory.ts / memory.ts)    */
+/* keep working unchanged. V2 callers are migrated in a follow-up milestone.    */
+/* ========================================================================== */
+
+/** Options for `matchMemoriesV2`. Omitted values fall back to DB defaults. */
+export interface MatchMemoriesV2Options {
+  /** Max candidates returned. Defaults to RETRIEVAL_TOP_K (30). */
+  matchCount?: number;
+  /** Cosine-similarity floor. Defaults to MIN_SIMILARITY (0.65). */
+  minSimilarity?: number;
+  /** null => no type filter; otherwise restrict to these memory types. */
+  types?: MemoryType[] | null;
+  /** null => no status filter; defaults to ['active']. */
+  statuses?: MemoryStatus[] | null;
+  /** null => no project filter. */
+  projectId?: string | null;
+}
+
+/**
+ * V2 retrieval via the `match_memories_v2` RPC (migrations 0004).
+ * Returns: id, title, content, summary, tags, memory_type, importance,
+ * confidence, similarity, effective_score, times_used, last_used.
+ */
+export async function matchMemoriesV2(
+  queryEmbedding: number[],
+  userId: string,
+  options: MatchMemoriesV2Options = {}
+) {
+  const supabase = await createClient();
+
+  return supabase.rpc("match_memories_v2", {
+    p_user_id: userId,
+    p_query_embedding: queryEmbedding,
+    p_match_threshold: options.minSimilarity ?? MIN_SIMILARITY,
+    p_match_count: options.matchCount ?? RETRIEVAL_TOP_K,
+  });
+}
+
+/** Batch-increment `times_used` and set `last_used` via the `touch_memories` V2 RPC. */
+export async function touchMemories(ids: string[]) {
+  const supabase = await createClient();
+  return supabase.rpc("touch_memories", {
+    p_ids: ids,
+  });
+}
+
+/** V2 insert input. Omitted V2 fields fall back to DB defaults
+ *  (semantic / candidate / 0.5 importance & confidence / 'extractor' source). */
+export interface InsertMemoryV2Input {
+  user_id: string;
+  title: string;
+  content: string;
+  embedding?: number[] | null;
+
+  memory_type?: MemoryType;
+  status?: MemoryStatus;
+
+  summary?: string;
+  tags?: string[];
+
+  importance_v2?: number;
+  confidence_v2?: number;
+  source_v2?: MemorySource;
+
+  source_ref?: string | null;
+  project_id?: string | null;
+
+  metadata?: Record<string, unknown>;
+
+  effective_score?: number;
+  last_scored?: string;
+}
+
+/** Insert a memory using the Memory V2 columns. */
+export async function insertMemoryV2(data: InsertMemoryV2Input) {
+  const supabase = await createClient();
+  return supabase.from("memories").insert(data);
+}
+
+/** V2 update input â€” any subset of the updatable V2 fields. */
+export interface UpdateMemoryV2Input {
+  title?: string;
+  content?: string;
+  embedding?: number[] | null;
+
+  memory_type?: MemoryType;
+  status?: MemoryStatus;
+
+  summary?: string;
+  tags?: string[];
+
+  importance_v2?: number;
+  confidence_v2?: number;
+  source_v2?: MemorySource;
+
+  source_ref?: string | null;
+  project_id?: string | null;
+
+  metadata?: Record<string, unknown>;
+
+  effective_score?: number;
+  last_scored?: string;
+}
+
+/** Update a memory's V2 fields. */
+export async function updateMemoryV2(
+  id: string,
+  updates: UpdateMemoryV2Input
+) {
+  const supabase = await createClient();
+  return supabase.from("memories").update(updates).eq("id", id);
+}
+
+export async function getAllMemories(userId: string) {
+  const supabase = await createClient();
+
+  return supabase
+    .from("memories")
+    .select(
+      "id,title,content,summary,memory_type,status,importance_v2,confidence_v2,created_at,updated_at"
+    )
+    .eq("user_id", userId);
+}
+
+/* -------------------------------------------------------------------------- */
+/* DEFERRED: findNearDuplicates -> find_near_duplicates RPC.                    */
+/* 0004_memory_v2_rpcs.sql defines find_near_duplicates without its closing     */
+/* $$; (its body flows into apply_memory_decay), so the RPC definition is      */
+/* malformed until the SQL is fixed â€” a SQL change out of scope here. Will be   */
+/* added once 0004 is corrected. See ENGINEERING_LOG for the full analysis.      */
+/* -------------------------------------------------------------------------- */
+
+/** Sprint 24: Fetch memories with lifecycle-relevant columns for a specific user. */
+export async function getMemoriesForLifecycle(userId: string) {
+  const supabase = await createClient();
+  return supabase.from("memories").select("id,memory_type,status,importance_v2,confidence_v2,effective_score,last_scored,last_used,created_at,updated_at").eq("user_id", userId);
+}
+
+/** Sprint 24: Batch-update lifecycle fields for multiple memories (user-scoped via caller). */
+export async function batchUpdateLifecycle(
+  updates: Array<{ id: string; status: string; effective_score: number; last_scored: string }>
+) {
+  const supabase = await createClient();
+  for (const u of updates) {
+    const { error } = await supabase.from("memories").update({ status: u.status, effective_score: u.effective_score, last_scored: u.last_scored }).eq("id", u.id);
+    if (error) console.error("LIFECYCLE UPDATE FAILED", u.id, error);
+  }
+  return { updated: updates.length };
+}
+export async function purgeArchived(userId: string) { const supabase = await createClient(); const { data, error } = await supabase.rpc('purge_archived', { p_user_id: userId }); return { count: data ?? 0, error }; }
+
+
+
+
+===== MIGRATION 0002 =====
+-- ============================================================
+-- 0002_memory_v2_tables.sql
+-- Compatible with existing Aether production database
+-- ============================================================
+
+-- =========================
+-- Upgrade existing memories
+-- =========================
+
+alter table memories
+add column if not exists memory_type memory_type not null default 'semantic';
+
+alter table memories
+add column if not exists status memory_status not null default 'candidate';
+
+alter table memories
+add column if not exists summary text not null default '';
+
+alter table memories
+add column if not exists tags text[] not null default '{}';
+
+alter table memories
+add column if not exists importance_v2 numeric(3,2) not null default 0.5;
+
+alter table memories
+add column if not exists confidence_v2 numeric(3,2) not null default 0.5;
+
+alter table memories
+add column if not exists source_v2 memory_source not null default 'extractor';
+
+alter table memories
+add column if not exists source_ref text;
+
+alter table memories
+add column if not exists metadata jsonb not null default '{}';
+
+alter table memories
+add column if not exists last_scored timestamptz default now();
+
+alter table memories
+add column if not exists effective_score numeric(4,3) default 0.5;
+
+alter table memories
+add column if not exists cluster_id uuid;
+
+alter table memories
+add column if not exists project_id uuid;
+
+-- =========================
+-- Memory Clusters
+-- =========================
+
+create table if not exists memory_clusters (
+
+    id uuid primary key default gen_random_uuid(),
+
+    user_id uuid not null references auth.users(id) on delete cascade,
+
+    centroid vector(768),
+
+    label text,
+
+    member_count int default 0,
+
+    avg_importance numeric(3,2) default 0,
+
+    created_at timestamptz default now(),
+
+    updated_at timestamptz default now()
+
+);
+
+alter table memories
+drop constraint if exists memories_cluster_id_fkey;
+
+alter table memories
+add constraint memories_cluster_id_fkey
+foreign key (cluster_id)
+references memory_clusters(id)
+on delete set null;
+
+-- =========================
+-- Memory Edges
+-- =========================
+
+create table if not exists memory_edges (
+
+    id uuid primary key default gen_random_uuid(),
+
+    user_id uuid references auth.users(id) on delete cascade,
+
+    source_id uuid references memories(id) on delete cascade,
+
+    target_id uuid references memories(id) on delete cascade,
+
+    relation text,
+
+    created_at timestamptz default now()
+
+);
+
+-- =========================
+-- Memory Events
+-- =========================
+
+create table if not exists memory_events (
+
+    id bigint generated always as identity primary key,
+
+    user_id uuid references auth.users(id),
+
+    memory_id uuid references memories(id),
+
+    action text,
+
+    payload jsonb,
+
+    created_at timestamptz default now()
+
+);
+
+-- =========================
+-- Conversation upgrades
+-- =========================
+
+alter table messages
+add column if not exists session_id uuid;
+
+alter table messages
+add column if not exists token_count integer default 0;
+
+-- =========================
+-- Background jobs
+-- =========================
+
+create table if not exists memory_jobs (
+
+    id uuid primary key default gen_random_uuid(),
+
+    job_type text,
+
+    user_id uuid,
+
+    status text default 'pending',
+
+    payload jsonb,
+
+    attempts integer default 0,
+
+    last_error text,
+
+    created_at timestamptz default now(),
+
+    started_at timestamptz,
+
+    finished_at timestamptz
+
+);
+
+===== MIGRATION 0005 =====
+-- ============================================================
+-- 0005_memory_v2_backfill.sql
+-- Aether Memory V2
+-- Backfill existing memories into V2 columns
+-- Compatible with current schema
+-- ============================================================
+
+update memories
+set
+    memory_type = 'semantic',
+    status = 'active',
+
+    summary = case
+        when summary = '' then left(regexp_replace(content, '\s+', ' ', 'g'), 280)
+        else summary
+    end,
+
+    importance_v2 = 0.50,
+    confidence_v2 = 0.50,
+
+    tags = case
+        when cardinality(tags) = 0 then '{}'
+        else tags
+    end,
+
+    source_v2 = 'import',
+
+    last_scored = now(),
+    effective_score = 0.50
+
+where
+    memory_type = 'semantic'
+    and status = 'candidate'
+    and source_v2 = 'extractor';
+
+-- ------------------------------------------------------------
+-- Record migration completion
+-- ------------------------------------------------------------
+
+create table if not exists migration_meta (
+    name text primary key,
+    applied_at timestamptz not null default now(),
+    note text
+);
+
+insert into migration_meta (name, note)
+values (
+    '0005_memory_v2_backfill',
+    'Backfilled existing memories into Memory V2'
+)
+on conflict (name) do nothing;

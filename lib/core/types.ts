@@ -6,6 +6,9 @@ export interface RuntimeState {
 
   message: string;
 
+  /** id of the persisted user `messages` row that produced this request. */
+  messageId?: string;
+
   identity?: unknown;
 
   memories?: unknown[];

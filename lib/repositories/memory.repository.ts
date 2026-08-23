@@ -162,6 +162,9 @@ export interface InsertMemoryV2Input {
   source_ref?: string | null;
   project_id?: string | null;
 
+  /** Originating user `messages.id` that produced this memory. NULL for reflections. */
+  observation_id?: string | null;
+
   metadata?: Record<string, unknown>;
 
   effective_score?: number;
@@ -195,6 +198,8 @@ export interface UpdateMemoryV2Input {
 
   metadata?: Record<string, unknown>;
 
+  observation_id?: string | null;
+
   effective_score?: number;
   last_scored?: string;
 }
@@ -214,7 +219,7 @@ export async function getAllMemories(userId: string) {
   return supabase
     .from("memories")
     .select(
-      "id,title,content,summary,memory_type,status,importance_v2,confidence_v2,created_at,updated_at"
+      "id,title,content,summary,memory_type,status,importance_v2,confidence_v2,created_at,updated_at,tags,metadata,source_ref,project_id,observation_id"
     )
     .eq("user_id", userId);
 }
@@ -230,7 +235,7 @@ export async function getAllMemories(userId: string) {
 /** Sprint 24: Fetch memories with lifecycle-relevant columns for a specific user. */
 export async function getMemoriesForLifecycle(userId: string) {
   const supabase = await createClient();
-  return supabase.from("memories").select("id,memory_type,status,importance_v2,confidence_v2,effective_score,last_scored,last_used,created_at,updated_at").eq("user_id", userId);
+  return supabase.from("memories").select("id,memory_type,status,importance_v2,confidence_v2,effective_score,last_scored,last_used,times_used,created_at,updated_at").eq("user_id", userId);
 }
 
 /** Sprint 24: Batch-update lifecycle fields for multiple memories (user-scoped via caller). */
@@ -245,5 +250,141 @@ export async function batchUpdateLifecycle(
   return { updated: updates.length };
 }
 export async function purgeArchived(userId: string) { const supabase = await createClient(); const { data, error } = await supabase.rpc('purge_archived', { p_user_id: userId }); return { count: data ?? 0, error }; }
+
+/**
+ * Record exactly-once corroboration for (memory_id, message_id) via the
+ * `corroborate_memory` RPC (migration 0011). Returns true only when a brand-new
+ * corroboration was recorded for this message (and confidence_v2 was bumped by
+ * CONFIDENCE_CORROBORATION_STEP inside the RPC, atomically). Duplicate
+ * (memory_id, message_id) attempts — same message re-processing — return false
+ * and do not touch confidence.
+ */
+export async function corroborateMemory(
+  memoryId: string,
+  messageId: string
+): Promise<boolean> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("corroborate_memory", {
+    p_memory_id: memoryId,
+    p_message_id: messageId,
+  });
+  if (error) {
+    console.error("CORROBORATE FAILED", memoryId, error);
+    return false;
+  }
+  return data === true;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Phase 6-AN: consolidation contract (additive)                               */
+/* -------------------------------------------------------------------------- */
+
+/** Full rows needed by the consolidation decision module, fetched by ids. */
+export interface ConsolidationRow {
+  id: string;
+  memoryType: string;
+  status: string;
+  createdAt: string;
+  effectiveScore: number | null;
+  confidence: number | null;
+  timesUsed: number | null;
+  lastUsed: string | null;
+  title: string;
+  content: string;
+  observationId: string | null;
+  sourceV2: string | null;
+}
+
+export async function getMemoriesByIds(
+  userId: string,
+  ids: string[]
+): Promise<ConsolidationRow[]> {
+  if (!ids.length) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("memories")
+    .select(
+      "id,memory_type,status,created_at,effective_score,confidence_v2,times_used,last_used,title,content,observation_id,source_v2"
+    )
+    .eq("user_id", userId)
+    .in("id", ids);
+  if (error) {
+    console.error("GET MEMORIES BY IDS FAILED", error);
+    return [];
+  }
+  return (data ?? []).map((r: Record<string, unknown>) => ({
+    id: r.id as string,
+    memoryType: r.memory_type as string,
+    status: r.status as string,
+    createdAt: r.created_at as string,
+    effectiveScore: (r.effective_score as number) ?? null,
+    confidence: (r.confidence_v2 as number) ?? null,
+    timesUsed: (r.times_used as number) ?? null,
+    lastUsed: (r.last_used as string) ?? null,
+    title: r.title as string,
+    content: r.content as string,
+    observationId: (r.observation_id as string) ?? null,
+    sourceV2: (r.source_v2 as string) ?? null,
+  }));
+}
+
+export interface ConsolidateMemoriesResult {
+  ok: boolean;
+  reason?: string;
+  canonicalId?: string;
+  merged?: string[];
+  consolidationId?: string;
+  error?: unknown;
+}
+
+/** Invoke the atomic consolidation RPC (migration 0014). Performs writes. */
+export async function consolidateMemories(input: {
+  userId: string;
+  keepId: string;
+  mergeIds: string[];
+}): Promise<ConsolidateMemoriesResult> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("consolidate_memories", {
+    p_user_id: input.userId,
+    p_keep: input.keepId,
+    p_merge: input.mergeIds,
+  });
+  if (error) {
+    console.error("CONSOLIDATE FAILED", input.keepId, error);
+    return { ok: false, error };
+  }
+  const d = data as {
+    ok: boolean;
+    reason?: string;
+    canonical_id?: string;
+    merged?: string[];
+    consolidation_id?: string;
+  };
+  return {
+    ok: d.ok,
+    reason: d.reason,
+    canonicalId: d.canonical_id,
+    merged: d.merged,
+    consolidationId: d.consolidation_id,
+  };
+}
+
+/** Reverse a consolidation batch via the rollback RPC (migration 0014). */
+export async function rollbackConsolidation(input: {
+  userId: string;
+  canonicalId: string;
+}): Promise<{ ok: boolean; reason?: string; restored?: string[]; error?: unknown }> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("rollback_consolidation", {
+    p_user_id: input.userId,
+    p_canonical_id: input.canonicalId,
+  });
+  if (error) {
+    console.error("ROLLBACK CONSOLIDATION FAILED", input.canonicalId, error);
+    return { ok: false, error };
+  }
+  const d = data as { ok: boolean; reason?: string; restored?: string[] };
+  return { ok: d.ok, reason: d.reason, restored: d.restored };
+}
 
 

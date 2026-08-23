@@ -1,0 +1,20 @@
+{
+  "measuredAt": "2026-08-19T13:01:14.645Z",
+  "envVarNames": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  ],
+  "hasAnonKey": true,
+  "hasServiceRoleKey": false,
+  "hasDirectDbUrl": false,
+  "anonRestProbe": {
+    "status": 200,
+    "contentRange": "*/0",
+    "rowsReturned": 0
+  },
+  "verdict": "AUTHENTICATED_PRODUCTION_READ_PATH_UNAVAILABLE",
+  "notes": [
+    "anon REST (no session) returned 0 rows via RLS `memories_select ... using (auth.uid() = user_id)`; cannot distinguish empty DB from blocked read.",
+    "Only NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist. No service-role key, no direct DB connection string, no script-side session. The server client (lib/supabase/server.ts) requires a request-scoped cookie session, and no user credentials exist in this environment."
+  ]
+}

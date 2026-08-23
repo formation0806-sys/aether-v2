@@ -1,0 +1,55 @@
+{
+  "measuredAt": "2026-08-20T23:51:36.414Z",
+  "access": "AVAILABLE",
+  "detail": "Authenticated service-role read completed. COUNTs only; no content selected.",
+  "env": {
+    "envFilePresent": true,
+    "hasServiceRoleKey": true,
+    "hasDirectDbUrl": false,
+    "publicKeyNames": [
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    ]
+  },
+  "scopedToUser": "redacted",
+  "gateSql": {
+    "statusPass": "SELECT count(*) FROM memories WHERE user_id = :uid AND status IN ('active','candidate')",
+    "confidencePass": "SELECT count(*) FROM memories WHERE user_id = :uid AND COALESCE(confidence_v2,0) >= 0.7",
+    "importancePass": "SELECT count(*) FROM memories WHERE user_id = :uid AND COALESCE(importance_v2,0) >= 0.5",
+    "eligible": "SELECT count(*) FROM memories WHERE user_id = :uid AND status IN ('active','candidate') AND COALESCE(confidence_v2,0) >= 0.7 AND COALESCE(importance_v2,0) >= 0.5"
+  },
+  "measurements": {
+    "total": 32,
+    "statusDistribution": {
+      "active": 26,
+      "candidate": 6
+    },
+    "statusPass": 32,
+    "confidence": {
+      "pass": 22,
+      "null": 0,
+      "fail": 10
+    },
+    "importance": {
+      "pass": 26,
+      "null": 0,
+      "fail": 6
+    },
+    "gateDecomposition": {
+      "statusFail": 0,
+      "confidenceFail": 10,
+      "importanceFail": 6,
+      "confidenceAndImportanceFail": 16,
+      "fullyEligible": 16
+    },
+    "independentlyBindingFailures": {
+      "scoreFailsAmongStatusPass": 16
+    },
+    "freshMemoryAnalysis": {
+      "windowHours24": {
+        "count": 0,
+        "eligible": 0
+      }
+    }
+  }
+}

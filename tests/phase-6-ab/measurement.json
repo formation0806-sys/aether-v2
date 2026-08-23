@@ -1,0 +1,1504 @@
+{
+  "startedAt": "2026-08-23T18:15:26.294Z",
+  "experiment": "phase-6-ab-diagnostic",
+  "productionWrites": 0,
+  "reflectorInvocations": 5,
+  "classification": "INCONCLUSIVE",
+  "rootCause": "Mixed or ambiguous results across conditions.",
+  "env": {
+    "supabaseConfigured": true,
+    "userIdPresent": true
+  },
+  "selectionRule": "status in (active,candidate) AND confidence_v2>=0.7 AND importance_v2>=0.5",
+  "N_total": 37,
+  "N_eligible": 17,
+  "conditions": {
+    "A": {
+      "name": "Full",
+      "description": "17 memories across 3 type groups",
+      "memoryCount": 17,
+      "groupCount": 3,
+      "groupDetails": [
+        {
+          "memoryType": "project",
+          "memoryCount": 5,
+          "memoryIds": [
+            "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+          ]
+        },
+        {
+          "memoryType": "reflection",
+          "memoryCount": 10,
+          "memoryIds": [
+            "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+            "717420ed-ea5e-480b-8485-634ab825f631",
+            "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+            "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+          ]
+        },
+        {
+          "memoryType": "identity",
+          "memoryCount": 2,
+          "memoryIds": [
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+          ]
+        }
+      ],
+      "memoryDetails": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "memoryType": "project",
+          "title": "User Project: Aether [en75rlnh]",
+          "contentLength": 82,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "memoryType": "reflection",
+          "title": "Change in TypeScript Preference",
+          "contentLength": 136,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "memoryType": "project",
+          "title": "Meal Planning",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.52,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "memoryType": "project",
+          "title": "Project",
+          "contentLength": 67,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "memoryType": "project",
+          "title": "Aether Secret Test Phrase",
+          "contentLength": 54,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "memoryType": "identity",
+          "title": "Preference",
+          "contentLength": 49,
+          "summaryLength": 0,
+          "importance": 0.72,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "memoryType": "reflection",
+          "title": "AI Development Focus",
+          "contentLength": 121,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "memoryType": "project",
+          "title": "Secret Test Phrase",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "memoryType": "identity",
+          "title": "Professional Role",
+          "contentLength": 107,
+          "summaryLength": 0,
+          "importance": 0.9,
+          "confidence": 1,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "memoryType": "reflection",
+          "title": "Professional Identity Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "memoryType": "reflection",
+          "title": "Professional Identity",
+          "contentLength": 60,
+          "summaryLength": 0,
+          "importance": 0.62,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "memoryType": "reflection",
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "memoryType": "reflection",
+          "title": "Language Preference Change",
+          "contentLength": 157,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "memoryType": "reflection",
+          "title": "Recurring Theme: Aether Development",
+          "contentLength": 175,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "memoryType": "reflection",
+          "title": "Project Details",
+          "contentLength": 102,
+          "summaryLength": 0,
+          "importance": 0.53,
+          "confidence": 0.7,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference",
+          "contentLength": 150,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        }
+      ],
+      "rawResponseText": null,
+      "rawLength": null,
+      "isEmptyText": true,
+      "isLiteralEmptyArray": false,
+      "parseSuccess": false,
+      "rootType": "none",
+      "candidatesPreSanitizer": 0,
+      "sanitizerAccepted": 0,
+      "sanitizerRejected": 0,
+      "rejectionReasons": [],
+      "finalResultCount": 0,
+      "classification": "BLOCKED",
+      "requestModel": "qwen2.5:3b",
+      "requestOptions": {
+        "temperature": 0.1,
+        "num_predict": 300,
+        "top_p": 0.8,
+        "num_ctx": 4096
+      },
+      "networkError": "fetch failed"
+    },
+    "B": {
+      "name": "Reflection-only",
+      "description": "10 memories across 1 type groups",
+      "memoryCount": 10,
+      "groupCount": 1,
+      "groupDetails": [
+        {
+          "memoryType": "reflection",
+          "memoryCount": 10,
+          "memoryIds": [
+            "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+            "717420ed-ea5e-480b-8485-634ab825f631",
+            "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+            "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+          ]
+        }
+      ],
+      "memoryDetails": [
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "memoryType": "reflection",
+          "title": "Change in TypeScript Preference",
+          "contentLength": 136,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "memoryType": "reflection",
+          "title": "AI Development Focus",
+          "contentLength": 121,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "memoryType": "reflection",
+          "title": "Professional Identity Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "memoryType": "reflection",
+          "title": "Professional Identity",
+          "contentLength": 60,
+          "summaryLength": 0,
+          "importance": 0.62,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "memoryType": "reflection",
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "memoryType": "reflection",
+          "title": "Language Preference Change",
+          "contentLength": 157,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "memoryType": "reflection",
+          "title": "Recurring Theme: Aether Development",
+          "contentLength": 175,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "memoryType": "reflection",
+          "title": "Project Details",
+          "contentLength": 102,
+          "summaryLength": 0,
+          "importance": 0.53,
+          "confidence": 0.7,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference",
+          "contentLength": 150,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        }
+      ],
+      "rawResponseText": null,
+      "rawLength": null,
+      "isEmptyText": true,
+      "isLiteralEmptyArray": false,
+      "parseSuccess": false,
+      "rootType": "none",
+      "candidatesPreSanitizer": 0,
+      "sanitizerAccepted": 0,
+      "sanitizerRejected": 0,
+      "rejectionReasons": [],
+      "finalResultCount": 0,
+      "classification": "BLOCKED",
+      "requestModel": "qwen2.5:3b",
+      "requestOptions": {
+        "temperature": 0.1,
+        "num_predict": 300,
+        "top_p": 0.8,
+        "num_ctx": 4096
+      },
+      "networkError": "fetch failed"
+    },
+    "C": {
+      "name": "Non-reflection-only",
+      "description": "7 memories across 2 type groups",
+      "memoryCount": 7,
+      "groupCount": 2,
+      "groupDetails": [
+        {
+          "memoryType": "project",
+          "memoryCount": 5,
+          "memoryIds": [
+            "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+          ]
+        },
+        {
+          "memoryType": "identity",
+          "memoryCount": 2,
+          "memoryIds": [
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+          ]
+        }
+      ],
+      "memoryDetails": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "memoryType": "project",
+          "title": "User Project: Aether [en75rlnh]",
+          "contentLength": 82,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9"
+        },
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "memoryType": "project",
+          "title": "Meal Planning",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.52,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "memoryType": "project",
+          "title": "Project",
+          "contentLength": 67,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "memoryType": "project",
+          "title": "Aether Secret Test Phrase",
+          "contentLength": 54,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "memoryType": "identity",
+          "title": "Preference",
+          "contentLength": 49,
+          "summaryLength": 0,
+          "importance": 0.72,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "memoryType": "project",
+          "title": "Secret Test Phrase",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "memoryType": "identity",
+          "title": "Professional Role",
+          "contentLength": 107,
+          "summaryLength": 0,
+          "importance": 0.9,
+          "confidence": 1,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        }
+      ],
+      "rawResponseText": null,
+      "rawLength": null,
+      "isEmptyText": true,
+      "isLiteralEmptyArray": false,
+      "parseSuccess": false,
+      "rootType": "none",
+      "candidatesPreSanitizer": 0,
+      "sanitizerAccepted": 0,
+      "sanitizerRejected": 0,
+      "rejectionReasons": [],
+      "finalResultCount": 0,
+      "classification": "BLOCKED",
+      "requestModel": "qwen2.5:3b",
+      "requestOptions": {
+        "temperature": 0.1,
+        "num_predict": 300,
+        "top_p": 0.8,
+        "num_ctx": 4096
+      },
+      "networkError": "fetch failed"
+    },
+    "D": {
+      "name": "Reflection+Project",
+      "description": "15 memories across 2 type groups",
+      "memoryCount": 15,
+      "groupCount": 2,
+      "groupDetails": [
+        {
+          "memoryType": "reflection",
+          "memoryCount": 10,
+          "memoryIds": [
+            "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+            "717420ed-ea5e-480b-8485-634ab825f631",
+            "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+            "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+          ]
+        },
+        {
+          "memoryType": "project",
+          "memoryCount": 5,
+          "memoryIds": [
+            "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+          ]
+        }
+      ],
+      "memoryDetails": [
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "memoryType": "reflection",
+          "title": "Change in TypeScript Preference",
+          "contentLength": 136,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "memoryType": "reflection",
+          "title": "AI Development Focus",
+          "contentLength": 121,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "memoryType": "reflection",
+          "title": "Professional Identity Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "memoryType": "reflection",
+          "title": "Professional Identity",
+          "contentLength": 60,
+          "summaryLength": 0,
+          "importance": 0.62,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "memoryType": "reflection",
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "memoryType": "reflection",
+          "title": "Language Preference Change",
+          "contentLength": 157,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "memoryType": "reflection",
+          "title": "Recurring Theme: Aether Development",
+          "contentLength": 175,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "memoryType": "reflection",
+          "title": "Project Details",
+          "contentLength": 102,
+          "summaryLength": 0,
+          "importance": 0.53,
+          "confidence": 0.7,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference",
+          "contentLength": 150,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "memoryType": "project",
+          "title": "User Project: Aether [en75rlnh]",
+          "contentLength": 82,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9"
+        },
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "memoryType": "project",
+          "title": "Meal Planning",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.52,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "memoryType": "project",
+          "title": "Project",
+          "contentLength": 67,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "memoryType": "project",
+          "title": "Aether Secret Test Phrase",
+          "contentLength": 54,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "memoryType": "project",
+          "title": "Secret Test Phrase",
+          "contentLength": 51,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        }
+      ],
+      "rawResponseText": null,
+      "rawLength": null,
+      "isEmptyText": true,
+      "isLiteralEmptyArray": false,
+      "parseSuccess": false,
+      "rootType": "none",
+      "candidatesPreSanitizer": 0,
+      "sanitizerAccepted": 0,
+      "sanitizerRejected": 0,
+      "rejectionReasons": [],
+      "finalResultCount": 0,
+      "classification": "BLOCKED",
+      "requestModel": "qwen2.5:3b",
+      "requestOptions": {
+        "temperature": 0.1,
+        "num_predict": 300,
+        "top_p": 0.8,
+        "num_ctx": 4096
+      },
+      "networkError": "fetch failed"
+    },
+    "E": {
+      "name": "Reflection+Identity",
+      "description": "12 memories across 2 type groups",
+      "memoryCount": 12,
+      "groupCount": 2,
+      "groupDetails": [
+        {
+          "memoryType": "reflection",
+          "memoryCount": 10,
+          "memoryIds": [
+            "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+            "717420ed-ea5e-480b-8485-634ab825f631",
+            "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+            "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+          ]
+        },
+        {
+          "memoryType": "identity",
+          "memoryCount": 2,
+          "memoryIds": [
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+          ]
+        }
+      ],
+      "memoryDetails": [
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "memoryType": "reflection",
+          "title": "Change in TypeScript Preference",
+          "contentLength": 136,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "memoryType": "reflection",
+          "title": "AI Development Focus",
+          "contentLength": 121,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "memoryType": "reflection",
+          "title": "Professional Identity Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "memoryType": "reflection",
+          "title": "Professional Identity",
+          "contentLength": 60,
+          "summaryLength": 0,
+          "importance": 0.62,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "memoryType": "reflection",
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "memoryType": "reflection",
+          "title": "Language Preference Change",
+          "contentLength": 157,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "memoryType": "reflection",
+          "title": "Recurring Theme: Aether Development",
+          "contentLength": 175,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "memoryType": "reflection",
+          "title": "Project Details",
+          "contentLength": 102,
+          "summaryLength": 0,
+          "importance": 0.53,
+          "confidence": 0.7,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference",
+          "contentLength": 150,
+          "summaryLength": 0,
+          "importance": 0.6,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "memoryType": "identity",
+          "title": "Preference",
+          "contentLength": 49,
+          "summaryLength": 0,
+          "importance": 0.72,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "memoryType": "identity",
+          "title": "Professional Role",
+          "contentLength": 107,
+          "summaryLength": 0,
+          "importance": 0.9,
+          "confidence": 1,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        }
+      ],
+      "rawResponseText": null,
+      "rawLength": null,
+      "isEmptyText": true,
+      "isLiteralEmptyArray": false,
+      "parseSuccess": false,
+      "rootType": "none",
+      "candidatesPreSanitizer": 0,
+      "sanitizerAccepted": 0,
+      "sanitizerRejected": 0,
+      "rejectionReasons": [],
+      "finalResultCount": 0,
+      "classification": "BLOCKED",
+      "requestModel": "qwen2.5:3b",
+      "requestOptions": {
+        "temperature": 0.1,
+        "num_predict": 300,
+        "top_p": 0.8,
+        "num_ctx": 4096
+      },
+      "networkError": "fetch failed"
+    }
+  },
+  "duplicateAnalysis": {
+    "totalMemories": 17,
+    "nearDuplicatePairs": 2,
+    "totalPairs": 136,
+    "duplicateRatio": 0.015,
+    "uniqueContentClusters": 15,
+    "reflectionMemoriesTotal": 10,
+    "reflectionSummarizingExistingCount": 0,
+    "reflectionSummarizingExistingIds": [],
+    "reflectionInternalDuplicatePairs": 2,
+    "reflectionInternalDuplicateDetails": [
+      {
+        "idA": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+        "idB": "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "similarity": 1
+      },
+      {
+        "idA": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+        "idB": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "similarity": 0.83
+      }
+    ]
+  },
+  "historicalReflectionAnalysis": {
+    "total": 10,
+    "typeDistribution": {
+      "CONTRADICTION": 1,
+      "REPEATED_PATTERN": 8,
+      "CHANGE_OVER_TIME": 1
+    },
+    "distinctTitles": 10,
+    "orphanedCount": 10,
+    "orphanedIds": [
+      "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+      "717420ed-ea5e-480b-8485-634ab825f631",
+      "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+      "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+      "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+    ],
+    "items": [
+      {
+        "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+        "title": "Change in TypeScript Preference",
+        "contentLength": 136,
+        "detectedTypes": [
+          "CONTRADICTION"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T12:25:13.60842+00:00"
+      },
+      {
+        "id": "717420ed-ea5e-480b-8485-634ab825f631",
+        "title": "AI Development Focus",
+        "contentLength": 121,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T11:23:53.870637+00:00"
+      },
+      {
+        "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+        "title": "Professional Identity Consistency",
+        "contentLength": 143,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T11:59:43.378157+00:00"
+      },
+      {
+        "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+        "title": "Professional Identity",
+        "contentLength": 60,
+        "detectedTypes": [],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T11:38:08.142185+00:00"
+      },
+      {
+        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "title": "Professional Role Consistency",
+        "contentLength": 143,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+      },
+      {
+        "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+        "title": "Language Preference Change",
+        "contentLength": 157,
+        "detectedTypes": [
+          "REPEATED_PATTERN",
+          "CHANGE_OVER_TIME"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T12:24:52.358049+00:00"
+      },
+      {
+        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "title": "TypeScript Preference Change",
+        "contentLength": 169,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T12:26:07.852978+00:00"
+      },
+      {
+        "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+        "title": "Recurring Theme: Aether Development",
+        "contentLength": 175,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T12:29:22.781442+00:00"
+      },
+      {
+        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+        "title": "Project Details",
+        "contentLength": 102,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T12:00:06.534876+00:00"
+      },
+      {
+        "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+        "title": "TypeScript Preference",
+        "contentLength": 150,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T12:02:11.654023+00:00"
+      }
+    ]
+  },
+  "promptRuleCorrelation": {
+    "A": {
+      "rule8": {
+        "rule": "Do not create a reflection merely because several memories mention the same broad topic.",
+        "couldApply": false,
+        "reason": ""
+      },
+      "rule12": {
+        "rule": "A reflection must add information that is more useful than simply repeating the source memories.",
+        "couldApply": true,
+        "reason": "Large input (17 memories) increases likelihood that any synthesized reflection would be seen as merely repeating existing facts rather than adding new information."
+      },
+      "finalCheck": {
+        "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
+        "wouldFavorEmpty": false,
+        "reason": ""
+      }
+    },
+    "B": {
+      "rule8": {
+        "rule": "Do not create a reflection merely because several memories mention the same broad topic.",
+        "couldApply": true,
+        "reason": "All 10 memories share the same type \"reflection\". If they all mention the same broad topic (e.g., Aether development), RULE 8 could reject a reflection."
+      },
+      "rule12": {
+        "rule": "A reflection must add information that is more useful than simply repeating the source memories.",
+        "couldApply": true,
+        "reason": "Large input (10 memories) increases likelihood that any synthesized reflection would be seen as merely repeating existing facts rather than adding new information."
+      },
+      "finalCheck": {
+        "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
+        "wouldFavorEmpty": false,
+        "reason": ""
+      }
+    },
+    "C": {
+      "rule8": {
+        "rule": "Do not create a reflection merely because several memories mention the same broad topic.",
+        "couldApply": false,
+        "reason": ""
+      },
+      "rule12": {
+        "rule": "A reflection must add information that is more useful than simply repeating the source memories.",
+        "couldApply": false,
+        "reason": ""
+      },
+      "finalCheck": {
+        "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
+        "wouldFavorEmpty": false,
+        "reason": ""
+      }
+    },
+    "D": {
+      "rule8": {
+        "rule": "Do not create a reflection merely because several memories mention the same broad topic.",
+        "couldApply": false,
+        "reason": ""
+      },
+      "rule12": {
+        "rule": "A reflection must add information that is more useful than simply repeating the source memories.",
+        "couldApply": true,
+        "reason": "Large input (15 memories) increases likelihood that any synthesized reflection would be seen as merely repeating existing facts rather than adding new information."
+      },
+      "finalCheck": {
+        "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
+        "wouldFavorEmpty": false,
+        "reason": ""
+      }
+    },
+    "E": {
+      "rule8": {
+        "rule": "Do not create a reflection merely because several memories mention the same broad topic.",
+        "couldApply": false,
+        "reason": ""
+      },
+      "rule12": {
+        "rule": "A reflection must add information that is more useful than simply repeating the source memories.",
+        "couldApply": true,
+        "reason": "Large input (12 memories) increases likelihood that any synthesized reflection would be seen as merely repeating existing facts rather than adding new information."
+      },
+      "finalCheck": {
+        "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
+        "wouldFavorEmpty": false,
+        "reason": ""
+      }
+    }
+  },
+  "productionChangeJustified": false,
+  "comparisonMatrix": [
+    {
+      "condition": "A Full",
+      "memories": 17,
+      "result": "empty",
+      "candidates": 0,
+      "classification": "BLOCKED"
+    },
+    {
+      "condition": "B Reflection-only",
+      "memories": 10,
+      "result": "empty",
+      "candidates": 0,
+      "classification": "BLOCKED"
+    },
+    {
+      "condition": "C Non-reflection-only",
+      "memories": 7,
+      "result": "empty",
+      "candidates": 0,
+      "classification": "BLOCKED"
+    },
+    {
+      "condition": "D Reflection+Project",
+      "memories": 15,
+      "result": "empty",
+      "candidates": 0,
+      "classification": "BLOCKED"
+    },
+    {
+      "condition": "E Reflection+Identity",
+      "memories": 12,
+      "result": "empty",
+      "candidates": 0,
+      "classification": "BLOCKED"
+    }
+  ]
+}

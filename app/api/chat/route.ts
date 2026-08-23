@@ -1,9 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 
 import { initializeAI } from "@/lib/ai/bootstrap";
 import { createClient } from "@/lib/supabase/server";
 
-import { Runtime, runPipeline } from "@/lib/core";
+import {
+  Runtime,
+  runPipeline,
+  processMemoryJobs,
+} from "@/lib/core";
 
 export async function POST(req: Request) {
   try {
@@ -30,6 +34,24 @@ export async function POST(req: Request) {
     });
 
     const state = await runPipeline(runtime);
+
+    /**
+     * IMPORTANT:
+     *
+     * Memory extraction/reflection/lifecycle/purge
+     * must not delay the user's response.
+     *
+     * For local development we intentionally start this
+     * after the response state has been produced.
+     */
+    after(() =>
+      processMemoryJobs(user.id).catch((error) => {
+        console.error(
+          "BACKGROUND MEMORY MAINTENANCE FAILED",
+          error
+        );
+      })
+    );
 
     return NextResponse.json({
       response: state.response,

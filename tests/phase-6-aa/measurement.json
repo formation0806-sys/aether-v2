@@ -1,0 +1,386 @@
+{
+  "startedAt": "2026-08-23T18:15:26.281Z",
+  "experiment": "full-input-reflector-probe",
+  "productionWrites": 0,
+  "reflectorInvocations": 1,
+  "classification": "BLOCKED",
+  "reason": "generateReflections threw: fetch failed",
+  "env": {
+    "supabaseConfigured": true,
+    "userIdPresent": true
+  },
+  "selectionRule": "status in (active,candidate) AND confidence_v2>=0.7 AND importance_v2>=0.5",
+  "N_total": 37,
+  "N_eligible": 17,
+  "selectedIds": [
+    "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+    "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+    "558ad91c-8802-490d-8497-3c284a5e83d7",
+    "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+    "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+    "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+    "717420ed-ea5e-480b-8485-634ab825f631",
+    "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+    "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+    "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+    "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+    "ad438289-f5af-4334-b1e3-a09d65f52099",
+    "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+    "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+    "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+    "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+    "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+  ],
+  "reflectionMemorySummary": [
+    {
+      "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+      "title": "Change in TypeScript Preference",
+      "contentLength": 136,
+      "summaryLength": 0,
+      "hasSynthesizedContent": false
+    },
+    {
+      "id": "717420ed-ea5e-480b-8485-634ab825f631",
+      "title": "AI Development Focus",
+      "contentLength": 121,
+      "summaryLength": 0,
+      "hasSynthesizedContent": true
+    },
+    {
+      "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+      "title": "Professional Identity Consistency",
+      "contentLength": 143,
+      "summaryLength": 0,
+      "hasSynthesizedContent": true
+    },
+    {
+      "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+      "title": "Professional Identity",
+      "contentLength": 60,
+      "summaryLength": 0,
+      "hasSynthesizedContent": false
+    },
+    {
+      "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "title": "Professional Role Consistency",
+      "contentLength": 143,
+      "summaryLength": 0,
+      "hasSynthesizedContent": true
+    },
+    {
+      "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "title": "Language Preference Change",
+      "contentLength": 157,
+      "summaryLength": 0,
+      "hasSynthesizedContent": false
+    },
+    {
+      "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+      "title": "TypeScript Preference Change",
+      "contentLength": 169,
+      "summaryLength": 0,
+      "hasSynthesizedContent": false
+    },
+    {
+      "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "title": "Recurring Theme: Aether Development",
+      "contentLength": 175,
+      "summaryLength": 0,
+      "hasSynthesizedContent": true
+    },
+    {
+      "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "title": "Project Details",
+      "contentLength": 102,
+      "summaryLength": 0,
+      "hasSynthesizedContent": false
+    },
+    {
+      "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+      "title": "TypeScript Preference",
+      "contentLength": 150,
+      "summaryLength": 0,
+      "hasSynthesizedContent": true
+    }
+  ],
+  "inputGroups": [
+    {
+      "memoryType": "project",
+      "memoryCount": 5,
+      "memoryIds": [
+        "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+        "558ad91c-8802-490d-8497-3c284a5e83d7",
+        "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+        "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+        "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+      ]
+    },
+    {
+      "memoryType": "reflection",
+      "memoryCount": 10,
+      "memoryIds": [
+        "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+        "717420ed-ea5e-480b-8485-634ab825f631",
+        "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+        "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+        "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+        "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+        "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+        "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
+      ]
+    },
+    {
+      "memoryType": "identity",
+      "memoryCount": 2,
+      "memoryIds": [
+        "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+        "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+      ]
+    }
+  ],
+  "fieldsPopulatedInInput": [
+    {
+      "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "titleLength": 31,
+      "contentLength": 82,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.68,
+      "confidence": 0.9,
+      "memoryType": "project"
+    },
+    {
+      "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+      "titleLength": 13,
+      "contentLength": 51,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.52,
+      "confidence": 0.8,
+      "memoryType": "project"
+    },
+    {
+      "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "titleLength": 7,
+      "contentLength": 67,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.68,
+      "confidence": 0.9,
+      "memoryType": "project"
+    },
+    {
+      "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "titleLength": 25,
+      "contentLength": 54,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.8,
+      "memoryType": "project"
+    },
+    {
+      "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "titleLength": 18,
+      "contentLength": 51,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.68,
+      "confidence": 0.95,
+      "memoryType": "project"
+    },
+    {
+      "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+      "titleLength": 31,
+      "contentLength": 136,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.6,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "717420ed-ea5e-480b-8485-634ab825f631",
+      "titleLength": 20,
+      "contentLength": 121,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+      "titleLength": 33,
+      "contentLength": 143,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+      "titleLength": 21,
+      "contentLength": 60,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.62,
+      "confidence": 0.8,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "titleLength": 29,
+      "contentLength": 143,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "titleLength": 26,
+      "contentLength": 157,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+      "titleLength": 28,
+      "contentLength": 169,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "titleLength": 35,
+      "contentLength": 175,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.63,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "titleLength": 15,
+      "contentLength": 102,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.53,
+      "confidence": 0.7,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+      "titleLength": 21,
+      "contentLength": 150,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.6,
+      "confidence": 0.9,
+      "memoryType": "reflection"
+    },
+    {
+      "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "titleLength": 10,
+      "contentLength": 49,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.72,
+      "confidence": 0.95,
+      "memoryType": "identity"
+    },
+    {
+      "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "titleLength": 17,
+      "contentLength": 107,
+      "summaryLength": 0,
+      "tagsCount": 0,
+      "metadataKeyCount": 0,
+      "importance": 0.9,
+      "confidence": 1,
+      "memoryType": "identity"
+    }
+  ],
+  "inputQualityMetrics": {
+    "emptyContentCount": 0,
+    "emptySummaryCount": 17,
+    "emptyTagsCount": 17,
+    "emptyMetadataCount": 17,
+    "avgContentLength": 106.88,
+    "contentStdDev": 44.29,
+    "nearDuplicatePairs": 2,
+    "withStructuralMarkers": 5,
+    "typeDistribution": {
+      "project": 5,
+      "reflection": 10,
+      "identity": 2
+    }
+  },
+  "modelRequest": {
+    "model": "qwen2.5:3b",
+    "options": {
+      "temperature": 0.1,
+      "num_predict": 300,
+      "top_p": 0.8,
+      "num_ctx": 4096
+    }
+  },
+  "parseDiagnostics": {
+    "rawLength": null,
+    "isLiteralEmptyArray": null,
+    "parseSuccess": false,
+    "rootType": "none",
+    "candidatesPreSanitizer": 0,
+    "finalAccepted": 0,
+    "networkError": "fetch failed"
+  },
+  "comparisonWithPhase6WX": {
+    "phase6WX": {
+      "inputMemoryCount": 5,
+      "typeGroups": 1,
+      "reflectionMemoriesInInput": 0,
+      "classification": "POST_REPAIR_MODEL_EMPTY",
+      "rawModelOutput": "[]",
+      "candidatesPreSanitizer": 0,
+      "finalAccepted": 0
+    },
+    "phase6AA": {
+      "inputMemoryCount": 17,
+      "typeGroups": 3,
+      "reflectionMemoriesInInput": 10,
+      "classification": "BLOCKED",
+      "rawModelOutput": null,
+      "candidatesPreSanitizer": 0,
+      "finalAccepted": 0
+    },
+    "keyDifference": "Phase 6-W/X used 5 post-repair project memories (observation_id IS NOT NULL filter). Phase 6-AA uses the full production-eligible pool (21 memories, no observation_id filter)."
+  }
+}
