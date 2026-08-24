@@ -50,6 +50,12 @@ export interface ResolveMemoryIdentityInput {
   title: string;
   content: string;
   memoryType: MemoryType;
+  /**
+   * Experimental override of the identity-candidate similarity floor.
+   * Omitted by production callers (core/pipeline.ts), so the production
+   * default IDENTITY_CANDIDATE_MIN_SIMILARITY (0.85) is byte-for-byte unchanged.
+   */
+  candidateMinSimilarity?: number;
 }
 
 const IDENTITY_VERIFIER_MODEL = "qwen2.5:3b";
@@ -202,7 +208,7 @@ export async function resolveMemoryIdentity(
   let rows: IdentityCandidate[] = [];
   try {
     const { data, error } = await matchMemoriesV2(vector.embedding, userId, {
-      minSimilarity: IDENTITY_CANDIDATE_MIN_SIMILARITY,
+      minSimilarity: input.candidateMinSimilarity ?? IDENTITY_CANDIDATE_MIN_SIMILARITY,
       matchCount: IDENTITY_CANDIDATE_COUNT,
     });
     if (error) {
