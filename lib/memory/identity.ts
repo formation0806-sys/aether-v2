@@ -1,4 +1,4 @@
-import { OLLAMA_BASE_URL } from "@/lib/ai/config";
+import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "@/lib/ai/config";
 import { matchMemoriesV2 } from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
 import type { MemoryType } from "@/lib/memory/types";
@@ -150,7 +150,7 @@ async function verifyIdentity(
 
   const res = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}) },
     body: JSON.stringify({
       model: IDENTITY_VERIFIER_MODEL,
       stream: false,

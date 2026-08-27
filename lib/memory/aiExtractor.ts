@@ -1,5 +1,5 @@
 import { MEMORY_TYPES, type ExtractedMemory, type MemoryType } from "./types";
-import { OLLAMA_BASE_URL } from "@/lib/ai/config";
+import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "@/lib/ai/config";
 
 /** Sanitize one parsed extractor item; invalid optional fields are omitted. */
 function sanitizeExtractedMemory(raw: unknown): ExtractedMemory | null {
@@ -52,6 +52,7 @@ export async function aiExtractMemories(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
       },
       body: JSON.stringify({
         model: "qwen2.5:3b",

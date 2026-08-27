@@ -1,5 +1,5 @@
 import { EmbeddingResult } from "../types";
-import { OLLAMA_BASE_URL } from "../config";
+import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "../config";
 
 export async function embed(
   text: string
@@ -10,6 +10,7 @@ export async function embed(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
       },
       body: JSON.stringify({
         model: "nomic-embed-text:latest",

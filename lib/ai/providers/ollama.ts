@@ -3,7 +3,7 @@ import {
   ChatMessage,
   EmbeddingResult,
 } from "../types";
-import { OLLAMA_BASE_URL } from "../config";
+import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "../config";
 
 export class OllamaProvider implements AIProvider {
   async chat(messages: ChatMessage[]): Promise<string> {
@@ -13,6 +13,7 @@ export class OllamaProvider implements AIProvider {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
         },
         body: JSON.stringify({
           model: "qwen2.5:3b",
@@ -47,6 +48,7 @@ export class OllamaProvider implements AIProvider {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
         },
         body: JSON.stringify({
           model: "nomic-embed-text",

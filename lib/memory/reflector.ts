@@ -1,5 +1,5 @@
 import type { ExtractedMemory } from "./types";
-import { OLLAMA_BASE_URL } from "@/lib/ai/config";
+import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "@/lib/ai/config";
 
 /** Input shape produced by `runReflection` in lib/core/pipeline.ts. */
 export interface ReflectionInput {
@@ -331,6 +331,7 @@ export async function generateReflections(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
       },
       body: JSON.stringify({
         model: "qwen2.5:3b",
