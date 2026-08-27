@@ -1,0 +1,95 @@
+{
+  "status": "V10_PASS",
+  "timestamp": "2026-08-27T10:08:47.499Z",
+  "preflight": {
+    "productionPromptHash": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "datasetHash": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+    "threshold": 0.85,
+    "candidateCount": 8,
+    "model": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000
+  },
+  "gates": {
+    "G-V10-ZEROWRITE": "PASS",
+    "G-V10-PRODUCTION-PROMPT-INTEGRITY": "PASS",
+    "G-V10-THRESHOLD-INTEGRITY": "PASS",
+    "G-V10-DATASET-FROZEN": "PASS",
+    "G-V10-HISTORY-INTACT": "PASS",
+    "G-V10-LIVE-PATH": "PASS",
+    "G-V10-SAFETY": "PASS",
+    "G-V10-REPEATABILITY": "PASS"
+  },
+  "cases": {
+    "same": [
+      { "pairId": "pair-001", "verdict": "corroborate", "targetId": "mem-pair-001-b", "similarity": 0.92 },
+      { "pairId": "pair-019", "verdict": "corroborate", "targetId": "mem-pair-019-b", "similarity": 0.92 },
+      { "pairId": "pair-035", "verdict": "corroborate", "targetId": "mem-pair-035-b", "similarity": 0.92 }
+    ],
+    "different": [
+      { "pairId": "pair-011", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" },
+      { "pairId": "pair-034", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" },
+      { "pairId": "pair-028", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" },
+      { "pairId": "pair-031", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" },
+      { "pairId": "pair-032", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" },
+      { "pairId": "pair-042", "verdict": "create", "reason": "non-clean pattern: DIFFERENT after 1 verified candidate(s)" }
+    ],
+    "retrievalReference": [
+      { "pairId": "pair-005", "verdict": "create", "reason": "no semantic candidates (below 0.85 retrieval floor)" },
+      { "pairId": "pair-041", "verdict": "create", "reason": "no semantic candidates (below 0.85 retrieval floor)" }
+    ]
+  },
+  "repeatability": [
+    {
+      "pairId": "pair-001",
+      "distribution": { "SAME": 20, "DIFFERENT": 0 },
+      "sequence": "SAME x20",
+      "modalVerdict": "SAME",
+      "agreement": 20
+    },
+    {
+      "pairId": "pair-011",
+      "distribution": { "SAME": 0, "DIFFERENT": 20 },
+      "sequence": "DIFFERENT x20",
+      "modalVerdict": "DIFFERENT",
+      "agreement": 20
+    },
+    {
+      "pairId": "pair-019",
+      "distribution": { "SAME": 20, "DIFFERENT": 0 },
+      "sequence": "SAME x20",
+      "modalVerdict": "SAME",
+      "agreement": 20
+    },
+    {
+      "pairId": "pair-034",
+      "distribution": { "SAME": 0, "DIFFERENT": 20 },
+      "sequence": "DIFFERENT x20",
+      "modalVerdict": "DIFFERENT",
+      "agreement": 20
+    },
+    {
+      "pairId": "pair-035",
+      "distribution": { "SAME": 20, "DIFFERENT": 0 },
+      "sequence": "SAME x20",
+      "modalVerdict": "SAME",
+      "agreement": 20
+    }
+  ],
+  "safety": {
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "networkDestinations": ["127.0.0.1:11434"],
+    "ollamaModels": ["nomic-embed-text:latest", "qwen2.5:3b"]
+  },
+  "scientificNotes": [
+    "LIVE VERIFIER OBSERVATION: real production SYS_V5 path exercised with mocked persistence.",
+    "RETRIEVAL LIMITATION: pair-005 and pair-041 are below the 0.85 verifier candidate floor and return create due to no candidates.",
+    "DATASET ANOMALY: pair-034 remains the frozen semantic decoy and never becomes SAME.",
+    "PERSISTENCE NOT TESTED: no Supabase writes were performed; real DB behavior remains unexercised."
+  ]
+}

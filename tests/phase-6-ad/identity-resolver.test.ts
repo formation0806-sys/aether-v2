@@ -1,4 +1,7 @@
 import { describe, it, expect } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
 
 /**
  * Phase 6-AD — Prompt-Decision Audit (Identity Resolution)
@@ -22,19 +25,32 @@ import { describe, it, expect } from "vitest";
 const OLLAMA_URL = "http://127.0.0.1:11434/api/chat";
 const MODEL = "qwen2.5:3b";
 
-const IDENTITY_VERIFIER_SYSTEM =
-  "You are an identity-resolution classifier for a long-term memory system. " +
-  "Decide whether the NEW OBSERVATION refers to the SAME underlying memory fact " +
-  "as the EXISTING CANDIDATE MEMORY. " +
-  "SAME = the candidate already records this fact, even if worded differently. " +
-  "DIFFERENT = different subject, different value, contradiction, temporal shift " +
-  "(e.g. 'used to' vs 'currently'), preference vs current usage (e.g. 'I prefer TypeScript' vs 'I use TypeScript'), different entity (brother vs friend), " +
-  "different scope, or only a related-but-not-identical topic " +
-  "(e.g. 'I like tea' vs 'I prefer mild tea'). " +
-  "UNCERTAIN = you cannot be confident. " +
-  "Be very conservative. When in doubt choose DIFFERENT or UNCERTAIN. " +
-  "Never merge merely because the topic is similar. " +
-  "Return ONLY strict JSON: {\"decision\":\"SAME\",\"reason\":\"...\"}";
+// PHASE 6-AO-V9 compatibility repair: stop carrying a hand-copied snapshot of
+// the pre-adoption prompt (stale after the V7 SYS_A -> SYS_V5 adoption).
+// Extract the CURRENT production verifier system prompt from lib/memory/identity.ts
+// source TEXT (multi-segment aware, escape-aware), so this audit always observes
+// the real adopted contract. The prompt is never reconstructed or retyped here.
+function readProductionIdentitySystem(): string {
+  const src = fs.readFileSync(path.resolve(process.cwd(), "lib/memory/identity.ts"), "utf-8");
+  const start = src.indexOf("const system =");
+  const end = src.indexOf('";', start);
+  if (start === -1 || end === -1) {
+    throw new Error(
+      "IDENTITY_PROMPT_EXTRACTION_FAILED: production system block not found in lib/memory/identity.ts"
+    );
+  }
+  const parts = [...src.slice(start, end + 2).matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) =>
+    JSON.parse(`"${m[1]}"`)
+  );
+  if (parts.length === 0) {
+    throw new Error(
+      "IDENTITY_PROMPT_EXTRACTION_FAILED: no prompt literals found in production system block"
+    );
+  }
+  return parts.join("");
+}
+
+const IDENTITY_VERIFIER_SYSTEM = readProductionIdentitySystem();
 
 interface VerifyInput {
   newMem: { title: string; content: string; memoryType: string };
@@ -265,5 +281,29 @@ describe("Phase 6-AD: Identity Resolution Decision Audit", () => {
       const decision = await verifyDecision(tc.input);
       expect(["SAME", "DIFFERENT", "UNCERTAIN"]).toContain(decision);
     }
+  });
+});
+
+// PHASE 6-AO-V9 — offline reader-compatibility verification. Deterministic,
+// zero-network, zero-database: proves this legacy smoke reader observes the
+// COMPLETE adopted SYS_V5 production prompt extracted from live source TEXT.
+describe("PHASE 6-AO-V9 reader compatibility — identity-resolver extraction", () => {
+  const FROZEN_SYS_V5_SHA256 =
+    "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d";
+
+  it("replaced its hand-copied legacy prompt with complete multi-segment SYS_V5 extraction", () => {
+    // Multi-segment completeness: exact frozen adopted-contract length.
+    expect(IDENTITY_VERIFIER_SYSTEM.length).toBe(1498);
+    // Anti-truncation: late/terminal clauses prove capture beyond first segment/sentence.
+    expect(IDENTITY_VERIFIER_SYSTEM.includes("When genuinely uncertain, prefer DIFFERENT or UNCERTAIN")).toBe(true);
+    expect(IDENTITY_VERIFIER_SYSTEM.endsWith('Return ONLY strict JSON: {"decision":"SAME","reason":"..."}')).toBe(true);
+    expect(IDENTITY_VERIFIER_SYSTEM.startsWith("You are an identity-resolution classifier")).toBe(true);
+    // No unrelated source/comment capture.
+    expect(IDENTITY_VERIFIER_SYSTEM).not.toContain("const ");
+    expect(IDENTITY_VERIFIER_SYSTEM).not.toContain("//");
+    // Stale pre-adoption clause must be gone (was part of the hand-copied SYS_A).
+    expect(IDENTITY_VERIFIER_SYSTEM.includes("'I prefer TypeScript' vs 'I use TypeScript'")).toBe(false);
+    // Byte fidelity to the immutable V5 candidate record.
+    expect(crypto.createHash("sha256").update(IDENTITY_VERIFIER_SYSTEM).digest("hex")).toBe(FROZEN_SYS_V5_SHA256);
   });
 });

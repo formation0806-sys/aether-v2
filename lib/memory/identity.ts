@@ -117,12 +117,22 @@ async function verifyIdentity(
     "as the EXISTING CANDIDATE MEMORY. " +
     "SAME = the candidate already records this fact, even if worded differently. " +
     "DIFFERENT = different subject, different value, contradiction, temporal shift " +
-    "(e.g. 'used to' vs 'currently'), preference vs current usage (e.g. 'I prefer TypeScript' vs 'I use TypeScript'), different entity (brother vs friend), " +
-    "different scope, or only a related-but-not-identical topic " +
-    "(e.g. 'I like tea' vs 'I prefer mild tea'). " +
+    "(e.g. 'used to' vs 'currently'), preference vs current usage when they assert " +
+    "conflicting values, different entity (brother vs friend), different scope, or " +
+    "only a related-but-not-identical topic (e.g. 'I like tea' vs 'I prefer mild tea'). " +
     "UNCERTAIN = you cannot be confident. " +
     "Be very conservative. When in doubt choose DIFFERENT or UNCERTAIN. " +
     "Never merge merely because the topic is similar. " +
+    "When the two statements express the same underlying user fact at the same scope " +
+    "and specificity, answer SAME even if they use different nouns or verbs; anchor " +
+    "your decision to the fact, not to surface word choice. " +
+    "A stated preference or habit is NOT a conflict with usage when both describe the " +
+    "same enduring fact and assert no opposite value; only mark DIFFERENT when the " +
+    "statements assert contradicting values. " +
+    "Nothing above changes the rules that different concrete entities, different " +
+    "concrete values, explicit contradiction, an explicit past-vs-now temporal " +
+    "change, genuinely different scope, or related-but-not-identical topics remain " +
+    "DIFFERENT. When genuinely uncertain, prefer DIFFERENT or UNCERTAIN. " +
     "Return ONLY strict JSON: {\"decision\":\"SAME\",\"reason\":\"...\"}";
 
   const user =

@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 
 /**
- * Phase 6-AF — Input Composition and Relationship Structure Audit
+ * Phase 6-AF â€” Input Composition and Relationship Structure Audit
  *
  * 8-probe read-only diagnostic of the 21-memory production input feeding
  * the reflector. Determines WHY no reflection is produced by testing
@@ -197,12 +197,25 @@ function readIdentityPromptSource(): {
   const identityPath = path.resolve(process.cwd(), "lib/memory/identity.ts");
   const source = fs.readFileSync(identityPath, "utf-8");
 
-  const systemMatch = source.match(
-    /const system = \(([^)]+)\) \+ "You are an identity-resolution classifier[^"]*"\s*\+/
-  );
-  const system =
-    systemMatch?.[1] ??
-    "You are an identity-resolution classifier for a long-term memory system. ";
+  // PHASE 6-AO-V9 compatibility repair: the production identity verifier prompt
+  // is now the multi-segment frozen SYS_V5 contract. Extract ALL double-quoted
+  // literals of the `const system = ...` statement (escape-aware) and join them
+  // exactly as lib/memory/identity.ts concatenates them. Fail loudly instead of
+  // silently truncating to a first-sentence fragment (pre-AO fallback removed).
+  const sysIdx = source.indexOf("const system =");
+  const sysTermIdx = source.indexOf('";', sysIdx);
+  const segments =
+    sysIdx !== -1 && sysTermIdx !== -1
+      ? [...source.slice(sysIdx, sysTermIdx + 2).matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) =>
+          JSON.parse(`"${m[1]}"`)
+        )
+      : [];
+  if (segments.length === 0) {
+    throw new Error(
+      "IDENTITY_PROMPT_EXTRACTION_FAILED: could not extract the full production system prompt from lib/memory/identity.ts"
+    );
+  }
+  const system = segments.join("");
 
   const modelMatch = source.match(/const IDENTITY_VERIFIER_MODEL = "([^"]+)"/);
   const modelConstant = modelMatch?.[1] ?? "qwen2.5:3b";
@@ -241,16 +254,9 @@ async function callIdentityVerifier(
     "JSON only:";
 
   const reproducedPrompt = systemPrompt + "\n\n" + user;
-  const productionPromptSource = fs.readFileSync(
-    path.resolve(process.cwd(), "lib/memory/identity.ts"),
-    "utf-8"
-  );
-  const productionSystemMatch = productionPromptSource.match(
-    /const system = \(([^)]+)\) \+ "You are an identity-resolution classifier[^"]*"\s*\+/
-  );
-  const productionSystem =
-    productionSystemMatch?.[1] ??
-    "You are an identity-resolution classifier for a long-term memory system. ";
+  // PHASE 6-AO-V9 compatibility repair: reuse the shared extractor above so both
+  // code paths stay consistent with the current multi-segment SYS_V5 layout.
+  const productionSystem = readIdentityPromptSource().system;
   const productionPrompt = productionSystem + "\n\n" + user;
 
   const reproducedHash = crypto
@@ -908,4 +914,30 @@ describe("Phase 6-AF: Input Composition and Relationship Structure Audit", () =>
     console.log(`  identitySims: ${ollamaCallCount} calls`);
     console.log(`  promptHashMatch: ${!promptHashMismatch}`);
   }, 300000);
+});
+
+// PHASE 6-AO-V9 — offline reader-compatibility verification. Deterministic,
+// zero-network, zero-database: proves this legacy audit reader now extracts the
+// COMPLETE adopted SYS_V5 production prompt from live source TEXT.
+describe("PHASE 6-AO-V9 reader compatibility — input-audit extraction", () => {
+  const FROZEN_SYS_V5_SHA256 =
+    "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d";
+
+  it("extracts the complete multi-segment SYS_V5 prompt and matches the frozen V5 hash", () => {
+    const { system, userTemplate } = readIdentityPromptSource();
+    expect(system.length).toBe(1498);
+    expect(system.includes("When genuinely uncertain, prefer DIFFERENT or UNCERTAIN")).toBe(true);
+    expect(system.endsWith('Return ONLY strict JSON: {"decision":"SAME","reason":"..."}')).toBe(true);
+    expect(system.startsWith("You are an identity-resolution classifier")).toBe(true);
+    expect(system).not.toContain("const ");
+    expect(system).not.toContain("//");
+    // Legacy reader semantics intact: user template shape preserved.
+    expect(userTemplate.startsWith("NEW OBSERVATION")).toBe(true);
+    expect(userTemplate.trimEnd().endsWith("JSON only:")).toBe(true);
+    expect(crypto.createHash("sha256").update(system).digest("hex")).toBe(FROZEN_SYS_V5_SHA256);
+  });
+
+  it("reports the frozen verifier model constant unchanged", () => {
+    expect(readIdentityPromptSource().modelConstant).toBe("qwen2.5:3b");
+  });
 });
