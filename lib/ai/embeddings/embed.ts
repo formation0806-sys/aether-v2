@@ -1,10 +1,11 @@
 import { EmbeddingResult } from "../types";
+import { OLLAMA_BASE_URL } from "../config";
 
 export async function embed(
   text: string
 ): Promise<EmbeddingResult> {
   const response = await fetch(
-    "http://127.0.0.1:11434/api/embed",
+    `${OLLAMA_BASE_URL}/api/embed`,
     {
       method: "POST",
       headers: {

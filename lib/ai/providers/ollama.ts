@@ -3,11 +3,12 @@ import {
   ChatMessage,
   EmbeddingResult,
 } from "../types";
+import { OLLAMA_BASE_URL } from "../config";
 
 export class OllamaProvider implements AIProvider {
   async chat(messages: ChatMessage[]): Promise<string> {
     const response = await fetch(
-      "http://127.0.0.1:11434/api/chat",
+      `${OLLAMA_BASE_URL}/api/chat`,
       {
         method: "POST",
         headers: {
@@ -41,7 +42,7 @@ export class OllamaProvider implements AIProvider {
 
   async embed(text: string): Promise<EmbeddingResult> {
     const response = await fetch(
-      "http://127.0.0.1:11434/api/embed",
+      `${OLLAMA_BASE_URL}/api/embed`,
       {
         method: "POST",
         headers: {

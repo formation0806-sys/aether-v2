@@ -1,4 +1,5 @@
 import type { ExtractedMemory } from "./types";
+import { OLLAMA_BASE_URL } from "@/lib/ai/config";
 
 /** Input shape produced by `runReflection` in lib/core/pipeline.ts. */
 export interface ReflectionInput {
@@ -325,7 +326,7 @@ export async function generateReflections(
   }
 
   const response = await fetch(
-    "http://127.0.0.1:11434/api/chat",
+      `${OLLAMA_BASE_URL}/api/chat`,
     {
       method: "POST",
       headers: {
