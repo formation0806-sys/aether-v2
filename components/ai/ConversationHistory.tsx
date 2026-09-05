@@ -234,35 +234,36 @@ export default function ConversationHistory({
             + New chat
           </Link>
           <div className="max-h-56 space-y-0.5 overflow-y-auto pb-1">
-            {sessions.map((session) => {
-              // session.key is either a session_id (uuid) or a synthetic
-              // legacy- prefix. Real conversations use ?c=<uuid>; legacy
-              // entries open a bare /chat (the user can browse the legacy
-              // messages through their existing fallback path).
+{sessions.map((session) => {
               const isReal = UUID_RE.test(session.key);
-              const hrefString = isReal
-                ? `/chat?c=${encodeURIComponent(session.key)}`
-                : "/chat";
-              return (
-                <Link
-                  key={session.key}
-                  href={hrefString}
-                  onClick={(e) => {
-                    onNavigate?.();
-                  }}
-                  className={
-                    isReal && activeC === session.key
-                      ? activeLink
-                      : idleLink
-                  }
-                  title={session.title}
-                >
-                  <span className="min-w-0 flex-1 truncate">{session.title}</span>
-                  <span className="shrink-0 text-[10px] text-[var(--muted-foreground)]">
-                    {session.dayLabel}
-                  </span>
-                </Link>
-              );
+              if (isReal) {
+                return (
+                  <Link
+                    key={session.key}
+                    href={`/chat?c=${encodeURIComponent(session.key)}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate?.();
+                    }}
+                    className={isReal && activeC === session.key ? activeLink : idleLink}
+                    title={session.title}
+                  >
+                    <span className="min-w-0 flex-1 truncate">{session.title}</span>
+                    <span className="shrink-0 text-[10px] text-[var(--muted-foreground)]">{session.dayLabel}</span>
+                  </Link>
+                );
+              } else {
+                // Legacy entry: non-clickable
+                return (
+                  <div
+                    key={session.key}
+                    className={`${linkBase} text-[var(--sidebar-foreground)]/75 hover:bg-[var(--sidebar-accent)]/75 hover:text-[var(--foreground)] cursor-not-allowed opacity-50`}
+                  >
+                    <span className="min-w-0 flex-1 truncate">{session.title}</span>
+                    <span className="shrink-0 text-[10px] text-[var(--muted-foreground)]">{session.dayLabel}</span>
+                  </div>
+                );
+              }
             })}
           </div>
         </div>
