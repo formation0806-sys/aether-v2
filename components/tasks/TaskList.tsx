@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Loader2, CheckCircle2, Circle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 type Task = {
@@ -10,13 +10,106 @@ type Task = {
   completed: boolean;
 };
 
-type Props = {
-  refresh: number;
-};
+function TaskCard({
+  task,
+  onToggle,
+  onDelete,
+}: {
+  task: Task;
+  onToggle: (id: string, completed: boolean) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [deleting, setDeleting] = useState(false);
 
-export default function TaskList({ refresh }: Props) {
+  async function handleDelete() {
+    setDeleting(true);
+    await onDelete(task.id);
+    setDeleting(false);
+  }
+
+  return (
+    <div
+      className={`group flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 transition-smooth hover:shadow-sm ${
+        task.completed ? "opacity-60" : ""
+      }`}
+    >
+      <div className="flex items-center gap-4 min-w-0 flex-1">
+        <button
+          type="button"
+          onClick={() => onToggle(task.id, task.completed)}
+          className="shrink-0 rounded-full transition-colors hover:text-[var(--brand)]"
+          aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
+        >
+          {task.completed ? (
+            <CheckCircle2 size={22} className="text-[var(--brand)]" />
+          ) : (
+            <Circle size={22} className="text-[var(--muted-foreground)]" />
+          )}
+        </button>
+        <p
+          className={`text-sm text-[var(--foreground)] truncate ${
+            task.completed ? "line-through text-[var(--muted-foreground)]" : ""
+          }`}
+        >
+          {task.title}
+        </p>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span
+          className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium ${
+            task.completed
+              ? "bg-emerald-500/10 text-emerald-500"
+              : "bg-amber-500/10 text-amber-500"
+          }`}
+        >
+          {task.completed ? "Done" : "Pending"}
+        </span>
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="shrink-0 rounded-lg p-2 text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:opacity-0 md:group-hover:opacity-100"
+          aria-label={`Delete task: ${task.title}`}
+        >
+          {deleting ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Trash2 size={16} />
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function TaskSkeleton() {
+  return (
+    <div className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--card)] p-4">
+      <div className="flex items-center gap-4">
+        <div className="size-5 rounded-full bg-[var(--muted)]" />
+        <div className="h-4 w-48 rounded bg-[var(--muted)]" />
+      </div>
+    </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-10 text-center">
+      <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-[var(--muted)]">
+        <CheckCircle2 size={24} className="text-[var(--muted-foreground)]" />
+      </div>
+      <h3 className="font-medium text-[var(--foreground)]">No tasks yet</h3>
+      <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+        Add a task above to start tracking things you want to remember.
+      </p>
+    </div>
+  );
+}
+
+export default function TaskList({ refresh }: { refresh: number }) {
   const supabase = createClient();
-
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -56,97 +149,77 @@ export default function TaskList({ refresh }: Props) {
   }, [refresh]);
 
   async function toggleTask(id: string, completed: boolean) {
-    await supabase
-      .from("tasks")
-      .update({
-        completed: !completed,
-      })
-      .eq("id", id);
-
+    await supabase.from("tasks").update({ completed: !completed }).eq("id", id);
     setTasks(await fetchTasks());
   }
 
   async function deleteTask(id: string) {
-    const confirmed = window.confirm(
-      "Delete this task?"
-    );
-
-    if (!confirmed) return;
-
-    await supabase
-      .from("tasks")
-      .delete()
-      .eq("id", id);
-
+    await supabase.from("tasks").delete().eq("id", id);
     setTasks(await fetchTasks());
   }
 
   if (loading) {
     return (
-      <p className="text-slate-400">
-        Loading tasks...
-      </p>
+      <div className="space-y-3">
+        <TaskSkeleton />
+        <TaskSkeleton />
+        <TaskSkeleton />
+      </div>
     );
   }
 
   if (tasks.length === 0) {
-    return (
-      <p className="text-slate-400">
-        No tasks yet.
-      </p>
-    );
+    return <EmptyState />;
   }
 
+  const pendingTasks = tasks.filter((t) => !t.completed);
+  const completedTasks = tasks.filter((t) => t.completed);
+
   return (
-    <div className="space-y-3">
-      {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-900 p-4"
-        >
-          <div className="flex items-center gap-4">
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() =>
-                toggleTask(task.id, task.completed)
-              }
-              className="h-5 w-5 accent-blue-500"
-            />
-
-            <p
-              className={
-                task.completed
-                  ? "text-slate-500 line-through"
-                  : "text-white"
-              }
-            >
-              {task.title}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <span
-              className={
-                task.completed
-                  ? "rounded-full bg-green-500/20 px-3 py-1 text-xs text-green-400"
-                  : "rounded-full bg-yellow-500/20 px-3 py-1 text-xs text-yellow-400"
-              }
-            >
-              {task.completed
-                ? "Completed"
-                : "Pending"}
+    <div className="space-y-6">
+      {pendingTasks.length > 0 && (
+        <section>
+          <div className="mb-3 flex items-center gap-2.5">
+            <h2 className="eyebrow">Active</h2>
+            <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[11px] font-medium text-[var(--muted-foreground)]">
+              {pendingTasks.length}
             </span>
-
-            <button
-              onClick={() => deleteTask(task.id)}
-              className="rounded-lg p-2 text-red-400 transition hover:bg-red-500/10"
-            >
-              <Trash2 size={18} />
-            </button>
+            <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
-        </div>
-      ))}
+          <div className="space-y-3">
+            {pendingTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onToggle={toggleTask}
+                onDelete={deleteTask}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {completedTasks.length > 0 && (
+        <section>
+          <div className="mb-3 flex items-center gap-2.5">
+            <h2 className="eyebrow">Completed</h2>
+            <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[11px] font-medium text-[var(--muted-foreground)]">
+              {completedTasks.length}
+            </span>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <div className="space-y-3">
+            {completedTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onToggle={toggleTask}
+                onDelete={deleteTask}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

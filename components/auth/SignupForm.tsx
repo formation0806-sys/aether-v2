@@ -1,90 +1,136 @@
 'use client';
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+
+import { createClient } from '@/lib/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export default function SignupForm() {
   const supabase = createClient();
+  const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
-
     setLoading(true);
+    setError(null);
 
-    const { data, error } = await supabase.auth.signUp({
-  email,
-  password,
-  options: {
-    emailRedirectTo: "http://127.0.0.1:3000/auth/callback",
-  },
-});
+    const rawOrigin =
+      typeof window !== 'undefined' ? window.location.origin : '';
+    const canonicalOrigin = rawOrigin.replace('//127.0.0.1', '//localhost');
 
-setLoading(false);
+    const redirectTo = canonicalOrigin
+      ? `${canonicalOrigin}/auth/callback`
+      : '/auth/callback';
 
-console.log("Signup response:", data);
-console.log("Signup error:", error);
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectTo,
+      },
+    });
 
-if (error) {
-  alert(error.message);
-  return;
-}
+    setLoading(false);
 
-alert("Account created successfully!");
+    if (signUpError) {
+      setError(signUpError.message);
+      return;
+    }
+
+    router.push('/signin');
+    router.refresh();
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
-      <Card className="w-full max-w-md p-8 bg-slate-900 border-slate-700">
+    <div className="w-full">
+      {error ? (
+        <div
+          role="alert"
+          className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400"
+        >
+          {error}
+        </div>
+      ) : null}
 
-        <h1 className="text-3xl font-bold text-white mb-2">
-          Create your Aether Workspace
-        </h1>
+      <form onSubmit={handleSignup} className="mt-6 space-y-5">
+        <div className="space-y-2">
+          <label
+            htmlFor="signup-email"
+            className="text-sm font-medium text-[var(--foreground)]"
+          >
+            Email
+          </label>
+          <Input
+            id="signup-email"
+            type="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-        <p className="text-slate-400 mb-8">
-          Create your account to continue.
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-
-          <div>
-            <Label>Email</Label>
+        <div className="space-y-2">
+          <label
+            htmlFor="signup-password"
+            className="text-sm font-medium text-[var(--foreground)]"
+          >
+            Password
+          </label>
+          <div className="relative">
             <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <Label>Password</Label>
-            <Input
-              type="password"
-              placeholder="Password"
+              id="signup-password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              className="pr-10"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
+        </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full"
-          >
-            {loading ? "Creating account..." : "Continue"}
-          </Button>
+        <Button type="submit" disabled={loading} className="w-full" size="lg">
+          {loading ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              Creating account...
+            </>
+          ) : (
+            'Create account'
+          )}
+        </Button>
+      </form>
 
-        </form>
-
-      </Card>
+      <p className="mt-8 text-center text-sm text-[var(--muted-foreground)]">
+        Already have an account?{' '}
+        <Link
+          href="/signin"
+          className="font-medium text-[var(--brand)] underline-offset-4 transition-colors hover:underline"
+        >
+          Sign in
+        </Link>
+      </p>
     </div>
   );
 }

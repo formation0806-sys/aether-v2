@@ -1,80 +1,45 @@
-"use client";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import AppShell from "@/components/shell/AppShell";
+import TasksClient from "@/app/tasks/TasksClient";
+import { CheckSquare } from "lucide-react";
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import TaskList from "@/components/tasks/TaskList";
+export default async function TasksPage() {
+  const supabase = await createClient();
 
-export default function TasksPage() {
-  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [refresh, setRefresh] = useState(0);
-
-  async function createTask(e: React.FormEvent) {
-    e.preventDefault();
-
-    setLoading(true);
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      alert("Please sign in.");
-      setLoading(false);
-      return;
-    }
-
-    const { error } = await supabase.from("tasks").insert({
-      user_id: user.id,
-      title,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    setTitle("");
-    setRefresh((prev) => prev + 1);
+  if (!user) {
+    redirect("/signin");
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-10">
-      <h1 className="mb-8 text-3xl font-bold text-white">
-        Tasks
-      </h1>
+    <AppShell email={user.email ?? ""}>
+      <div className="h-full overflow-y-auto">
+        <div className="mx-auto max-w-3xl px-6 py-10">
+          <header className="mb-8">
+            <div className="mb-3 flex items-center gap-3">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[var(--brand)]/20 bg-[var(--brand)]/10">
+                <CheckSquare size={20} className="text-[var(--brand)]" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[var(--brand)]">Tasks</p>
+                <h1 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+                  Things to follow up on
+                </h1>
+              </div>
+            </div>
+            <p className="max-w-xl leading-relaxed text-[var(--muted-foreground)]">
+              Keep track of what matters. Tasks live alongside your AI and memory,
+              so follow-ups stay visible across sessions.
+            </p>
+          </header>
 
-      <form
-        onSubmit={createTask}
-        className="max-w-xl space-y-4"
-      >
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter a task..."
-          className="w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white"
-        />
-
-        <button
-          type="submit"
-          disabled={loading || !title}
-          className="rounded-lg bg-blue-600 px-6 py-3 text-white"
-        >
-          {loading ? "Creating..." : "Create Task"}
-        </button>
-      </form>
-
-      <div className="mt-10">
-        <h2 className="mb-4 text-xl font-semibold text-white">
-          Your Tasks
-        </h2>
-
-        <TaskList refresh={refresh} />
+          <TasksClient />
+        </div>
       </div>
-    </main>
+    </AppShell>
   );
 }
