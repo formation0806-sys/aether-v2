@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, RefreshCw } from "lucide-react";
 import Markdown from "./Markdown";
 
 type MessageProps = {
   role: "user" | "assistant";
   content: string;
+  error?: boolean;
+  detail?: string;
+  onRetry?: () => void;
 };
 
 function AetherMark({ className }: { className?: string }) {
@@ -62,9 +65,9 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-export default function Message({ role, content }: MessageProps) {
+export default function Message({ role, content, error, detail, onRetry }: MessageProps) {
   const isUser = role === "user";
-  const isError = !isUser && content.startsWith("Error:");
+  const isError = !isUser && error;
 
   if (isUser) {
     return (
@@ -85,15 +88,32 @@ export default function Message({ role, content }: MessageProps) {
           <AetherMark className="size-5 text-[var(--brand)]" />
           <span className="text-xs font-medium text-[var(--muted-foreground)]">Aether</span>
         </div>
-        <div className="opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
-          <CopyButton text={content} />
-        </div>
+        {!isError && (
+          <div className="opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+            <CopyButton text={content} />
+          </div>
+        )}
       </div>
       {isError ? (
-        <div className="rounded-xl border border-red-500/20 bg-red-500/5 px-5 py-4">
-          <p className="whitespace-pre-wrap text-pretty text-[15px] leading-7 text-red-400">
-            {content}
-          </p>
+        <div className="rounded-xl border border-red-500/20 bg-red-500/[0.04] px-4 py-3">
+          <p className="text-[14px] leading-relaxed text-red-300">{content}</p>
+          {detail && (
+            <p className="mt-1.5 text-xs leading-relaxed text-[var(--muted-foreground)]">
+              {detail}
+            </p>
+          )}
+          {onRetry && (
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={onRetry}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-1.5 text-xs font-medium text-[var(--foreground)] transition-smooth hover:bg-[var(--muted)] focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              >
+                <RefreshCw size={12} aria-hidden />
+                Try again
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-[15px] leading-[1.75] text-[var(--foreground)]">

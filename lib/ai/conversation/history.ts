@@ -1,16 +1,27 @@
 import { ChatMessage } from "../types";
 import { createClient } from "@/lib/supabase/server";
 
+/**
+ * Loads the message history for a SINGLE conversation. When `conversationId`
+ * is provided the query is scoped by `session_id`. When omitted it returns
+ * every message for the user (legacy / pre-isolation data).
+ */
 export async function getHistory(
-  userId: string
+  userId: string,
+  conversationId?: string | null
 ): Promise<ChatMessage[]> {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from("messages") 
+  let query = supabase
+    .from("messages")
     .select("role,content")
     .eq("user_id", userId)
     .order("created_at", { ascending: true });
+  if (conversationId) {
+    query = query.eq("session_id", conversationId);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     console.error("History load failed:", error);
@@ -22,7 +33,8 @@ export async function getHistory(
 
 export async function addMessage(
   userId: string,
-  message: ChatMessage
+  message: ChatMessage,
+  conversationId?: string | null
 ) {
   const supabase = await createClient();
 
@@ -30,6 +42,7 @@ export async function addMessage(
     user_id: userId,
     role: message.role,
     content: message.content,
+    session_id: conversationId ?? null,
   });
 
   if (error) {

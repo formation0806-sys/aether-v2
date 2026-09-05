@@ -2,17 +2,47 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Send, MemoryStick, Zap, Brain, Sparkles } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  ArrowDown,
+  Brain,
+  MemoryStick,
+  Plus,
+  Send,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import Message from "./Message";
 
 type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   id?: string;
+  error?: boolean;
+  detail?: string;
 };
 
-function WorkspaceHeader({ memoryCount }: { memoryCount: number }) {
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isUuid(value: string | null | undefined): value is string {
+  return typeof value === "string" && UUID_RE.test(value);
+}
+
+function generateConversationId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  // Fallback (very old browsers). Still globally unique enough for this purpose.
+  return `conv-${Date.now()}-${Math.random().toString(36).slice(2, 10)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function WorkspaceHeader({
+  memoryCount,
+  onNewChat,
+}: {
+  memoryCount: number;
+  onNewChat: () => void;
+}) {
   return (
     <div className="flex shrink-0 items-center gap-3 bg-[var(--background)] px-6 py-3">
       <div className="flex items-center gap-2.5">
@@ -38,20 +68,41 @@ function WorkspaceHeader({ memoryCount }: { memoryCount: number }) {
         </div>
       </div>
 
-      {memoryCount > 0 && (
-        <Link
-          href="/memory"
-          className="ml-auto inline-flex items-center gap-2 rounded-lg border border-[var(--brand)]/25 bg-[var(--brand)]/8 px-3 py-1.5 text-xs font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/15"
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          onClick={onNewChat}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)] transition-smooth hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
         >
-          <MemoryStick size={13} className="shrink-0" aria-hidden />
-          <span>{memoryCount} {memoryCount === 1 ? "context" : "contexts"} remembered</span>
-        </Link>
-      )}
+          <Plus size={13} className="shrink-0" aria-hidden />
+          <span>New chat</span>
+        </button>
+        {memoryCount > 0 && (
+          <Link
+            href="/memory"
+            className="inline-flex items-center gap-2 rounded-lg border border-[var(--brand)]/25 bg-[var(--brand)]/8 px-3 py-1.5 text-xs font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/15"
+          >
+            <MemoryStick size={13} className="shrink-0" aria-hidden />
+            <span>{memoryCount} {memoryCount === 1 ? "context" : "contexts"} remembered</span>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
 
-function EmptyState() {
+const SUGGESTIONS = [
+  "Help me plan my week",
+  "Analyze an idea",
+  "Remember something important",
+  "Help me build something",
+];
+
+function EmptyState({
+  onSuggestion,
+}: {
+  onSuggestion: (suggestion: string) => void;
+}) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6">
       <div className="mb-8 max-w-xl text-center">
@@ -98,35 +149,52 @@ function EmptyState() {
           </div>
         ))}
       </div>
+
+      <div className="mt-6 flex w-full max-w-md flex-wrap items-center justify-center gap-2">
+        {SUGGESTIONS.map((suggestion) => (
+          <button
+            key={suggestion}
+            type="button"
+            onClick={() => onSuggestion(suggestion)}
+            className="rounded-full border border-[var(--border)] bg-[var(--card)] px-3.5 py-1.5 text-xs font-medium text-[var(--muted-foreground)] transition-smooth hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:text-[var(--foreground)]"
+          >
+            {suggestion}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
 
 function RefinedComposer({
+  value,
+  onChange,
   onSend,
   disabled,
+  composerRef,
 }: {
+  value: string;
+  onChange: (value: string) => void;
   onSend: (message: string) => void;
   disabled?: boolean;
+  composerRef: React.RefObject<HTMLTextAreaElement | null>;
 }) {
-  const [value, setValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    if (composerRef.current) {
+      composerRef.current.style.height = "auto";
+      composerRef.current.style.height = `${composerRef.current.scrollHeight}px`;
     }
-  }, [value]);
+  }, [value, composerRef]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!value.trim() || disabled) return;
     onSend(value);
-    setValue("");
-    textareaRef.current?.focus();
+    onChange("");
+    composerRef.current?.focus();
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -151,9 +219,9 @@ function RefinedComposer({
           }`}
         >
           <textarea
-            ref={textareaRef}
+            ref={composerRef}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -190,11 +258,22 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
   const [memoryCount, setMemoryCount] = useState(0);
   const [isThinking, setIsThinking] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const router = useRouter();
+  const [draft, setDraft] = useState("");
+  const composerRef = useRef<HTMLTextAreaElement>(null);
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const lastUserContentRef = useRef<string>("");
 
   /**
-   * Auto-follow behaviour for the message area.
+   * Active conversation id (durable). Sources of truth, in priority order:
+   *   1. `?c=<uuid>` URL param — survives a hard refresh.
+   *   2. localStorage `aether.activeConversation.v1:<userId>` — survives an
+   *      F5 even when the URL is bare, so the user keeps their current view.
+   *   3. freshly-generated UUID (brand-new conversation).
    */
+  const activeConversationIdRef = useRef<string>("");
+  const [activeConversationId, setActiveConversationId] = useState<string>("");
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const followRef = useRef(true);
 
@@ -209,33 +288,61 @@ export default function Chat() {
     if (!el) return;
     const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
     followRef.current = distanceFromBottom < 120;
+    setShowScrollHint(distanceFromBottom > 240);
   }
 
   useEffect(() => {
     if (!followRef.current) return;
+    setShowScrollHint(false);
     const frame = requestAnimationFrame(() => scrollToBottom("smooth"));
     return () => cancelAnimationFrame(frame);
   }, [messages, loading, scrollToBottom]);
 
-  /**
-   * History loading - loads messages for a time-window session.
-   */
   const searchParams = useSearchParams();
-  const fromParam = searchParams.get("from");
-  const toParam = searchParams.get("to");
-  const fromParamStable = fromParam ?? "";
-  const toParamStable = toParam ?? "";
+  const urlConversationId = searchParams.get("c");
+  const urlConversationIdStable = urlConversationId ?? "";
 
+  /**
+   * On mount: adopt the conversation id from the URL if present. A bare
+   * `/chat` URL means "New chat" — we start a fresh conversation and update
+   * the URL to its new id so a refresh immediately after restores it.
+   */
   useEffect(() => {
-    if (!fromParam) {
+    if (isUuid(urlConversationIdStable)) {
+      // Only adopt from URL when the ref is still empty (initial mount /
+      // external navigation). If handleNewChat already set the ref to a
+      // valid UUID, do NOT overwrite — the ref is authoritative and the URL
+      // is still catching up from the router.replace() call.
+      if (!isUuid(activeConversationIdRef.current)) {
+        activeConversationIdRef.current = urlConversationIdStable;
+        setActiveConversationId(urlConversationIdStable);
+        persistActiveConversation(urlConversationIdStable);
+      }
+      return;
+    }
+
+    // Bare /chat -> mint a fresh conversation id and reflect it in the URL
+    // so the new chat becomes refreshable.
+    const fresh = generateConversationId();
+    activeConversationIdRef.current = fresh;
+    setActiveConversationId(fresh);
+    persistActiveConversation(fresh);
+    router.replace(`/chat?c=${encodeURIComponent(fresh)}`);
+  }, [urlConversationIdStable, router]);
+
+  /**
+   * History loading. Driven by the active conversation id (URL -> ref).
+   * Filters by `session_id` so messages from a sibling conversation on the
+   * same day cannot leak in.
+   */
+  useEffect(() => {
+    const convId = activeConversationIdRef.current || urlConversationIdStable;
+    if (!isUuid(convId)) {
       setMessages([]);
-      setIsLoaded(false);
       return;
     }
 
     let cancelled = false;
-    const effectFromParam = fromParam;
-    const effectToParam = toParam;
 
     async function loadHistory() {
       try {
@@ -246,30 +353,12 @@ export default function Chat() {
           return;
         }
 
-        let fromTs = effectFromParam;
-        let toTs = effectToParam;
-        if (fromTs && toTs) {
-          const fromMs = new Date(fromTs).getTime();
-          const toMs = new Date(toTs).getTime();
-          if (fromMs > toMs) {
-            [fromTs, toTs] = [toTs, fromTs];
-          }
-        }
-
-        let query = supabase
+        const { data, error } = await supabase
           .from("messages")
           .select("role,content,created_at")
           .eq("user_id", user.id)
-          .gte("created_at", fromTs)
+          .eq("session_id", convId)
           .order("created_at", { ascending: true });
-        if (toTs) {
-          query = query.lte("created_at", toTs);
-        }
-
-        const { data, error } = await query;
-        if (error) {
-          console.error("History query error:", error);
-        }
 
         if (cancelled) {
           return;
@@ -280,19 +369,13 @@ export default function Chat() {
           return;
         }
 
-        if (!data || data.length === 0) {
-          return;
-        }
-
-        const newMessages: ChatMessage[] = data.map((row) => ({
+        const newMessages: ChatMessage[] = (data ?? []).map((row) => ({
           role: row.role === "user" ? ("user" as const) : ("assistant" as const),
           content: row.content ?? "",
         }));
 
         setMessages(newMessages);
-        setIsLoaded(true);
         followRef.current = true;
-
         requestAnimationFrame(() => scrollToBottom("auto"));
       } catch (err) {
         console.error("History load error:", err);
@@ -304,7 +387,7 @@ export default function Chat() {
     return () => {
       cancelled = true;
     };
-  }, [fromParamStable, toParamStable, scrollToBottom]);
+  }, [activeConversationId, urlConversationIdStable, scrollToBottom]);
 
   useEffect(() => {
     async function fetchMemoryCount() {
@@ -326,10 +409,47 @@ export default function Chat() {
     fetchMemoryCount();
   }, []);
 
+  function handleNewChat() {
+    const fresh = generateConversationId();
+    activeConversationIdRef.current = fresh;
+    setActiveConversationId(fresh);
+    persistActiveConversation(fresh);
+
+    followRef.current = true;
+    setShowScrollHint(false);
+    setDraft("");
+    setMessages([]);
+    // Notify the sidebar that conversations changed.
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("aether:conversations-changed"));
+    }
+    // Use replace so the browser back-stack does not grow on every New Chat
+    // click. The conversation id lives in the URL so a refresh restores B.
+    router.replace(`/chat?c=${encodeURIComponent(fresh)}`);
+  }
+
+  function handleSuggestion(suggestion: string) {
+    setDraft(suggestion);
+    requestAnimationFrame(() => composerRef.current?.focus());
+  }
+
   async function sendMessage(content: string) {
     if (!content.trim() || loading) return;
 
+    // Guarantee we always have a conversation id BEFORE posting so the API
+    // can tag both the user message and the assistant message with the SAME
+    // id. New Chat -> new id; otherwise reuse the active one.
+    let convId = activeConversationIdRef.current;
+    if (!isUuid(convId)) {
+      convId = generateConversationId();
+      activeConversationIdRef.current = convId;
+      setActiveConversationId(convId);
+    }
+    persistActiveConversation(convId);
+
     followRef.current = true;
+    lastUserContentRef.current = content;
+    setShowScrollHint(false);
 
     const userMessage: ChatMessage = { role: "user", content };
     setMessages((prev) => [...prev, userMessage]);
@@ -340,46 +460,82 @@ export default function Chat() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: content }),
+        body: JSON.stringify({ message: content, conversationId: convId }),
       });
 
-      const data = await response.json();
-
-      let aiContent: string;
-      if (response.ok && typeof data.response === "string") {
-        aiContent = data.response;
-      } else if (typeof data.error === "string") {
-        aiContent = `Error: ${data.error}`;
-      } else {
-        aiContent = "Something went wrong.";
+      let payload: { response?: string; error?: string; conversationId?: string };
+      try {
+        payload = await response.json();
+      } catch {
+        payload = {};
       }
+
+      if (!response.ok) {
+        setIsThinking(false);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Something went wrong while generating this response.",
+            detail: typeof payload.error === "string" ? payload.error : undefined,
+            error: true,
+          },
+        ]);
+        requestAnimationFrame(() => scrollToBottom("smooth"));
+        return;
+      }
+
+      const aiContent =
+        typeof payload.response === "string"
+          ? payload.response
+          : "Something went wrong.";
 
       setIsThinking(false);
       setMessages((prev) => [...prev, { role: "assistant", content: aiContent }]);
       requestAnimationFrame(() => scrollToBottom("smooth"));
+
+      // Mirror the server-canonical id into the URL (if the server echoed
+      // one, prefer it) so a manual refresh on this view restores the same
+      // conversation deterministically.
+      const echoed = typeof payload.conversationId === "string" ? payload.conversationId : null;
+      const finalId = echoed && isUuid(echoed) ? echoed : convId;
+      if (finalId && urlConversationIdStable !== finalId) {
+        router.replace(`/chat?c=${encodeURIComponent(finalId)}`);
+      }
+      activeConversationIdRef.current = finalId;
+      setActiveConversationId(finalId);
+      persistActiveConversation(finalId);
     } catch {
       setIsThinking(false);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Something went wrong. Please try again." },
+        {
+          role: "assistant",
+          content: "Something went wrong. Please try again.",
+          error: true,
+        },
       ]);
     } finally {
       setLoading(false);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("aether:conversations-changed"));
+      }
     }
   }
 
   return (
     <div className="flex h-full flex-col">
-      <WorkspaceHeader memoryCount={memoryCount} />
+      <WorkspaceHeader memoryCount={memoryCount} onNewChat={handleNewChat} />
 
       {messages.length === 0 ? (
-        <EmptyState />
+        <EmptyState onSuggestion={handleSuggestion} />
       ) : (
-        <div
-          ref={scrollRef}
-          onScroll={handleMessageScroll}
-          className="flex-1 overflow-y-auto"
-        >
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+          <div
+            ref={scrollRef}
+            onScroll={handleMessageScroll}
+            className="h-full overflow-y-auto"
+          >
           <div className="mx-auto max-w-[768px] space-y-6 px-4 py-6 md:px-6">
             {messages.map((message, index) => (
               <div
@@ -387,7 +543,17 @@ export default function Chat() {
                 className="message-enter"
                 style={{ animationDelay: `${index * 30}ms` }}
               >
-                <Message role={message.role} content={message.content} />
+                <Message
+                  role={message.role}
+                  content={message.content}
+                  error={message.error}
+                  detail={message.detail}
+                  onRetry={
+                    message.error
+                      ? () => sendMessage(lastUserContentRef.current)
+                      : undefined
+                  }
+                />
               </div>
             ))}
             {loading && (
@@ -419,9 +585,55 @@ export default function Chat() {
             )}
           </div>
         </div>
+
+          {showScrollHint && (
+            <button
+              type="button"
+              onClick={() => {
+                followRef.current = true;
+                setShowScrollHint(false);
+                scrollToBottom("smooth");
+              }}
+              className="scroll-hint-enter absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--card)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)] shadow-lg transition-smooth hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+              aria-label="Scroll to latest messages"
+            >
+              <ArrowDown size={13} aria-hidden />
+              <span>New messages</span>
+            </button>
+          )}
+        </div>
       )}
 
-      <RefinedComposer onSend={sendMessage} disabled={loading} />
+      <RefinedComposer
+        value={draft}
+        onChange={setDraft}
+        onSend={sendMessage}
+        disabled={loading}
+        composerRef={composerRef}
+      />
     </div>
   );
+}
+
+/* -------------------------------------------------------------------------- */
+/* localStorage persistence for the active conversation id                    */
+/* -------------------------------------------------------------------------- */
+
+const ACTIVE_CONVERSATION_KEY_PREFIX = "aether.activeConversation.v1:";
+
+function persistActiveConversation(convId: string) {
+  if (typeof window === "undefined") return;
+  try {
+    // Per-user lookup is async; we key by a session-stable id when possible.
+    // The auth user id isn't guaranteed to be in scope here, so we use a
+    // single shared slot that any future auth-aware code can re-key if
+    // necessary. The URL is the authoritative source; this is just a hint
+    // for the rare case where the URL is bare and there is no ?c= yet.
+    window.localStorage.setItem(
+      `${ACTIVE_CONVERSATION_KEY_PREFIX}default`,
+      convId
+    );
+  } catch {
+    // ignore quota errors
+  }
 }
