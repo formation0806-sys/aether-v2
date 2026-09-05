@@ -309,11 +309,10 @@ export default function Chat() {
    */
   useEffect(() => {
     if (isUuid(urlConversationIdStable)) {
-      // Only adopt from URL when the ref is still empty (initial mount /
-      // external navigation). If handleNewChat already set the ref to a
-      // valid UUID, do NOT overwrite — the ref is authoritative and the URL
-      // is still catching up from the router.replace() call.
-      if (!isUuid(activeConversationIdRef.current)) {
+      // Always sync the active conversation ID with the URL when they differ.
+      // This ensures that navigating to a different conversation via the URL
+      // (e.g., clicking a Recent Chat link) updates the active conversation.
+      if (activeConversationIdRef.current !== urlConversationIdStable) {
         activeConversationIdRef.current = urlConversationIdStable;
         setActiveConversationId(urlConversationIdStable);
         persistActiveConversation(urlConversationIdStable);
