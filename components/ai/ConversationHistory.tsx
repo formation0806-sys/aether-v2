@@ -241,8 +241,7 @@ export default function ConversationHistory({
                   <Link
                     key={session.key}
                     href={`/chat?c=${encodeURIComponent(session.key)}`}
-                    onClick={(e) => {
-                      e.preventDefault();
+                    onClick={() => {
                       onNavigate?.();
                     }}
                     className={isReal && activeC === session.key ? activeLink : idleLink}
