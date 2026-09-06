@@ -9,11 +9,13 @@ export interface ReflectionInput {
     title: string;
     content: string;
     summary: string;
-    importance?: number;
-    confidence?: number;
+    // Nullable DB columns (importance_v2 / confidence_v2 / tags / metadata)
+    // are forwarded verbatim; the reflection sanitizer drops null values.
+    importance?: number | null;
+    confidence?: number | null;
     memoryType?: string;
-    tags?: string[];
-    metadata?: Record<string, unknown>;
+    tags?: string[] | null;
+    metadata?: Record<string, unknown> | null;
   }>;
 }
 
