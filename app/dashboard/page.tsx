@@ -46,21 +46,21 @@ export default async function DashboardPage() {
     <AppShell email={user.email ?? ""}>
       <div className="h-full overflow-y-auto">
         <div className="mx-auto max-w-4xl px-6 py-10">
-          <header className="mb-10">
-            <div className="mb-3 flex items-center gap-3">
+          <header className="mb-12">
+            <div className="mb-4 flex items-center gap-3">
               <p className="eyebrow">Command center</p>
               <span className="inline-flex size-1.5 rounded-full bg-emerald-400" aria-hidden />
             </div>
             <h1 className="text-3xl font-semibold tracking-tight text-[var(--foreground)]">
               {greeting}
             </h1>
-            <p className="mt-3 max-w-xl leading-relaxed text-[var(--muted-foreground)]">
+            <p className="mt-4 max-w-xl leading-relaxed text-[var(--muted-foreground)]">
               One workspace where your AI, its memory, and your tasks share a
               single thread of context.
             </p>
           </header>
 
-          <div className="space-y-10">
+          <div className="space-y-12">
             {/* Primary launchpad */}
             <section>
               <Link

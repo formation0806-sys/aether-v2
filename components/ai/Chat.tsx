@@ -104,9 +104,9 @@ function EmptyState({
   onSuggestion: (suggestion: string) => void;
 }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-6">
-      <div className="mb-8 max-w-xl text-center">
-        <div className="mx-auto mb-6 inline-flex size-16 items-center justify-center rounded-2xl border border-[var(--brand)]/25 bg-[var(--brand)]/10">
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-10">
+      <div className="mb-10 max-w-xl text-center">
+        <div className="mx-auto mb-7 inline-flex size-16 items-center justify-center rounded-2xl border border-[var(--brand)]/25 bg-[var(--brand)]/10">
           <svg
             viewBox="0 0 32 32"
             fill="none"
@@ -150,13 +150,13 @@ function EmptyState({
         ))}
       </div>
 
-      <div className="mt-6 flex w-full max-w-md flex-wrap items-center justify-center gap-2">
+      <div className="mt-8 flex w-full max-w-md flex-wrap items-center justify-center gap-2.5">
         {SUGGESTIONS.map((suggestion) => (
           <button
             key={suggestion}
             type="button"
             onClick={() => onSuggestion(suggestion)}
-            className="rounded-full border border-[var(--border)] bg-[var(--card)] px-3.5 py-1.5 text-xs font-medium text-[var(--muted-foreground)] transition-smooth hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:text-[var(--foreground)]"
+                        className="rounded-full border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs font-medium text-[var(--muted-foreground)] transition-all duration-150 hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:scale-105 hover:text-[var(--foreground)]"
           >
             {suggestion}
           </button>
