@@ -134,9 +134,10 @@ export async function matchMemoriesV2(
 }
 
 /** Batch-increment `times_used` and set `last_used` via the `touch_memories` V2 RPC. */
-export async function touchMemories(ids: string[]) {
+export async function touchMemories(userId: string, ids: string[]) {
   const supabase = await createClient();
   return supabase.rpc("touch_memories", {
+    p_user_id: userId,
     p_ids: ids,
   });
 }
@@ -177,7 +178,7 @@ export async function insertMemoryV2(data: InsertMemoryV2Input) {
   return supabase.from("memories").insert(data);
 }
 
-/** V2 update input — any subset of the updatable V2 fields. */
+/** V2 update input ΓÇö any subset of the updatable V2 fields. */
 export interface UpdateMemoryV2Input {
   title?: string;
   content?: string;
@@ -228,7 +229,7 @@ export async function getAllMemories(userId: string) {
 /* DEFERRED: findNearDuplicates -> find_near_duplicates RPC.                    */
 /* 0004_memory_v2_rpcs.sql defines find_near_duplicates without its closing     */
 /* $$; (its body flows into apply_memory_decay), so the RPC definition is      */
-/* malformed until the SQL is fixed — a SQL change out of scope here. Will be   */
+/* malformed until the SQL is fixed ΓÇö a SQL change out of scope here. Will be   */
 /* added once 0004 is corrected. See ENGINEERING_LOG for the full analysis.      */
 /* -------------------------------------------------------------------------- */
 
@@ -256,7 +257,7 @@ export async function purgeArchived(userId: string) { const supabase = await cre
  * `corroborate_memory` RPC (migration 0011). Returns true only when a brand-new
  * corroboration was recorded for this message (and confidence_v2 was bumped by
  * CONFIDENCE_CORROBORATION_STEP inside the RPC, atomically). Duplicate
- * (memory_id, message_id) attempts — same message re-processing — return false
+ * (memory_id, message_id) attempts ΓÇö same message re-processing ΓÇö return false
  * and do not touch confidence.
  */
 export async function corroborateMemory(

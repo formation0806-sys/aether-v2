@@ -213,7 +213,7 @@ export async function retrieveMemories(
 
   // 7: bump usage for the memories actually surfaced to the prompt.
   if (surfaced.length > 0) {
-    await touchMemories(surfaced.map((m) => m.id));
+    await touchMemories(userId, surfaced.map((m) => m.id));
   }
 
   return surfaced;
