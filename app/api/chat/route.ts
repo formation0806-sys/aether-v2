@@ -136,6 +136,7 @@ export async function POST(req: Request) {
       message.includes("timed out") ||
       message.includes("Failed to talk to Ollama") ||
       message.includes("Embedding failed") ||
+      message.includes("Embedding request failed") ||
       message.includes("Ollama");
 
     if (isOllamaFailure) {

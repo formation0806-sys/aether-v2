@@ -46,33 +46,43 @@ function sanitizeExtractedMemory(raw: unknown): ExtractedMemory | null {
 export async function aiExtractMemories(
   message: string
 ): Promise<ExtractedMemory[]> {
-  const response = await fetch(
-    `${OLLAMA_BASE_URL}/api/chat`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
-      },
-      body: JSON.stringify({
-        model: "qwen2.5:3b",
-        stream: false,
-        messages: [
-          {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 180000);
+
+  let response: Response;
+  try {
+    response = await fetch(
+      `${OLLAMA_BASE_URL}/api/chat`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
+        },
+        body: JSON.stringify({
+          model: "qwen2.5:3b",
+          stream: false,
+          messages: [
+            {
             role: "system",
             content: `
 You are an INFORMATION EXTRACTION ENGINE.
 
-DO NOT answer the user.
+CRITICAL OUTPUT RULE: Your response MUST be valid parseable JSON. Nothing else.
 
-DO NOT explain.
+If you cannot comply, output [] ONLY. Do NOT output prose, status strings, or explanations.
 
-DO NOT chat.
+INVALID OUTPUT EXAMPLES (do NOT do this):
+- AETHER_APP_OK
+- "I cannot extract any memories."
+- "Here is the extracted memory: ..."
 
-ONLY return valid JSON.
+VALID OUTPUT EXAMPLES:
 
-Return ONLY this format:
+No extractable information:
+[]
 
+Extractable information:
 [
   {
     "title": "...",
@@ -156,25 +166,55 @@ Output:
 ]
 
 If nothing should be remembered:
-
 []
 `,
-          },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-      }),
+            },
+            {
+              role: "user",
+              content: message,
+            },
+          ],
+        }),
+        signal: controller.signal,
+      }
+    );
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if ((error as Error)?.name === "AbortError") {
+      console.error("MEMORY EXTRACTION TIMEOUT");
+    } else {
+      console.error("MEMORY EXTRACTION FAILED", error);
     }
-  );
+    return [];
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
-  const data = await response.json();
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    console.error("MEMORY EXTRACTION RESPONSE PARSE FAILED");
+    return [];
+  }
 
-  const text = data.message.content.trim();
+  if (!response.ok) {
+    const body =
+      typeof data === "object" && data !== null
+        ? JSON.stringify(data)
+        : String(data);
+    console.error("MEMORY EXTRACTION FAILED", `status ${response.status}: ${body}`);
+    return [];
+  }
 
-  console.log("OLLAMA RAW:");
-  console.log(text);
+  const text =
+    typeof data === "object" && data !== null && "message" in data
+      ? ((data as { message?: { content?: unknown } }).message?.content as string | undefined)?.trim()
+      : undefined;
+
+  if (!text) {
+    return [];
+  }
 
   try {
     const parsed: unknown = JSON.parse(text);

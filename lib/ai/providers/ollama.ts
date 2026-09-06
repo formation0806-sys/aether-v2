@@ -207,6 +207,23 @@ export class OllamaProvider implements AIProvider {
       const data = await response.json();
 
       return data.message.content;
+    } catch (error) {
+      // Classify AbortError/timeouts and network failures so the route can
+      // return a safe 503 instead of exposing a raw infra error as a 500.
+      if (error instanceof Error && error.name === "AbortError") {
+        throw new Error("Ollama request timed out.");
+      }
+      if (
+        error instanceof Error &&
+        error.message.includes("Failed to talk to Ollama")
+      ) {
+        throw error;
+      }
+      throw new Error(
+        `Failed to talk to Ollama. ${
+          error instanceof Error ? error.message : "network error"
+        }`
+      );
     } finally {
       clearTimeout(timer);
     }
@@ -244,6 +261,18 @@ export class OllamaProvider implements AIProvider {
       return {
         embedding: data.embeddings[0],
       };
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        throw new Error("Ollama embedding request timed out.");
+      }
+      if (error instanceof Error && error.message.includes("Embedding failed")) {
+        throw error;
+      }
+      throw new Error(
+        `Embedding failed. ${
+          error instanceof Error ? error.message : "network error"
+        }`
+      );
     } finally {
       clearTimeout(timer);
     }

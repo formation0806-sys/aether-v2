@@ -73,6 +73,63 @@ function sanitizeReflection(raw: unknown): ExtractedMemory | null {
 }
 
 /**
+ * Phase 1-B tolerant JSON-array extraction.
+ *
+ * Small local models do not reliably obey "no markdown / no code fences":
+ * output may arrive wrapped in a ``` fence or preceded by a short preamble.
+ * Strict JSON.parse turns such recoverable output into a silent [].
+ *
+ * Strategy (in order):
+ *   1. trim
+ *   2. strip ONE wrapping code fence when the whole payload is fenced
+ *   3. otherwise extract the FIRST balanced JSON array (string-aware)
+ *
+ * Anything unrecoverable returns "" and the caller's existing failure path
+ * yields [] exactly as before. No retry, no repair, no second model call.
+ * The prompt and sanitizeReflection are untouched.
+ */
+function extractJsonArrayText(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+
+  const fence = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/);
+  const unfenced = (fence ? fence[1] : trimmed).trim();
+
+  // Always extract the first balanced array (string-aware): this handles a
+  // bare array, a fenced array, preamble/trailing text, and the case where
+  // the model emits more than one array (first one wins).
+
+  const start = unfenced.indexOf("[");
+  if (start === -1) return "";
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = start; i < unfenced.length; i += 1) {
+    const ch = unfenced[i];
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else if (ch === '"') {
+        inString = false;
+      }
+      continue;
+    }
+    if (ch === '"') {
+      inString = true;
+    } else if (ch === "[") {
+      depth += 1;
+    } else if (ch === "]") {
+      depth -= 1;
+      if (depth === 0) return unfenced.slice(start, i + 1);
+    }
+  }
+  return "";
+}
+
+/**
  * Reflection prompt deliberately optimized for a small local model.
  *
  * The goal is not to generate many insights.
@@ -327,54 +384,86 @@ export async function generateReflections(
     return [];
   }
 
-  const response = await fetch(
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 180000);
+
+  let response: Response;
+  try {
+    response = await fetch(
       `${OLLAMA_BASE_URL}/api/chat`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
-      },
-      body: JSON.stringify({
-        model: "qwen2.5:3b",
-        stream: false,
-
-        options: {
-          temperature: 0.1,
-          num_predict: 300,
-          top_p: 0.8,
-          num_ctx: 4096,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
         },
+        body: JSON.stringify({
+          model: "qwen2.5:3b",
+          stream: false,
 
-        messages: [
-          {
-            role: "system",
-            content: REFLECTION_SYSTEM_PROMPT,
+          options: {
+            temperature: 0.1,
+            num_predict: 300,
+            top_p: 0.8,
+            num_ctx: 4096,
           },
-          {
-            role: "user",
-            content: JSON.stringify(reflectionInput, null, 2),
-          },
-        ],
-      }),
-    }
-  );
 
-  if (!response.ok) {
-    throw new Error(
-      `Reflection request failed with status ${response.status}.`
+          messages: [
+            {
+              role: "system",
+              content: REFLECTION_SYSTEM_PROMPT,
+            },
+            {
+              role: "user",
+              content: JSON.stringify(reflectionInput, null, 2),
+            },
+          ],
+        }),
+        signal: controller.signal,
+      }
     );
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if ((error as Error)?.name === "AbortError") {
+      console.error("REFLECTION TIMEOUT");
+    } else {
+      console.error("REFLECTION FAILED", error);
+    }
+    return [];
+  } finally {
+    clearTimeout(timeoutId);
   }
 
-  const data = await response.json();
+  if (!response.ok) {
+    let bodyText = "unknown";
+    try {
+      const errorBody = await response.json();
+      bodyText =
+        typeof errorBody === "object" && errorBody !== null
+          ? JSON.stringify(errorBody)
+          : String(errorBody);
+    } catch {
+      bodyText = "unknown";
+    }
+    const message =
+      bodyText === "unknown"
+        ? `Reflection request failed with status ${response.status}.`
+        : `Reflection request failed with status ${response.status}: ${bodyText}`;
+    throw new Error(message);
+  }
+
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    console.error("REFLECTION RESPONSE PARSE FAILED");
+    return [];
+  }
 
   const text =
-    typeof data?.message?.content === "string"
-      ? data.message.content.trim()
-      : "";
-
-  console.log("REFLECTION RAW:");
-  console.log(text);
+    typeof data === "object" && data !== null && "message" in data
+      ? ((data as { message?: { content?: unknown } }).message?.content as string | undefined)?.trim()
+      : undefined;
 
   if (!text) {
     console.log("REFLECTION PARSED 0");
@@ -382,7 +471,14 @@ export async function generateReflections(
   }
 
   try {
-    const parsed: unknown = JSON.parse(text);
+    const arrayText = extractJsonArrayText(text);
+
+    if (!arrayText) {
+      console.log("REFLECTION PARSED 0: no JSON array found");
+      return [];
+    }
+
+    const parsed: unknown = JSON.parse(arrayText);
 
     if (!Array.isArray(parsed)) {
       console.log("REFLECTION PARSED 0: root is not array");
