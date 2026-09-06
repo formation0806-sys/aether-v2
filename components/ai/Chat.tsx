@@ -246,7 +246,7 @@ function RefinedComposer({
           </button>
         </form>
         <p className="mt-2 text-center text-xs text-[var(--muted-foreground)]">
-          Enter to send · Shift+Enter for a new line
+          Enter to send · Shift+Enter for a new line · Escape to stop
         </p>
       </div>
     </div>

@@ -202,36 +202,14 @@
   }
 }
 
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translateY(-4px) scale(1.15);
-    opacity: 1;
-  }
-}
-
 @keyframes message-enter {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes thinking-pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -245,17 +223,6 @@
 
 .message-enter-delay-2 {
   animation: message-enter 400ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both;
-}
-
-@keyframes message-enter {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .thinking-dot {
@@ -278,6 +245,21 @@
 }
 .message-hover:hover {
   background-color: color-mix(in oklab, var(--foreground) 2%, transparent);
+}
+
+.scroll-hint-enter {
+  animation: scroll-hint-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scroll-hint-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
