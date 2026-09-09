@@ -206,7 +206,7 @@ export default function ConversationHistory({
   }, [pathname, activeC]);
 
   const linkBase =
-    "flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-smooth";
+    "flex items-center justify-between gap-2 rounded-lg px-3 py-3 text-sm transition-smooth sm:py-2";
   const idleLink = `${linkBase} text-[var(--sidebar-foreground)]/75 hover:bg-[var(--sidebar-accent)] hover:text-[var(--foreground)]`;
   const activeLink = `${linkBase} bg-[var(--brand)]/10 text-[var(--brand)]`;
 
@@ -215,8 +215,8 @@ export default function ConversationHistory({
       <p className="eyebrow px-3 pb-2 pt-1">Recent</p>
       {sessions === null ? (
         <div className="space-y-0.5 px-1" aria-hidden>
-          <div className="h-8 rounded-lg bg-[var(--sidebar-accent)]/60" />
-          <div className="h-8 rounded-lg bg-[var(--sidebar-accent)]/60" />
+          <div className="h-9 rounded-lg bg-[var(--sidebar-accent)]/60" />
+          <div className="h-9 rounded-lg bg-[var(--sidebar-accent)]/60" />
         </div>
       ) : sessions.length === 0 ? (
         <p className="px-3 pb-1 text-xs leading-relaxed text-[var(--sidebar-foreground)]/60">
@@ -227,13 +227,13 @@ export default function ConversationHistory({
           <Link
             href="/chat"
             onClick={onNavigate}
-            className={`flex items-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/10 ${
+            className={`flex items-center rounded-lg px-3 py-3 text-sm font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/10 sm:py-2 ${
               pathname === "/chat" && !activeC ? "bg-[var(--brand)]/10" : ""
             }`}
           >
             + New chat
           </Link>
-          <div className="max-h-56 space-y-0.5 overflow-y-auto pb-1">
+          <div className="max-h-72 space-y-0.5 overflow-y-auto pb-1 sm:max-h-56">
 {sessions.map((session) => {
               const isReal = UUID_RE.test(session.key);
               if (isReal) {

@@ -94,14 +94,14 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
 
   return (
     <article className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)] transition-smooth hover:border-[var(--brand)]/30 hover:shadow-md">
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div className="flex min-w-0 flex-1 items-start gap-3.5">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-[var(--brand)]/15 bg-[var(--brand)]/8">
-            <typeMeta.icon size={16} className="text-[var(--brand)]" aria-hidden />
+      <div className="flex items-start justify-between gap-2.5 p-3.5 sm:gap-4 sm:p-5">
+        <div className="flex min-w-0 flex-1 items-start gap-2.5 sm:gap-3.5">
+          <div className="flex size-7 shrink-0 items-center justify-center rounded-md border border-[var(--brand)]/15 bg-[var(--brand)]/8 sm:size-9 sm:rounded-lg">
+            <typeMeta.icon size={14} className="text-[var(--brand)]" aria-hidden />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-              <h3 className="truncate text-base font-semibold text-[var(--foreground)]">
+            <div className="mb-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+              <h3 className="truncate text-[15px] font-semibold text-[var(--foreground)] sm:text-base">
                 {memory.title || "Untitled memory"}
               </h3>
               {statusMeta && (
@@ -116,11 +116,11 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
               )}
             </div>
 
-            <p className="line-clamp-4 whitespace-pre-wrap text-sm leading-relaxed text-[var(--muted-foreground)]">
+            <p className="line-clamp-3 whitespace-pre-wrap text-sm leading-snug text-[var(--muted-foreground)]">
               {memory.content}
             </p>
 
-            <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[var(--muted-foreground)]">
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--muted-foreground)] sm:gap-x-4 sm:text-xs">
               <span className="inline-flex items-center gap-1.5">
                 <Clock size={12} aria-hidden />
                 {formatDate(memory.created_at)}
@@ -135,30 +135,28 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
                   Recalled {recalledTimes}×
                 </span>
               )}
-            </div>
-
-            {confidence !== null && (
-              <div className="mt-3 flex items-center gap-2">
-                <div className="h-1 w-24 overflow-hidden rounded-full bg-[var(--muted)]">
-                  <div
-                    className="h-full rounded-full bg-[var(--brand)]"
-                    style={{ width: `${Math.round(confidence * 100)}%` }}
-                  />
-                </div>
-                <span className="text-[11px] text-[var(--muted-foreground)]">
-                  {Math.round(confidence * 100)}% confidence
+              {confidence !== null && (
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-1 w-12 overflow-hidden rounded-full bg-[var(--muted)] sm:w-16">
+                    <div
+                      className="h-full rounded-full bg-[var(--brand)]"
+                      style={{ width: `${Math.round(confidence * 100)}%` }}
+                    />
+                  </span>
+                  <span className="sr-only">Confidence </span>
+                  {Math.round(confidence * 100)}%
                 </span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
         <button
           onClick={handleDelete}
           disabled={deleting}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg p-1 text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:opacity-0 md:group-hover:opacity-100"
+          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:size-9 md:opacity-0 md:group-hover:opacity-100"
           aria-label={`Delete memory: ${memory.title}`}
         >
-          {deleting ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
+          {deleting ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
         </button>
       </div>
     </article>
@@ -167,15 +165,14 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
 
 function MemorySkeleton() {
   return (
-    <div className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">
-      <div className="flex items-start gap-3.5">
-        <div className="size-9 rounded-lg bg-[var(--muted)]" />
+    <div className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 sm:p-5">
+      <div className="flex items-start gap-2.5 sm:gap-3.5">
+        <div className="size-7 rounded-md bg-[var(--muted)] sm:size-9 sm:rounded-lg" />
         <div className="flex-1">
-          <div className="mb-2 h-4 w-40 rounded bg-[var(--muted)]" />
-          <div className="space-y-2">
+          <div className="mb-2 h-4 w-32 rounded bg-[var(--muted)] sm:w-40" />
+          <div className="space-y-1.5">
             <div className="h-3 w-full rounded bg-[var(--muted)]" />
             <div className="h-3 w-3/4 rounded bg-[var(--muted)]" />
-            <div className="h-2 w-1/2 rounded bg-[var(--muted)]" />
           </div>
         </div>
       </div>
@@ -197,11 +194,11 @@ function GroupHeader({ label, count }: { label: string; count: number }) {
 
 function EmptyState() {
   return (
-    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-12 text-center">
-      <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-[var(--brand)]/25 bg-[var(--brand)]/10">
-        <Brain size={22} className="text-[var(--brand)]" />
+    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-8 text-center sm:p-12">
+      <div className="mx-auto mb-4 flex size-11 items-center justify-center rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 sm:size-14 sm:rounded-2xl">
+        <Brain size={20} className="text-[var(--brand)]" />
       </div>
-      <h3 className="mb-3 text-lg font-semibold text-[var(--foreground)]">
+      <h3 className="mb-2 text-base font-semibold text-[var(--foreground)] sm:mb-3 sm:text-lg">
         Memory is empty
       </h3>
       <p className="mx-auto max-w-sm text-sm leading-relaxed text-[var(--muted-foreground)]">
@@ -276,8 +273,8 @@ export default function MemoryList({ refresh }: { refresh: number }) {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-3">
+    <div className="space-y-3 sm:space-y-6">
+      <div className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--card)] px-3.5 py-2.5 sm:px-4 sm:py-3">
         <div>
           <p className="text-sm text-[var(--muted-foreground)]">
             <span className="font-medium text-[var(--foreground)]">
@@ -295,7 +292,7 @@ export default function MemoryList({ refresh }: { refresh: number }) {
       {recent.length > 0 && (
         <section>
           <GroupHeader label="Recent" count={recent.length} />
-          <div className="space-y-4">
+          <div className="space-y-3">
             {recent.map((memory) => (
               <MemoryCard key={memory.id} memory={memory} onDelete={deleteMemory} />
             ))}
@@ -306,7 +303,7 @@ export default function MemoryList({ refresh }: { refresh: number }) {
       {earlier.length > 0 && (
         <section>
           <GroupHeader label="Earlier" count={earlier.length} />
-          <div className="space-y-4">
+          <div className="space-y-3">
             {earlier.map((memory) => (
               <MemoryCard key={memory.id} memory={memory} onDelete={deleteMemory} />
             ))}

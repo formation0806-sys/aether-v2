@@ -42,18 +42,18 @@ export default function TasksClient() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={createTask} className="flex gap-2.5">
+      <form onSubmit={createTask} className="flex flex-col gap-2.5 sm:flex-row sm:gap-2.5">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Add a new task…"
           aria-label="New task title"
-          className="min-w-0 flex-1 rounded-xl border border-[var(--input)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition-smooth focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
+          className="min-h-11 min-w-0 flex-1 rounded-xl border border-[var(--input)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition-smooth focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={loading || !title.trim()}
-          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-[var(--brand)] px-4 py-3 text-sm font-medium text-[var(--brand-foreground)] transition-smooth hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-1.5 rounded-xl bg-[var(--brand)] px-4 py-3 text-sm font-medium text-[var(--brand-foreground)] transition-smooth hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
         >
           {loading ? (
             <>

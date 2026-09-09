@@ -9,6 +9,21 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+function sanitizeAuthError(message: string | undefined): string | null {
+  const text = typeof message === "string" ? message.trim() : "";
+  if (text.length === 0) return null;
+  if (
+    text === "{}" ||
+    text === "[]" ||
+    text === "null" ||
+    /^\{[\s]*\}$/.test(text) ||
+    /^\[[\s]*\]$/.test(text)
+  ) {
+    return null;
+  }
+  return text;
+}
+
 export default function SignupForm() {
   const supabase = createClient();
   const router = useRouter();
@@ -43,7 +58,11 @@ export default function SignupForm() {
     setLoading(false);
 
     if (signUpError) {
-      setError(signUpError.message);
+      const safe = sanitizeAuthError(signUpError.message);
+      setError(
+        safe ??
+          "Unable to create your account right now. Please try again."
+      );
       return;
     }
 

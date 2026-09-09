@@ -29,15 +29,15 @@ function TaskCard({
 
   return (
     <div
-      className={`group flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 transition-smooth hover:shadow-sm ${
+      className={`group flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] p-3 transition-smooth hover:shadow-sm sm:p-4 ${
         task.completed ? "opacity-60" : ""
       }`}
     >
-      <div className="flex items-center gap-4 min-w-0 flex-1">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
         <button
           type="button"
           onClick={() => onToggle(task.id, task.completed)}
-          className="shrink-0 rounded-full transition-colors hover:text-[var(--brand)]"
+          className="flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:text-[var(--brand)]"
           aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
         >
           {task.completed ? (
@@ -55,7 +55,7 @@ function TaskCard({
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
         <span
           className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium ${
             task.completed
@@ -69,7 +69,7 @@ function TaskCard({
           type="button"
           onClick={handleDelete}
           disabled={deleting}
-          className="shrink-0 rounded-lg p-2 text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:opacity-0 md:group-hover:opacity-100"
+          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:size-9 md:opacity-0 md:group-hover:opacity-100"
           aria-label={`Delete task: ${task.title}`}
         >
           {deleting ? (
@@ -96,12 +96,12 @@ function TaskSkeleton() {
 
 function EmptyState() {
   return (
-    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-10 text-center">
-      <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-[var(--muted)]">
-        <CheckCircle2 size={24} className="text-[var(--muted-foreground)]" />
+    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-8 text-center sm:p-10">
+      <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-[var(--muted)] sm:mb-4 sm:size-12 sm:rounded-xl">
+        <CheckCircle2 size={20} className="text-[var(--muted-foreground)]" />
       </div>
-      <h3 className="font-medium text-[var(--foreground)]">No tasks yet</h3>
-      <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+      <h3 className="text-[15px] font-medium text-[var(--foreground)] sm:text-base">No tasks yet</h3>
+      <p className="mt-1.5 text-sm text-[var(--muted-foreground)]">
         Add a task above to start tracking things you want to remember.
       </p>
     </div>

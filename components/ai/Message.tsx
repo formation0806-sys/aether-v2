@@ -72,7 +72,7 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
   if (isUser) {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[75%] rounded-2xl rounded-tr-lg bg-[var(--brand)]/[0.07] px-4 py-2.5">
+        <div className="max-w-[85%] rounded-2xl rounded-tr-lg bg-[var(--brand)]/[0.07] px-4 py-2.5 sm:max-w-[75%] sm:py-2.5">
           <p className="whitespace-pre-wrap text-pretty text-[15px] leading-relaxed text-[var(--foreground)]">
             {content}
           </p>
@@ -89,7 +89,7 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
           <span className="text-xs font-medium text-[var(--muted-foreground)]">Aether</span>
         </div>
         {!isError && (
-          <div className="opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+          <div className="translate-y-1 transition-all duration-200 md:translate-y-0 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
             <CopyButton text={content} />
           </div>
         )}

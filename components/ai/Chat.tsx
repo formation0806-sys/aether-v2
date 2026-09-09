@@ -44,7 +44,7 @@ function WorkspaceHeader({
   onNewChat: () => void;
 }) {
   return (
-    <div className="flex shrink-0 items-center gap-3 bg-[var(--background)] px-6 py-3">
+    <div className="hidden shrink-0 items-center gap-3 bg-[var(--background)] px-6 py-2 md:py-3 lg:flex">
       <div className="flex items-center gap-2.5">
         <div className="flex size-7 shrink-0 items-center justify-center rounded-lg border border-[var(--brand)]/20 bg-[var(--brand)]/10">
           <svg
@@ -104,13 +104,13 @@ function EmptyState({
   onSuggestion: (suggestion: string) => void;
 }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-6 py-10">
-      <div className="mb-10 max-w-xl text-center">
-        <div className="mx-auto mb-7 inline-flex size-16 items-center justify-center rounded-2xl border border-[var(--brand)]/25 bg-[var(--brand)]/10">
+    <div className="flex flex-1 flex-col items-center justify-center px-4 py-6">
+      <div className="mb-6 max-w-xl text-center sm:mb-10">
+        <div className="mx-auto mb-5 inline-flex size-12 items-center justify-center rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 sm:size-16 sm:rounded-2xl">
           <svg
             viewBox="0 0 32 32"
             fill="none"
-            className="size-10 text-[var(--brand)]"
+            className="size-8 text-[var(--brand)] sm:size-10"
             aria-hidden
           >
             <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" />
@@ -119,17 +119,17 @@ function EmptyState({
             <path d="M12 9L20 17L12 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+        <h1 className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
           Your persistent intelligence layer
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[var(--muted-foreground)]">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[var(--muted-foreground)] sm:mt-3 sm:text-[15px]">
           Every conversation builds on the last. Aether extracts, remembers, and
           recalls what matters — carrying context forward automatically.
         </p>
       </div>
 
       <div className="w-full max-w-md overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)]">
-        <div className="flex items-center gap-2.5 px-4 py-2.5">
+        <div className="flex items-center gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5">
           <Sparkles size={14} className="shrink-0 text-[var(--brand)]" aria-hidden />
           <p className="text-xs font-medium text-[var(--muted-foreground)]">What your AI does under the hood</p>
         </div>
@@ -138,25 +138,25 @@ function EmptyState({
           { icon: MemoryStick, title: "Remember", body: "Stores context as durable, retrievable memory." },
           { icon: Brain, title: "Recall", body: "Injects what is relevant into every new response." },
         ].map((cap) => (
-          <div key={cap.title} className="hairline-b flex items-start gap-3 px-4 py-3 last:border-b-0">
-            <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[var(--brand)]/10">
+          <div key={cap.title} className="hairline-b flex items-start gap-2.5 px-3 py-2.5 last:border-b-0 sm:gap-3 sm:px-4 sm:py-3">
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-md bg-[var(--brand)]/10 sm:size-7 sm:rounded-lg">
               <cap.icon size={13} className="text-[var(--brand)]" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-[var(--foreground)]">{cap.title}</p>
+              <p className="text-[13px] font-medium text-[var(--foreground)] sm:text-sm">{cap.title}</p>
               <p className="mt-0.5 text-xs leading-relaxed text-[var(--muted-foreground)]">{cap.body}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 flex w-full max-w-md flex-wrap items-center justify-center gap-2.5">
+      <div className="mt-5 flex w-full max-w-md flex-wrap items-center justify-center gap-2.5 sm:mt-8">
         {SUGGESTIONS.map((suggestion) => (
           <button
             key={suggestion}
             type="button"
             onClick={() => onSuggestion(suggestion)}
-                        className="rounded-full border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs font-medium text-[var(--muted-foreground)] transition-all duration-150 hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:scale-105 hover:text-[var(--foreground)]"
+            className="min-h-11 rounded-full border border-[var(--border)] bg-[var(--card)] px-4 text-[13px] font-medium text-[var(--muted-foreground)] transition-all duration-150 hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:scale-105 hover:text-[var(--foreground)] sm:py-2 sm:text-xs"
           >
             {suggestion}
           </button>
@@ -208,7 +208,7 @@ function RefinedComposer({
 
   return (
     <div className="bg-[var(--background)]">
-      <div className="mx-auto max-w-[812px] px-4 pb-4 pt-2 md:px-6">
+      <div className="mx-auto max-w-[812px] px-4 pb-4 pt-2 md:px-6 app-safe-bottom">
         <form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -225,7 +225,7 @@ function RefinedComposer({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Ask your AI…"
+            placeholder="Ask AETHER…"
             rows={1}
             disabled={disabled}
             aria-label="Message Aether"
@@ -236,7 +236,7 @@ function RefinedComposer({
             type="submit"
             disabled={!canSend}
             aria-label="Send message"
-            className={`flex size-9 shrink-0 items-center justify-center rounded-xl shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed ${
+            className={`flex size-11 shrink-0 items-center justify-center rounded-xl shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed md:size-9 ${
               canSend
                 ? "bg-[var(--brand)] text-[var(--brand-foreground)] hover:shadow-md hover:scale-105 active:scale-95"
                 : "bg-[var(--brand)]/30 text-[var(--brand-foreground)]/50"
@@ -245,8 +245,8 @@ function RefinedComposer({
             <Send size={15} aria-hidden />
           </button>
         </form>
-        <p className="mt-2 text-center text-xs text-[var(--muted-foreground)]">
-          Enter to send · Shift+Enter for a new line · Escape to stop
+        <p className="mt-2 hidden text-center text-xs text-[var(--muted-foreground)] md:block">
+          Enter to send · Shift+Enter for a new line
         </p>
       </div>
     </div>
@@ -535,7 +535,7 @@ export default function Chat() {
             onScroll={handleMessageScroll}
             className="h-full overflow-y-auto"
           >
-          <div className="mx-auto max-w-[768px] space-y-6 px-4 py-6 md:px-6">
+          <div className="mx-auto max-w-[768px] space-y-6 px-4 py-4 md:py-6">
             {messages.map((message, index) => (
               <div
                 key={`msg-${index}-${message.role}`}
@@ -603,7 +603,7 @@ export default function Chat() {
         </div>
       )}
 
-      <RefinedComposer
+<RefinedComposer
         value={draft}
         onChange={setDraft}
         onSend={sendMessage}

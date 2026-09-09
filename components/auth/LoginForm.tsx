@@ -10,30 +10,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
-function AuthError({
-  errorCode,
-  errorDescription,
-}: {
-  errorCode?: string;
-  errorDescription?: string;
-}) {
-  const messages: Record<string, string> = {
-    otp_expired: 'This link has expired. Please sign in with your password instead.',
-    access_denied: 'Sign-in was cancelled or could not be completed.',
-  };
-  const text =
-    errorCode && messages[errorCode]
-      ? messages[errorCode]
-      : errorDescription;
-  if (!text) return null;
-  return (
-    <div
-      role="alert"
-      className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400"
-    >
-      {text}
-    </div>
-  );
+function sanitizeAuthError(message: string | undefined): string | null {
+  const text = typeof message === "string" ? message.trim() : "";
+  if (text.length === 0) return null;
+  if (
+    text === "{}" ||
+    text === "[]" ||
+    text === "null" ||
+    /^\{[\s]*\}$/.test(text) ||
+    /^\[[\s]*\]$/.test(text)
+  ) {
+    return null;
+  }
+  return text;
 }
 
 export default function LoginForm({
@@ -52,6 +41,75 @@ export default function LoginForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  function AuthError({
+    errorCode,
+    errorDescription,
+  }: {
+    errorCode?: string;
+    errorDescription?: string;
+  }) {
+    const messages: Record<string, string> = {
+      otp_expired: 'This link has expired or has already been used.',
+      access_denied: 'Sign-in was cancelled or could not be completed.',
+      exchange_failed:
+        'Open the confirmation link in the same browser you used to sign up.',
+      verify_failed:
+        'Open the confirmation link in the same browser you used to sign up.',
+    };
+    const text =
+      errorCode && messages[errorCode]
+        ? messages[errorCode]
+        : errorDescription;
+    if (!text) return null;
+    
+    // Special handling for expired confirmation link
+    if (errorCode === 'otp_expired') {
+      return (
+        <div className="space-y-4">
+          <div
+            role="alert"
+            className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400"
+          >
+            {text}
+          </div>
+          <div className="flex flex-col sm:flex-row sm:gap-4">
+            <Button
+              variant="outline"
+              size="xs"
+              onClick={() => {
+                // Redirect to signin page to allow user to request new confirmation
+                router.push('/signin');
+                router.refresh();
+              }}
+            >
+              Sign in
+            </Button>
+            <Button
+              variant="ghost"
+              size="xs"
+              onClick={() => {
+                // Redirect to signup to allow user to start over
+                router.push('/signup');
+                router.refresh();
+              }}
+            >
+              Start over
+            </Button>
+          </div>
+        </div>
+      );
+    }
+    
+    return (
+      <div
+        role="alert"
+        className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400"
+      >
+        {text}
+      </div>
+    );
+  }
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -65,7 +123,8 @@ export default function LoginForm({
     setLoading(false);
 
     if (signInError) {
-      setError(signInError.message);
+      const safe = sanitizeAuthError(signInError.message);
+      setError(safe ?? "Unable to sign in right now. Please try again.");
       return;
     }
 
@@ -152,17 +211,17 @@ export default function LoginForm({
             'Sign in'
           )}
         </Button>
-      </form>
 
-      <p className="mt-8 text-center text-sm text-[var(--muted-foreground)]">
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/signup"
-          className="font-medium text-[var(--brand)] underline-offset-4 transition-colors hover:underline"
-        >
-          Create one
-        </Link>
-      </p>
+        <p className="mt-8 text-center text-sm text-[var(--muted-foreground)]">
+          Don&apos;t have an account?{' '}
+          <Link
+            href="/signup"
+            className="font-medium text-[var(--brand)] underline-offset-4 transition-colors hover:underline"
+          >
+            Create one
+          </Link>
+        </p>
+      </form>
     </div>
   );
 }

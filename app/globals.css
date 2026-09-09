@@ -550,3 +550,14 @@
   height: auto;
   border-radius: 10px;
 }
+
+/* ============================================================
+   Mobile safe-area support (chat composer / fixed bottom UI)
+   Adds the device bottom inset (e.g. iOS home-bar) on top of the
+   standard 1rem bottom padding. Progressive enhancement: if a
+   browser does not support env(), the declaration is skipped and
+   the element keeps its own pb-* utility padding.
+   ============================================================ */
+.app-safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
