@@ -30,7 +30,10 @@ async function retrieveMemoriesSafe(
   message: string
 ): Promise<unknown[]> {
   try {
-    return await retrieveMemories(userId, message);
+    const tMemStart = Date.now();
+    const _memResult = await retrieveMemories(userId, message);
+    console.log("MEMORY_RETRIEVAL memory_ms=" + (Date.now() - tMemStart).toFixed(2));
+    return _memResult;
   } catch (error) {
     console.warn({
       event: "retrieval_degraded",
@@ -48,6 +51,7 @@ export async function buildContext(
 ): Promise<ContextResult> {
   console.log("CALLER: lib/context/builder.ts");
   console.log("USER PASSED:", userId);
+  const tContextStart = Date.now();
 
   const [
     identity,
@@ -63,6 +67,7 @@ export async function buildContext(
 
     retrievePlanner(userId),
   ]);
+  console.log("CONTEXT_TOTAL context_total_ms=" + (Date.now() - tContextStart).toFixed(2));
 
   return {
     identity,
