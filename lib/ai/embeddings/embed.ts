@@ -20,6 +20,7 @@ export async function embed(
         body: JSON.stringify({
           model: "nomic-embed-text:latest",
           input: [text],
+          keep_alive: "5m",
         }),
         signal: controller.signal,
       }
