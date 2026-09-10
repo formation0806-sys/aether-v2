@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/shell/AppShell";
+import Greeting from "@/components/dashboard/Greeting";
 import {
   ArrowRight,
   Bot,
@@ -10,13 +11,6 @@ import {
   MessageSquare,
   Sparkles,
 } from "lucide-react";
-
-function getGreeting() {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
-  return "Good evening";
-}
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -27,8 +21,6 @@ export default async function DashboardPage() {
   if (!user) {
     redirect("/signin");
   }
-
-  const greeting = getGreeting();
 
   const [{ count: memoryCount }, { count: taskCount }] = await Promise.all([
     supabase
@@ -52,7 +44,7 @@ export default async function DashboardPage() {
               <span className="inline-flex size-1.5 rounded-full bg-emerald-400" aria-hidden />
             </div>
             <h1 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
-              {greeting}
+              <Greeting />
             </h1>
             <p className="mt-2 max-w-xl leading-relaxed text-[var(--muted-foreground)]">
               One workspace where your AI, its memory, and your tasks share a

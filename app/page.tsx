@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import AuthenticatedRedirect from "@/components/auth/AuthenticatedRedirect";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    redirect("/dashboard");
+    return <AuthenticatedRedirect />;
   }
 
   return (
@@ -155,8 +155,21 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-[var(--border)] px-6 pb-8 pt-8 text-center text-xs text-[var(--muted-foreground)]">
-        AETHER — persistent AI workspace
+      <footer className="border-t border-[var(--border)] px-6 pb-10 pt-10 text-center">
+        <div className="mx-auto flex max-w-4xl items-center justify-center gap-3 text-xs text-[var(--muted-foreground)]">
+          <svg
+            viewBox="0 0 32 32"
+            fill="none"
+            className="size-4 text-[var(--brand)]"
+            aria-hidden
+          >
+            <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.2" />
+            <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.35" />
+            <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.85" />
+            <circle cx="16" cy="16" r="2.6" fill="currentColor" />
+          </svg>
+          <span>AETHER â€” persistent AI workspace</span>
+        </div>
       </footer>
     </main>
   );
