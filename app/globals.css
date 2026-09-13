@@ -90,39 +90,42 @@
 }
 
 .dark {
-  --background: oklch(0.105 0.01 265);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.145 0.012 265);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.14 0.012 265);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.92 0 0);
-  --primary-foreground: oklch(0.11 0.012 265);
-  --secondary: oklch(0.2 0.012 265);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.2 0.012 265);
-  --muted-foreground: oklch(0.78 0.008 265);
-  --accent: oklch(0.2 0.012 265);
-  --accent-foreground: oklch(0.92 0 0);
+  --background: #000000;
+  --foreground: #F5F5F5;
+  --card: #0A0A0A;
+  --card-foreground: #F5F5F5;
+  --popover: #0F0F0F;
+  --popover-foreground: #F5F5F5;
+  --primary: #F5F5F5;
+  --primary-foreground: #000000;
+  --secondary: #141414;
+  --secondary-foreground: #E5E5E5;
+  --muted: #141414;
+  --muted-foreground: #A0A0A0;
+  --accent: #141414;
+  --accent-foreground: #F5F5F5;
   --destructive: oklch(0.65 0.2 25);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.62 0.09 265);
+  --border: #202020;
+  --input: #222222;
+  --ring: #2A2A2A;
   --chart-1: oklch(0.62 0.09 265);
   --chart-2: oklch(0.65 0.08 200);
   --chart-3: oklch(0.55 0.1 300);
   --chart-4: oklch(0.55 0.08 170);
   --chart-5: oklch(0.7 0.06 265);
-  --sidebar: oklch(0.125 0.012 265);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.66 0.09 265);
-  --sidebar-primary-foreground: oklch(0.11 0.012 265);
-  --sidebar-accent: oklch(0.185 0.012 265);
-  --sidebar-accent-foreground: oklch(0.92 0 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.62 0.09 265);
-  --surface: oklch(0.16 0.012 265);
-  --surface-raised: oklch(0.205 0.012 265);
+  --brand: #F5F5F5;
+  --brand-foreground: #000000;
+  --sidebar: #050505;
+  --sidebar-foreground: #D4D4D4;
+  --sidebar-primary: #F5F5F5;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #141414;
+  --sidebar-accent-foreground: #F5F5F5;
+  --sidebar-border: #1A1A1A;
+  --sidebar-ring: #2A2A2A;
+  --surface: #0F0F0F;
+  --surface-raised: #141414;
+  --muted-dim: #707070;
 }
 
 @layer base {
@@ -136,7 +139,7 @@
     @apply scroll-smooth font-sans;
   }
   ::selection {
-    background: color-mix(in oklab, var(--brand) 20%, transparent);
+    background: #2A2A2A;
   }
   * {
     scrollbar-width: thin;
@@ -168,7 +171,7 @@
     @apply outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
   .eyebrow {
-    @apply text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted-foreground)];
+    @apply text-[11px] font-medium uppercase tracking-[0.16em] text-[#707070];
   }
   .card-surface {
     @apply rounded-xl border border-[var(--border)] bg-[var(--card)];
@@ -353,16 +356,16 @@
 
 /* --- Links --- */
 .aether-prose a {
-  color: var(--brand);
+  color: var(--foreground);
   font-weight: 500;
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklab, var(--brand) 40%, transparent);
+  text-decoration-color: color-mix(in oklab, var(--foreground) 40%, transparent);
   text-underline-offset: 3px;
   transition: text-decoration-color 150ms ease;
 }
 .aether-prose a:hover {
-  text-decoration-color: var(--brand);
+  text-decoration-color: var(--foreground);
 }
 
 /* --- Lists --- */
@@ -406,16 +409,16 @@
 }
 .aether-prose li.task-list-item input[type="checkbox"] {
   margin-right: 0.5em;
-  accent-color: var(--brand);
+  accent-color: var(--foreground);
 }
 
-/* --- Inline code: subtle, brand-tinted pill --- */
+/* --- Inline code: subtle, neutral pill --- */
 .aether-prose :not(pre) > code {
   padding: 0.15em 0.4em;
   border-radius: 5px;
-  border: 1px solid color-mix(in oklab, var(--brand) 16%, transparent);
-  background: color-mix(in oklab, var(--brand) 8%, transparent);
-  color: color-mix(in oklab, var(--brand) 78%, var(--foreground));
+  border: 1px solid #222222;
+  background: #0A0A0A;
+  color: var(--foreground);
   font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.85em;
   font-weight: 500;
@@ -497,7 +500,7 @@
 .aether-prose blockquote {
   margin: 1.1em 0;
   padding: 0.15em 0 0.15em 1.05em;
-  border-left: 2px solid color-mix(in oklab, var(--brand) 45%, transparent);
+  border-left: 2px solid #222222;
   color: var(--muted-foreground);
 }
 .aether-prose blockquote p {
@@ -560,4 +563,16 @@
    ============================================================ */
 .app-safe-bottom {
   padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
+
+/* ============================================================
+   Mobile safe-area: TOP INSIDE INSET (iOS dynamic island /
+   Android gesture bar). Applied to phone top bars so the
+   brand/header is never obscured by the OS safe area.
+   Progressive enhancement: if env() is unsupported, the
+   declaration is skipped and the element keeps its own px
+   or py utility spacing.
+   ============================================================ */
+.app-safe-top {
+  padding-top: calc(env(safe-area-inset-top) + 0.625rem);
 }

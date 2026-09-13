@@ -44,48 +44,26 @@ function WorkspaceHeader({
   onNewChat: () => void;
 }) {
   return (
-    <div className="hidden shrink-0 items-center gap-3 bg-[var(--background)] px-6 py-2 md:py-3 lg:flex">
+    <div className="hidden shrink-0 items-center gap-3 border-b border-[#1A1A1A] bg-black px-6 py-2.5 lg:flex">
       <div className="flex items-center gap-2.5">
-        <div className="flex size-7 shrink-0 items-center justify-center rounded-lg border border-[var(--brand)]/20 bg-[var(--brand)]/10">
-          <svg
-            viewBox="0 0 32 32"
-            fill="none"
-            className="size-5 text-[var(--brand)]"
-            aria-hidden
-          >
-            <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.35" />
-            <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.55" />
-            <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.9" />
-            <circle cx="16" cy="16" r="2.6" fill="currentColor" />
-          </svg>
-        </div>
-        <div>
-          <p className="text-sm font-medium leading-tight text-[var(--foreground)]">Workspace</p>
-          <p className="flex items-center gap-1.5 text-xs text-[var(--muted-foreground)]">
-            <span className="inline-flex size-1.5 rounded-full bg-emerald-400" aria-hidden />
-            Context-ready
-          </p>
-        </div>
+        <p className="text-sm font-medium leading-tight text-[#F5F5F5]">Chat</p>
+        <p className="flex items-center gap-1.5 text-xs text-[#707070]">
+          <span className="inline-flex size-1.5 rounded-full bg-[#707070]" aria-hidden />
+          {memoryCount > 0
+            ? `${memoryCount} ${memoryCount === 1 ? "memory" : "memories"}`
+            : "Context-ready"}
+        </p>
       </div>
 
       <div className="ml-auto flex shrink-0 items-center gap-2">
         <button
           type="button"
           onClick={onNewChat}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)] transition-smooth hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-[#202020] bg-transparent px-3 py-1.5 text-xs font-medium text-[#A0A0A0] transition-colors duration-150 hover:border-[#2A2A2A] hover:text-[#F5F5F5]"
         >
           <Plus size={13} className="shrink-0" aria-hidden />
           <span>New chat</span>
         </button>
-        {memoryCount > 0 && (
-          <Link
-            href="/memory"
-            className="inline-flex items-center gap-2 rounded-lg border border-[var(--brand)]/25 bg-[var(--brand)]/8 px-3 py-1.5 text-xs font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/15"
-          >
-            <MemoryStick size={13} className="shrink-0" aria-hidden />
-            <span>{memoryCount} {memoryCount === 1 ? "context" : "contexts"} remembered</span>
-          </Link>
-        )}
       </div>
     </div>
   );
@@ -104,59 +82,53 @@ function EmptyState({
   onSuggestion: (suggestion: string) => void;
 }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-4 py-6">
-      <div className="mb-6 max-w-xl text-center sm:mb-10">
-        <div className="mx-auto mb-5 inline-flex size-12 items-center justify-center rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 sm:size-16 sm:rounded-2xl">
-          <svg
-            viewBox="0 0 32 32"
-            fill="none"
-            className="size-8 text-[var(--brand)] sm:size-10"
-            aria-hidden
-          >
-            <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" />
-            <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45" />
-            <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.85" />
-            <path d="M12 9L20 17L12 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+    <div className="flex flex-1 flex-col items-center justify-center bg-black px-4 py-6 text-center">
+      {/* Mobile: AETHER logo and simple message */}
+      <div className="mb-6 flex flex-col items-center lg:flex-row lg:items-center lg:justify-center">
+        <div className="text-center lg:text-left">
+          <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
+            AETHER
+          </h1>
+          <p className="mt-1 text-sm text-[#A0A0A0] sm:text-[15px]">
+            Your AI that doesn&apos;t forget.
+          </p>
+          <p className="mt-1 text-sm text-[#707070]">
+            Remember. Understand. Build together.
+          </p>
         </div>
-        <h1 className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
-          Your persistent intelligence layer
-        </h1>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[var(--muted-foreground)] sm:mt-3 sm:text-[15px]">
-          Every conversation builds on the last. Aether extracts, remembers, and
-          recalls what matters — carrying context forward automatically.
-        </p>
       </div>
 
-      <div className="w-full max-w-md overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)]">
-        <div className="flex items-center gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5">
-          <Sparkles size={14} className="shrink-0 text-[var(--brand)]" aria-hidden />
-          <p className="text-xs font-medium text-[var(--muted-foreground)]">What your AI does under the hood</p>
+      {/* Desktop-only: capability list */}
+      <div className="hidden w-full max-w-md overflow-hidden rounded-xl border border-[#202020] bg-[#0A0A0A] lg:block">
+        <div className="flex items-center gap-2.5 border-b border-[#1A1A1A] px-4 py-2.5">
+          <Sparkles size={14} className="shrink-0 text-[#707070]" aria-hidden />
+          <p className="text-xs font-medium text-[#A0A0A0]">What your AI does under the hood</p>
         </div>
         {[
           { icon: Zap, title: "Learn", body: "Extracts facts, preferences, and goals from your conversations." },
           { icon: MemoryStick, title: "Remember", body: "Stores context as durable, retrievable memory." },
           { icon: Brain, title: "Recall", body: "Injects what is relevant into every new response." },
         ].map((cap) => (
-          <div key={cap.title} className="hairline-b flex items-start gap-2.5 px-3 py-2.5 last:border-b-0 sm:gap-3 sm:px-4 sm:py-3">
-            <div className="flex size-6 shrink-0 items-center justify-center rounded-md bg-[var(--brand)]/10 sm:size-7 sm:rounded-lg">
-              <cap.icon size={13} className="text-[var(--brand)]" aria-hidden />
+          <div key={cap.title} className="flex items-start gap-3 border-b border-[#1A1A1A] px-4 py-3 last:border-b-0">
+            <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#141414]">
+              <cap.icon size={13} className="text-[#A0A0A0]" aria-hidden />
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-medium text-[var(--foreground)] sm:text-sm">{cap.title}</p>
-              <p className="mt-0.5 text-xs leading-relaxed text-[var(--muted-foreground)]">{cap.body}</p>
+            <div className="min-w-0 flex-1 text-left">
+              <p className="text-sm font-medium text-[#F5F5F5]">{cap.title}</p>
+              <p className="mt-0.5 text-xs leading-relaxed text-[#A0A0A0]">{cap.body}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-5 flex w-full max-w-md flex-wrap items-center justify-center gap-2.5 sm:mt-8">
+      {/* Suggestions - visible on both, but different styling */}
+      <div className="mt-4 w-full max-w-md flex flex-wrap items-center justify-center gap-2 sm:mt-6 lg:mt-8">
         {SUGGESTIONS.map((suggestion) => (
           <button
             key={suggestion}
             type="button"
             onClick={() => onSuggestion(suggestion)}
-            className="min-h-11 rounded-full border border-[var(--border)] bg-[var(--card)] px-4 text-[13px] font-medium text-[var(--muted-foreground)] transition-all duration-150 hover:border-[var(--brand)]/30 hover:bg-[var(--brand)]/8 hover:scale-105 hover:text-[var(--foreground)] sm:py-2 sm:text-xs"
+            className="min-h-11 rounded-full border border-[#202020] bg-[#0A0A0A] px-4 text-sm font-medium text-[#A0A0A0] transition-colors duration-150 hover:border-[#2A2A2A] hover:text-[#F5F5F5] sm:py-2 sm:text-xs"
           >
             {suggestion}
           </button>
@@ -207,15 +179,15 @@ function RefinedComposer({
   const canSend = value.trim().length > 0 && !disabled;
 
   return (
-    <div className="bg-[var(--background)]">
-      <div className="mx-auto max-w-[812px] px-4 pb-4 pt-2 md:px-6 app-safe-bottom">
+    <div className="bg-black">
+      <div className="mx-auto w-full max-w-[768px] px-4 pb-4 pt-2 md:px-6 app-safe-bottom lg:px-6">
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className={`group relative flex items-end gap-2.5 rounded-2xl border bg-[var(--card)] px-3 py-2.5 shadow-[0_1px_0_rgba(255,255,255,0.03)_inset,0_12px_32px_-16px_rgba(0,0,0,0.5)] transition-all duration-200 ${
+          className={`flex items-end gap-2 rounded-3xl border bg-[#0A0A0A] px-4 py-2.5 transition-colors duration-150 ${
             isFocused
-              ? "border-[var(--ring)] ring-2 ring-[var(--ring)]/25"
-              : "border-[var(--border)]"
+              ? "border-[#2A2A2A]"
+              : "border-[#202020]"
           }`}
         >
           <textarea
@@ -225,27 +197,27 @@ function RefinedComposer({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Ask AETHER…"
+            placeholder="Message AETHER..."
             rows={1}
             disabled={disabled}
             aria-label="Message Aether"
-            className="max-h-[200px] min-h-[44px] flex-1 resize-none bg-transparent px-1.5 py-2 text-[15px] leading-relaxed text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/70 outline-none transition-opacity duration-200 disabled:opacity-50"
+            className="max-h-[200px] min-h-[44px] flex-1 resize-none bg-transparent px-1.5 py-2 text-[15px] leading-relaxed text-[#F5F5F5] placeholder:text-[#707070] outline-none disabled:opacity-50"
             style={{ fieldSizing: "content" } as React.CSSProperties}
           />
           <button
             type="submit"
             disabled={!canSend}
             aria-label="Send message"
-            className={`flex size-11 shrink-0 items-center justify-center rounded-xl shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed md:size-9 ${
+            className={`flex size-9 shrink-0 items-center justify-center rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2A2A2A] disabled:cursor-not-allowed ${
               canSend
-                ? "bg-[var(--brand)] text-[var(--brand-foreground)] hover:shadow-md hover:scale-105 active:scale-95"
-                : "bg-[var(--brand)]/30 text-[var(--brand-foreground)]/50"
+                ? "bg-[#F5F5F5] text-black hover:bg-white"
+                : "bg-[#1A1A1A] text-[#707070]"
             }`}
           >
             <Send size={15} aria-hidden />
           </button>
         </form>
-        <p className="mt-2 hidden text-center text-xs text-[var(--muted-foreground)] md:block">
+        <p className="mt-2 hidden text-center text-xs text-[#707070] md:block">
           Enter to send · Shift+Enter for a new line
         </p>
       </div>
@@ -523,19 +495,19 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-black lg:h-full">
       <WorkspaceHeader memoryCount={memoryCount} onNewChat={handleNewChat} />
 
       {messages.length === 0 ? (
         <EmptyState onSuggestion={handleSuggestion} />
       ) : (
-        <div className="relative min-h-0 flex-1 overflow-hidden">
+        <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
           <div
             ref={scrollRef}
             onScroll={handleMessageScroll}
             className="h-full overflow-y-auto"
           >
-          <div className="mx-auto max-w-[768px] space-y-6 px-4 py-4 md:py-6">
+          <div className="mx-auto max-w-[768px] space-y-6 px-4 py-6 lg:px-6">
             {messages.map((message, index) => (
               <div
                 key={`msg-${index}-${message.role}`}
@@ -556,28 +528,15 @@ export default function Chat() {
               </div>
             ))}
             {loading && (
-              <div className="flex items-start gap-3 message-enter" role="status" aria-live="polite">
-                <div className="flex size-8 shrink-0 items-center justify-center">
-                  <svg
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    className="size-6 text-[var(--brand)] [animation:thinking-pulse_2.4s_ease-in-out_infinite]"
-                    aria-hidden
-                  >
-                    <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.3" />
-                    <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.5" />
-                    <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.85" />
-                    <circle cx="16" cy="16" r="2.5" fill="currentColor" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-1 pt-1.5">
-                  <p className="text-xs font-medium text-[var(--muted-foreground)]">
+              <div className="flex items-start gap-3" role="status" aria-live="polite">
+                <div className="flex flex-col gap-1 pt-1">
+                  <p className="text-xs font-medium text-[#707070]">
                     {isThinking ? "Thinking…" : "Responding…"}
                   </p>
                   <div className="flex gap-1.5 pt-0.5" aria-hidden>
-                    <span className="size-1.5 rounded-full bg-[var(--brand)] thinking-dot" style={{ animationDelay: "0ms" }} />
-                    <span className="size-1.5 rounded-full bg-[var(--brand)] thinking-dot" style={{ animationDelay: "200ms" }} />
-                    <span className="size-1.5 rounded-full bg-[var(--brand)] thinking-dot" style={{ animationDelay: "400ms" }} />
+                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "0ms" }} />
+                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "200ms" }} />
+                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "400ms" }} />
                   </div>
                 </div>
               </div>
@@ -593,7 +552,7 @@ export default function Chat() {
                 setShowScrollHint(false);
                 scrollToBottom("smooth");
               }}
-              className="scroll-hint-enter absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--card)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)] shadow-lg transition-smooth hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+              className="scroll-hint-enter absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-[#202020] bg-[#0A0A0A] px-3 py-1.5 text-xs font-medium text-[#A0A0A0] transition-colors duration-150 hover:text-[#F5F5F5]"
               aria-label="Scroll to latest messages"
             >
               <ArrowDown size={13} aria-hidden />

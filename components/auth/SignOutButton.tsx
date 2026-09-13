@@ -37,7 +37,7 @@ export default function SignOutButton({
       onClick={handleSignOut}
       disabled={pending}
       className={cn(
-        "gap-2 border-red-500/20 text-red-600 hover:border-red-500/40 hover:bg-red-500/10 hover:text-red-500 dark:text-red-400 dark:hover:text-red-400",
+        "gap-2 border-[#222222] bg-transparent text-[#A0A0A0] hover:border-[#2A2A2A] hover:bg-transparent hover:text-[#F5F5F5]",
         className
       )}
       aria-busy={pending}
