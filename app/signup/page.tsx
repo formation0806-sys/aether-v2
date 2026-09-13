@@ -30,7 +30,7 @@ export default function SignUpPage() {
             <circle cx="16" cy="16" r="3" fill="currentColor" />
           </svg>
           <span className="text-sm font-semibold tracking-[0.18em] text-[var(--foreground)]">
-            AETHER
+            SALPA
           </span>
         </Link>
         <div className="w-16" />

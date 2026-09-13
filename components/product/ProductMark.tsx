@@ -41,7 +41,7 @@ export function ProductMarkFull({
       <ProductIcon className={iconSize} />
       {variant === "full" && (
         <span className="text-sm font-semibold tracking-[0.18em] text-[var(--foreground)]">
-          AETHER
+          SALPA
         </span>
       )}
     </Link>

@@ -202,7 +202,7 @@ function EmptyState() {
         Memory is empty
       </h3>
       <p className="mx-auto max-w-sm text-sm leading-relaxed text-[var(--muted-foreground)]">
-        Start a conversation with Aether. Everything it learns — facts, preferences,
+        Start a conversation with Salpa. Everything it learns — facts, preferences,
         and goals — is extracted and stored here for future sessions.
       </p>
       <div className="mt-6 flex flex-col items-center gap-1.5">

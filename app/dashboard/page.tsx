@@ -39,7 +39,7 @@ export default async function DashboardPage() {
         <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
           <header className="mb-8 sm:mb-10">
             <h1 className="text-2xl font-semibold tracking-tight text-[#F5F5F5] sm:text-[28px]">
-              AETHER
+              SALPA
             </h1>
             <p className="mt-1 text-[15px] text-[#A0A0A0]">
               Your AI that doesn&apos;t forget.
@@ -67,7 +67,7 @@ export default async function DashboardPage() {
                       </h2>
                       <p className="mt-1 max-w-md text-sm leading-relaxed text-[#A0A0A0]">
                         Every session recalls the context that matters. Ask anything —
-                        Aether builds on everything it already knows about you.
+                        Salpa builds on everything it already knows about you.
                       </p>
                     </div>
                   </div>

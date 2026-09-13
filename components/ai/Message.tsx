@@ -86,7 +86,7 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <AetherMark className="size-5 text-[var(--brand)]" />
-          <span className="text-xs font-medium text-[var(--muted-foreground)]">Aether</span>
+          <span className="text-xs font-medium text-[var(--muted-foreground)]">Salpa</span>
         </div>
         {!isError && (
           <div className="translate-y-1 transition-all duration-200 md:translate-y-0 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">

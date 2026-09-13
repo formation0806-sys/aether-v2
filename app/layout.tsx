@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aether",
+  title: "Salpa",
   description: "An AI workspace that remembers what matters.",
 };
 

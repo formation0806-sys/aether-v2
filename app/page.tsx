@@ -55,7 +55,7 @@ export default async function Home() {
             <circle cx="16" cy="16" r="3" fill="currentColor" />
           </svg>
           <span className="text-sm font-semibold tracking-[0.18em] text-[var(--foreground)]">
-            AETHER
+            SALPA
           </span>
         </div>
         <Link
@@ -168,7 +168,7 @@ export default async function Home() {
             <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.85" />
             <circle cx="16" cy="16" r="2.6" fill="currentColor" />
           </svg>
-          <span>AETHER â€” persistent AI workspace</span>
+          <span>SALPA â€” persistent AI workspace</span>
         </div>
       </footer>
     </main>

@@ -69,7 +69,7 @@ export default function ProfileSetupPage() {
             </h1>
 
             <p className="mt-2 text-slate-400">
-              Tell Aether a little about yourself.
+              Tell Salpa a little about yourself.
             </p>
           </div>
 

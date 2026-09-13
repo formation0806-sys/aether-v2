@@ -87,7 +87,7 @@ function EmptyState({
       <div className="mb-6 flex flex-col items-center lg:flex-row lg:items-center lg:justify-center">
         <div className="text-center lg:text-left">
           <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
-            AETHER
+            SALPA
           </h1>
           <p className="mt-1 text-sm text-[#A0A0A0] sm:text-[15px]">
             Your AI that doesn&apos;t forget.
@@ -197,10 +197,10 @@ function RefinedComposer({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Message AETHER..."
+            placeholder="Message SALPA..."
             rows={1}
             disabled={disabled}
-            aria-label="Message Aether"
+            aria-label="Message Salpa"
             className="max-h-[200px] min-h-[44px] flex-1 resize-none bg-transparent px-1.5 py-2 text-[15px] leading-relaxed text-[#F5F5F5] placeholder:text-[#707070] outline-none disabled:opacity-50"
             style={{ fieldSizing: "content" } as React.CSSProperties}
           />
