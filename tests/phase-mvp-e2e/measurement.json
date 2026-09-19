@@ -1,0 +1,176 @@
+{
+  "runTag": "2026-09-13T09-30-36-950Z",
+  "createdAt": "2026-09-13T09:30:47.077Z",
+  "counts": {
+    "total": 0,
+    "pass": 0,
+    "limitation": 0,
+    "fail": 0
+  },
+  "measurements": [],
+  "extra": {
+    "identity": null,
+    "multipleMemories": null,
+    "nearNeighbor": null,
+    "unrelated": null,
+    "correction": null,
+    "emptyUser": null,
+    "isolation": null,
+    "repeatability": null
+  },
+  "frozenHashes": [
+    {
+      "path": "lib/ai/config.ts",
+      "sha256": "caced559a8df5c85ae06c75ef4f38d8c348726051b34b75e8ebd950befdde2b8"
+    },
+    {
+      "path": "lib/ai/embeddings/embed.ts",
+      "sha256": "782390bc7f7565c4f54952289abfebc8f83a39f579b27e37168715922df0a4cd"
+    },
+    {
+      "path": "lib/brain/brain.ts",
+      "sha256": "df6db85baf40940e02998c5c2ea76242e0c85e9618c49a80264093da6b0564e9"
+    },
+    {
+      "path": "lib/brain/index.ts",
+      "sha256": "9536cb88d686ad10e9beec3505dd3ab57d6a64779e0b80b80d891cf5997ec64f"
+    },
+    {
+      "path": "lib/brain/types.ts",
+      "sha256": "401dbfbdae429e05d6a630158139421a98a7854cd8e5836fc8bb5f8d1aefbba6"
+    },
+    {
+      "path": "lib/context/builder.ts",
+      "sha256": "222912925ac6aab08d4ee55619e33f3f8e5a0f58b5e416d0447d193ac87b5110"
+    },
+    {
+      "path": "lib/context/index.ts",
+      "sha256": "bffbfb97513bf0bc73eb11fa71e39b67dad0f7a0842178d5c09cdde02f62e04c"
+    },
+    {
+      "path": "lib/context/types.ts",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lib/core/pipeline.ts",
+      "sha256": "7f74aedb2dd4257d3f6d4a8b45a94d93b5b488b89411dc44b13411bcd6e7f844"
+    },
+    {
+      "path": "lib/memory/aiExtractor.ts",
+      "sha256": "ca0385735808c3f71f780954cd99c85e2077014e165df61efc9c595e4fd971e6"
+    },
+    {
+      "path": "lib/memory/constants.ts",
+      "sha256": "bd1a982ccd1ccb7ab5e1da5a5064c724900ab72422a3d0032b8c5bea0d901dc6"
+    },
+    {
+      "path": "lib/memory/identity.ts",
+      "sha256": "7e20916ca0f5a9f5e82496b7c55a6e8bee6715627c8f4983ca4e7cb7e63f8353"
+    },
+    {
+      "path": "lib/memory/memory.ts",
+      "sha256": "a602ee7c47f0a24d041934702c98c53f133e73f69f0401f9aafd9c5c3ee0dabe"
+    },
+    {
+      "path": "lib/memory/retrieve.ts",
+      "sha256": "2e0f0a2ff8dc2c0f72a8733633c44529438d53936eb6fe75f14f1288c42978d8"
+    },
+    {
+      "path": "lib/memory/score.ts",
+      "sha256": "e1af2d0ecb8b1fe2c87a1ca6f5b5b75a76a1ed2936fd01e27cd77763f32d3512"
+    },
+    {
+      "path": "lib/memory/types.ts",
+      "sha256": "a4c9933375ac92ddcc5d7ecb8db026bcbe2a777dbafbbc632dc3a79516e71ade"
+    },
+    {
+      "path": "lib/repositories/memory.repository.ts",
+      "sha256": "dcdd49ded70cb188213c64a5bfe9d30de92aaf343c978ef70f72ec0f9a68de74"
+    },
+    {
+      "path": "supabase/migrations/0000_baseline.sql",
+      "sha256": "1cead113550ce2d5091e807ca7abc5f134761687816416e4b08d6ec31fa199ba"
+    },
+    {
+      "path": "supabase/migrations/0001_memory_v2_enums.sql",
+      "sha256": "576ddc7cde51c7bbbd2fcee712fd7b0ecbe683c6fe5ed56ad0a2cf7e8425ddc4"
+    },
+    {
+      "path": "supabase/migrations/0002_memory_v2_tables.sql",
+      "sha256": "26b422acb13391c538d690eec6f5a45c75b9c6bc824ab5b7be0a2b7df0e26e24"
+    },
+    {
+      "path": "supabase/migrations/0003_memory_v2_indexes.sql",
+      "sha256": "acfa9066d570a2d289c87f4a18413198feadf4c39051df502314191120e1b14c"
+    },
+    {
+      "path": "supabase/migrations/0004_memory_v2_rpcs_old.sql",
+      "sha256": "b9466e3e099bd978ba3e6613b82567e8e13ab51527fbc0976b43e36e9b19896e"
+    },
+    {
+      "path": "supabase/migrations/0005_memory_v2_backfill.sql",
+      "sha256": "29bd2d497eb052a7186798d347452aac27313e5f4671e03f0eb1695a8c22eab0"
+    },
+    {
+      "path": "supabase/migrations/0006_match_memories.sql",
+      "sha256": "43382ddebdd408e80ac078a3ffccb69f6f36062adb865b101d29967172913d13"
+    },
+    {
+      "path": "supabase/migrations/0007_lifecycle_fixes.sql",
+      "sha256": "4674c3053a7c0366e33586786a9960c954578ab552094ac909abb93c55284578"
+    },
+    {
+      "path": "supabase/migrations/0008_memory_v2_updated_at_trigger.sql",
+      "sha256": "808eaad2077748ab184ae708704a9420ae22b80709293b5abff38d535c8226e1"
+    },
+    {
+      "path": "supabase/migrations/0009_memory_v2_status_filter.sql",
+      "sha256": "d7e49617aad468684ee3237c37285d060df4e65072edd4de9e2e8420d106e29b"
+    },
+    {
+      "path": "supabase/migrations/0010_memory_edges_rls.sql",
+      "sha256": "f01aa81a82968be1eb2401d3b3efeefb9a928b636c9154216007f1cbc9b62bdc"
+    },
+    {
+      "path": "supabase/migrations/0011_memory_events_corroboration.sql",
+      "sha256": "a2b4c4f43629b950cbf049b69b4e6405de0921c71ff4c7d1ec32438d8d949e8e"
+    },
+    {
+      "path": "supabase/migrations/0012_memory_observation_provenance.sql",
+      "sha256": "bd2cfe98374e972fd66bffd1c81323db83b959eaa1e6f7b27a7b535acfe8203d"
+    },
+    {
+      "path": "supabase/migrations/0013_memory_jobs_durable.sql",
+      "sha256": "0a298372820079511b80cb1402e92066e703d1aa0a950084928172333f7f458d"
+    },
+    {
+      "path": "supabase/migrations/0014_consolidation_contract.sql",
+      "sha256": "c6d0dbc759c6369422fc1f990d865f5702eaa4214b9112b489820f653437d48c"
+    },
+    {
+      "path": "supabase/migrations/0015_consolidation_functions.sql",
+      "sha256": "3bf79cb37f046c27dbbb0f3dc9f560b87d8715abbd0e617bd2ccdb9b219d5489"
+    },
+    {
+      "path": "supabase/migrations/0016_consolidation_rpc_fix.sql",
+      "sha256": "85f9bb53fde9379a8efd1cde426b9db8236a967b463014cb47d6b0f0fb78828b"
+    },
+    {
+      "path": "supabase/migrations/0017_rollback_consolidation_rpc_fix.sql",
+      "sha256": "10f86fe1f64e03d1bc961b460a755687958fed85d430da0d4bb74886c987dd3a"
+    },
+    {
+      "path": "supabase/migrations/0018_purge_archived_security.sql",
+      "sha256": "9ac56a09b3c493b9da0f0cef1f36b18f23d7ea5be8eb1403b9ebec896feaad62"
+    },
+    {
+      "path": "supabase/migrations/0019_harden_rpc_auth.sql",
+      "sha256": "0acaf38cd08ccbcd39fafc5f5ebd2f745769e395820f6a46f2f0055262d8bcb4"
+    },
+    {
+      "path": "supabase/migrations/0020_conversation_session_id.sql",
+      "sha256": "4f06a05230fe7914a5ef7b688a39e141558a3413cc42d6c9a29eebc99046cffe"
+    }
+  ],
+  "dbAccounting": []
+}

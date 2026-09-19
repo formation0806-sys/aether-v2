@@ -1,0 +1,80 @@
+{
+  "phase": "PHASE 6-AO-V14",
+  "title": "Embedding model evaluation with query prefix (candidate vs nomic-embed-text:latest)",
+  "status": "PENDING",
+  "reason": null,
+  "recordedAt": "2026-09-13T09:31:10.119Z",
+  "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "dataset": {
+    "pairs": 43,
+    "same": 22,
+    "different": 21,
+    "factKeys": 19
+  },
+  "prompt": {
+    "sha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "sha256Expected": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "pinned": true
+  },
+  "productionThresholdCheck": {
+    "literal": 0.85,
+    "sourceAsserted": true
+  },
+  "models": {
+    "baselineEmbedding": "nomic-embed-text:latest",
+    "baselineDim": 768,
+    "candidateEmbedding": null,
+    "candidateDim": null,
+    "candidateIsChatModel": false,
+    "verifier": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "ollamaModelsSeen": [
+      "bge-m3:latest",
+      "mxbai-embed-large:latest",
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ],
+    "embeddingCapable": {}
+  },
+  "prefix": {
+    "candidateQueryPrefix": "",
+    "fidelityPass": null
+  },
+  "anchor": {
+    "pair005Expected": 0.764026,
+    "pair041Expected": 0.768679,
+    "ok": true
+  },
+  "run": null,
+  "gates": null,
+  "repeatability": null,
+  "band": {
+    "count": 0,
+    "cells": []
+  },
+  "pairs": [],
+  "predecessor": {
+    "v13": "results/v13-embedding-model-evaluation.json (COMPLETE, FAIL — bare-text mxbai)",
+    "v11": "results/v11-band-probe.json (COMPLETE, FAIL — threshold question closed)",
+    "v12": "results/v12-* (DIAGNOSTIC PASS — embedding limitation H1 confirmed)"
+  },
+  "integrity": {
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "networkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "productionThresholdRemained": 0.85,
+    "productionEmbeddingModelChanged": false,
+    "datasetModified": false,
+    "productionCodeModified": false,
+    "historicalArtifactsTouched": false
+  }
+}

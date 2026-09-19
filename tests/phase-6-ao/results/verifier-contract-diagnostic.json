@@ -1,0 +1,781 @@
+{
+  "timestamp": "2026-09-13T09:45:59.859Z",
+  "status": "COMPLETE",
+  "reason": null,
+  "datasetHash": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "datasetPairs": 43,
+  "model": "qwen2.5:3b",
+  "embeddingModel": "nomic-embed-text:latest",
+  "options": {
+    "temperature": 0,
+    "num_predict": 256,
+    "top_p": 0.9
+  },
+  "testPairIds": [
+    "pair-001",
+    "pair-011",
+    "pair-019",
+    "pair-035",
+    "pair-034",
+    "pair-003",
+    "pair-017",
+    "pair-029",
+    "pair-033",
+    "pair-043",
+    "pair-002",
+    "pair-008",
+    "pair-028",
+    "pair-031",
+    "pair-036"
+  ],
+  "fnSet": [
+    "pair-001",
+    "pair-011",
+    "pair-019",
+    "pair-035",
+    "pair-034"
+  ],
+  "tpSet": [
+    "pair-003",
+    "pair-017",
+    "pair-029",
+    "pair-033",
+    "pair-043"
+  ],
+  "diffSet": [
+    "pair-002",
+    "pair-008",
+    "pair-028",
+    "pair-031",
+    "pair-036"
+  ],
+  "configs": [
+    {
+      "key": "A",
+      "label": "current production contract (no factKey)",
+      "withFactKey": false
+    },
+    {
+      "key": "B",
+      "label": "factKey-aware contract",
+      "withFactKey": true
+    },
+    {
+      "key": "C",
+      "label": "paraphrase-explicit contract",
+      "withFactKey": false
+    },
+    {
+      "key": "D",
+      "label": "factKey + paraphrase-explicit",
+      "withFactKey": true
+    }
+  ],
+  "safety": {
+    "A": "SAFETY_PASS",
+    "B": "SAFETY_PASS",
+    "C": "SAFETY_PASS",
+    "D": "SAFETY_PASS",
+    "pair-034-A": "034=DIFFERENT",
+    "pair-034-B": "034=DIFFERENT",
+    "pair-034-C": "034=DIFFERENT",
+    "pair-034-D": "034=DIFFERENT"
+  },
+  "results": {
+    "A": {
+      "metrics": {
+        "config": "A",
+        "samePredicted": 6,
+        "differentPredicted": 9,
+        "uncertainPredicted": 0,
+        "tp": 6,
+        "tn": 5,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1,
+        "recall": 0.6,
+        "fcr": 0,
+        "fnFlips": []
+      },
+      "pairs": [
+        {
+          "pairId": "pair-001",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.863824,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies that Mumbai is the regular work base, while the EXISTING CANDIDATE MEMORY only mentions commuting. These are different scopes and implications."
+        },
+        {
+          "pairId": "pair-011",
+          "factKey": "technology-preference",
+          "humanLabel": "SAME",
+          "similarity": 0.850134,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION focuses on a personal preference and current practice ('tend to choose TypeScript'), while the EXISTING CANDIDATE MEMORY is about a general statement about the author's development practices ('Most of the software I develop is written using TypeScript')."
+        },
+        {
+          "pairId": "pair-019",
+          "factKey": "work-style",
+          "humanLabel": "SAME",
+          "similarity": 0.870669,
+          "verdict": "DIFFERENT",
+          "reason": "Preference vs. current usage"
+        },
+        {
+          "pairId": "pair-035",
+          "factKey": "deployment",
+          "humanLabel": "SAME",
+          "similarity": 0.892905,
+          "verdict": "SAME",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY both indicate preference for using Cloudflare for deploying applications, just with slightly different wording."
+        },
+        {
+          "pairId": "pair-034",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "verdict": "DIFFERENT",
+          "reason": "NEW OBSERVATION mentions GitHub, while EXISTING CANDIDATE MEMORY mentions GitLab."
+        },
+        {
+          "pairId": "pair-003",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.884408,
+          "verdict": "SAME",
+          "reason": "Both statements indicate a primary work location in Mumbai, just with different wording."
+        },
+        {
+          "pairId": "pair-017",
+          "factKey": "coding",
+          "humanLabel": "SAME",
+          "similarity": 0.876453,
+          "verdict": "SAME",
+          "reason": "The core preference expressed in both observations is identical: the user prefers React for frontend applications."
+        },
+        {
+          "pairId": "pair-029",
+          "factKey": "database",
+          "humanLabel": "SAME",
+          "similarity": 0.89177,
+          "verdict": "SAME",
+          "reason": "The core fact that PostgreSQL is used as the database engine for the application remains the same in both observations."
+        },
+        {
+          "pairId": "pair-033",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.881605,
+          "verdict": "SAME",
+          "reason": "Both statements describe the use of GitHub for code storage and management, just with slightly different wording."
+        },
+        {
+          "pairId": "pair-043",
+          "factKey": "Aether-memory",
+          "humanLabel": "SAME",
+          "similarity": 0.899075,
+          "verdict": "SAME",
+          "reason": "The core meaning and intent of the memory are the same, just expressed with slightly different wording."
+        },
+        {
+          "pairId": "pair-002",
+          "factKey": "work-location",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.804524,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies working from Mumbai, while the EXISTING CANDIDATE MEMORY specifies working from Delhi."
+        },
+        {
+          "pairId": "pair-008",
+          "factKey": "project",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.714047,
+          "verdict": "DIFFERENT",
+          "reason": "NEW OBSERVATION and EXISTING CANDIDATE MEMORY are about different AI projects with distinct focuses: one on persistent memory and the other on analyzing stock-market data."
+        },
+        {
+          "pairId": "pair-028",
+          "factKey": "development",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION prefers simple and maintainable code, while the EXISTING CANDIDATE MEMORY prefers complex and abstracted code."
+        },
+        {
+          "pairId": "pair-031",
+          "factKey": "Aether-memory",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION suggests Aether should remember useful information, while the EXISTING CANDIDATE MEMORY suggests Aether should forget everything. These are contradictory statements."
+        },
+        {
+          "pairId": "pair-036",
+          "factKey": "deployment",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.72845,
+          "verdict": "DIFFERENT",
+          "reason": "Different deployment tool preference (Cloudflare vs Vercel)."
+        }
+      ],
+      "repeatability": {
+        "pair-001": {
+          "verdicts": [
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT"
+          ],
+          "identical": 20,
+          "total": 20
+        },
+        "pair-011": {
+          "verdicts": [
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT"
+          ],
+          "identical": 20,
+          "total": 20
+        },
+        "pair-019": {
+          "verdicts": [
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT"
+          ],
+          "identical": 20,
+          "total": 20
+        },
+        "pair-035": {
+          "verdicts": [
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME",
+            "SAME"
+          ],
+          "identical": 20,
+          "total": 20
+        },
+        "pair-034": {
+          "verdicts": [
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT",
+            "DIFFERENT"
+          ],
+          "identical": 20,
+          "total": 20
+        }
+      }
+    },
+    "B": {
+      "metrics": {
+        "config": "B",
+        "samePredicted": 2,
+        "differentPredicted": 13,
+        "uncertainPredicted": 0,
+        "tp": 2,
+        "tn": 5,
+        "fp": 0,
+        "fn": 8,
+        "precision": 1,
+        "recall": 0.2,
+        "fcr": 0,
+        "fnFlips": []
+      },
+      "pairs": [
+        {
+          "pairId": "pair-001",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.863824,
+          "verdict": "DIFFERENT",
+          "reason": "Work location vs commuting"
+        },
+        {
+          "pairId": "pair-011",
+          "factKey": "technology-preference",
+          "humanLabel": "SAME",
+          "similarity": 0.850134,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY describes a general usage pattern of TypeScript in software development."
+        },
+        {
+          "pairId": "pair-019",
+          "factKey": "work-style",
+          "humanLabel": "SAME",
+          "similarity": 0.870669,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION expresses a preference for working independently, while the EXISTING CANDIDATE MEMORY expresses a preference for completing projects on one's own rather than working in a team. This is a difference in nuance and context."
+        },
+        {
+          "pairId": "pair-035",
+          "factKey": "deployment",
+          "humanLabel": "SAME",
+          "similarity": 0.892905,
+          "verdict": "DIFFERENT",
+          "reason": "Different preference expressed (preference vs current usage)."
+        },
+        {
+          "pairId": "pair-034",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "verdict": "DIFFERENT",
+          "reason": "NEW OBSERVATION mentions GitHub, while EXISTING CANDIDATE MEMORY mentions GitLab."
+        },
+        {
+          "pairId": "pair-003",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.884408,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies 'primary city for work' while the EXISTING CANDIDATE MEMORY only mentions 'job commitments in Mumbai' without specifying the level of importance."
+        },
+        {
+          "pairId": "pair-017",
+          "factKey": "coding",
+          "humanLabel": "SAME",
+          "similarity": 0.876453,
+          "verdict": "SAME",
+          "reason": "The core preference expressed in both observations is identical: the user prefers React for frontend applications."
+        },
+        {
+          "pairId": "pair-029",
+          "factKey": "database",
+          "humanLabel": "SAME",
+          "similarity": 0.89177,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies 'I use PostgreSQL', while the EXISTING CANDIDATE MEMORY states 'PostgreSQL is the relational database engine behind my application'. These are different statements regarding the current usage of PostgreSQL."
+        },
+        {
+          "pairId": "pair-033",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.881605,
+          "verdict": "DIFFERENT",
+          "reason": "Different emphasis and specific action ('use' vs 'keep')."
+        },
+        {
+          "pairId": "pair-043",
+          "factKey": "Aether-memory",
+          "humanLabel": "SAME",
+          "similarity": 0.899075,
+          "verdict": "SAME",
+          "reason": "The core meaning and intent of the existing memory ('Staying useful across chats by holding knowledge is what Aether is for.') aligns with the new observation ('Aether is intended to maintain useful knowledge from earlier conversations.'). The wording is different but the core fact remains the same."
+        },
+        {
+          "pairId": "pair-002",
+          "factKey": "work-location",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.804524,
+          "verdict": "DIFFERENT",
+          "reason": "Different location (Mumbai vs Delhi)"
+        },
+        {
+          "pairId": "pair-008",
+          "factKey": "project",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.714047,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY differ in the focus of the AI projects. The NEW OBSERVATION is about a project focused on persistent memory, while the EXISTING CANDIDATE MEMORY is about a project focused on analyzing stock-market data."
+        },
+        {
+          "pairId": "pair-028",
+          "factKey": "development",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION prefers simple and maintainable code, while the EXISTING CANDIDATE MEMORY prefers complex and abstracted code."
+        },
+        {
+          "pairId": "pair-031",
+          "factKey": "Aether-memory",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION suggests Aether should remember useful information, while the EXISTING CANDIDATE MEMORY suggests Aether should forget everything. These are contradictory statements."
+        },
+        {
+          "pairId": "pair-036",
+          "factKey": "deployment",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.72845,
+          "verdict": "DIFFERENT",
+          "reason": "Different deployment tool (Cloudflare vs Vercel)"
+        }
+      ],
+      "repeatability": {}
+    },
+    "C": {
+      "metrics": {
+        "config": "C",
+        "samePredicted": 7,
+        "differentPredicted": 8,
+        "uncertainPredicted": 0,
+        "tp": 7,
+        "tn": 5,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1,
+        "recall": 0.7,
+        "fcr": 0,
+        "fnFlips": [
+          "pair-019"
+        ]
+      },
+      "pairs": [
+        {
+          "pairId": "pair-001",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.863824,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION focuses on 'regular work base' while the EXISTING CANDIDATE MEMORY focuses on 'commute to Mumbai for job', indicating different usage or context"
+        },
+        {
+          "pairId": "pair-011",
+          "factKey": "technology-preference",
+          "humanLabel": "SAME",
+          "similarity": 0.850134,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies a preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY states a general usage of TypeScript for most software development. These are related but distinct statements."
+        },
+        {
+          "pairId": "pair-019",
+          "factKey": "work-style",
+          "humanLabel": "SAME",
+          "similarity": 0.870669,
+          "verdict": "SAME",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY express similar preferences regarding working independently on projects, just with different wording."
+        },
+        {
+          "pairId": "pair-035",
+          "factKey": "deployment",
+          "humanLabel": "SAME",
+          "similarity": 0.892905,
+          "verdict": "SAME",
+          "reason": "The core meaning and preference expressed in both statements are the same, only the wording differs"
+        },
+        {
+          "pairId": "pair-034",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab."
+        },
+        {
+          "pairId": "pair-003",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.884408,
+          "verdict": "SAME",
+          "reason": "Both statements express the concept of the respondent having regular job commitments in Mumbai, just with different wording."
+        },
+        {
+          "pairId": "pair-017",
+          "factKey": "coding",
+          "humanLabel": "SAME",
+          "similarity": 0.876453,
+          "verdict": "SAME",
+          "reason": "The statements express similar preferences for React, differing only in wording ('prefer' vs 'preferred') which is not sufficient to consider the facts different."
+        },
+        {
+          "pairId": "pair-029",
+          "factKey": "database",
+          "humanLabel": "SAME",
+          "similarity": 0.89177,
+          "verdict": "SAME",
+          "reason": "Both statements express the use of PostgreSQL for a database, just with slightly different wording."
+        },
+        {
+          "pairId": "pair-033",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.881605,
+          "verdict": "SAME",
+          "reason": "The core meaning and usage of the content are the same, only the wording differs"
+        },
+        {
+          "pairId": "pair-043",
+          "factKey": "Aether-memory",
+          "humanLabel": "SAME",
+          "similarity": 0.899075,
+          "verdict": "SAME",
+          "reason": "The core meaning and intent expressed in both observations are the same, with minor variations in wording that do not constitute a difference."
+        },
+        {
+          "pairId": "pair-002",
+          "factKey": "work-location",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.804524,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION states working from Mumbai while the EXISTING CANDIDATE MEMORY states working from Delhi, which are different locations."
+        },
+        {
+          "pairId": "pair-008",
+          "factKey": "project",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.714047,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY refer to different AI projects with distinct focuses: persistent memory vs. analyzing stock-market data."
+        },
+        {
+          "pairId": "pair-028",
+          "factKey": "development",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION prefers simple and maintainable code, while the EXISTING CANDIDATE MEMORY prefers complex and abstracted code."
+        },
+        {
+          "pairId": "pair-031",
+          "factKey": "Aether-memory",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION suggests Aether should remember useful information, while the EXISTING CANDIDATE MEMORY suggests Aether should forget everything. These are contradictory statements."
+        },
+        {
+          "pairId": "pair-036",
+          "factKey": "deployment",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.72845,
+          "verdict": "DIFFERENT",
+          "reason": "different concrete entity (Cloudflare vs Vercel)"
+        }
+      ],
+      "repeatability": {}
+    },
+    "D": {
+      "metrics": {
+        "config": "D",
+        "samePredicted": 7,
+        "differentPredicted": 8,
+        "uncertainPredicted": 0,
+        "tp": 7,
+        "tn": 5,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1,
+        "recall": 0.7,
+        "fcr": 0,
+        "fnFlips": [
+          "pair-019"
+        ]
+      },
+      "pairs": [
+        {
+          "pairId": "pair-001",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.863824,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION specifies 'Mumbai is my regular work base' while the EXISTING CANDIDATE MEMORY states 'I commute to Mumbai for my job'. These are related but not identical facts as the NEW OBSERVATION focuses on the work location, while the EXISTING CANDIDATE MEMORY emphasizes the commuting aspe"
+        },
+        {
+          "pairId": "pair-011",
+          "factKey": "technology-preference",
+          "humanLabel": "SAME",
+          "similarity": 0.850134,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION expresses a preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY indicates a general use of TypeScript for most software development. These are related but distinct facts."
+        },
+        {
+          "pairId": "pair-019",
+          "factKey": "work-style",
+          "humanLabel": "SAME",
+          "similarity": 0.870669,
+          "verdict": "SAME",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY express similar preferences regarding working style, despite different wording."
+        },
+        {
+          "pairId": "pair-035",
+          "factKey": "deployment",
+          "humanLabel": "SAME",
+          "similarity": 0.892905,
+          "verdict": "SAME",
+          "reason": "Both statements express a preference for deploying applications using Cloudflare"
+        },
+        {
+          "pairId": "pair-034",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "verdict": "DIFFERENT",
+          "reason": "NEW OBSERVATION states GitHub, while EXISTING CANDIDATE MEMORY states GitLab"
+        },
+        {
+          "pairId": "pair-003",
+          "factKey": "work-location",
+          "humanLabel": "SAME",
+          "similarity": 0.884408,
+          "verdict": "SAME",
+          "reason": "Both statements describe the same enduring fact about the speaker's work location in Mumbai without contradicting each other."
+        },
+        {
+          "pairId": "pair-017",
+          "factKey": "coding",
+          "humanLabel": "SAME",
+          "similarity": 0.876453,
+          "verdict": "SAME",
+          "reason": "The core preference expressed in both statements is the same, just using different words."
+        },
+        {
+          "pairId": "pair-029",
+          "factKey": "database",
+          "humanLabel": "SAME",
+          "similarity": 0.89177,
+          "verdict": "SAME",
+          "reason": "Both statements refer to PostgreSQL as the database engine used in the application, just with slightly different wording."
+        },
+        {
+          "pairId": "pair-033",
+          "factKey": "tools",
+          "humanLabel": "SAME",
+          "similarity": 0.881605,
+          "verdict": "SAME",
+          "reason": "The core fact expressed in both observations is the same: the use of GitHub for code storage and management. The differences in wording ('use' vs 'keep') and slight rephrasing do not change the underlying enduring user fact."
+        },
+        {
+          "pairId": "pair-043",
+          "factKey": "Aether-memory",
+          "humanLabel": "SAME",
+          "similarity": 0.899075,
+          "verdict": "SAME",
+          "reason": "The core meaning and intent expressed in both observations match, with only minor wording differences."
+        },
+        {
+          "pairId": "pair-002",
+          "factKey": "work-location",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.804524,
+          "verdict": "DIFFERENT",
+          "reason": "NEW OBSERVATION states work from Mumbai while EXISTING CANDIDATE MEMORY states work from Delhi"
+        },
+        {
+          "pairId": "pair-008",
+          "factKey": "project",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.714047,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY refer to different projects with distinct focuses: Aether (persistent memory) vs. analyzing stock-market data."
+        },
+        {
+          "pairId": "pair-028",
+          "factKey": "development",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION prefers simple and maintainable code, while the EXISTING CANDIDATE MEMORY prefers complex and abstracted code."
+        },
+        {
+          "pairId": "pair-031",
+          "factKey": "Aether-memory",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "verdict": "DIFFERENT",
+          "reason": "The NEW OBSERVATION suggests Aether should remember useful information, while the EXISTING CANDIDATE MEMORY suggests Aether should forget everything. These are contradictory statements."
+        },
+        {
+          "pairId": "pair-036",
+          "factKey": "deployment",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.72845,
+          "verdict": "DIFFERENT",
+          "reason": "different concrete entity (Cloudflare vs Vercel)"
+        }
+      ],
+      "repeatability": {}
+    }
+  },
+  "dbWrites": 0,
+  "productionThresholdRemained": 0.85,
+  "productionCodeChanged": false,
+  "datasetModified": false
+}

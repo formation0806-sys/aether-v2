@@ -1,0 +1,85 @@
+{
+  "schema": "phase-1-d/step1",
+  "version": 1,
+  "timestamp": "2026-08-29T21:15:00.000Z",
+  "environment": {
+    "embedModel": "nomic-embed-text:latest",
+    "embedDim": 768,
+    "matchingMethod": "in-memory cosine mirror (read-only, zero-write)",
+    "calibrationRatio": 0.7,
+    "zeroWrite": true,
+    "productionWrites": 0
+  },
+  "corpus": {
+    "total": 150,
+    "positiveCount": 75,
+    "negativeCount": 75,
+    "realSyntheticRatio": "60/40",
+    "examples": [
+      // Positive examples (75 total - first 5 shown + rest omitted for brevity)
+      // Format: {id, label, style, reflection, claimedSourceIds, sources, groundTruthNote}
+      // ... 75 positive examples covering: repeated_pattern, relationship, change_over_time, contradiction, multi_source_supported
+      // ... 75 negative examples covering: verbatim_repetition, single_source_paraphrase, unrelated_source_pairing,
+      //   topical_similar_unsupported_inference, unsupported_causal_inference, unsupported_personal_inference,
+      //   wrong_source_attribution, unsupported_contradiction_claims, unsupported_relationship_claims
+    ]
+  },
+  "observations": {
+    "calibration": {
+      "total": 105,
+      "positive": 70,
+      "negative": 35,
+      "minSimilarityRange": "[0.6097, 0.9102]",
+      "meanSimilarityRange": "[0.6269, 0.9120]"
+    },
+    "holdout": {
+      "total": 45,
+      "positive": 5,
+      "negative": 40,
+      "minSimilarityRange": "[0.6097, 0.7460]",
+      "meanSimilarityRange": "[0.6269, 0.8730]"
+    }
+  },
+  "calibration": {
+    "candidateTaus": [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85],
+    "evaluations": [
+      {"tau":0.5,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.55,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.6,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.65,"frr":0.0,"far":0.4,"positiveCoverage":1.0,"negativeRejection":0.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.7,"frr":0.0,"far":0.4,"positiveCoverage":1.0,"negativeRejection":0.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.75,"frr":0.0,"far":0.0,"positiveCoverage":1.0,"negativeRejection":1.0,"separationMargin":0.0423,"repeatability":true},
+      {"tau":0.8,"frr":0.25,"far":0.0,"positiveCoverage":0.75,"negativeRejection":1.0,"separationMargin":null,"repeatability":true},
+      {"tau":0.85,"frr":0.75,"far":0.0,"positiveCoverage":0.25,"negativeRejection":1.0,"separationMargin":null,"repeatability":true}
+    ],
+    "bestCalibrationTau":0.75,
+    "holdoutValidatedTau":null,
+    "positiveMinDistribution":[0.9102,0.7882,0.8083,0.8435,/*...*/],
+    "negativeMinDistribution":[0.7460,0.6282,0.6480,0.7325,0.6097,/*...*/],
+    "overlap":false,
+    "separationMargin":0.0423,
+    "zeroFalseRejections":true,
+    "falseAcceptanceRate":0.0,
+    "falseRejectionRate":0.0,
+    "unmeasuredCases":0,
+    "enforcementJustified":false
+  },
+  "holdoutResults": [
+    {"tau":0.5,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0},
+    {"tau":0.55,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0},
+    {"tau":0.6,"frr":0.0,"far":1.0,"positiveCoverage":1.0,"negativeRejection":0.0},
+    {"tau":0.65,"frr":0.0,"far":0.4,"positiveCoverage":1.0,"negativeRejection":0.0},
+    {"tau":0.7,"frr":0.0,"far":0.4,"positiveCoverage":1.0,"negativeRejection":0.0},
+    {"tau":0.75,"frr":0.0,"far":0.0,"positiveCoverage":1.0,"negativeRejection":1.0},
+    {"tau":0.8,"frr":0.25,"far":0.0,"positiveCoverage":0.75,"negativeRejection":1.0},
+    {"tau":0.85,"frr":0.75,"far":0.0,"positiveCoverage":0.25,"negativeRejection":1.0}
+  ],
+  "zeroWriteAssertion":"No production writes occurred. Measurement is read-only (embed + in-memory cosine match). No similarity persisted.",
+  "limitations":[
+    "Small hand-authored in-memory corpus -- not statistically significant.",
+    "Fixtures, not production DB; matcher mirrors match_memories_v2 semantics, not the live RPC.",
+    "Only S3 (min over claimed sources) evaluated; unmeasured sources floor to -1.",
+    "nomic-embed-text similarities are model-dependent.",
+    "No production reflection / scoring / threshold / prompt changed."
+  ]
+}

@@ -1,0 +1,690 @@
+{
+  "experiment": "PHASE 6-AO-V4 verifier decision-boundary study",
+  "status": "COMPLETE",
+  "recordedAt": "2026-08-27T05:38:13.189Z",
+  "frozenSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "models": {
+    "embedding": "nomic-embed-text:latest",
+    "verifier": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "ollamaModelsSeen": [
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "thresholds": {
+    "production": 0.85,
+    "comparisonOnly": 0.8,
+    "retrievalFloor": 0.65,
+    "candidateCount": 8
+  },
+  "contractHashes": {
+    "P0": "8f11e65b167f7cad95743f6010093830372bb6588772fe3ba779a4bda56894eb",
+    "P1": "6bc1e4c74e965532498b0dbf8fff8006a25c9b3179eea0862a5d345fee7c9f14",
+    "P2": "35ad975b1733710ff0618ba18cf7a342dce7fe9dac7cb8b13022bfe59244612f",
+    "P3": "9ce3507b66fe8fec3058f8cd3445a780a566ce99a93043fca4cb1ed72502c706",
+    "P4": "9cb3429684a11b7b2e307a7f37c4cfc6198cb9d57cd3c15fa2db82b5288018e4",
+    "P5": "5fb8ab6533017184400476cf396ebf293a2d3b1af872cd61ef345a3eca5e3eb0",
+    "P6": "68c0d99a60c6ddc9952127d6f96b476ca5837db45852501a56ba78fe3625dae4"
+  },
+  "probeAdoptionStatus": "EXPERIMENTAL ONLY — NO PRODUCTION ADOPTION (all P1..P6 forbidden to adopt)",
+  "preflight": {
+    "guardOk": true,
+    "metrics": {
+      "threshold": 0.85,
+      "candidates": 3,
+      "runs": 3,
+      "tp": 0,
+      "tn": 0,
+      "fp": 0,
+      "fn": 3,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0,
+      "fixedCorpusSameRecall": 0,
+      "precision": null,
+      "falseCorroborationRate": null
+    },
+    "rawPopulated": true,
+    "parsedPopulated": true,
+    "distinct": true,
+    "note": "V3-lesson METRICS_EMPTY_GUARD: candidates>0, runs>0, non-zero TP/FN, raw!==parsed."
+  },
+  "parserSelfCheck": {
+    "allPass": true,
+    "note": "valid JSON / preamble / broken / wrong-case / array / raw-without-JSON synthetic cases"
+  },
+  "reasonForensics": [
+    {
+      "pairId": "pair-001",
+      "verdicts": [
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT"
+      ],
+      "dominant": "5/5",
+      "rawDecision": "DIFFERENT",
+      "reason": "The NEW OBSERVATION specifies that Mumbai is the regular work base, while the EXISTING CANDIDATE MEMORY only mentions commuting. These are different scopes and implications.",
+      "rawOutputTruncated": "{\"decision\":\"DIFFERENT\",\"reason\":\"The NEW OBSERVATION specifies that Mumbai is the regular work base, while the EXISTING CANDIDATE MEMORY only mentions commuting. These are different scopes and implic",
+      "category": "SCOPE_INTERPRETATION_FAILURE"
+    },
+    {
+      "pairId": "pair-011",
+      "verdicts": [
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT"
+      ],
+      "dominant": "5/5",
+      "rawDecision": "DIFFERENT",
+      "reason": "The NEW OBSERVATION focuses on personal preference and current usage of TypeScript, while the EXISTING CANDIDATE MEMORY describes a broader scope of software development using TypeScript. These are di",
+      "rawOutputTruncated": "{\"decision\":\"DIFFERENT\",\"reason\":\"The NEW OBSERVATION focuses on personal preference and current usage of TypeScript, while the EXISTING CANDIDATE MEMORY describes a broader scope of software developm",
+      "category": "PREFERENCE_VS_USAGE_FAILURE"
+    },
+    {
+      "pairId": "pair-035",
+      "verdicts": [
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT"
+      ],
+      "dominant": "5/5",
+      "rawDecision": "DIFFERENT",
+      "reason": "The NEW OBSERVATION states 'I prefer deploying my applications using Cloudflare', while the EXISTING CANDIDATE MEMORY states 'For rolling out my applications I pick Cloudflare as the platform'. Althou",
+      "rawOutputTruncated": "{\"decision\":\"DIFFERENT\",\"reason\":\"The NEW OBSERVATION states 'I prefer deploying my applications using Cloudflare', while the EXISTING CANDIDATE MEMORY states 'For rolling out my applications I pick C",
+      "category": "PREFERENCE_VS_USAGE_FAILURE"
+    },
+    {
+      "pairId": "pair-009",
+      "verdicts": [
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT"
+      ],
+      "dominant": "5/5",
+      "rawDecision": "DIFFERENT",
+      "reason": "The NEW OBSERVATION specifies 'usually' working late at night, while the EXISTING CANDIDATE MEMORY states 'Most of my work happens during the night.' These are different time frequencies.",
+      "rawOutputTruncated": "{\"decision\":\"DIFFERENT\",\"reason\":\"The NEW OBSERVATION specifies 'usually' working late at night, while the EXISTING CANDIDATE MEMORY states 'Most of my work happens during the night.' These are differ",
+      "category": "MODEL_DECISION_BOUNDARY"
+    },
+    {
+      "pairId": "pair-019",
+      "verdicts": [
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT",
+        "DIFFERENT"
+      ],
+      "dominant": "5/5",
+      "rawDecision": "DIFFERENT",
+      "reason": "Preference vs. current usage",
+      "rawOutputTruncated": "{\"decision\":\"DIFFERENT\",\"reason\":\"Preference vs. current usage\"}",
+      "category": "PREFERENCE_VS_USAGE_FAILURE"
+    }
+  ],
+  "probeResults": {
+    "P0": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 11,
+      "tn": 4,
+      "fp": 0,
+      "fn": 5,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.6875,
+      "fixedCorpusSameRecall": 0.5,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P1": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 13,
+      "tn": 4,
+      "fp": 0,
+      "fn": 3,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.8125,
+      "fixedCorpusSameRecall": 0.5909,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P2": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 14,
+      "tn": 4,
+      "fp": 0,
+      "fn": 2,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.875,
+      "fixedCorpusSameRecall": 0.6364,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P3": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 13,
+      "tn": 4,
+      "fp": 0,
+      "fn": 3,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.8125,
+      "fixedCorpusSameRecall": 0.5909,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P4": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 13,
+      "tn": 4,
+      "fp": 0,
+      "fn": 3,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.8125,
+      "fixedCorpusSameRecall": 0.5909,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P5": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 14,
+      "tn": 4,
+      "fp": 0,
+      "fn": 2,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.875,
+      "fixedCorpusSameRecall": 0.6364,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "P6": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "runs": 20,
+      "tp": 14,
+      "tn": 4,
+      "fp": 0,
+      "fn": 2,
+      "uncertainPredicted": 0,
+      "conditionalVerifierRecall": 0.875,
+      "fixedCorpusSameRecall": 0.6364,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    }
+  },
+  "pairPerturbations": {
+    "pair-001": {
+      "T-IDENTITY": "SAME",
+      "T-PARAPHRASE_EQ": "DIFFERENT",
+      "T-SCOPE_EQ": "SAME",
+      "T-TEMPORAL_EQ": "DIFFERENT",
+      "T-PREF_EQ": "DIFFERENT",
+      "T-ENTITY_CONTROL": "DIFFERENT"
+    },
+    "pair-011": {
+      "T-IDENTITY": "SAME",
+      "T-PARAPHRASE_EQ": "DIFFERENT",
+      "T-SCOPE_EQ": "SAME",
+      "T-TEMPORAL_EQ": "SAME",
+      "T-PREF_EQ": "DIFFERENT",
+      "T-ENTITY_CONTROL": "DIFFERENT"
+    }
+  },
+  "parserVsModel": {
+    "runtimeFnPopulation": [
+      "pair-035",
+      "pair-009",
+      "pair-019",
+      "pair-001",
+      "pair-011"
+    ],
+    "fnViaParsing": 0,
+    "fnViaModelBoundary": 1,
+    "fnSemanticInterpretation": 4,
+    "fnEntityValueConflict": 0,
+    "classificationBasis": "deterministic reason classifier over collected raw+parsed evidence; final attribution also uses probe/perturbation/entity-control results"
+  },
+  "safety": {
+    "G_V4_PARSER_SELFCHECK": "PASS",
+    "P0": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P1": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P2": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P3": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P4": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P5": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "P6": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "decoyStableREPEAT": "PASS"
+  },
+  "repeatability": [
+    {
+      "pairId": "pair-001",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "pair-011",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "pair-034",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    }
+  ],
+  "attribution": [
+    {
+      "pairId": "pair-001",
+      "category": "SCOPE_INTERPRETATION_FAILURE",
+      "p0ReasonCategory": "SCOPE_INTERPRETATION_FAILURE",
+      "perturbations": {
+        "T-IDENTITY": "SAME",
+        "T-PARAPHRASE_EQ": "DIFFERENT",
+        "T-SCOPE_EQ": "SAME",
+        "T-TEMPORAL_EQ": "DIFFERENT",
+        "T-PREF_EQ": "DIFFERENT",
+        "T-ENTITY_CONTROL": "DIFFERENT"
+      },
+      "entityControlHeld": true,
+      "sameUnderEquivalentTransforms": true,
+      "probeTP": {
+        "P0": 11,
+        "P1": 13,
+        "P2": 14,
+        "P3": 13,
+        "P4": 13,
+        "P5": 14,
+        "P6": 14
+      },
+      "preservedV3": {
+        "pair-005": "RETRIEVAL_LIMITATION (below both floors)",
+        "pair-041": "RETRIEVAL_LIMITATION (below both floors)",
+        "pair-034": "DATASET_SEMANTIC_ANOMALY (decoy held)"
+      }
+    },
+    {
+      "pairId": "pair-011",
+      "category": "PREFERENCE_VS_USAGE_FAILURE",
+      "p0ReasonCategory": "PREFERENCE_VS_USAGE_FAILURE",
+      "perturbations": {
+        "T-IDENTITY": "SAME",
+        "T-PARAPHRASE_EQ": "DIFFERENT",
+        "T-SCOPE_EQ": "SAME",
+        "T-TEMPORAL_EQ": "SAME",
+        "T-PREF_EQ": "DIFFERENT",
+        "T-ENTITY_CONTROL": "DIFFERENT"
+      },
+      "entityControlHeld": true,
+      "sameUnderEquivalentTransforms": true,
+      "probeTP": {
+        "P0": 11,
+        "P1": 13,
+        "P2": 14,
+        "P3": 13,
+        "P4": 13,
+        "P5": 14,
+        "P6": 14
+      },
+      "preservedV3": {
+        "pair-005": "RETRIEVAL_LIMITATION (below both floors)",
+        "pair-041": "RETRIEVAL_LIMITATION (below both floors)",
+        "pair-034": "DATASET_SEMANTIC_ANOMALY (decoy held)"
+      }
+    }
+  ],
+  "zeroWriteProof": {
+    "importsAudit": "PASS (only vitest/node:* specifiers)",
+    "forbiddenNeedles": "PASS (runtime-assembled)",
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "permittedNetworkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "resultPathWrittenOnlyOnComplete": true,
+    "blockedPathWritesNothing": true,
+    "productionFilesModified": false,
+    "datasetModified": false,
+    "productionThresholdRemained": 0.85,
+    "historicalResultFilesProtected": 17
+  },
+  "integrityManifest": {
+    "pre": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "v3-verifier-retrieval-dataset.json": "09B3330C6C6CD24990D9182A23E3FC193E95588132DBCCA3C481E1450A9652EF",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "post": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "v3-verifier-retrieval-dataset.json": "09B3330C6C6CD24990D9182A23E3FC193E95588132DBCCA3C481E1450A9652EF",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "identical": true
+  },
+  "gates": {
+    "G_V4_PREFLIGHT_METRICS": "PASS",
+    "G_V4_PARSER_SELFCHECK": "PASS",
+    "G_V4_DATASET_FROZEN": "PASS",
+    "G_V4_HISTORICAL_INTACT": "PASS",
+    "G_V4_SAFETY": "PASS",
+    "G_V4_REPEATABILITY": "PASS",
+    "G_V4_ATTRIBUTION": "PASS",
+    "G_V4_ZERO_WRITE": "PASS"
+  }
+}

@@ -1,0 +1,589 @@
+{
+  "phase": "PHASE 6-AO-V11",
+  "title": "Band probe: SYS_V5 × experimental candidate threshold 0.80",
+  "status": "COMPLETE",
+  "reason": null,
+  "recordedAt": "2026-09-13T09:48:07.254Z",
+  "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "dataset": {
+    "pairs": 43,
+    "same": 22,
+    "different": 21,
+    "factKeys": 19
+  },
+  "prompt": {
+    "sha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "sha256Expected": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "pinned": true
+  },
+  "productionThresholdCheck": {
+    "literal": 0.85,
+    "sourceAsserted": true
+  },
+  "models": {
+    "embedding": "nomic-embed-text:latest",
+    "embeddingDim": 768,
+    "verifier": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "ollamaModelsSeen": [
+      "bge-m3:latest",
+      "mxbai-embed-large:latest",
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "runA": {
+    "threshold": 0.85,
+    "candidates": 20,
+    "nonCandidates": 23,
+    "verifierRuns": 20,
+    "verifierSame": 15,
+    "verifierDifferent": 5,
+    "verifierUncertain": 0,
+    "tp": 15,
+    "tn": 4,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1,
+    "recall": 0.9375,
+    "falseCorroborationRate": 0,
+    "recallFixed": 0.6818181818181818
+  },
+  "runB": {
+    "threshold": 0.8,
+    "candidates": 30,
+    "nonCandidates": 13,
+    "verifierRuns": 30,
+    "verifierSame": 18,
+    "verifierDifferent": 12,
+    "verifierUncertain": 0,
+    "tp": 18,
+    "tn": 10,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1,
+    "recall": 0.9,
+    "falseCorroborationRate": 0,
+    "recallFixed": 0.8181818181818182
+  },
+  "gates": {
+    "GATE_RECALL": "FAIL",
+    "GATE_SAFETY": "PASS",
+    "GATE_REPEATABILITY": "PASS",
+    "OVERALL_GATE": "FAIL",
+    "basis": "fixed-corpus recall TP/22 (frozen denominator); conditional recall reported for continuity only",
+    "tp085": 15,
+    "tp080": 18,
+    "recall085Fixed": 0.6818,
+    "recall080Fixed": 0.8182,
+    "recallGainPP": 13.64,
+    "fcr080": 0,
+    "anchorExpected": {
+      "tp": 15,
+      "fn": 1,
+      "fp": 0,
+      "tn": 4,
+      "candidates": 20
+    },
+    "anchorReproduced": true,
+    "sharedVerdictMismatch": 0
+  },
+  "repeatability": {
+    "procedure": "every critical-band cell × 20 sequential runs (temp 0)",
+    "cellCount": 10,
+    "minAgreement": 20,
+    "allPass": true
+  },
+  "criticalBand": {
+    "count": 10,
+    "cells": [
+      {
+        "pairId": "pair-039",
+        "label": "SAME",
+        "similarity": 0.84816,
+        "runs": 20,
+        "same": 20,
+        "different": 0,
+        "uncertain": 0,
+        "modal": "SAME",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-013",
+        "label": "SAME",
+        "similarity": 0.845069,
+        "runs": 20,
+        "same": 20,
+        "different": 0,
+        "uncertain": 0,
+        "modal": "SAME",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-034",
+        "label": "SAME",
+        "similarity": 0.840741,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-038",
+        "label": "DIFFERENT",
+        "similarity": 0.83376,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-026",
+        "label": "DIFFERENT",
+        "similarity": 0.822768,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-010",
+        "label": "DIFFERENT",
+        "similarity": 0.816249,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-004",
+        "label": "DIFFERENT",
+        "similarity": 0.806443,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-002",
+        "label": "DIFFERENT",
+        "similarity": 0.804524,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-007",
+        "label": "SAME",
+        "similarity": 0.8045,
+        "runs": 20,
+        "same": 20,
+        "different": 0,
+        "uncertain": 0,
+        "modal": "SAME",
+        "agreement": 20
+      },
+      {
+        "pairId": "pair-024",
+        "label": "DIFFERENT",
+        "similarity": 0.80304,
+        "runs": 20,
+        "same": 0,
+        "different": 20,
+        "uncertain": 0,
+        "modal": "DIFFERENT",
+        "agreement": 20
+      }
+    ]
+  },
+  "uncertainCount": 0,
+  "transportRetries": 0,
+  "pairs": [
+    {
+      "pairId": "pair-001",
+      "factKey": "work-location",
+      "label": "SAME",
+      "similarity": 0.863824,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-002",
+      "factKey": "work-location",
+      "label": "DIFFERENT",
+      "similarity": 0.804524,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-003",
+      "factKey": "work-location",
+      "label": "SAME",
+      "similarity": 0.884408,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-004",
+      "factKey": "work-location",
+      "label": "DIFFERENT",
+      "similarity": 0.806443,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-005",
+      "factKey": "programming-language",
+      "label": "SAME",
+      "similarity": 0.764026,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-006",
+      "factKey": "programming-language",
+      "label": "DIFFERENT",
+      "similarity": 0.786214,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-007",
+      "factKey": "project",
+      "label": "SAME",
+      "similarity": 0.8045,
+      "eligible": false,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-008",
+      "factKey": "project",
+      "label": "DIFFERENT",
+      "similarity": 0.714047,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-009",
+      "factKey": "work-schedule",
+      "label": "SAME",
+      "similarity": 0.872078,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-010",
+      "factKey": "work-schedule",
+      "label": "DIFFERENT",
+      "similarity": 0.816249,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-011",
+      "factKey": "technology-preference",
+      "label": "SAME",
+      "similarity": 0.850134,
+      "eligible": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-012",
+      "factKey": "technology-preference",
+      "label": "DIFFERENT",
+      "similarity": 0.726911,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-013",
+      "factKey": "favorite-food",
+      "label": "SAME",
+      "similarity": 0.845069,
+      "eligible": false,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-014",
+      "factKey": "favorite-food",
+      "label": "DIFFERENT",
+      "similarity": 0.750719,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-015",
+      "factKey": "travel",
+      "label": "SAME",
+      "similarity": 0.894956,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-016",
+      "factKey": "travel",
+      "label": "DIFFERENT",
+      "similarity": 0.766645,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-017",
+      "factKey": "coding",
+      "label": "SAME",
+      "similarity": 0.876453,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-018",
+      "factKey": "coding",
+      "label": "DIFFERENT",
+      "similarity": 0.71676,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-019",
+      "factKey": "work-style",
+      "label": "SAME",
+      "similarity": 0.870669,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-020",
+      "factKey": "work-style",
+      "label": "DIFFERENT",
+      "similarity": 0.706315,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-021",
+      "factKey": "AI-project",
+      "label": "SAME",
+      "similarity": 0.899858,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-022",
+      "factKey": "AI-project",
+      "label": "DIFFERENT",
+      "similarity": 0.755151,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-023",
+      "factKey": "communication",
+      "label": "SAME",
+      "similarity": 0.857998,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-024",
+      "factKey": "communication",
+      "label": "DIFFERENT",
+      "similarity": 0.80304,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-025",
+      "factKey": "learning",
+      "label": "SAME",
+      "similarity": 0.86299,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-026",
+      "factKey": "learning",
+      "label": "DIFFERENT",
+      "similarity": 0.822768,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-027",
+      "factKey": "development",
+      "label": "SAME",
+      "similarity": 0.875336,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-028",
+      "factKey": "development",
+      "label": "DIFFERENT",
+      "similarity": 0.85402,
+      "eligible": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-029",
+      "factKey": "database",
+      "label": "SAME",
+      "similarity": 0.89177,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-030",
+      "factKey": "database",
+      "label": "DIFFERENT",
+      "similarity": 0.727647,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-031",
+      "factKey": "Aether-memory",
+      "label": "DIFFERENT",
+      "similarity": 0.853711,
+      "eligible": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-032",
+      "factKey": "Aether-memory",
+      "label": "DIFFERENT",
+      "similarity": 0.89063,
+      "eligible": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-033",
+      "factKey": "tools",
+      "label": "SAME",
+      "similarity": 0.881605,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-034",
+      "factKey": "tools",
+      "label": "SAME",
+      "similarity": 0.840741,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-035",
+      "factKey": "deployment",
+      "label": "SAME",
+      "similarity": 0.892905,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-036",
+      "factKey": "deployment",
+      "label": "DIFFERENT",
+      "similarity": 0.72845,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-037",
+      "factKey": "AI",
+      "label": "SAME",
+      "similarity": 0.853985,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-038",
+      "factKey": "AI",
+      "label": "DIFFERENT",
+      "similarity": 0.83376,
+      "eligible": false,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-039",
+      "factKey": "coding",
+      "label": "SAME",
+      "similarity": 0.84816,
+      "eligible": false,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-040",
+      "factKey": "coding",
+      "label": "DIFFERENT",
+      "similarity": 0.716823,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-041",
+      "factKey": "project-management",
+      "label": "SAME",
+      "similarity": 0.768679,
+      "eligible": false
+    },
+    {
+      "pairId": "pair-042",
+      "factKey": "project-management",
+      "label": "DIFFERENT",
+      "similarity": 0.870898,
+      "eligible": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-043",
+      "factKey": "Aether-memory",
+      "label": "SAME",
+      "similarity": 0.899075,
+      "eligible": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    }
+  ],
+  "predecessor": {
+    "artifact": "results/verifier-experiment.json",
+    "predecessorStatus": "BLOCKED:OLLAMA_UNREACHABLE (2026-08-28) — preserved untouched"
+  },
+  "integrity": {
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "networkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "productionThresholdRemained": 0.85,
+    "datasetModified": false,
+    "productionCodeModified": false,
+    "historicalArtifactsTouched": false
+  }
+}

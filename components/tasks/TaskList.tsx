@@ -29,7 +29,7 @@ function TaskCard({
 
   return (
     <div
-      className={`group flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] p-3 transition-smooth hover:shadow-sm sm:p-4 ${
+      className={`flex items-center justify-between rounded-xl border border-[#202020] bg-[#0A0A0A] p-3 transition-colors duration-150 sm:p-4 ${
         task.completed ? "opacity-60" : ""
       }`}
     >
@@ -37,18 +37,18 @@ function TaskCard({
         <button
           type="button"
           onClick={() => onToggle(task.id, task.completed)}
-          className="flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:text-[var(--brand)]"
+          className="flex size-11 shrink-0 items-center justify-center rounded-full text-[#A0A0A0] transition-colors duration-150 hover:text-[#F5F5F5]"
           aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
         >
           {task.completed ? (
-            <CheckCircle2 size={22} className="text-[var(--brand)]" />
+            <CheckCircle2 size={20} className="text-[#F5F5F5]" />
           ) : (
-            <Circle size={22} className="text-[var(--muted-foreground)]" />
+            <Circle size={20} className="text-[#707070]" />
           )}
         </button>
         <p
-          className={`text-sm text-[var(--foreground)] truncate ${
-            task.completed ? "line-through text-[var(--muted-foreground)]" : ""
+          className={`text-sm truncate ${
+            task.completed ? "line-through text-[#707070]" : "text-[#F5F5F5]"
           }`}
         >
           {task.title}
@@ -57,10 +57,10 @@ function TaskCard({
 
       <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
         <span
-          className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium ${
+          className={`shrink-0 rounded-full bg-[#141414] px-2.5 py-1 text-[11px] font-medium ${
             task.completed
-              ? "bg-emerald-500/10 text-emerald-500"
-              : "bg-amber-500/10 text-amber-500"
+              ? "text-[#707070]"
+              : "text-[#A0A0A0]"
           }`}
         >
           {task.completed ? "Done" : "Pending"}
@@ -69,7 +69,7 @@ function TaskCard({
           type="button"
           onClick={handleDelete}
           disabled={deleting}
-          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:size-9 md:opacity-0 md:group-hover:opacity-100"
+          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[#707070] transition-colors duration-150 hover:text-[#F5F5F5] disabled:opacity-50 md:size-9"
           aria-label={`Delete task: ${task.title}`}
         >
           {deleting ? (
@@ -85,10 +85,10 @@ function TaskCard({
 
 function TaskSkeleton() {
   return (
-    <div className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--card)] p-4">
+    <div className="animate-pulse rounded-xl border border-[#202020] bg-[#0A0A0A] p-4">
       <div className="flex items-center gap-4">
-        <div className="size-5 rounded-full bg-[var(--muted)]" />
-        <div className="h-4 w-48 rounded bg-[var(--muted)]" />
+        <div className="size-5 rounded-full bg-[#141414]" />
+        <div className="h-4 w-48 rounded bg-[#141414]" />
       </div>
     </div>
   );
@@ -96,12 +96,12 @@ function TaskSkeleton() {
 
 function EmptyState() {
   return (
-    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-8 text-center sm:p-10">
-      <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-[var(--muted)] sm:mb-4 sm:size-12 sm:rounded-xl">
-        <CheckCircle2 size={20} className="text-[var(--muted-foreground)]" />
+    <div className="rounded-xl border border-dashed border-[#202020] bg-[#0A0A0A] p-8 text-center sm:p-10">
+      <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-[#141414] sm:mb-4 sm:size-12">
+        <CheckCircle2 size={20} className="text-[#707070]" />
       </div>
-      <h3 className="text-[15px] font-medium text-[var(--foreground)] sm:text-base">No tasks yet</h3>
-      <p className="mt-1.5 text-sm text-[var(--muted-foreground)]">
+      <h3 className="text-[15px] font-medium text-[#F5F5F5] sm:text-base">No tasks yet</h3>
+      <p className="mt-1.5 text-sm text-[#A0A0A0]">
         Add a task above to start tracking things you want to remember.
       </p>
     </div>
@@ -181,10 +181,10 @@ export default function TaskList({ refresh }: { refresh: number }) {
         <section>
           <div className="mb-3 flex items-center gap-2.5">
             <h2 className="eyebrow">Active</h2>
-            <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[11px] font-medium text-[var(--muted-foreground)]">
+            <span className="rounded-full bg-[#141414] px-2 py-0.5 text-[11px] font-medium text-[#A0A0A0]">
               {pendingTasks.length}
             </span>
-            <div className="h-px flex-1 bg-[var(--border)]" />
+            <div className="h-px flex-1 bg-[#1A1A1A]" />
           </div>
           <div className="space-y-3">
             {pendingTasks.map((task) => (
@@ -203,10 +203,10 @@ export default function TaskList({ refresh }: { refresh: number }) {
         <section>
           <div className="mb-3 flex items-center gap-2.5">
             <h2 className="eyebrow">Completed</h2>
-            <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[11px] font-medium text-[var(--muted-foreground)]">
+            <span className="rounded-full bg-[#141414] px-2 py-0.5 text-[11px] font-medium text-[#A0A0A0]">
               {completedTasks.length}
             </span>
-            <div className="h-px flex-1 bg-[var(--border)]" />
+            <div className="h-px flex-1 bg-[#1A1A1A]" />
           </div>
           <div className="space-y-3">
             {completedTasks.map((task) => (

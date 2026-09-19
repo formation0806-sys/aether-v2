@@ -1,0 +1,65 @@
+{
+  "phase": "PHASE 6-AO-V9",
+  "title": "Legacy audit/smoke reader compatibility repair",
+  "status": "COMPLETE",
+  "recordedAt": "2026-08-27T14:45:00Z",
+  "mode": "ACT — production-frozen reader-tooling repair only",
+  "frozenProductionPromptSha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+  "productionUnchanged": {
+    "identityTsByteIntact": true,
+    "promptByteForByteEqualsEvaluatedV5HarnessDefinition": true,
+    "threshold": 0.85,
+    "candidateCount": 8,
+    "model": "qwen2.5:3b",
+    "options": { "temperature": 0, "num_predict": 256, "top_p": 0.9 },
+    "timeoutMs": 30000,
+    "v7AdoptionDiffStillExact": { "files": 1, "insertions": 13, "deletions": 3, "singleHunkInsideVerifyIdentity": true }
+  },
+  "datasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "defectsRepaired": [
+    {
+      "file": "tests/phase-6-ag/upstream-audit.test.ts",
+      "staleLogic": "readIdentityPromptSource() + inline duplicate in callIdentityVerifier(): regex expected 'const system = (<capture>) + \"You are an identity-resolution classifier...\"' (legacy pre-AO layout) and fell back to a first-sentence fragment",
+      "fix": "escape-aware multi-literal extractor over the `const system = ...;\"` block with join(); loud failure on extraction failure instead of silent truncation; inline duplication now delegates to the shared helper"
+    },
+    {
+      "file": "tests/phase-6-af/input-audit.test.ts",
+      "staleLogic": "identical stale regex twice (readIdentityPromptSource() + inline in callIdentityVerifier()) with identical first-sentence fallback",
+      "fix": "same multi-segment extractor; userTemplate/modelConstant semantics preserved; inline delegation"
+    },
+    {
+      "file": "tests/phase-6-ad/identity-resolver.test.ts",
+      "staleLogic": "no extraction at all: IDENTITY_VERIFIER_SYSTEM was a hand-copied snapshot of the pre-adoption SYS_A prompt (12 segments incl. removed clause)",
+      "fix": "replaced hand-copied constant with live source-text extraction (multi-segment aware) so the reader observes the real adopted contract"
+    }
+  ],
+  "validation": {
+    "readerCompatibilitySuitesOfflineFiltered": { "files": 3, "passed": 5, "skippedLiveProbes": 9, "networkUsed": false },
+    "extractedPromptSha256MatchesFrozenV5": true,
+    "typescript": { "baselineErrors": 9, "v9Errors": 9, "newErrors": 0 },
+    "build": { "command": "npm run build", "result": "PASS", "compiledSuccessfully": true, "staticPages": "14/14" }
+  },
+  "integrity": {
+    "protectedArtifactsAllByteIdenticalPostRun": ["lib/memory/identity.ts", "tests/phase-6-ao/dataset.json", "results/v5-contract-validation.json", "results/v6-verifier-adoption-review.json", "results/v6-report.md", "v5-contract-validation.test.ts", "v6-verifier-adoption-review.test.ts"],
+    "databaseWrites": 0,
+    "supabaseContact": false,
+    "ollamaCalls": 0,
+    "externalNetworkCalls": 0,
+    "gitStatusLinesPreV9": 22,
+    "gitStatusLinesPostV9": 25,
+    "newlyModifiedByV9": ["tests/phase-6-ag/upstream-audit.test.ts", "tests/phase-6-af/input-audit.test.ts", "tests/phase-6-ad/identity-resolver.test.ts"],
+    "diffstatReaders": "152 insertions(+), 46 deletions(-)",
+    "commitPushDeploy": false
+  },
+  "gates": {
+    "G-V9-PRODUCTION-FREEZE": "PASS",
+    "G-V9-DATASET-FROZEN": "PASS",
+    "G-V9-HISTORY-INTACT": "PASS",
+    "G-V9-READER-COMPATIBILITY": "PASS",
+    "G-V9-TYPESCRIPT-NO-NEW-ERRORS": "PASS",
+    "G-V9-BUILD-PASS": "PASS",
+    "G-V9-ZERO-NETWORK": "PASS",
+    "G-V9-DIFF-SCOPE-LIMITED": "PASS"
+  },
+  "conclusion": "V9 changed audit/smoke reader compatibility only. Production behavior was not modified."
+}

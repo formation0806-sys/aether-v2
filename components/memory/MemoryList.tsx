@@ -45,18 +45,18 @@ const TYPE_META: Record<string, { label: string; icon: LucideIcon }> = {
 const STATUS_META: Record<string, { label: string; className: string }> = {
   active: {
     label: "Active",
-    className: "bg-emerald-500/10 text-emerald-500",
+    className: "bg-[#141414] text-[#F5F5F5]",
   },
-  candidate: { label: "Candidate", className: "bg-amber-500/10 text-amber-500" },
+  candidate: { label: "Candidate", className: "bg-[#141414] text-[#A0A0A0]" },
   fading: {
     label: "Fading",
-    className: "bg-[var(--muted)] text-[var(--muted-foreground)]",
+    className: "bg-[#141414] text-[#707070]",
   },
   archived: {
     label: "Archived",
-    className: "bg-[var(--muted)] text-[var(--muted-foreground)]",
+    className: "bg-[#141414] text-[#707070]",
   },
-  deleted: { label: "Deleted", className: "bg-red-500/10 text-red-500" },
+  deleted: { label: "Deleted", className: "bg-[#141414] text-[#A0A0A0]" },
 };
 
 function formatDate(dateString: string) {
@@ -93,15 +93,15 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
   }
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)] transition-smooth hover:border-[var(--brand)]/30 hover:shadow-md">
+    <article className="rounded-xl border border-[#202020] bg-[#0A0A0A] transition-colors duration-150 hover:border-[#2A2A2A]">
       <div className="flex items-start justify-between gap-2.5 p-3.5 sm:gap-4 sm:p-5">
         <div className="flex min-w-0 flex-1 items-start gap-2.5 sm:gap-3.5">
-          <div className="flex size-7 shrink-0 items-center justify-center rounded-md border border-[var(--brand)]/15 bg-[var(--brand)]/8 sm:size-9 sm:rounded-lg">
-            <typeMeta.icon size={14} className="text-[var(--brand)]" aria-hidden />
+          <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#141414] sm:size-9">
+            <typeMeta.icon size={14} className="text-[#A0A0A0]" aria-hidden />
           </div>
           <div className="min-w-0 flex-1">
             <div className="mb-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-              <h3 className="truncate text-[15px] font-semibold text-[var(--foreground)] sm:text-base">
+              <h3 className="truncate text-[15px] font-semibold text-[#F5F5F5] sm:text-base">
                 {memory.title || "Untitled memory"}
               </h3>
               {statusMeta && (
@@ -116,11 +116,11 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
               )}
             </div>
 
-            <p className="line-clamp-3 whitespace-pre-wrap text-sm leading-snug text-[var(--muted-foreground)]">
+            <p className="line-clamp-3 whitespace-pre-wrap text-sm leading-relaxed text-[#A0A0A0]">
               {memory.content}
             </p>
 
-            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--muted-foreground)] sm:gap-x-4 sm:text-xs">
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[#707070] sm:gap-x-4 sm:text-xs">
               <span className="inline-flex items-center gap-1.5">
                 <Clock size={12} aria-hidden />
                 {formatDate(memory.created_at)}
@@ -137,9 +137,9 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
               )}
               {confidence !== null && (
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-1 w-12 overflow-hidden rounded-full bg-[var(--muted)] sm:w-16">
+                  <span className="h-1 w-12 overflow-hidden rounded-full bg-[#202020] sm:w-16">
                     <div
-                      className="h-full rounded-full bg-[var(--brand)]"
+                      className="h-full rounded-full bg-[#A0A0A0]"
                       style={{ width: `${Math.round(confidence * 100)}%` }}
                     />
                   </span>
@@ -153,7 +153,7 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
         <button
           onClick={handleDelete}
           disabled={deleting}
-          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-all hover:bg-red-500/10 hover:text-red-500 disabled:opacity-50 md:size-9 md:opacity-0 md:group-hover:opacity-100"
+          className="flex size-11 shrink-0 items-center justify-center rounded-lg text-[#707070] transition-colors duration-150 hover:text-[#F5F5F5] disabled:opacity-50 md:size-9"
           aria-label={`Delete memory: ${memory.title}`}
         >
           {deleting ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
@@ -165,14 +165,14 @@ function MemoryCard({ memory, onDelete }: { memory: Memory; onDelete: (id: strin
 
 function MemorySkeleton() {
   return (
-    <div className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 sm:p-5">
+    <div className="animate-pulse rounded-xl border border-[#202020] bg-[#0A0A0A] p-3.5 sm:p-5">
       <div className="flex items-start gap-2.5 sm:gap-3.5">
-        <div className="size-7 rounded-md bg-[var(--muted)] sm:size-9 sm:rounded-lg" />
+        <div className="size-7 rounded-lg bg-[#141414] sm:size-9" />
         <div className="flex-1">
-          <div className="mb-2 h-4 w-32 rounded bg-[var(--muted)] sm:w-40" />
+          <div className="mb-2 h-4 w-32 rounded bg-[#141414] sm:w-40" />
           <div className="space-y-1.5">
-            <div className="h-3 w-full rounded bg-[var(--muted)]" />
-            <div className="h-3 w-3/4 rounded bg-[var(--muted)]" />
+            <div className="h-3 w-full rounded bg-[#141414]" />
+            <div className="h-3 w-3/4 rounded bg-[#141414]" />
           </div>
         </div>
       </div>
@@ -184,31 +184,27 @@ function GroupHeader({ label, count }: { label: string; count: number }) {
   return (
     <div className="mb-3 mt-1 flex items-center gap-3">
       <p className="eyebrow">{label}</p>
-      <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[11px] font-medium text-[var(--muted-foreground)]">
+      <span className="rounded-full bg-[#141414] px-2 py-0.5 text-[11px] font-medium text-[#A0A0A0]">
         {count}
       </span>
-      <div className="h-px flex-1 bg-[var(--border)]" />
+      <div className="h-px flex-1 bg-[#1A1A1A]" />
     </div>
   );
 }
 
 function EmptyState() {
   return (
-    <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--card)]/50 p-8 text-center sm:p-12">
-      <div className="mx-auto mb-4 flex size-11 items-center justify-center rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 sm:size-14 sm:rounded-2xl">
-        <Brain size={20} className="text-[var(--brand)]" />
+    <div className="rounded-xl border border-dashed border-[#202020] bg-[#0A0A0A] p-8 text-center sm:p-12">
+      <div className="mx-auto mb-4 flex size-11 items-center justify-center rounded-xl bg-[#141414] sm:size-14">
+        <Brain size={20} className="text-[#A0A0A0]" />
       </div>
-      <h3 className="mb-2 text-base font-semibold text-[var(--foreground)] sm:mb-3 sm:text-lg">
+      <h3 className="mb-2 text-base font-semibold text-[#F5F5F5] sm:mb-3 sm:text-lg">
         Memory is empty
       </h3>
-      <p className="mx-auto max-w-sm text-sm leading-relaxed text-[var(--muted-foreground)]">
+      <p className="mx-auto max-w-sm text-sm leading-relaxed text-[#A0A0A0]">
         Start a conversation with Salpa. Everything it learns — facts, preferences,
         and goals — is extracted and stored here for future sessions.
       </p>
-      <div className="mt-6 flex flex-col items-center gap-1.5">
-        <div className="h-px w-16 bg-[var(--brand)]/25" />
-        <div className="h-px w-10 bg-[var(--brand)]/15" />
-      </div>
     </div>
   );
 }
@@ -274,19 +270,19 @@ export default function MemoryList({ refresh }: { refresh: number }) {
 
   return (
     <div className="space-y-3 sm:space-y-6">
-      <div className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--card)] px-3.5 py-2.5 sm:px-4 sm:py-3">
+      <div className="flex items-center justify-between rounded-lg border border-[#202020] bg-[#0A0A0A] px-3.5 py-2.5 sm:px-4 sm:py-3">
         <div>
-          <p className="text-sm text-[var(--muted-foreground)]">
-            <span className="font-medium text-[var(--foreground)]">
+          <p className="text-sm text-[#A0A0A0]">
+            <span className="font-medium text-[#F5F5F5]">
               {memories.length}
             </span>{" "}
             {memories.length === 1 ? "context item" : "context items"} stored
           </p>
-          <p className="mt-0.5 text-xs text-[var(--muted-foreground)]/80">
+          <p className="mt-0.5 text-xs text-[#707070]">
             Drawn from conversations · recalled when relevant
           </p>
         </div>
-        <Database size={16} className="shrink-0 text-[var(--muted-foreground)]" aria-hidden />
+        <Database size={16} className="shrink-0 text-[#707070]" aria-hidden />
       </div>
 
       {recent.length > 0 && (

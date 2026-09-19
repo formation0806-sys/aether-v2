@@ -234,6 +234,13 @@ export async function resolveMemoryIdentity(
     return { decision: "create", reason: "search failed" };
   }
 
+  // Phase 2-C1: merged (superseded) memories are historical records and must
+  // never re-enter the identity candidate/verifier path nor become a
+  // corroboration target. Exclude them before any deterministic ordering or
+  // verifier evaluation. Null rows are preserved so the existing
+  // malformed-pool fail-safe (create / search failed) still applies.
+  rows = rows.filter((row) => row?.status !== "merged");
+
   console.log(
     "MEMORY IDENTITY CANDIDATES",
     rows.length,

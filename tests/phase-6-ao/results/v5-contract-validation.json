@@ -1,0 +1,421 @@
+{
+  "experiment": "PHASE 6-AO-V5 verifier contract candidate validation",
+  "status": "COMPLETE",
+  "recordedAt": "2026-08-27T06:41:40.558Z",
+  "frozenSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "candidatePromptHash": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+  "productionPromptHash": "8f11e65b167f7cad95743f6010093830372bb6588772fe3ba779a4bda56894eb",
+  "dbWrites": 0,
+  "supabaseContact": false,
+  "productionFilesModified": false,
+  "datasetModified": false,
+  "productionThreshold": 0.85,
+  "models": {
+    "embedding": "nomic-embed-text:latest",
+    "verifier": "qwen2.5:3b",
+    "ollamaModelsSeen": [
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "options": {
+    "temperature": 0,
+    "num_predict": 256,
+    "top_p": 0.9,
+    "timeoutMs": 30000
+  },
+  "arms": [
+    "A-control",
+    "V5-candidate"
+  ],
+  "metrics": {
+    "A-control": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "verifierRuns": 20,
+      "tp": 12,
+      "tn": 4,
+      "fp": 0,
+      "fn": 4,
+      "uncertain": 0,
+      "conditionalVerifierRecall": 0.75,
+      "fixedCorpusSameRecall": 0.5455,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "V5-candidate": {
+      "threshold": 0.85,
+      "candidates": 20,
+      "verifierRuns": 20,
+      "tp": 15,
+      "tn": 4,
+      "fp": 0,
+      "fn": 1,
+      "uncertain": 0,
+      "conditionalVerifierRecall": 0.9375,
+      "fixedCorpusSameRecall": 0.6818,
+      "precision": 1,
+      "falseCorroborationRate": 0
+    },
+    "deltas": {
+      "deltaTP": 3,
+      "deltaFN": -3,
+      "deltaFP": 0,
+      "deltaCond": 0.1875,
+      "deltaFixed": 0.1363,
+      "deltaFcr": 0
+    }
+  },
+  "targetCases": [
+    {
+      "pairId": "pair-001",
+      "similarity": 0.863824,
+      "eligible085": true,
+      "productionVerdict": "DIFFERENT",
+      "productionReason": "The NEW OBSERVATION specifies that Mumbai is the regular work base, while the EXISTING CANDIDATE MEMORY only mentions commuting. These are different aspects of ",
+      "v5Verdict": "SAME",
+      "v5Reason": "Both statements indicate a regular work presence in Mumbai, differing only in the verb used ('commute' vs 'regular work base').",
+      "verdictChanged": true,
+      "classification": "RECOVERED_BY_V5"
+    },
+    {
+      "pairId": "pair-009",
+      "similarity": 0.872078,
+      "eligible085": true,
+      "productionVerdict": "SAME",
+      "productionReason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY both describe a pattern of working late at night, just with slightly different wording.",
+      "v5Verdict": "SAME",
+      "v5Reason": "Both statements indicate a habitual pattern of working late at night, just with different wording.",
+      "verdictChanged": false,
+      "classification": "REMAINING_VERIFIER_MISS"
+    },
+    {
+      "pairId": "pair-011",
+      "similarity": 0.850134,
+      "eligible085": true,
+      "productionVerdict": "DIFFERENT",
+      "productionReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY is about the author's general us",
+      "v5Verdict": "DIFFERENT",
+      "v5Reason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY is about the prevalence of TypeS",
+      "verdictChanged": false,
+      "classification": "REMAINING_VERIFIER_MISS"
+    },
+    {
+      "pairId": "pair-019",
+      "similarity": 0.870669,
+      "eligible085": true,
+      "productionVerdict": "DIFFERENT",
+      "productionReason": "Preference vs. current usage",
+      "v5Verdict": "SAME",
+      "v5Reason": "The NEW OBSERVATION expresses a preference for working independently, which aligns with the EXISTING CANDIDATE MEMORY that the user prefers to complete projects",
+      "verdictChanged": true,
+      "classification": "RECOVERED_BY_V5"
+    },
+    {
+      "pairId": "pair-035",
+      "similarity": 0.892905,
+      "eligible085": true,
+      "productionVerdict": "DIFFERENT",
+      "productionReason": "The NEW OBSERVATION states 'I prefer deploying my applications using Cloudflare', while the EXISTING CANDIDATE MEMORY states 'For rolling out my applications I ",
+      "v5Verdict": "SAME",
+      "v5Reason": "Both statements indicate the preference and use of Cloudflare for deploying applications, just using different wording.",
+      "verdictChanged": true,
+      "classification": "RECOVERED_BY_V5"
+    }
+  ],
+  "safety": {
+    "G-V5-PARSER-SELFCHECK": "PASS",
+    "A-control-panel": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "V5-candidate-panel": [
+      {
+        "id": "pair-032",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-042",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-028",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-031",
+        "kind": "ELIGIBLE_DIFFERENT",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-034",
+        "kind": "DECOY",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-001:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      },
+      {
+        "id": "pair-011:T-ENTITY_CONTROL",
+        "kind": "ENTITY_CONTROL_NEGATIVE",
+        "decision": "DIFFERENT"
+      }
+    ],
+    "deltas": {
+      "deltaTP": 3,
+      "deltaFN": -3,
+      "deltaFP": 0,
+      "deltaCond": 0.1875,
+      "deltaFixed": 0.1363,
+      "deltaFcr": 0
+    },
+    "A-control-fpZero": true,
+    "A-control-decoy": "DIFFERENT(OK)",
+    "A-control-entityControls": "DIFFERENT(OK)",
+    "V5-candidate-fpZero": true,
+    "V5-candidate-decoy": "DIFFERENT(OK)",
+    "V5-candidate-entityControls": "DIFFERENT(OK)"
+  },
+  "verdictChanges": [
+    {
+      "pairId": "pair-001",
+      "humanLabel": "SAME",
+      "similarity": 0.863824,
+      "from": "DIFFERENT",
+      "to": "SAME",
+      "changeClass": "SAME->SAME"
+    },
+    {
+      "pairId": "pair-019",
+      "humanLabel": "SAME",
+      "similarity": 0.870669,
+      "from": "DIFFERENT",
+      "to": "SAME",
+      "changeClass": "SAME->SAME"
+    },
+    {
+      "pairId": "pair-035",
+      "humanLabel": "SAME",
+      "similarity": 0.892905,
+      "from": "DIFFERENT",
+      "to": "SAME",
+      "changeClass": "SAME->SAME"
+    }
+  ],
+  "repeatability": [
+    {
+      "pairId": "A-control:pair-001",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "A-control:pair-009",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "A-control:pair-011",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "A-control:pair-019",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "A-control:pair-035",
+      "distribution": {
+        "SAME": 19,
+        "DIFFERENT": 1,
+        "UNCERTAIN": 0
+      },
+      "identical": 19
+    },
+    {
+      "pairId": "A-control:pair-034",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-001",
+      "distribution": {
+        "SAME": 20,
+        "DIFFERENT": 0,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-009",
+      "distribution": {
+        "SAME": 20,
+        "DIFFERENT": 0,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-011",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-019",
+      "distribution": {
+        "SAME": 20,
+        "DIFFERENT": 0,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-035",
+      "distribution": {
+        "SAME": 20,
+        "DIFFERENT": 0,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    },
+    {
+      "pairId": "V5-candidate:pair-034",
+      "distribution": {
+        "SAME": 0,
+        "DIFFERENT": 20,
+        "UNCERTAIN": 0
+      },
+      "identical": 20
+    }
+  ],
+  "zeroWriteProof": {
+    "importsAudit": "PASS (only vitest/node:* specifiers)",
+    "forbiddenNeedles": "PASS (runtime-assembled)",
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "permittedNetworkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "resultPathWrittenOnlyOnComplete": true,
+    "blockedPathWritesNothing": true,
+    "productionFilesModified": false,
+    "datasetModified": false,
+    "productionThresholdRemained": 0.85
+  },
+  "integrityManifest": {
+    "pre": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "v3-verifier-retrieval-dataset.json": "09B3330C6C6CD24990D9182A23E3FC193E95588132DBCCA3C481E1450A9652EF",
+      "v4-verifier-decision-boundary.json": "3541DCF3F89EDFC5424941C954401DB8FB2ED8020BC0190E6B95491F82242AB8",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "post": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "v3-verifier-retrieval-dataset.json": "09B3330C6C6CD24990D9182A23E3FC193E95588132DBCCA3C481E1450A9652EF",
+      "v4-verifier-decision-boundary.json": "3541DCF3F89EDFC5424941C954401DB8FB2ED8020BC0190E6B95491F82242AB8",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "identical": true
+  },
+  "gates": {
+    "G-V5-ZEROWRITE": "PASS",
+    "G-V5-DATASET-FROZEN": "PASS",
+    "G-V5-HISTORY-INTACT": "PASS",
+    "G-V5-SAFETY": "PASS",
+    "G-V5-REPEATABILITY": "PASS",
+    "G-V5-VALID-COMPARISON": "PASS",
+    "G-V5-COVERAGE": "PASS"
+  }
+}

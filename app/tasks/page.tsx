@@ -17,21 +17,21 @@ export default async function TasksPage() {
 
   return (
     <AppShell email={user.email ?? ""}>
-      <div className="h-full overflow-y-auto">
-        <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-10">
+      <div className="h-full overflow-y-auto bg-black">
+        <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10">
           <header className="mb-6 sm:mb-8">
             <div className="mb-2.5 flex items-center gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-[var(--brand)]/20 bg-[var(--brand)]/10 sm:size-10">
-                <CheckSquare size={18} className="text-[var(--brand)]" />
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#141414] sm:size-10">
+                <CheckSquare size={17} className="text-[#A0A0A0]" />
               </div>
               <div>
-                <p className="text-sm font-medium text-[var(--brand)]">Tasks</p>
-                <h1 className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
+                <p className="text-sm font-medium text-[#A0A0A0]">Tasks</p>
+                <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
                   Things to follow up on
                 </h1>
               </div>
             </div>
-            <p className="max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[15px]">
+            <p className="max-w-xl text-sm leading-relaxed text-[#A0A0A0] sm:text-[15px]">
               Keep track of what matters. Tasks live alongside your AI and memory,
               so follow-ups stay visible across sessions.
             </p>

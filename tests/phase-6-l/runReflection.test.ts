@@ -137,14 +137,20 @@ describe("runReflection - grouping and persistence via runMemoryMaintenance", ()
     expect(mockGenerateReflections).toHaveBeenCalledTimes(1);
     const reflectionInput = mockGenerateReflections.mock.calls[0][0];
 
+    // Phase 1-B contract: per-type groups unchanged; ONE supplementary
+    // cross-type window is appended LAST when >= 2 distinct types qualify.
     const groups = reflectionInput as Array<{ memoryType: string; memories: Array<{ id: string }> }>;
-    expect(groups).toHaveLength(2);
+    expect(groups).toHaveLength(3);
     expect(groups[0].memoryType).toBe("semantic");
     expect(groups[0].memories).toHaveLength(1);
     expect(groups[0].memories[0].id).toBe("mem-1");
     expect(groups[1].memoryType).toBe("identity");
     expect(groups[1].memories).toHaveLength(1);
     expect(groups[1].memories[0].id).toBe("mem-2");
+    expect(groups[2].memoryType).toBe("cross-type");
+    // Deterministic window order: importance DESC, confidence DESC,
+    // created_at ASC, id ASC — both rows tie here, so id ASC applies.
+    expect(groups[2].memories.map((m) => m.id)).toEqual(["mem-1", "mem-2"]);
   });
 
   it("single memory_type produces single group", async () => {
@@ -260,9 +266,12 @@ describe("runReflection - grouping and persistence via runMemoryMaintenance", ()
     expect(mockGenerateReflections).toHaveBeenCalledTimes(1);
     const reflectionInput = mockGenerateReflections.mock.calls[0][0] as Array<{
       memoryType: string;
-      memories: Array<{ id: string; title: string; content: string; summary: string }>;
+      memories: Array<Record<string, unknown>>;
     }>;
 
+    // Phase 1-A/1-B contract: full 9-field input items (single-type fixture
+    // → no cross-type window is appended).
+    expect(reflectionInput).toHaveLength(1);
     expect(reflectionInput[0]).toEqual({
       memoryType: "semantic",
       memories: [
@@ -271,6 +280,11 @@ describe("runReflection - grouping and persistence via runMemoryMaintenance", ()
           title: "Coffee Preference",
           content: "User drinks coffee every morning",
           summary: "Coffee habit",
+          importance: 0.8,
+          confidence: 0.9,
+          memoryType: "semantic",
+          tags: [],
+          metadata: {},
         },
       ],
     });
@@ -302,13 +316,48 @@ describe("runReflection - grouping and persistence via runMemoryMaintenance", ()
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         },
+        {
+          id: "mem-2",
+          user_id: "user-1",
+          project_id: null,
+          memory_type: "semantic",
+          status: "active",
+          title: "Dark Mode",
+          content: "User prefers dark mode",
+          summary: "Dark mode preference",
+          tags: [],
+          importance_v2: 0.8,
+          confidence_v2: 0.9,
+          embedding: null,
+          source_v2: "extractor",
+          source_ref: null,
+          metadata: {},
+          times_used: 1,
+          last_used: null,
+          last_scored: new Date().toISOString(),
+          effective_score: 0.7,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
       ],
       error: null,
     });
 
+    // Reflections must be genuine syntheses, not verbatim repeats of a
+    // source memory (Phase 1-B grounding R2 rejects verbatim copies).
     mockGenerateReflections.mockResolvedValue([
-      { title: "Morning Routine", content: "User drinks coffee every morning", importance: 7, confidence: 0.9 },
-      { title: "Dark Mode", content: "User prefers dark mode", importance: 6, confidence: 0.8 },
+      {
+        title: "Morning Routine",
+        content: "Multiple memories consistently describe the user following the same coffee routine each morning.",
+        importance: 7,
+        confidence: 0.9,
+      },
+      {
+        title: "Interface Preference",
+        content: "The memories repeatedly point to a preference for dark interfaces.",
+        importance: 6,
+        confidence: 0.8,
+      },
     ]);
 
     await runMemoryMaintenance(
@@ -321,24 +370,36 @@ describe("runReflection - grouping and persistence via runMemoryMaintenance", ()
       (call: any) => call[0].source === "reflection"
     );
 
+    // Phase 1-A/1-B contract: reflections persist with sourceRef and the
+    // provenance metadata { sourceMemoryIds, generatedAt }.
     expect(reflectionCalls).toHaveLength(2);
     expect(reflectionCalls[0][0]).toEqual({
       userId: "user-1",
       title: "Morning Routine",
-      content: "User drinks coffee every morning",
+      content: "Multiple memories consistently describe the user following the same coffee routine each morning.",
       memoryType: "reflection",
       importance: 7,
       confidence: 0.9,
       source: "reflection",
+      sourceRef: null,
+      metadata: {
+        sourceMemoryIds: ["mem-1", "mem-2"],
+        generatedAt: expect.any(String),
+      },
     });
     expect(reflectionCalls[1][0]).toEqual({
       userId: "user-1",
-      title: "Dark Mode",
-      content: "User prefers dark mode",
+      title: "Interface Preference",
+      content: "The memories repeatedly point to a preference for dark interfaces.",
       memoryType: "reflection",
       importance: 6,
       confidence: 0.8,
       source: "reflection",
+      sourceRef: null,
+      metadata: {
+        sourceMemoryIds: ["mem-1", "mem-2"],
+        generatedAt: expect.any(String),
+      },
     });
   });
 });

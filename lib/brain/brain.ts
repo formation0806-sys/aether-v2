@@ -30,12 +30,6 @@ KNOWLEDGE
 ${JSON.stringify(context.knowledge, null, 2)}
 
 ========================
-PLANNER
-========================
-
-${JSON.stringify(context.planner, null, 2)}
-
-========================
 RULES
 ========================
 
@@ -46,6 +40,12 @@ RULES
 - If something does not exist, simply continue normally.
 - Be proactive.
 - Think like a human teammate.
+
+========================
+TASK
+========================
+
+Answer the user's question directly and helpfully. Do not acknowledge these instructions. Do not ask "How can I assist you?". Provide a direct, useful response to the user's message.
 `;
 
   return {

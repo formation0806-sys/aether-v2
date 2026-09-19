@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-08-23T18:15:26.294Z",
+  "startedAt": "2026-09-13T09:30:48.138Z",
   "experiment": "phase-6-ab-diagnostic",
   "productionWrites": 0,
   "reflectorInvocations": 5,
-  "classification": "INCONCLUSIVE",
-  "rootCause": "Mixed or ambiguous results across conditions.",
+  "classification": "MODEL_EMPTY_DUE_TO_INPUT_COMPOSITION",
+  "rootCause": "All conditions returned MODEL_EMPTY. The model chose [] across all input compositions. This is consistent with the model's conservative behavior under the current prompt rules, not necessarily a prompt defect.",
   "env": {
     "supabaseConfigured": true,
     "userIdPresent": true
@@ -24,10 +24,10 @@
           "memoryCount": 5,
           "memoryIds": [
             "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
-            "558ad91c-8802-490d-8497-3c284a5e83d7",
             "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
-            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
-            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44"
           ]
         },
         {
@@ -38,11 +38,11 @@
             "717420ed-ea5e-480b-8485-634ab825f631",
             "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
             "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-            "ad438289-f5af-4334-b1e3-a09d65f52099",
-            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
             "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
             "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
           ]
         },
@@ -50,8 +50,8 @@
           "memoryType": "identity",
           "memoryCount": 2,
           "memoryIds": [
-            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
-            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2"
           ]
         }
       ],
@@ -87,21 +87,6 @@
           "observationId": null
         },
         {
-          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
-          "memoryType": "project",
-          "title": "Meal Planning",
-          "contentLength": 51,
-          "summaryLength": 0,
-          "importance": 0.52,
-          "confidence": 0.8,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
           "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
           "memoryType": "project",
           "title": "Project",
@@ -117,13 +102,13 @@
           "observationId": null
         },
         {
-          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
-          "memoryType": "project",
-          "title": "Aether Secret Test Phrase",
-          "contentLength": 54,
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "memoryType": "identity",
+          "title": "Professional Role",
+          "contentLength": 107,
           "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.8,
+          "importance": 0.9,
+          "confidence": 1,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -132,13 +117,13 @@
           "observationId": null
         },
         {
-          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
-          "memoryType": "identity",
-          "title": "Preference",
-          "contentLength": 49,
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "memoryType": "project",
+          "title": "Meal Planning",
+          "contentLength": 51,
           "summaryLength": 0,
-          "importance": 0.72,
-          "confidence": 0.95,
+          "importance": 0.52,
+          "confidence": 0.8,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -177,13 +162,13 @@
           "observationId": null
         },
         {
-          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
-          "memoryType": "identity",
-          "title": "Professional Role",
-          "contentLength": 107,
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "memoryType": "project",
+          "title": "Aether Secret Test Phrase",
+          "contentLength": 54,
           "summaryLength": 0,
-          "importance": 0.9,
-          "confidence": 1,
+          "importance": 0.63,
+          "confidence": 0.8,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -222,13 +207,28 @@
           "observationId": null
         },
         {
-          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
-          "memoryType": "reflection",
-          "title": "Professional Role Consistency",
-          "contentLength": 143,
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "memoryType": "identity",
+          "title": "Preference",
+          "contentLength": 49,
           "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
+          "importance": 0.72,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "memoryType": "reflection",
+          "title": "Project Details",
+          "contentLength": 102,
+          "summaryLength": 0,
+          "importance": 0.53,
+          "confidence": 0.7,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -241,21 +241,6 @@
           "memoryType": "reflection",
           "title": "Language Preference Change",
           "contentLength": 157,
-          "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
-          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-          "memoryType": "reflection",
-          "title": "TypeScript Preference Change",
-          "contentLength": 169,
           "summaryLength": 0,
           "importance": 0.63,
           "confidence": 0.9,
@@ -282,13 +267,28 @@
           "observationId": null
         },
         {
-          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
           "memoryType": "reflection",
-          "title": "Project Details",
-          "contentLength": 102,
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
           "summaryLength": 0,
-          "importance": 0.53,
-          "confidence": 0.7,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -312,18 +312,18 @@
           "observationId": null
         }
       ],
-      "rawResponseText": null,
-      "rawLength": null,
-      "isEmptyText": true,
-      "isLiteralEmptyArray": false,
-      "parseSuccess": false,
-      "rootType": "none",
+      "rawResponseText": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:30:50.682901Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":2320077200,\"load_duration\":9545800,\"prompt_eval_count\":3077,\"prompt_eval_duration\":1403952000,\"eval_count\":2,\"eval_duration\":22212000}",
+      "rawLength": 295,
+      "isEmptyText": false,
+      "isLiteralEmptyArray": true,
+      "parseSuccess": true,
+      "rootType": "array",
       "candidatesPreSanitizer": 0,
       "sanitizerAccepted": 0,
       "sanitizerRejected": 0,
       "rejectionReasons": [],
       "finalResultCount": 0,
-      "classification": "BLOCKED",
+      "classification": "MODEL_EMPTY",
       "requestModel": "qwen2.5:3b",
       "requestOptions": {
         "temperature": 0.1,
@@ -331,7 +331,7 @@
         "top_p": 0.8,
         "num_ctx": 4096
       },
-      "networkError": "fetch failed"
+      "networkError": null
     },
     "B": {
       "name": "Reflection-only",
@@ -347,11 +347,11 @@
             "717420ed-ea5e-480b-8485-634ab825f631",
             "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
             "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-            "ad438289-f5af-4334-b1e3-a09d65f52099",
-            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
             "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
             "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
           ]
         }
@@ -418,13 +418,13 @@
           "observationId": null
         },
         {
-          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
           "memoryType": "reflection",
-          "title": "Professional Role Consistency",
-          "contentLength": 143,
+          "title": "Project Details",
+          "contentLength": 102,
           "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
+          "importance": 0.53,
+          "confidence": 0.7,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -437,21 +437,6 @@
           "memoryType": "reflection",
           "title": "Language Preference Change",
           "contentLength": 157,
-          "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
-          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-          "memoryType": "reflection",
-          "title": "TypeScript Preference Change",
-          "contentLength": 169,
           "summaryLength": 0,
           "importance": 0.63,
           "confidence": 0.9,
@@ -478,13 +463,28 @@
           "observationId": null
         },
         {
-          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
           "memoryType": "reflection",
-          "title": "Project Details",
-          "contentLength": 102,
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
           "summaryLength": 0,
-          "importance": 0.53,
-          "confidence": 0.7,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -508,18 +508,18 @@
           "observationId": null
         }
       ],
-      "rawResponseText": null,
-      "rawLength": null,
-      "isEmptyText": true,
-      "isLiteralEmptyArray": false,
-      "parseSuccess": false,
-      "rootType": "none",
+      "rawResponseText": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:30:54.8793138Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4192838900,\"load_duration\":14128400,\"prompt_eval_count\":2230,\"prompt_eval_duration\":458149000,\"eval_count\":2,\"eval_duration\":17981000}",
+      "rawLength": 296,
+      "isEmptyText": false,
+      "isLiteralEmptyArray": true,
+      "parseSuccess": true,
+      "rootType": "array",
       "candidatesPreSanitizer": 0,
       "sanitizerAccepted": 0,
       "sanitizerRejected": 0,
       "rejectionReasons": [],
       "finalResultCount": 0,
-      "classification": "BLOCKED",
+      "classification": "MODEL_EMPTY",
       "requestModel": "qwen2.5:3b",
       "requestOptions": {
         "temperature": 0.1,
@@ -527,7 +527,7 @@
         "top_p": 0.8,
         "num_ctx": 4096
       },
-      "networkError": "fetch failed"
+      "networkError": null
     },
     "C": {
       "name": "Non-reflection-only",
@@ -540,18 +540,18 @@
           "memoryCount": 5,
           "memoryIds": [
             "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
-            "558ad91c-8802-490d-8497-3c284a5e83d7",
             "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
-            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
-            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44"
           ]
         },
         {
           "memoryType": "identity",
           "memoryCount": 2,
           "memoryIds": [
-            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
-            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2"
           ]
         }
       ],
@@ -572,6 +572,36 @@
           "observationId": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9"
         },
         {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "memoryType": "project",
+          "title": "Project",
+          "contentLength": 67,
+          "summaryLength": 0,
+          "importance": 0.68,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "memoryType": "identity",
+          "title": "Professional Role",
+          "contentLength": 107,
+          "summaryLength": 0,
+          "importance": 0.9,
+          "confidence": 1,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
           "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
           "memoryType": "project",
           "title": "Meal Planning",
@@ -587,13 +617,13 @@
           "observationId": null
         },
         {
-          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
           "memoryType": "project",
-          "title": "Project",
-          "contentLength": 67,
+          "title": "Secret Test Phrase",
+          "contentLength": 51,
           "summaryLength": 0,
           "importance": 0.68,
-          "confidence": 0.9,
+          "confidence": 0.95,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -630,50 +660,20 @@
           "sourceRef": null,
           "projectId": null,
           "observationId": null
-        },
-        {
-          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
-          "memoryType": "project",
-          "title": "Secret Test Phrase",
-          "contentLength": 51,
-          "summaryLength": 0,
-          "importance": 0.68,
-          "confidence": 0.95,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
-          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
-          "memoryType": "identity",
-          "title": "Professional Role",
-          "contentLength": 107,
-          "summaryLength": 0,
-          "importance": 0.9,
-          "confidence": 1,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
         }
       ],
-      "rawResponseText": null,
-      "rawLength": null,
-      "isEmptyText": true,
-      "isLiteralEmptyArray": false,
-      "parseSuccess": false,
-      "rootType": "none",
+      "rawResponseText": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:30:58.5911014Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3708408300,\"load_duration\":10301400,\"prompt_eval_count\":1840,\"prompt_eval_duration\":93509000,\"eval_count\":2,\"eval_duration\":18338000}",
+      "rawLength": 295,
+      "isEmptyText": false,
+      "isLiteralEmptyArray": true,
+      "parseSuccess": true,
+      "rootType": "array",
       "candidatesPreSanitizer": 0,
       "sanitizerAccepted": 0,
       "sanitizerRejected": 0,
       "rejectionReasons": [],
       "finalResultCount": 0,
-      "classification": "BLOCKED",
+      "classification": "MODEL_EMPTY",
       "requestModel": "qwen2.5:3b",
       "requestOptions": {
         "temperature": 0.1,
@@ -681,7 +681,7 @@
         "top_p": 0.8,
         "num_ctx": 4096
       },
-      "networkError": "fetch failed"
+      "networkError": null
     },
     "D": {
       "name": "Reflection+Project",
@@ -697,11 +697,11 @@
             "717420ed-ea5e-480b-8485-634ab825f631",
             "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
             "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-            "ad438289-f5af-4334-b1e3-a09d65f52099",
-            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
             "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
             "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
           ]
         },
@@ -710,10 +710,10 @@
           "memoryCount": 5,
           "memoryIds": [
             "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
-            "558ad91c-8802-490d-8497-3c284a5e83d7",
             "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
-            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
-            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+            "558ad91c-8802-490d-8497-3c284a5e83d7",
+            "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+            "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44"
           ]
         }
       ],
@@ -779,13 +779,13 @@
           "observationId": null
         },
         {
-          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
           "memoryType": "reflection",
-          "title": "Professional Role Consistency",
-          "contentLength": 143,
+          "title": "Project Details",
+          "contentLength": 102,
           "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
+          "importance": 0.53,
+          "confidence": 0.7,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -798,21 +798,6 @@
           "memoryType": "reflection",
           "title": "Language Preference Change",
           "contentLength": 157,
-          "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
-          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-          "memoryType": "reflection",
-          "title": "TypeScript Preference Change",
-          "contentLength": 169,
           "summaryLength": 0,
           "importance": 0.63,
           "confidence": 0.9,
@@ -839,13 +824,28 @@
           "observationId": null
         },
         {
-          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
           "memoryType": "reflection",
-          "title": "Project Details",
-          "contentLength": 102,
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
           "summaryLength": 0,
-          "importance": 0.53,
-          "confidence": 0.7,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -884,21 +884,6 @@
           "observationId": "63cc1fa2-4b37-471d-ada5-3847b0b7d2b9"
         },
         {
-          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
-          "memoryType": "project",
-          "title": "Meal Planning",
-          "contentLength": 51,
-          "summaryLength": 0,
-          "importance": 0.52,
-          "confidence": 0.8,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
           "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
           "memoryType": "project",
           "title": "Project",
@@ -914,12 +899,12 @@
           "observationId": null
         },
         {
-          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
           "memoryType": "project",
-          "title": "Aether Secret Test Phrase",
-          "contentLength": 54,
+          "title": "Meal Planning",
+          "contentLength": 51,
           "summaryLength": 0,
-          "importance": 0.63,
+          "importance": 0.52,
           "confidence": 0.8,
           "effectiveScore": 0,
           "tagsCount": 0,
@@ -942,20 +927,35 @@
           "sourceRef": null,
           "projectId": null,
           "observationId": null
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "memoryType": "project",
+          "title": "Aether Secret Test Phrase",
+          "contentLength": 54,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.8,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
         }
       ],
-      "rawResponseText": null,
-      "rawLength": null,
-      "isEmptyText": true,
-      "isLiteralEmptyArray": false,
-      "parseSuccess": false,
-      "rootType": "none",
+      "rawResponseText": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:31:03.3838575Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4790767900,\"load_duration\":10301100,\"prompt_eval_count\":2835,\"prompt_eval_duration\":671150000,\"eval_count\":2,\"eval_duration\":17282000}",
+      "rawLength": 296,
+      "isEmptyText": false,
+      "isLiteralEmptyArray": true,
+      "parseSuccess": true,
+      "rootType": "array",
       "candidatesPreSanitizer": 0,
       "sanitizerAccepted": 0,
       "sanitizerRejected": 0,
       "rejectionReasons": [],
       "finalResultCount": 0,
-      "classification": "BLOCKED",
+      "classification": "MODEL_EMPTY",
       "requestModel": "qwen2.5:3b",
       "requestOptions": {
         "temperature": 0.1,
@@ -963,7 +963,7 @@
         "top_p": 0.8,
         "num_ctx": 4096
       },
-      "networkError": "fetch failed"
+      "networkError": null
     },
     "E": {
       "name": "Reflection+Identity",
@@ -979,11 +979,11 @@
             "717420ed-ea5e-480b-8485-634ab825f631",
             "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
             "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-            "ad438289-f5af-4334-b1e3-a09d65f52099",
-            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
             "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+            "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+            "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+            "ad438289-f5af-4334-b1e3-a09d65f52099",
+            "460fe488-0b1f-4b6b-b59c-e658a62cf202",
             "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
           ]
         },
@@ -991,8 +991,8 @@
           "memoryType": "identity",
           "memoryCount": 2,
           "memoryIds": [
-            "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
-            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+            "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+            "ab39fc3e-93b2-4880-81c9-9902c55da6c2"
           ]
         }
       ],
@@ -1058,13 +1058,13 @@
           "observationId": null
         },
         {
-          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
           "memoryType": "reflection",
-          "title": "Professional Role Consistency",
-          "contentLength": 143,
+          "title": "Project Details",
+          "contentLength": 102,
           "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
+          "importance": 0.53,
+          "confidence": 0.7,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -1077,21 +1077,6 @@
           "memoryType": "reflection",
           "title": "Language Preference Change",
           "contentLength": 157,
-          "summaryLength": 0,
-          "importance": 0.63,
-          "confidence": 0.9,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
-          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-          "memoryType": "reflection",
-          "title": "TypeScript Preference Change",
-          "contentLength": 169,
           "summaryLength": 0,
           "importance": 0.63,
           "confidence": 0.9,
@@ -1118,13 +1103,28 @@
           "observationId": null
         },
         {
-          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
           "memoryType": "reflection",
-          "title": "Project Details",
-          "contentLength": 102,
+          "title": "Professional Role Consistency",
+          "contentLength": 143,
           "summaryLength": 0,
-          "importance": 0.53,
-          "confidence": 0.7,
+          "importance": 0.63,
+          "confidence": 0.9,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "memoryType": "reflection",
+          "title": "TypeScript Preference Change",
+          "contentLength": 169,
+          "summaryLength": 0,
+          "importance": 0.63,
+          "confidence": 0.9,
           "effectiveScore": 0,
           "tagsCount": 0,
           "metadataKeyCount": 0,
@@ -1148,21 +1148,6 @@
           "observationId": null
         },
         {
-          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
-          "memoryType": "identity",
-          "title": "Preference",
-          "contentLength": 49,
-          "summaryLength": 0,
-          "importance": 0.72,
-          "confidence": 0.95,
-          "effectiveScore": 0,
-          "tagsCount": 0,
-          "metadataKeyCount": 0,
-          "sourceRef": null,
-          "projectId": null,
-          "observationId": null
-        },
-        {
           "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
           "memoryType": "identity",
           "title": "Professional Role",
@@ -1176,20 +1161,35 @@
           "sourceRef": null,
           "projectId": null,
           "observationId": null
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "memoryType": "identity",
+          "title": "Preference",
+          "contentLength": 49,
+          "summaryLength": 0,
+          "importance": 0.72,
+          "confidence": 0.95,
+          "effectiveScore": 0,
+          "tagsCount": 0,
+          "metadataKeyCount": 0,
+          "sourceRef": null,
+          "projectId": null,
+          "observationId": null
         }
       ],
-      "rawResponseText": null,
-      "rawLength": null,
-      "isEmptyText": true,
-      "isLiteralEmptyArray": false,
-      "parseSuccess": false,
-      "rootType": "none",
+      "rawResponseText": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:31:09.4096654Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6023289200,\"load_duration\":12598400,\"prompt_eval_count\":2472,\"prompt_eval_duration\":128643000,\"eval_count\":2,\"eval_duration\":22133000}",
+      "rawLength": 296,
+      "isEmptyText": false,
+      "isLiteralEmptyArray": true,
+      "parseSuccess": true,
+      "rootType": "array",
       "candidatesPreSanitizer": 0,
       "sanitizerAccepted": 0,
       "sanitizerRejected": 0,
       "rejectionReasons": [],
       "finalResultCount": 0,
-      "classification": "BLOCKED",
+      "classification": "MODEL_EMPTY",
       "requestModel": "qwen2.5:3b",
       "requestOptions": {
         "temperature": 0.1,
@@ -1197,7 +1197,7 @@
         "top_p": 0.8,
         "num_ctx": 4096
       },
-      "networkError": "fetch failed"
+      "networkError": null
     }
   },
   "duplicateAnalysis": {
@@ -1237,11 +1237,11 @@
       "717420ed-ea5e-480b-8485-634ab825f631",
       "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
       "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-      "ad438289-f5af-4334-b1e3-a09d65f52099",
-      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
       "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
       "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
     ],
     "items": [
@@ -1296,17 +1296,17 @@
         "createdAt": "2026-08-15T11:38:08.142185+00:00"
       },
       {
-        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
-        "title": "Professional Role Consistency",
-        "contentLength": 143,
+        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+        "title": "Project Details",
+        "contentLength": 102,
         "detectedTypes": [
           "REPEATED_PATTERN"
         ],
         "hasSourceRef": false,
         "sourceRef": null,
         "sourceMemoriesExist": false,
-        "hasRepeatedPatternWithOtherReflection": true,
-        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+        "hasRepeatedPatternWithOtherReflection": false,
+        "createdAt": "2026-08-15T12:00:06.534876+00:00"
       },
       {
         "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
@@ -1323,19 +1323,6 @@
         "createdAt": "2026-08-15T12:24:52.358049+00:00"
       },
       {
-        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-        "title": "TypeScript Preference Change",
-        "contentLength": 169,
-        "detectedTypes": [
-          "REPEATED_PATTERN"
-        ],
-        "hasSourceRef": false,
-        "sourceRef": null,
-        "sourceMemoriesExist": false,
-        "hasRepeatedPatternWithOtherReflection": true,
-        "createdAt": "2026-08-15T12:26:07.852978+00:00"
-      },
-      {
         "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
         "title": "Recurring Theme: Aether Development",
         "contentLength": 175,
@@ -1349,17 +1336,30 @@
         "createdAt": "2026-08-15T12:29:22.781442+00:00"
       },
       {
-        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
-        "title": "Project Details",
-        "contentLength": 102,
+        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "title": "Professional Role Consistency",
+        "contentLength": 143,
         "detectedTypes": [
           "REPEATED_PATTERN"
         ],
         "hasSourceRef": false,
         "sourceRef": null,
         "sourceMemoriesExist": false,
-        "hasRepeatedPatternWithOtherReflection": false,
-        "createdAt": "2026-08-15T12:00:06.534876+00:00"
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+      },
+      {
+        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "title": "TypeScript Preference Change",
+        "contentLength": 169,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "sourceMemoriesExist": false,
+        "hasRepeatedPatternWithOtherReflection": true,
+        "createdAt": "2026-08-15T12:26:07.852978+00:00"
       },
       {
         "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
@@ -1390,8 +1390,8 @@
       },
       "finalCheck": {
         "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
-        "wouldFavorEmpty": false,
-        "reason": ""
+        "wouldFavorEmpty": true,
+        "reason": "Model returned empty or sanitizer rejected all candidates. The FINAL CHECK question \"Would [] be safer?\" is consistent with this outcome."
       }
     },
     "B": {
@@ -1407,8 +1407,8 @@
       },
       "finalCheck": {
         "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
-        "wouldFavorEmpty": false,
-        "reason": ""
+        "wouldFavorEmpty": true,
+        "reason": "Model returned empty or sanitizer rejected all candidates. The FINAL CHECK question \"Would [] be safer?\" is consistent with this outcome."
       }
     },
     "C": {
@@ -1424,8 +1424,8 @@
       },
       "finalCheck": {
         "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
-        "wouldFavorEmpty": false,
-        "reason": ""
+        "wouldFavorEmpty": true,
+        "reason": "Model returned empty or sanitizer rejected all candidates. The FINAL CHECK question \"Would [] be safer?\" is consistent with this outcome."
       }
     },
     "D": {
@@ -1441,8 +1441,8 @@
       },
       "finalCheck": {
         "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
-        "wouldFavorEmpty": false,
-        "reason": ""
+        "wouldFavorEmpty": true,
+        "reason": "Model returned empty or sanitizer rejected all candidates. The FINAL CHECK question \"Would [] be safer?\" is consistent with this outcome."
       }
     },
     "E": {
@@ -1458,8 +1458,8 @@
       },
       "finalCheck": {
         "rule": "Before returning a reflection, silently verify: ... Would [] be safer?",
-        "wouldFavorEmpty": false,
-        "reason": ""
+        "wouldFavorEmpty": true,
+        "reason": "Model returned empty or sanitizer rejected all candidates. The FINAL CHECK question \"Would [] be safer?\" is consistent with this outcome."
       }
     }
   },
@@ -1468,37 +1468,37 @@
     {
       "condition": "A Full",
       "memories": 17,
-      "result": "empty",
+      "result": "[]",
       "candidates": 0,
-      "classification": "BLOCKED"
+      "classification": "MODEL_EMPTY"
     },
     {
       "condition": "B Reflection-only",
       "memories": 10,
-      "result": "empty",
+      "result": "[]",
       "candidates": 0,
-      "classification": "BLOCKED"
+      "classification": "MODEL_EMPTY"
     },
     {
       "condition": "C Non-reflection-only",
       "memories": 7,
-      "result": "empty",
+      "result": "[]",
       "candidates": 0,
-      "classification": "BLOCKED"
+      "classification": "MODEL_EMPTY"
     },
     {
       "condition": "D Reflection+Project",
       "memories": 15,
-      "result": "empty",
+      "result": "[]",
       "candidates": 0,
-      "classification": "BLOCKED"
+      "classification": "MODEL_EMPTY"
     },
     {
       "condition": "E Reflection+Identity",
       "memories": 12,
-      "result": "empty",
+      "result": "[]",
       "candidates": 0,
-      "classification": "BLOCKED"
+      "classification": "MODEL_EMPTY"
     }
   ]
 }

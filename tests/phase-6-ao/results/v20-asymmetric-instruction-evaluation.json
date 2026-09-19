@@ -1,0 +1,74 @@
+{
+  "phase": "PHASE 6-AO-V20",
+  "title": "Asymmetric instruction evaluation (documented role-based query/document embedding protocols)",
+  "status": "BLOCKED",
+  "reason": "MXBAI_DIM_UNEXPECTED:null",
+  "recordedAt": "2026-09-13T09:30:52.099Z",
+  "startedAt": "2026-09-13T09:30:36.857Z",
+  "finishedAt": null,
+  "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "dataset": {
+    "pairs": 43,
+    "same": 22,
+    "different": 21,
+    "factKeys": 19
+  },
+  "roleMapping": {
+    "textA": "NEW OBSERVATION / QUERY (frozen)",
+    "textB": "EXISTING CANDIDATE / DOCUMENT (frozen)",
+    "mirrorsProduction": "lib/memory/identity.ts resolveMemoryIdentity"
+  },
+  "prompt": {
+    "sha256": null,
+    "sha256Expected": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "pinned": false
+  },
+  "models": {
+    "baselineEmbedding": "nomic-embed-text:latest",
+    "baselineDim": 768,
+    "candidateEmbedding": "mxbai-embed-large:latest",
+    "candidateDim": null,
+    "verifier": "qwen2.5:3b",
+    "options": null,
+    "timeoutMs": null,
+    "ollamaModelsSeen": [
+      "bge-m3:latest",
+      "mxbai-embed-large:latest",
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "gates": {
+    "recall": "TP >= 19 (fixedRecall = TP/22; gain = (TP-15)/22*100 >= +18.18pp)",
+    "safety": "FCR <= 5% (FCR = FP / verifierSame)",
+    "repeatability": "every soaked newly-eligible cell >= 18/20"
+  },
+  "controlA": null,
+  "controlB": null,
+  "arms": [],
+  "orientationSensitivity": {
+    "note": "Mirrored role mapping (textB=query, textA=document) — similarity-only, NOT gate-eligible. A forward-only effect that disappears mirrored is an orientation artifact.",
+    "arms": {}
+  },
+  "overall": {
+    "classification": "BLOCKED_NO_CONCLUSION",
+    "promotionCandidates": [],
+    "tpByArm": {},
+    "verifierCallsTotal": 0,
+    "embedCallsTotal": 0
+  },
+  "integrity": {
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "networkDestinations": [
+      "http://127.0.0.1:11434"
+    ],
+    "productionThresholdRemained": 0.85,
+    "productionEmbeddingModelChanged": false,
+    "datasetModified": false,
+    "productionCodeModified": false,
+    "historicalArtifactsTouched": false
+  }
+}

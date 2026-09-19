@@ -1,0 +1,386 @@
+{
+  "phase": "PHASE_6-AO-V25",
+  "title": "Identity Boundary / Target-Pair Forensic Analysis (pair-005, pair-007)",
+  "status": "COMPLETE",
+  "mode": "READ_ONLY_FORENSIC",
+  "date": "2026-09-01",
+  "scientificQuestion": "Is the residual 1-TP gap (pair-005, pair-007): A) a genuine retrieval/embedding-geometry failure, B) a verifier/identity-policy boundary, C) a benchmark construction/labeling defect, D) a benchmark SAME-definition vs AETHER identity-semantics mismatch, or E) another evidence-backed cause?",
+  "answer": "A. Genuine retrieval/embedding-geometry failure on two legitimate SAME pairs under the frozen 0.85 candidate floor. B, C and D are excluded by recorded evidence; no other cause (E) was identified.",
+  "evidenceHierarchy": [
+    "1. Frozen dataset facts (tests/phase-6-ao/dataset.json)",
+    "2. Recorded per-run artifacts (V11-V24 results)",
+    "3. Harness/documentation",
+    "4. Recorded verifier behavior",
+    "5. General/world knowledge (explicitly NOT used as a substitute for repository evidence)"
+  ],
+  "datasetVerification": {
+    "path": "tests/phase-6-ao/dataset.json",
+    "datasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+    "sha256MatchesFrozenContract": true,
+    "totalPairs": 43,
+    "samePairs": 22,
+    "differentPairs": 21,
+    "recallDenominatorUnchanged": true,
+    "datasetModifiedByV25": false
+  },
+  "filesInspected": [
+    "tests/phase-6-ao/dataset.json (frozen corpus; pair-005/007 textA/textB, factKey, label extracted; SHA verified)",
+    "tests/phase-6-ao/decoy-corpus.json (V23 SAFETY_DECOY manifest; pair-034 separation)",
+    "tests/phase-6-ao/results/v11-band-probe.json + v11-report.md (threshold-band anchor TP=15; pair-005=0.764026 borderline zone)",
+    "tests/phase-6-ao/results/v13-embedding-model-evaluation.json + v13-report.md (mxbai bare TP=17; pair-005=0.807088, pair-007=0.806107)",
+    "tests/phase-6-ao/results/v14-embedding-prefix-evaluation.json + v14-report.md (symmetric query-prefix TP=18; pair-005=0.821145, pair-007=0.837367)",
+    "tests/phase-6-ao/results/v15-error-boundary-diagnostic.json + v15-report.md (H1 retrieval-eligibility CONFIRMED; H4 gap concentration; H5 INCONCLUSIVE)",
+    "tests/phase-6-ao/results/v16-verifier-forensic-audit.json + v16-report.md (audited pair-011 and pair-034 ONLY; pair-005/007 absent)",
+    "tests/phase-6-ao/results/v17-verifier-policy-evaluation.json (baseline verifier pool of 25 pairs; pair-005/007 not included)",
+    "tests/phase-6-ao/results/v18-verifier-policy-generalization.json + v18-report.md (POLICY_B recovered pair-011 only; POLICY_NON_GENERALIZING)",
+    "tests/phase-6-ao/results/v19-embedding-hypothesis-audit.json + v19-report.md (H1/H3 status; no installed-model path to TP=19)",
+    "tests/phase-6-ao/results/v20-asymmetric-instruction-evaluation.json + v20-report.md + v20-run-log.txt (arm similarities; Control A/B reproduction; SYS_V5 hash pinned)",
+    "tests/phase-6-ao/results/v21-pair-034-forensic-audit.json + v21-report.md (CASE-E forensic template; corpus-wide source-field mojibake noted)",
+    "tests/phase-6-ao/results/v23-bench-contract-report.md (Option E separate-decoy split; denominator 22 unchanged)",
+    "tests/phase-6-ao/results/v24-external-embedding-evaluation.json + v24-report.md + v24-run-log.txt (bge-m3 bare/documented arms; TP=12/0; no recovery)",
+    "tests/phase-6-ao/results/v10-report.md + v10-post-adoption-observability.json (context: production adoption state)",
+    "lib/memory/identity.ts (threshold 0.85, candidate count 8, qwen2.5:3b, SYS_V5, resolveMemoryIdentity protocol L182-363)",
+    "lib/ai/embeddings/embed.ts (nomic-embed-text:latest, bare text, 768-dim)",
+    "tests/phase-6-ao/v20-asymmetric-instruction-evaluation.test.ts + v24-external-embedding-evaluation.test.ts (pinned SYS_V5 prompt text and hashes)",
+    "NOTE: no standalone v12-* artifact exists in results/; the V12 geometry-closure conclusion is recorded inside the v13/v15 reports."
+  ],
+  "pair005": {
+    "pairId": "pair-005",
+    "factKey": "programming-language",
+    "frozenLabel": "SAME",
+    "textA": "Programming is something I spend a lot of time doing.",
+    "textB": "Writing software is a regular part of my work.",
+    "semanticDecomposition": {
+      "concreteEntity": "NONE on either side (no named technology, project, tool, place, or person)",
+      "concreteValue": "NONE (abstract activity-habit statements)",
+      "changesConcreteEntity": false,
+      "changesConcreteValue": false,
+      "changesTechnology": false,
+      "changesProject": false,
+      "changesProgrammingLanguage": false,
+      "changesPreference": false,
+      "changesTool": false,
+      "changesLocation": false,
+      "changesTime": false,
+      "changesScope": false,
+      "changesOwnership": false,
+      "changesCapability": false,
+      "merelyWordingParaphrase": true,
+      "differenceSummary": "Surface wording only: \"Programming / spend a lot of time doing\" vs \"Writing software / regular part of my work\". Same enduring activity-habit fact; no concrete entity or value appears on either side, so no value-contrast or entity-swap is possible."
+    },
+    "similarityLedger": [
+      {
+        "config": "nomic bare (V11 / V20 Control A / V24)",
+        "similarity": 0.764026,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai bare (V13 / V24)",
+        "similarity": 0.807088,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai symmetric query-prefix (V14 / V20 Control B / V24 Control B)",
+        "similarity": 0.821145,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai documented (V20 arm1)",
+        "similarity": 0.745386,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai documented (V20 arm2)",
+        "similarity": 0.724381,
+        "verifierEligible": false
+      },
+      {
+        "config": "nomic search_query/search_document (V20 arm3)",
+        "similarity": 0.765555,
+        "verifierEligible": false
+      },
+      {
+        "config": "bge-m3 bare (V24)",
+        "similarity": 0.797833,
+        "verifierEligible": false
+      },
+      {
+        "config": "bge-m3 documented (V24)",
+        "similarity": 0.658307,
+        "verifierEligible": false
+      }
+    ],
+    "maxMeasuredSimilarity": 0.821145,
+    "maxMeasuredConfig": "mxbai-embed-large + symmetric \"query: \" prefix",
+    "gapToThreshold": 0.028855,
+    "retrievalStatus": "RETRIEVAL_ELIGIBILITY_FAILURE - below the frozen 0.85 floor in every measured configuration; never candidate-eligible",
+    "verifierStatus": "NEVER_PRESENTED - zero verifier evidence exists; the pair never reached SYS_V5 because it was never eligible; V16 audit did not include it; no verifier rejection may be inferred",
+    "benchmarkPattern": "CONFORMS - abstract activity-paraphrase SAME prototype (cf. pair-013, pair-017, pair-039, pair-041); its factKey neighborhood contains pair-006 as the value-contrast DIFFERENT (Python + negation), the canonical corpus DIFFERENT pattern; no anomaly or decoy treatment anywhere in V11-V24",
+    "identitySemanticsAlignment": "ALIGNED - SYS_V5 defines SAME as \"the candidate already records this fact, even if worded differently\" and \"same underlying user fact at the same scope and specificity, even if they use different nouns or verbs\"; pair-005 triggers no DIFFERENT rule (no entity/value/contradiction/temporal/scope change)",
+    "classification": "CLEAR_SAME",
+    "rootCause": "RETRIEVAL_FAILURE (A: embedding/retrieval-geometry deficit under the frozen 0.85 floor)",
+    "confidence": "HIGH",
+    "remainingUncertainty": "The mechanistic reason why embedding similarity floors at 0.821145 under the best measured configuration is not established (embedding-geometry experiments are outside V25 read-only scope). This does not affect the failure-mode classification."
+  },
+  "pair007": {
+    "pairId": "pair-007",
+    "factKey": "project",
+    "frozenLabel": "SAME",
+    "textA": "I am working on Aether as my main AI project.",
+    "textB": "Aether is the project I am currently developing for persistent memory capabilities.",
+    "semanticDecomposition": {
+      "concreteEntity": "SAME on both sides (Aether)",
+      "concreteValue": "SAME (the project currently being developed)",
+      "changesConcreteEntity": false,
+      "changesConcreteValue": false,
+      "changesTechnology": false,
+      "changesProject": false,
+      "changesProgrammingLanguage": false,
+      "changesPreference": false,
+      "changesTool": false,
+      "changesLocation": false,
+      "changesTime": false,
+      "changesScope": false,
+      "changesOwnership": false,
+      "changesCapability": false,
+      "merelyWordingParaphrase": "PARAPHRASE + scope enrichment: B adds an appositive purpose descriptor (\"for persistent memory capabilities\"); the underlying fact (user is building Aether as their main AI project) is identical",
+      "differenceSummary": "B restates A with an added purpose descriptor. Same entity (Aether), same project role, same ownership, same ongoing activity. No entity swap - contrast pair-008 in the same factKey, which swaps Aether for a separate stock-market AI and is correctly frozen DIFFERENT."
+    },
+    "similarityLedger": [
+      {
+        "config": "nomic bare (V11 / V20 Control A / V24)",
+        "similarity": 0.8045,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai bare (V13 / V24)",
+        "similarity": 0.806107,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai symmetric query-prefix (V14 / V20 Control B / V24 Control B)",
+        "similarity": 0.837367,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai documented (V20 arm1)",
+        "similarity": 0.777087,
+        "verifierEligible": false
+      },
+      {
+        "config": "mxbai documented (V20 arm2)",
+        "similarity": 0.761467,
+        "verifierEligible": false
+      },
+      {
+        "config": "nomic search_query/search_document (V20 arm3)",
+        "similarity": 0.831195,
+        "verifierEligible": false
+      },
+      {
+        "config": "bge-m3 bare (V24)",
+        "similarity": 0.809384,
+        "verifierEligible": false
+      },
+      {
+        "config": "bge-m3 documented (V24)",
+        "similarity": 0.727506,
+        "verifierEligible": false
+      }
+    ],
+    "maxMeasuredSimilarity": 0.837367,
+    "maxMeasuredConfig": "mxbai-embed-large + symmetric \"query: \" prefix",
+    "gapToThreshold": 0.012633,
+    "retrievalStatus": "RETRIEVAL_ELIGIBILITY_FAILURE - below the frozen 0.85 floor in every measured configuration; the closest never-eligible SAME pair to the floor",
+    "verifierStatus": "NEVER_PRESENTED - zero verifier evidence exists; never eligible in any V11-V24 configuration; absent from the V16 audit and from the V17/V18 policy pools; no verifier rejection may be inferred",
+    "benchmarkPattern": "CONFORMS - same-entity scope-enrichment SAME prototype (cf. pair-021 Aether-definition paraphrase, pair-009, pair-023/025/027); the only entity swap in its factKey neighborhood is DIFFERENT pair-008; no anomaly or decoy treatment anywhere in V11-V24",
+    "identitySemanticsAlignment": "ALIGNED - the added purpose clause does not change the underlying fact, entity, value, ownership, or scope in the SYS_V5 sense; SYS_V5 scope language targets different-scope conflicts, not added descriptors; no DIFFERENT trigger",
+    "classification": "CLEAR_SAME",
+    "rootCause": "RETRIEVAL_FAILURE (A: embedding/retrieval-geometry deficit under the frozen 0.85 floor)",
+    "confidence": "HIGH",
+    "remainingUncertainty": "The mechanistic embedding-geometry reason for the 0.837367 ceiling is not established (out of V25 scope). A reviewer could argue textB is \"more specific\" than textA, but specificity-enrichment without fact change is a recognized SAME pattern in this corpus (pair-021, pair-023/025/027); classification unaffected."
+  },
+  "identityContractAnalysis": {
+    "source": "lib/memory/identity.ts + lib/ai/embeddings/embed.ts (static inspection; no code executed)",
+    "embeddingModel": "nomic-embed-text:latest (768-dim, bare text input)",
+    "identityThreshold": 0.85,
+    "candidateCount": 8,
+    "verifierModel": "qwen2.5:3b",
+    "verifierPrompt": "SYS_V5 (sha256 b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d, pinned by V20/V24 harnesses)",
+    "verifierSettings": "temperature 0, num_predict 256, top_p 0.9 (deterministic)",
+    "resolutionProtocol": "resolveMemoryIdentity (identity.ts L182-363): embed observation; RPC match_memories_v2 with minSimilarity 0.85 and matchCount 8; deterministic sort (similarity DESC, effective_score, confidence, id); verify each candidate in order via SYS_V5; a clean all-SAME pool yields corroboration of the single canonical target; any DIFFERENT/UNCERTAIN makes the pool non-clean and the caller fails safe to create",
+    "meaningOfSameIdentity": "The candidate already records the same underlying user fact at the same scope and specificity, even if worded differently (SYS_V5 definition of SAME)",
+    "meaningOfCorroboration": "corroborate_memory is invoked by the caller when identity resolution returns SAME with a target; the identity layer itself performs no writes; it is an additive safety layer on top of the exact-match fast path in saveMemory (identity.ts header comment)",
+    "explicitConflictKinds": "DIFFERENT = different subject, different value, contradiction, temporal shift, different entity, different scope, or only a related-but-not-identical topic (SYS_V5)",
+    "exactValueEqualityRequired": false,
+    "semanticEquivalenceAllowed": true,
+    "treatmentOfTechnologyProjectPreferenceValueChanges": "Concrete entity/value swaps = DIFFERENT (SYS_V5: different concrete entities or values remain DIFFERENT); pure paraphrase of the same fact = SAME",
+    "retrievalSimilarityMeaning": "Candidate screening (a recall/cost-bounding floor), NOT an identity verdict; the verifier, not the similarity score, decides identity",
+    "verifierRole": "Prevent unsafe corroboration/merges; explicitly conservative: DIFFERENT/UNCERTAIN on doubt; fail-safe create on non-clean pools",
+    "productionSemanticsConclusion": "AETHER production identity semantics would treat pair-005 and pair-007 as the same underlying fact: they are exactly the same-fact, different-wording class that SYS_V5 explicitly defines as SAME. Neither pair conflicts with the production identity contract. The stage that blocks them is retrieval eligibility (the 0.85 floor), not identity policy."
+  },
+  "verifierBoundaryAnalysis": {
+    "verifierBoundCases": [
+      {
+        "pairId": "pair-011",
+        "factKey": "technology-preference",
+        "similarity": 0.865164,
+        "eligible": true,
+        "modalVerdict": "DIFFERENT",
+        "distribution": {
+          "SAME": 0,
+          "DIFFERENT": 20,
+          "UNCERTAIN": 0
+        },
+        "note": "SCOPE_MISMATCH classification per V16; V18 POLICY_B recovered it to SAME (20/20 modal agreement) but POLICY_NON_GENERALIZING (changedCount=1); not adopted, not authorized"
+      },
+      {
+        "pairId": "pair-034",
+        "factKey": "tools",
+        "similarity": 0.865992,
+        "eligible": true,
+        "modalVerdict": "DIFFERENT",
+        "distribution": {
+          "SAME": 0,
+          "DIFFERENT": 20,
+          "UNCERTAIN": 0
+        },
+        "note": "CASE-E decoy per V21 (CLEAR_DIFFERENT); SAFETY_DECOY per V23; 100% rejection across 150+ recorded evaluations; NOT a recall item for gate purposes"
+      }
+    ],
+    "pair005Pair007VerifierEvidence": "NONE. Never eligible in any V11-V24 configuration, therefore never presented to SYS_V5. V16 audited only pair-011 and pair-034. The V17 baseline verifier pool (25 pairs) does not include pair-005/007. V18 policy experiments never reached them. V20/V24 eligible sets did not include them. No inference of verifier rejection is made for these pairs.",
+    "conclusion": "The verifier boundary (stage 2) is NOT the cause of the pair-005/pair-007 failures. Both fail at retrieval eligibility (stage 1). No verifier-policy change could recover them because they never reach the verifier. The verifier-bound cases remain exactly pair-011 (policy ceiling) and pair-034 (decoy).",
+    "pair011PolicyNote": "V18 POLICY_B recovered pair-011 only and was classified POLICY_NON_GENERALIZING (changedCount=1); it was not adopted, so the frozen gate result is unaffected by it."
+  },
+  "benchmarkPatternAnalysis": {
+    "sameConstructionPatterns": [
+      {
+        "pattern": "concrete entity/value held constant + paraphrase",
+        "examples": [
+          "pair-001/pair-003 (work-location, Mumbai)",
+          "pair-013 (favorite-food, pizza)",
+          "pair-029 (PostgreSQL)",
+          "pair-033 (tools, GitHub/GitHub)"
+        ]
+      },
+      {
+        "pattern": "abstract activity paraphrase (no concrete entity)",
+        "examples": [
+          "pair-005",
+          "pair-017",
+          "pair-039",
+          "pair-041"
+        ]
+      },
+      {
+        "pattern": "same-entity scope/purpose enrichment",
+        "examples": [
+          "pair-007",
+          "pair-021",
+          "pair-009",
+          "pair-023",
+          "pair-025",
+          "pair-027"
+        ]
+      }
+    ],
+    "differentConstructionPattern": "Concrete entity/value contrast between A and B (pair-002, pair-004, pair-006 Python + negation, pair-008 Aether vs separate stock-market AI, pair-010, pair-012, pair-014, pair-016, pair-018, pair-020, pair-022, pair-024, pair-026, pair-028, pair-030, pair-036, pair-038, pair-040, pair-042)",
+    "knownAnomaly": "pair-034 (GitHub vs GitLab): frozen SAME but forensically CLEAR_DIFFERENT (V21 CASE-E); separated as SAFETY_DECOY by V23 without modifying the frozen dataset; remains outside recall reasoning and outside this forensic conclusion",
+    "pair005PatternVerdict": "CONFORMS to the abstract-paraphrase SAME prototype; contains no value-contrast or entity-swap elements; no anomaly or decoy treatment documented in V11-V24",
+    "pair007PatternVerdict": "CONFORMS to the same-entity enrichment SAME prototype; the only entity swap in its factKey neighborhood is DIFFERENT pair-008; no anomaly or decoy treatment documented in V11-V24",
+    "labelDefectEvidence": "NONE found for pair-005 or pair-007"
+  },
+  "rootCauseClassification": {
+    "pair005": {
+      "category": "A_RETRIEVAL_EMBEDDING_GEOMETRY",
+      "excluded": {
+        "B_verifierBoundary": "excluded - pair never reached the verifier in any configuration",
+        "C_benchmarkDefect": "excluded - frozen SAME label conforms to the corpus abstract-paraphrase SAME construction pattern; no anomaly or decoy evidence",
+        "D_semanticMismatch": "excluded - pair matches the SYS_V5 same-fact-different-wording SAME class; AETHER identity semantics and benchmark semantics agree here",
+        "E_other": "no other evidence-backed cause identified in V11-V24"
+      }
+    },
+    "pair007": {
+      "category": "A_RETRIEVAL_EMBEDDING_GEOMETRY",
+      "excluded": {
+        "B_verifierBoundary": "excluded - pair never reached the verifier in any configuration",
+        "C_benchmarkDefect": "excluded - frozen SAME label conforms to the same-entity enrichment SAME construction pattern; no anomaly or decoy evidence",
+        "D_semanticMismatch": "excluded - same-entity, same-fact enrichment matches SYS_V5 SAME semantics; no DIFFERENT trigger exists",
+        "E_other": "no other evidence-backed cause identified in V11-V24"
+      }
+    },
+    "overallAnswer": "A. The residual 1-TP gap is a genuine retrieval/embedding-geometry failure on two legitimate SAME pairs under the frozen 0.85 candidate floor. The benchmark construction and the identity semantics are aligned for these pairs; the verifier boundary is not implicated.",
+    "interpretationRule": "This forensic conclusion does NOT authorize lowering the threshold, changing the embedding model or dimensions, changing verifier policy, changing the dataset, or any pair-specific hack. Any such change requires a separate milestone and explicit approval."
+  },
+  "finalMatrix": {
+    "CLEAR_SAME": {
+      "pair-005": "YES",
+      "pair-007": "YES"
+    },
+    "CLEAR_DIFFERENT": {
+      "pair-005": "NO",
+      "pair-007": "NO"
+    },
+    "RETRIEVAL_FAILURE": {
+      "pair-005": "YES (root cause)",
+      "pair-007": "YES (root cause)"
+    },
+    "VERIFIER_FAILURE": {
+      "pair-005": "NO (never eligible; never presented to SYS_V5)",
+      "pair-007": "NO (never eligible; never presented to SYS_V5)"
+    },
+    "BENCHMARK_DEFECT": {
+      "pair-005": "NO",
+      "pair-007": "NO"
+    },
+    "SEMANTIC_MISMATCH": {
+      "pair-005": "NO",
+      "pair-007": "NO"
+    },
+    "OTHER": {
+      "pair-005": "NO",
+      "pair-007": "NO"
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "pair-005": "PARTIAL - mechanistic embedding-geometry explanation only",
+      "pair-007": "PARTIAL - mechanistic embedding-geometry explanation only"
+    }
+  },
+  "evidenceLimitations": [
+    "Corpus-wide source/rationale field mojibake (noted in V21): the original label-author rationale is unrecoverable for all pairs; classification rests on the frozen textA/textB, factKey, and label facts plus recorded artifacts.",
+    "No verifier evidence exists for pair-005 or pair-007 by construction (never eligible); verifier hypotheses about these pairs are unfalsifiable from recorded artifacts; classification rests on retrieval status.",
+    "The mechanistic embedding-geometry reason why similarity floors at 0.821145 (pair-005) and 0.837367 (pair-007) under the best measured configuration is not established; geometry experiments are outside V25 read-only scope.",
+    "The original construction intent (whether pair-005/007 were deliberately designed as difficult-but-valid SAME items) cannot be proven from artifacts; conformity to corpus construction patterns is the available evidence."
+  ],
+  "integrityStatements": {
+    "experimentPerformed": false,
+    "noEmbeddingRuns": true,
+    "noVerifierRuns": true,
+    "noOllamaContact": true,
+    "noModelInstallation": true,
+    "noNetworkContact": true,
+    "databaseWrites": 0,
+    "noSupabaseContact": true,
+    "productionChanged": false,
+    "datasetChanged": false,
+    "historicalArtifactsChanged": false,
+    "note": "V25 is a pure forensic analysis of existing recorded artifacts plus static file inspection. Every similarity value cited above is a historical recorded value from V11-V24 artifacts, not a new measurement. No production, dataset, verifier, threshold, or historical artifact was modified."
+  },
+  "finalState": {
+    "V25_STATUS": "COMPLETE",
+    "MODE": "ACT (read-only forensic)",
+    "FILES_CREATED": [
+      "tests/phase-6-ao/results/v25-pair-005-007-forensic-analysis.json",
+      "tests/phase-6-ao/results/v25-report.md",
+      "tests/phase-6-ao/results/v25-run-log.txt"
+    ],
+    "FILES_MODIFIED": [],
+    "PRODUCTION_CHANGED": false,
+    "DATASET_CHANGED": false,
+    "HISTORICAL_ARTIFACTS_CHANGED": false,
+    "MODEL_INSTALLATION": false,
+    "NETWORK_CONTACT": false,
+    "DB_WRITES": 0,
+    "NEXT_ACTION": "HUMAN_REVIEW"
+  }
+}

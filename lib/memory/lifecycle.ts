@@ -4,6 +4,7 @@
  * Uses existing effectiveScoreForType from score.ts (which correctly
  * references importance_v2/confidence_v2 V2 columns).
  */
+import { reconcileContradictions } from "./conflict";
 import { effectiveScoreForType, daysBetween } from "./score";
 import {
   PROMOTE_ACTIVE_THRESHOLD,
@@ -96,6 +97,9 @@ export async function evaluateLifecycle(
   if (updates.length > 0) {
     await batchUpdateLifecycle(updates);
   }
+
+  // Phase 2-C3: controlled contradiction reconciliation after lifecycle transitions
+  await reconcileContradictions(userId);
 
   return result;
 }

@@ -1,20 +1,24 @@
 {
-  "startedAt": "2026-08-23T18:15:27.011Z",
+  "startedAt": "2026-09-13T09:30:39.676Z",
   "experiment": "phase-6-aj-fresh-identity-candidate-e2e",
   "productionWrites": 0,
   "safety": {
     "productionWrites": 0,
     "noDBWrites": true,
-    "auditRpcCalls": [],
+    "auditRpcCalls": [
+      "match_memories_v2",
+      "match_memories_v2",
+      "match_memories_v2"
+    ],
     "auditWriteRpcCalls": [],
     "auditWriteTableCalls": [],
     "safetyStop": false,
-    "ollamaUnavailable": true,
+    "ollamaUnavailable": false,
     "rawModelTextPersisted": false,
     "frozenFilesChanged": true,
-    "embedFetchCalls": 1,
+    "embedFetchCalls": 2,
     "extractorChatCalls": 1,
-    "verifierChatCalls": 0
+    "verifierChatCalls": 1
   },
   "environment": {
     "supabaseConfigured": true,
@@ -26,7 +30,13 @@
       "expected": 1,
       "frozenFileMismatches": [
         "lib/memory/identity.ts changed",
-        "lib/repositories/memory.repository.ts changed"
+        "lib/memory/aiExtractor.ts changed",
+        "lib/ai/embeddings/embed.ts changed",
+        "lib/repositories/memory.repository.ts changed",
+        "lib/memory/types.ts changed",
+        "lib/memory/retrieve.ts changed",
+        "lib/memory/reflector.ts changed",
+        "lib/core/pipeline.ts changed"
       ],
       "frozenFilesChanged": true
     },
@@ -85,53 +95,200 @@
     },
     "probe2": {
       "freshObservationInput": "The Aether project is being developed using Next.js, with Supabase handling its backend and data layer.",
-      "extractorError": "fetch failed",
+      "extractorError": null,
       "extractorChatCalls": 1,
-      "extractedItemCount": 0,
-      "extractedItems": [],
-      "extractionFallbackUsed": true,
+      "extractedItemCount": 1,
+      "extractedItems": [
+        {
+          "title": "Aether Project Development",
+          "memoryType": "project"
+        }
+      ],
+      "extractionFallbackUsed": false,
       "traceItem": {
-        "title": "User Project: Aether (fresh observation)",
+        "title": "Aether Project Development",
         "content": "The Aether project is being developed using Next.js, with Supabase handling its backend and data layer.",
         "memoryType": "project"
       }
     },
     "probe3": {
-      "embedError": "fetch failed"
+      "model": "nomic-embed-text:latest",
+      "dimension": 768,
+      "finite": true,
+      "constant": false,
+      "valid": true,
+      "norm": 1,
+      "firstFive": [
+        0.0068439855,
+        0.05306761,
+        -0.1387516,
+        -0.06480925,
+        0.025964754
+      ]
     },
     "probe4": {
-      "embedError": "fetch failed"
+      "queryDimension": 768,
+      "threshold": 0.85,
+      "matchCountRequested": 8,
+      "matchError": null,
+      "candidateCount": 1,
+      "candidates": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "shortId": "0a97a74a",
+          "title": "User Project: Aether [en75rlnh]",
+          "content": "The user is building a project called Aether with Next.js and Supabase. [en75rlnh]",
+          "memoryType": "project",
+          "status": "active",
+          "similarity": 0.877899267297866
+        }
+      ],
+      "repairedAetherPresent": true,
+      "repairedAetherPrefixes": [
+        "0a97a74a"
+      ]
     },
     "probe4b": {
-      "embedError": "fetch failed"
+      "queryDimension": 768,
+      "threshold": 0.65,
+      "matchCountRequested": 30,
+      "matchError": null,
+      "candidateCount": 10,
+      "candidates": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "shortId": "0a97a74a",
+          "title": "User Project: Aether [en75rlnh]",
+          "memoryType": "project",
+          "status": "active",
+          "similarity": 0.877899267297866
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "shortId": "588f81e8",
+          "title": "Project",
+          "memoryType": "project",
+          "status": "active",
+          "similarity": 0.711750336602402
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "shortId": "9e2288f7",
+          "title": "Programming Language Preference for Aether Development",
+          "memoryType": "working",
+          "status": "candidate",
+          "similarity": 0.710363107302005
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "shortId": "731eae31",
+          "title": "Programming Language Used for Aether",
+          "memoryType": "working",
+          "status": "candidate",
+          "similarity": 0.699784141894842
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "shortId": "abed0cce",
+          "title": "Current Programming Language Preference for Aether Development",
+          "memoryType": "reflection",
+          "status": "candidate",
+          "similarity": 0.695551996627818
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "shortId": "2e5a7d1a",
+          "title": "Language Preference Change",
+          "memoryType": "reflection",
+          "status": "active",
+          "similarity": 0.683241546154022
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "shortId": "c8a32e0a",
+          "title": "Programming Language Preference",
+          "memoryType": "reflection",
+          "status": "active",
+          "similarity": 0.682846505472274
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "shortId": "14f8ddfa",
+          "title": "Change in TypeScript Preference",
+          "memoryType": "reflection",
+          "status": "active",
+          "similarity": 0.675840337524395
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "shortId": "ed7b2884",
+          "title": "Project Details",
+          "memoryType": "reflection",
+          "status": "active",
+          "similarity": 0.663887322446001
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "shortId": "460fe488",
+          "title": "TypeScript Preference Change",
+          "memoryType": "reflection",
+          "status": "active",
+          "similarity": 0.661715169157411
+        }
+      ],
+      "aetherCandidateCount": 1
     },
     "probe5": {
-      "embedError": "fetch failed"
+      "latencyMs": 4097,
+      "verifierCalls": 1,
+      "finalDecision": "corroborate",
+      "reason": "verified SAME (similarity 0.878)",
+      "targetId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "targetShortId": "0a97a74a",
+      "verifierProcessedCandidates": 1,
+      "verifierDecisions": [
+        {
+          "id": "0a97a74a",
+          "decision": "SAME"
+        }
+      ],
+      "matchMemoriesV2CallsTotal": 3
     },
     "probe6": {
-      "rpcCalls": [],
+      "rpcCalls": [
+        "match_memories_v2",
+        "match_memories_v2",
+        "match_memories_v2"
+      ],
       "unexpectedWriteRpcCalls": [],
       "writeTableCalls": [],
       "memorySelectCalls": 1,
       "safetyStop": false,
       "productionWrites": 0,
       "noDBWrites": true,
-      "ollamaUnavailable": true
+      "ollamaUnavailable": false
     }
   },
   "comparison": {
     "phase6ag": "5 Aether memories -> 0 candidates at 0.85",
     "phase6ai": "same memories repaired -> self-retrieve 1.0, cross-retrieve ~0.94-0.98",
     "phase6aj": {
-      "freshCandidateCountAt085": null,
-      "freshAetherAppeared": null,
-      "aetherPrefixes": [],
-      "wideCandidateCountAt065": null,
-      "verifierInvocations": null,
-      "verifierDecisions": [],
-      "finalDecision": null
+      "freshCandidateCountAt085": 1,
+      "freshAetherAppeared": true,
+      "aetherPrefixes": [
+        "0a97a74a"
+      ],
+      "wideCandidateCountAt065": 10,
+      "verifierInvocations": 1,
+      "verifierDecisions": [
+        {
+          "id": "0a97a74a",
+          "decision": "SAME"
+        }
+      ],
+      "finalDecision": "corroborate"
     }
   },
-  "classification": "NOT_ESTABLISHED",
-  "classificationNote": ""
+  "classification": "C",
+  "classificationNote": "candidate retrieval AND verifier both work; identity resolves to corroborate"
 }

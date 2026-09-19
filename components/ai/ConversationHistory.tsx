@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -13,6 +13,11 @@ type HistorySession = {
   endedAt: string;
   messageCount: number;
   dayLabel: string;
+};
+
+type ConversationHistoryProps = {
+  onNavigate?: () => void;
+  searchQuery?: string;
 };
 
 const MAX_SESSIONS_SHOWN = 8;
@@ -133,9 +138,8 @@ function formatDayLabel(iso: string): string {
 
 export default function ConversationHistory({
   onNavigate,
-}: {
-  onNavigate?: () => void;
-}) {
+  searchQuery,
+}: ConversationHistoryProps) {
   const [sessions, setSessions] = useState<HistorySession[] | null>(null);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -206,35 +210,44 @@ export default function ConversationHistory({
   }, [pathname, activeC]);
 
   const linkBase =
-    "flex items-center justify-between gap-2 rounded-lg px-3 py-3 text-sm transition-smooth sm:py-2";
-  const idleLink = `${linkBase} text-[var(--sidebar-foreground)]/75 hover:bg-[var(--sidebar-accent)] hover:text-[var(--foreground)]`;
-  const activeLink = `${linkBase} bg-[var(--brand)]/10 text-[var(--brand)]`;
+    "flex items-center justify-between gap-2 rounded-lg px-3 py-3 text-sm transition-colors duration-150 sm:py-2";
+  const idleLink = `${linkBase} text-[#A0A0A0] hover:bg-[#0F0F0F] hover:text-[#F5F5F5]`;
+  const activeLink = `${linkBase} bg-[#141414] text-[#F5F5F5]`;
+
+  // Filter sessions by search query if provided
+  const displaySessions = useMemo(() => {
+    if (!searchQuery || !sessions) return sessions;
+    const query = searchQuery.toLowerCase();
+    return sessions.filter((session) =>
+      session.title.toLowerCase().includes(query)
+    );
+  }, [sessions, searchQuery]);
 
   return (
     <div>
       <p className="eyebrow px-3 pb-2 pt-1">Recent</p>
       {sessions === null ? (
         <div className="space-y-0.5 px-1" aria-hidden>
-          <div className="h-9 rounded-lg bg-[var(--sidebar-accent)]/60" />
-          <div className="h-9 rounded-lg bg-[var(--sidebar-accent)]/60" />
+          <div className="h-9 rounded-lg bg-[#141414]" />
+          <div className="h-9 rounded-lg bg-[#141414]" />
         </div>
-      ) : sessions.length === 0 ? (
-        <p className="px-3 pb-1 text-xs leading-relaxed text-[var(--sidebar-foreground)]/60">
-          No conversations yet. They will appear here as you chat.
+      ) : displaySessions?.length === 0 ? (
+        <p className="px-3 pb-1 text-xs leading-relaxed text-[#707070]">
+          {searchQuery ? "No matching conversations." : "No conversations yet. They will appear here as you chat."}
         </p>
       ) : (
         <div className="space-y-0.5">
           <Link
             href="/chat"
             onClick={onNavigate}
-            className={`flex items-center rounded-lg px-3 py-3 text-sm font-medium text-[var(--brand)] transition-smooth hover:bg-[var(--brand)]/10 sm:py-2 ${
-              pathname === "/chat" && !activeC ? "bg-[var(--brand)]/10" : ""
+            className={`flex items-center rounded-lg px-3 py-3 text-sm font-medium text-[#A0A0A0] transition-colors duration-150 hover:bg-[#0F0F0F] hover:text-[#F5F5F5] sm:py-2 ${
+              pathname === "/chat" && !activeC ? "bg-[#141414] text-[#F5F5F5]" : ""
             }`}
           >
             + New chat
           </Link>
           <div className="max-h-72 space-y-0.5 overflow-y-auto pb-1 sm:max-h-56">
-{sessions.map((session) => {
+{displaySessions?.map((session) => {
               const isReal = UUID_RE.test(session.key);
               if (isReal) {
                 return (
@@ -248,7 +261,7 @@ export default function ConversationHistory({
                     title={session.title}
                   >
                     <span className="min-w-0 flex-1 truncate">{session.title}</span>
-                    <span className="shrink-0 text-[10px] text-[var(--muted-foreground)]">{session.dayLabel}</span>
+                    <span className="shrink-0 text-[10px] text-[#707070]">{session.dayLabel}</span>
                   </Link>
                 );
               } else {
@@ -256,10 +269,10 @@ export default function ConversationHistory({
                 return (
                   <div
                     key={session.key}
-                    className={`${linkBase} text-[var(--sidebar-foreground)]/75 hover:bg-[var(--sidebar-accent)]/75 hover:text-[var(--foreground)] cursor-not-allowed opacity-50`}
+                    className={`${linkBase} text-[#707070] cursor-not-allowed opacity-50`}
                   >
                     <span className="min-w-0 flex-1 truncate">{session.title}</span>
-                    <span className="shrink-0 text-[10px] text-[var(--muted-foreground)]">{session.dayLabel}</span>
+                    <span className="shrink-0 text-[10px] text-[#707070]">{session.dayLabel}</span>
                   </div>
                 );
               }

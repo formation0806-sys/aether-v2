@@ -1,0 +1,55 @@
+{
+  "phase": "PHASE 6-AO-V17",
+  "title": "Verifier policy / identity-equivalence evaluation",
+  "status": "PENDING",
+  "reason": null,
+  "recordedAt": "2026-09-13T09:30:39.699Z",
+  "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "frozenPromptSha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+  "prompt": {
+    "sha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "sha256Expected": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
+    "pinned": true
+  },
+  "models": {
+    "verifier": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "ollamaModelsSeen": [
+      "bge-m3:latest",
+      "mxbai-embed-large:latest",
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "baseline": {
+    "totalPairs": 0,
+    "sameCount": 0,
+    "differentCount": 0,
+    "runs": []
+  },
+  "policies": [],
+  "repeatability": [],
+  "outcome": {
+    "classification": null,
+    "reason": null
+  },
+  "integrity": {
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "networkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "productionThresholdRemained": 0.85,
+    "productionEmbeddingModelChanged": false,
+    "datasetModified": false,
+    "productionCodeModified": false,
+    "historicalArtifactsTouched": false
+  }
+}

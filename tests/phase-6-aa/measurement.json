@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-08-23T18:15:26.281Z",
+  "startedAt": "2026-09-01T08:19:56.529Z",
   "experiment": "full-input-reflector-probe",
   "productionWrites": 0,
   "reflectorInvocations": 1,
-  "classification": "BLOCKED",
-  "reason": "generateReflections threw: fetch failed",
+  "classification": "PARSER_EMPTY_OBJECT",
+  "reason": "model returned a JSON object (not array); parser rejects non-array roots.",
   "env": {
     "supabaseConfigured": true,
     "userIdPresent": true
@@ -354,13 +354,13 @@
     }
   },
   "parseDiagnostics": {
-    "rawLength": null,
-    "isLiteralEmptyArray": null,
-    "parseSuccess": false,
-    "rootType": "none",
+    "rawLength": 294,
+    "isLiteralEmptyArray": false,
+    "parseSuccess": true,
+    "rootType": "object",
     "candidatesPreSanitizer": 0,
     "finalAccepted": 0,
-    "networkError": "fetch failed"
+    "networkError": null
   },
   "comparisonWithPhase6WX": {
     "phase6WX": {
@@ -376,8 +376,8 @@
       "inputMemoryCount": 17,
       "typeGroups": 3,
       "reflectionMemoriesInInput": 10,
-      "classification": "BLOCKED",
-      "rawModelOutput": null,
+      "classification": "PARSER_EMPTY_OBJECT",
+      "rawModelOutput": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-01T08:19:58.9447852Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1850547100,\"load_duration\":4519700,\"prompt_eval_count\":3077,\"prompt_eval_duration\":18190000,\"eval_count\":2,\"eval_duration\":22054000}",
       "candidatesPreSanitizer": 0,
       "finalAccepted": 0
     },

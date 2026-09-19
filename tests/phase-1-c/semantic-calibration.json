@@ -1,0 +1,553 @@
+{
+  "schema": "phase-1-c/step6",
+  "version": 1,
+  "timestamp": "2026-09-13T09:31:14.722Z",
+  "environment": {
+    "embedModel": "nomic-embed-text:latest",
+    "embedDim": 768,
+    "matcher": "in-memory-cosine-mirror",
+    "zeroWrite": true,
+    "productionWrites": 0
+  },
+  "corpus": {
+    "total": 9,
+    "positiveCount": 4,
+    "negativeCount": 5,
+    "examples": [
+      {
+        "id": "P1",
+        "label": "positive",
+        "style": "repeated_pattern",
+        "reflection": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+        "claimedSourceIds": [
+          "a1",
+          "a2"
+        ],
+        "sources": [
+          {
+            "id": "a1",
+            "content": "The user prefers dark mode for all software interfaces."
+          },
+          {
+            "id": "a2",
+            "content": "The user always chooses the OLED pure-black theme when available."
+          }
+        ],
+        "groundTruthNote": "Reflection is a faithful synthesis of two genuinely related preference memories (dark mode + OLED theme)."
+      },
+      {
+        "id": "P2",
+        "label": "positive",
+        "style": "relationship",
+        "reflection": "The user's early wake-up at 5:30 AM each day is paired with drinking black coffee before 7 AM as part of a consistent morning routine.",
+        "claimedSourceIds": [
+          "b1",
+          "b2"
+        ],
+        "sources": [
+          {
+            "id": "b1",
+            "content": "The user is a morning person who wakes up at 5:30 AM every day."
+          },
+          {
+            "id": "b2",
+            "content": "The user drinks black coffee every morning before 7 AM."
+          }
+        ],
+        "groundTruthNote": "Reflection connects two memories that describe the same real morning routine (wake-up + coffee)."
+      },
+      {
+        "id": "P3",
+        "label": "positive",
+        "style": "change_over_time",
+        "reflection": "The user's primary development environment changed over time from Windows to macOS.",
+        "claimedSourceIds": [
+          "c1",
+          "c2"
+        ],
+        "sources": [
+          {
+            "id": "c1",
+            "content": "The user previously used Windows as their primary development operating system."
+          },
+          {
+            "id": "c2",
+            "content": "The user now develops primarily on macOS."
+          }
+        ],
+        "groundTruthNote": "Reflection states a real change captured by two time-separated memories about the dev OS."
+      },
+      {
+        "id": "P4",
+        "label": "positive",
+        "style": "contradiction",
+        "reflection": "The user's statement that they never consume alcohol contradicts their mention of enjoying a glass of wine with dinner.",
+        "claimedSourceIds": [
+          "d1",
+          "d2"
+        ],
+        "sources": [
+          {
+            "id": "d1",
+            "content": "The user stated they never consume alcohol."
+          },
+          {
+            "id": "d2",
+            "content": "The user mentioned enjoying a glass of wine with dinner."
+          }
+        ],
+        "groundTruthNote": "Reflection explicitly references both memories to flag a genuine contradiction between them."
+      },
+      {
+        "id": "N1",
+        "label": "negative",
+        "style": "identical_to_source",
+        "reflection": "The user prefers dark mode for all software interfaces.",
+        "claimedSourceIds": [
+          "a1",
+          "a2"
+        ],
+        "sources": [
+          {
+            "id": "a1",
+            "content": "The user prefers dark mode for all software interfaces."
+          },
+          {
+            "id": "a2",
+            "content": "The user always chooses the OLED pure-black theme when available."
+          }
+        ],
+        "groundTruthNote": "Reflection is verbatim copy of a1 and claims two sources; it is NOT a two-source synthesis (R2 would reject structurally)."
+      },
+      {
+        "id": "N2",
+        "label": "negative",
+        "style": "single_source_paraphrase",
+        "reflection": "The user loves hiking mountain trails on weekends.",
+        "claimedSourceIds": [
+          "x1",
+          "x2"
+        ],
+        "sources": [
+          {
+            "id": "x1",
+            "content": "The user loves hiking mountain trails on weekends."
+          },
+          {
+            "id": "x2",
+            "content": "The user enjoys reading science fiction novels."
+          }
+        ],
+        "groundTruthNote": "Reflection only paraphrases x1 and falsely claims x2 (sci-fi), which is unrelated to the statement."
+      },
+      {
+        "id": "N3",
+        "label": "negative",
+        "style": "unrelated_source_pairing",
+        "reflection": "The user's preference for pizza shapes their financial career decisions.",
+        "claimedSourceIds": [
+          "u1",
+          "u2"
+        ],
+        "sources": [
+          {
+            "id": "u1",
+            "content": "The user likes pizza."
+          },
+          {
+            "id": "u2",
+            "content": "The user works in finance."
+          }
+        ],
+        "groundTruthNote": "Pairs two unrelated memories (pizza, finance) as if causally linked; inference is unsupported."
+      },
+      {
+        "id": "N4",
+        "label": "negative",
+        "style": "topically_similar_unsupported_inference",
+        "reflection": "Because the user runs marathons, they must eat a high-protein diet to recover properly.",
+        "claimedSourceIds": [
+          "t1",
+          "t2"
+        ],
+        "sources": [
+          {
+            "id": "t1",
+            "content": "The user trains for and runs marathons."
+          },
+          {
+            "id": "t2",
+            "content": "The user follows a high-protein diet."
+          }
+        ],
+        "groundTruthNote": "Topically adjacent to both sources but asserts a causal 'must' that the memories do not support."
+      },
+      {
+        "id": "N5",
+        "label": "negative",
+        "style": "generic_unsupported",
+        "reflection": "The user has some personal preferences and life details worth remembering.",
+        "claimedSourceIds": [
+          "g1",
+          "g2"
+        ],
+        "sources": [
+          {
+            "id": "g1",
+            "content": "The user prefers tea over coffee."
+          },
+          {
+            "id": "g2",
+            "content": "The user lives in Berlin."
+          }
+        ],
+        "groundTruthNote": "Generic filler that does not establish any specific support linking the two claimed sources."
+      }
+    ]
+  },
+  "observations": [
+    {
+      "id": "P1",
+      "label": "positive",
+      "style": "repeated_pattern",
+      "reflection": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme when available.",
+      "claimedSourceIds": [
+        "a1",
+        "a2"
+      ],
+      "measured": [
+        {
+          "id": "a1",
+          "similarity": 0.9101985307188039
+        },
+        {
+          "id": "a2",
+          "similarity": 0.9137826220957015
+        }
+      ],
+      "minSimilarity": 0.9101985307188039,
+      "meanSimilarity": 0.9119905764072527,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "P2",
+      "label": "positive",
+      "style": "relationship",
+      "reflection": "The user's early wake-up at 5:30 AM each day is paired with drinking black coffee before 7 AM as part of a consistent morning routine.",
+      "claimedSourceIds": [
+        "b1",
+        "b2"
+      ],
+      "measured": [
+        {
+          "id": "b1",
+          "similarity": 0.7882267423822874
+        },
+        {
+          "id": "b2",
+          "similarity": 0.8694165619791216
+        }
+      ],
+      "minSimilarity": 0.7882267423822874,
+      "meanSimilarity": 0.8288216521807046,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "P3",
+      "label": "positive",
+      "style": "change_over_time",
+      "reflection": "The user's primary development environment changed over time from Windows to macOS.",
+      "claimedSourceIds": [
+        "c1",
+        "c2"
+      ],
+      "measured": [
+        {
+          "id": "c1",
+          "similarity": 0.8083143884939854
+        },
+        {
+          "id": "c2",
+          "similarity": 0.8093967527598354
+        }
+      ],
+      "minSimilarity": 0.8083143884939854,
+      "meanSimilarity": 0.8088555706269104,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "P4",
+      "label": "positive",
+      "style": "contradiction",
+      "reflection": "The user's statement that they never consume alcohol contradicts their mention of enjoying a glass of wine with dinner.",
+      "claimedSourceIds": [
+        "d1",
+        "d2"
+      ],
+      "measured": [
+        {
+          "id": "d1",
+          "similarity": 0.843499194267333
+        },
+        {
+          "id": "d2",
+          "similarity": 0.8651901262790976
+        }
+      ],
+      "minSimilarity": 0.843499194267333,
+      "meanSimilarity": 0.8543446602732153,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "N1",
+      "label": "negative",
+      "style": "identical_to_source",
+      "reflection": "The user prefers dark mode for all software interfaces.",
+      "claimedSourceIds": [
+        "a1",
+        "a2"
+      ],
+      "measured": [
+        {
+          "id": "a1",
+          "similarity": 1
+        },
+        {
+          "id": "a2",
+          "similarity": 0.7459510802019969
+        }
+      ],
+      "minSimilarity": 0.7459510802019969,
+      "meanSimilarity": 0.8729755401009984,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "N2",
+      "label": "negative",
+      "style": "single_source_paraphrase",
+      "reflection": "The user loves hiking mountain trails on weekends.",
+      "claimedSourceIds": [
+        "x1",
+        "x2"
+      ],
+      "measured": [
+        {
+          "id": "x1",
+          "similarity": 1
+        },
+        {
+          "id": "x2",
+          "similarity": 0.6282298396484258
+        }
+      ],
+      "minSimilarity": 0.6282298396484258,
+      "meanSimilarity": 0.8141149198242129,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "N3",
+      "label": "negative",
+      "style": "unrelated_source_pairing",
+      "reflection": "The user's preference for pizza shapes their financial career decisions.",
+      "claimedSourceIds": [
+        "u1",
+        "u2"
+      ],
+      "measured": [
+        {
+          "id": "u1",
+          "similarity": 0.779927008023713
+        },
+        {
+          "id": "u2",
+          "similarity": 0.6480240539584002
+        }
+      ],
+      "minSimilarity": 0.6480240539584002,
+      "meanSimilarity": 0.7139755309910566,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "N4",
+      "label": "negative",
+      "style": "topically_similar_unsupported_inference",
+      "reflection": "Because the user runs marathons, they must eat a high-protein diet to recover properly.",
+      "claimedSourceIds": [
+        "t1",
+        "t2"
+      ],
+      "measured": [
+        {
+          "id": "t1",
+          "similarity": 0.732522986306912
+        },
+        {
+          "id": "t2",
+          "similarity": 0.7879397315270474
+        }
+      ],
+      "minSimilarity": 0.732522986306912,
+      "meanSimilarity": 0.7602313589169798,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    },
+    {
+      "id": "N5",
+      "label": "negative",
+      "style": "generic_unsupported",
+      "reflection": "The user has some personal preferences and life details worth remembering.",
+      "claimedSourceIds": [
+        "g1",
+        "g2"
+      ],
+      "measured": [
+        {
+          "id": "g1",
+          "similarity": 0.6096981750113263
+        },
+        {
+          "id": "g2",
+          "similarity": 0.6441031914320846
+        }
+      ],
+      "minSimilarity": 0.6096981750113263,
+      "meanSimilarity": 0.6269006832217054,
+      "measuredCount": 2,
+      "unmeasuredCount": 0
+    }
+  ],
+  "repeatability": {
+    "repeatCount": 3,
+    "deterministic": true
+  },
+  "calibration": {
+    "candidateTaus": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "evaluations": [
+      {
+        "tau": 0.5,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 5,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 1,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.55,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 5,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 1,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.6,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 5,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 1,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.65,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 2,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 0.4,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.7,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 2,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 0.4,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.75,
+        "positiveFalseRejections": 0,
+        "negativeFalseAcceptances": 0,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0,
+        "falseAcceptanceRate": 0,
+        "zeroFalseRejections": true
+      },
+      {
+        "tau": 0.8,
+        "positiveFalseRejections": 1,
+        "negativeFalseAcceptances": 0,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0.25,
+        "falseAcceptanceRate": 0,
+        "zeroFalseRejections": false
+      },
+      {
+        "tau": 0.85,
+        "positiveFalseRejections": 3,
+        "negativeFalseAcceptances": 0,
+        "positiveCount": 4,
+        "negativeCount": 5,
+        "falseRejectionRate": 0.75,
+        "falseAcceptanceRate": 0,
+        "zeroFalseRejections": false
+      }
+    ],
+    "selectedTau": 0.75,
+    "positiveMinDistribution": [
+      0.9101985307188039,
+      0.7882267423822874,
+      0.8083143884939854,
+      0.843499194267333
+    ],
+    "negativeMinDistribution": [
+      0.7459510802019969,
+      0.6282298396484258,
+      0.6480240539584002,
+      0.732522986306912,
+      0.6096981750113263
+    ],
+    "overlap": false,
+    "separationMargin": 0.04227566218029055,
+    "zeroFalseRejections": true,
+    "falseAcceptanceRate": 0,
+    "falseRejectionRate": 0,
+    "unmeasuredCases": 0,
+    "enforcementJustified": false
+  },
+  "zeroWriteAssertion": "No production writes occurred; measurement is read-only (embed + in-memory cosine match). No similarity persisted.",
+  "limitations": [
+    "Small hand-authored in-memory corpus — not statistically significant.",
+    "Fixtures, not production DB; matcher mirrors match_memories_v2 semantics, not the live RPC.",
+    "Only S3 (min over claimed sources) evaluated; unmeasured sources floor to -1.",
+    "nomic-embed-text similarities are model-dependent.",
+    "No production reflection / scoring / threshold / prompt changed."
+  ]
+}

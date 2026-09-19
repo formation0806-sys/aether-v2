@@ -13,7 +13,8 @@ export type MemoryStatus =
   | "active"
   | "fading"
   | "archived"
-  | "deleted";
+  | "deleted"
+  | "merged";
 
 export type MemorySource =
   | "user"
@@ -42,6 +43,7 @@ export const MEMORY_STATUSES: readonly MemoryStatus[] = [
   "fading",
   "archived",
   "deleted",
+  "merged",
 ];
 
 export const MEMORY_SOURCES: readonly MemorySource[] = [

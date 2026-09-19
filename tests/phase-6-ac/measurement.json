@@ -1,9 +1,9 @@
 {
-  "startedAt": "2026-08-23T18:15:26.283Z",
+  "startedAt": "2026-09-13T09:30:51.637Z",
   "experiment": "phase-6-ac-prompt-decision-audit",
   "productionWrites": 0,
   "reflectorInvocations": 0,
-  "classification": "BLOCKED",
+  "classification": "MODEL_EMPTY",
   "causality": "PROMPT_CONTRIBUTORY",
   "env": {
     "supabaseConfigured": true,
@@ -24,7 +24,7 @@
     "systemPromptLength": 5136,
     "systemPromptHash": "24aa25c19b439cb5",
     "userPromptLength": 6988,
-    "userPromptHash": "137888efe9f544be",
+    "userPromptHash": "6487974ec5c9aac9",
     "memoryCount": 17,
     "groupCount": 3,
     "groupDetails": [
@@ -106,11 +106,11 @@
       "717420ed-ea5e-480b-8485-634ab825f631",
       "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
       "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
-      "ad438289-f5af-4334-b1e3-a09d65f52099",
-      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
-      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
       "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+      "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+      "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+      "ad438289-f5af-4334-b1e3-a09d65f52099",
+      "460fe488-0b1f-4b6b-b59c-e658a62cf202",
       "f0d54afe-f3ff-4071-80e0-ad1fb6560358"
     ],
     "items": [
@@ -157,15 +157,15 @@
         "createdAt": "2026-08-15T11:38:08.142185+00:00"
       },
       {
-        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
-        "title": "Professional Role Consistency",
-        "contentLength": 143,
+        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+        "title": "Project Details",
+        "contentLength": 102,
         "detectedTypes": [
           "REPEATED_PATTERN"
         ],
         "hasSourceRef": false,
         "sourceRef": null,
-        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+        "createdAt": "2026-08-15T12:00:06.534876+00:00"
       },
       {
         "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
@@ -180,17 +180,6 @@
         "createdAt": "2026-08-15T12:24:52.358049+00:00"
       },
       {
-        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
-        "title": "TypeScript Preference Change",
-        "contentLength": 169,
-        "detectedTypes": [
-          "REPEATED_PATTERN"
-        ],
-        "hasSourceRef": false,
-        "sourceRef": null,
-        "createdAt": "2026-08-15T12:26:07.852978+00:00"
-      },
-      {
         "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
         "title": "Recurring Theme: Aether Development",
         "contentLength": 175,
@@ -202,15 +191,26 @@
         "createdAt": "2026-08-15T12:29:22.781442+00:00"
       },
       {
-        "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
-        "title": "Project Details",
-        "contentLength": 102,
+        "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+        "title": "Professional Role Consistency",
+        "contentLength": 143,
         "detectedTypes": [
           "REPEATED_PATTERN"
         ],
         "hasSourceRef": false,
         "sourceRef": null,
-        "createdAt": "2026-08-15T12:00:06.534876+00:00"
+        "createdAt": "2026-08-15T12:26:07.151209+00:00"
+      },
+      {
+        "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+        "title": "TypeScript Preference Change",
+        "contentLength": 169,
+        "detectedTypes": [
+          "REPEATED_PATTERN"
+        ],
+        "hasSourceRef": false,
+        "sourceRef": null,
+        "createdAt": "2026-08-15T12:26:07.852978+00:00"
       },
       {
         "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
@@ -247,16 +247,16 @@
     "assessment": "Historical reflections were produced from inputs that are not fully reconstructable. The current input differs structurally by including reflection memories as input, which may change the model's decision boundary."
   },
   "rawModelResponse": {
-    "text": null,
-    "length": null,
-    "isEmpty": true,
-    "isLiteralEmptyArray": false,
-    "parseSuccess": false,
-    "rootType": "none",
+    "text": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:30:56.7999527Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4947438800,\"load_duration\":12422400,\"prompt_eval_count\":3077,\"prompt_eval_duration\":806173000,\"eval_count\":2,\"eval_duration\":19480000}",
+    "length": 296,
+    "isEmpty": false,
+    "isLiteralEmptyArray": true,
+    "parseSuccess": true,
+    "rootType": "array",
     "candidatesPreSanitizer": 0,
     "finalAccepted": 0,
-    "classification": "BLOCKED",
-    "networkError": "fetch failed"
+    "classification": "MODEL_EMPTY",
+    "networkError": null
   },
   "causalityReason": "Multiple rules show strong correlation with [] output, but causality cannot be isolated.",
   "productionChangeJustified": false,

@@ -1,7 +1,7 @@
 # Phase 6-AO-V10 — Post-Adoption Observability Report
 
 **Status:** V10_PASS
-**Timestamp:** 2026-08-27T10:08:47.499Z
+**Timestamp:** 2026-09-13T09:40:44.176Z
 
 ## Preflight
 
@@ -26,41 +26,10 @@
 
 ## Cases
 
-### SAME / Important
-
-| Pair | Verdict | Target | Similarity |
-|------|---------|--------|------------|
-| pair-001 | corroborate | mem-pair-001-b | 0.92 |
-| pair-019 | corroborate | mem-pair-019-b | 0.92 |
-| pair-035 | corroborate | mem-pair-035-b | 0.92 |
-
-### DIFFERENT / Safety
-
-| Pair | Verdict | Reason |
-|------|---------|--------|
-| pair-011 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-| pair-034 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-| pair-028 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-| pair-031 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-| pair-032 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-| pair-042 | create | non-clean pattern: DIFFERENT after 1 verified candidate(s) |
-
-### Retrieval-Reference
-
-| Pair | Verdict | Reason |
-|------|---------|--------|
-| pair-005 | create | no semantic candidates (below 0.85 retrieval floor) |
-| pair-041 | create | no semantic candidates (below 0.85 retrieval floor) |
-
-## 20× Repeatability Distributions
-
-| Pair | SAME | DIFFERENT | Modal | Agreement | Sequence |
-|------|------|-----------|-------|-----------|----------|
-| pair-001 | 20 | 0 | SAME | 20/20 | SAME x20 |
-| pair-011 | 0 | 20 | DIFFERENT | 20/20 | DIFFERENT x20 |
-| pair-019 | 20 | 0 | SAME | 20/20 | SAME x20 |
-| pair-034 | 0 | 20 | DIFFERENT | 20/20 | DIFFERENT x20 |
-| pair-035 | 20 | 0 | SAME | 20/20 | SAME x20 |
+- SAME/important: pair-001, pair-019, pair-035
+- DIFFERENT/safety: pair-011, pair-034, pair-028, pair-031, pair-032, pair-042
+- Retrieval-reference: pair-005, pair-041
+- Repeatability: pair-001, pair-011, pair-019, pair-034, pair-035
 
 ## Safety
 
@@ -76,18 +45,5 @@
 - DATASET ANOMALY: pair-034 remains the frozen semantic decoy and never becomes SAME.
 - PERSISTENCE NOT TESTED: no Supabase writes were performed; real DB behavior remains unexercised.
 
-## Build & Validation
-
-- TypeScript (`npx tsc --noEmit`): PASS (no new errors in V10 test file; pre-existing errors in v4-decision-boundary.test.ts and verifier-contract-v2.test.ts are not caused by V10 changes)
-- Build (`npm run build`): PASS
-- V10 test suite: 22/22 passed
-
-## Git Status
-
-- NO commit
-- NO push
-- NO PR
-- NO deployment
-- NO tag
-- Modified files: pre-existing modifications from V7/V8/V9 work (not caused by V10)
-- Created files: `tests/phase-6-ao/results/v10-post-adoption-observability.json`, `tests/phase-6-ao/results/v10-report.md`
+**Build:** run `npm run build` separately if required by your gate.
+**TypeScript:** run `npx tsc --noEmit` separately if required by your gate.

@@ -1,0 +1,927 @@
+{
+  "schema": "phase-1-c/step1",
+  "version": 1,
+  "timestamp": "2026-09-01T08:20:19.738Z",
+  "promptHash": "45a6df9d4bc3b6f21fb4badd12d9ba6e885ba8a2975d25fae30a8dfe6d42443b",
+  "promptHashMatchesPhase1BPin": true,
+  "model": {
+    "name": "qwen2.5:3b",
+    "temperature": 0.1,
+    "num_predict": 300,
+    "top_p": 0.8,
+    "num_ctx": 4096
+  },
+  "zeroWrite": {
+    "productionWrites": 0,
+    "dbOps": [
+      "select:memories",
+      "select-head-count:messages",
+      "select-head-count:memory_jobs",
+      "embed:reflection(read-only-model-call)",
+      "rpc:match_memories_v2(read)"
+    ],
+    "assertNoWrites": true
+  },
+  "environment": {
+    "ollamaUrl": "http://127.0.0.1:11434",
+    "supabaseAuth": "SERVICE_ROLE (read-only selects + read RPC)",
+    "userId": "redacted"
+  },
+  "census": {
+    "totalMemories": 37,
+    "byStatus": {
+      "active": 27,
+      "candidate": 6,
+      "merged": 4
+    },
+    "byType": {
+      "project": 9,
+      "semantic": 10,
+      "reflection": 13,
+      "identity": 2,
+      "working": 3
+    },
+    "bySource": {
+      "extractor": 27,
+      "reflection": 10
+    },
+    "eligibleCount": 7,
+    "eligibleByType": {
+      "project": 5,
+      "identity": 2
+    },
+    "reflectionMemories": 13,
+    "reflectionExcludedByPhase1AGuard": 10,
+    "distinctObservationIds": 5,
+    "emptySummaryRate": 1,
+    "emptyTagsRate": 1,
+    "emptyMetadataRate": 1,
+    "typeGroups": [
+      {
+        "memoryType": "project",
+        "size": 5,
+        "singleton": false
+      },
+      {
+        "memoryType": "identity",
+        "size": 2,
+        "singleton": false
+      }
+    ],
+    "singletonGroupCount": 0,
+    "windowFormed": true,
+    "windowSize": 7,
+    "starvation": "none_detected",
+    "candidatePreviews": [
+      {
+        "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+        "type": "project",
+        "title": "User Project: Aether [en75rlnh]",
+        "contentLength": 82,
+        "contentPreview": "The user is building a project called Aether with Next.js and Supabase. [en75rln"
+      },
+      {
+        "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+        "type": "project",
+        "title": "Meal Planning",
+        "contentLength": 51,
+        "contentPreview": "The user plans to make chicken briyani for tonight."
+      },
+      {
+        "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+        "type": "project",
+        "title": "Project",
+        "contentLength": 67,
+        "contentPreview": "The user is building Aether as their long-term AI teammate project."
+      },
+      {
+        "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+        "type": "project",
+        "title": "Aether Secret Test Phrase",
+        "contentLength": 54,
+        "contentPreview": "The user is seeking the secret test phrase for Aether."
+      },
+      {
+        "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+        "type": "identity",
+        "title": "Preference",
+        "contentLength": 49,
+        "contentPreview": "The user's favorite programming language is Rust."
+      },
+      {
+        "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+        "type": "project",
+        "title": "Secret Test Phrase",
+        "contentLength": 51,
+        "contentPreview": "The user's secret Aether test phrase is ORBIT-7429."
+      },
+      {
+        "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+        "type": "identity",
+        "title": "Professional Role",
+        "contentLength": 107,
+        "contentPreview": "The user identifies as an engineer and this is an important aspect of their prof"
+      }
+    ]
+  },
+  "cadence": {
+    "totalMessagesHistorical": 251,
+    "totalMemoryJobsHistorical": 5,
+    "distinctObservationIds": 5,
+    "extractionGatedReflectionOpportunities": 5,
+    "reflectionMemoriesProduced": 13,
+    "reflectionsPerOpportunity": 2.6,
+    "attemptsPerMaintenanceInvocationBound": 1,
+    "exactTurnCountsDerivable": false,
+    "note": "Exact turns since last reflection are NOT derivable: the frozen conversation repository exposes no timestamped message query. Measured here as extraction-gated opportunities (distinct observation_ids) over historical memory jobs — a lower bound on message cadence. REFLECT_EVERY_N_TURNS remains unwired by design (deferred)."
+  },
+  "conditions": {
+    "V1": {
+      "name": "V1_real_as_is",
+      "composition": "full-1B",
+      "enrichmentSynthetic": false,
+      "attempts": [
+        {
+          "condition": "V1_real_as_is",
+          "run": 1,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 2784,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V1_real_as_is",
+          "run": 2,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 2188,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V1_real_as_is",
+          "run": 3,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 411,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V1_real_as_is",
+          "run": 4,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 491,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V1_real_as_is",
+          "run": 5,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 1049,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        }
+      ],
+      "stats": {
+        "runs": 5,
+        "emptyRate": 1,
+        "validRate": 0,
+        "latencyMin": 411,
+        "latencyMean": 1384.6,
+        "latencyMax": 2784,
+        "titleJaccardMean": 1,
+        "classification": "stable-empty"
+      }
+    },
+    "V2": {
+      "name": "V2_enriched_real",
+      "composition": "full-1B",
+      "enrichmentSynthetic": true,
+      "attempts": [
+        {
+          "condition": "V2_enriched_real",
+          "run": 1,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 1602,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V2_enriched_real",
+          "run": 2,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 694,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V2_enriched_real",
+          "run": 3,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 1285,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V2_enriched_real",
+          "run": 4,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 415,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V2_enriched_real",
+          "run": 5,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 489,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        }
+      ],
+      "stats": {
+        "runs": 5,
+        "emptyRate": 1,
+        "validRate": 0,
+        "latencyMin": 415,
+        "latencyMean": 897,
+        "latencyMax": 1602,
+        "titleJaccardMean": 1,
+        "classification": "stable-empty"
+      }
+    },
+    "V3": {
+      "name": "V3_synthetic_grounded",
+      "composition": "grouped-fixture",
+      "fixture": "6E-C-replica",
+      "enrichmentSynthetic": false,
+      "attempts": [
+        {
+          "condition": "V3_synthetic_grounded",
+          "run": 1,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 1198,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V3_synthetic_grounded",
+          "run": 2,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 769,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V3_synthetic_grounded",
+          "run": 3,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 634,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V3_synthetic_grounded",
+          "run": 4,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 722,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V3_synthetic_grounded",
+          "run": 5,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 45,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        }
+      ],
+      "stats": {
+        "runs": 5,
+        "emptyRate": 1,
+        "validRate": 0,
+        "latencyMin": 45,
+        "latencyMean": 673.6,
+        "latencyMax": 1198,
+        "titleJaccardMean": 1,
+        "classification": "stable-empty"
+      }
+    },
+    "V4a": {
+      "name": "V4a_per_type_only",
+      "composition": "per-type-only",
+      "enrichmentSynthetic": false,
+      "attempts": [
+        {
+          "condition": "V4a_per_type_only",
+          "run": 1,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 356,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4a_per_type_only",
+          "run": 2,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 48,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4a_per_type_only",
+          "run": 3,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 47,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4a_per_type_only",
+          "run": 4,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 46,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4a_per_type_only",
+          "run": 5,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 48,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        }
+      ],
+      "stats": {
+        "runs": 5,
+        "emptyRate": 1,
+        "validRate": 0,
+        "latencyMin": 46,
+        "latencyMean": 109,
+        "latencyMax": 356,
+        "titleJaccardMean": 1,
+        "classification": "stable-empty"
+      }
+    },
+    "V4b": {
+      "name": "V4b_window_only",
+      "composition": "window-only",
+      "enrichmentSynthetic": false,
+      "attempts": [
+        {
+          "condition": "V4b_window_only",
+          "run": 1,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 352,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4b_window_only",
+          "run": 2,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 45,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4b_window_only",
+          "run": 3,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 42,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4b_window_only",
+          "run": 4,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 44,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        },
+        {
+          "condition": "V4b_window_only",
+          "run": 5,
+          "httpStatus": 200,
+          "rawLength": 2,
+          "latencyMs": 46,
+          "formatClass": "genuine_empty",
+          "parseError": null,
+          "rawItemCount": 0,
+          "sanitizedCount": 0,
+          "sanitizeRejections": [],
+          "importanceIgnoredCount": 0,
+          "confidenceIgnoredCount": 0,
+          "grounding": {
+            "accepted": 0,
+            "r1": 0,
+            "r2": 0,
+            "r3": 0
+          },
+          "usefulCount": 0,
+          "reflections": []
+        }
+      ],
+      "stats": {
+        "runs": 5,
+        "emptyRate": 1,
+        "validRate": 0,
+        "latencyMin": 42,
+        "latencyMean": 105.8,
+        "latencyMax": 352,
+        "titleJaccardMean": 1,
+        "classification": "stable-empty"
+      }
+    },
+    "V4c_full_1B": {
+      "name": "V4c_full_1B",
+      "aliasOf": "V1_real_as_is",
+      "note": "full Phase 1-B composition is exactly the V1 production input"
+    }
+  },
+  "supplementary": {
+    "sixE_A_single_run": {
+      "condition": "supp_6E_A",
+      "run": 1,
+      "httpStatus": 200,
+      "rawLength": 238,
+      "latencyMs": 1139,
+      "formatClass": "clean_array",
+      "parseError": null,
+      "rawItemCount": 1,
+      "sanitizedCount": 1,
+      "sanitizeRejections": [],
+      "importanceIgnoredCount": 0,
+      "confidenceIgnoredCount": 0,
+      "grounding": {
+        "accepted": 1,
+        "r1": 0,
+        "r2": 0,
+        "r3": 0
+      },
+      "usefulCount": 1,
+      "reflections": [
+        {
+          "title": "Dark Mode and OLED Theme Preference",
+          "contentPreview": "The user consistently prefers dark mode for all software interfaces and always chooses the OLED pure-black theme.",
+          "contentLength": 113,
+          "importance": 5,
+          "confidence": 0.8,
+          "groundingOk": true,
+          "groundingReason": null,
+          "exactDuplicate": false,
+          "maxTokenJaccard": 0.14,
+          "generic": false,
+          "useful": true,
+          "shadow": {
+            "measured": [],
+            "unmeasuredIds": [
+              "a1",
+              "a2"
+            ],
+            "min": null,
+            "mean": null
+          }
+        }
+      ]
+    },
+    "sixE_B_single_run": {
+      "condition": "supp_6E_B",
+      "run": 1,
+      "httpStatus": 200,
+      "rawLength": 2,
+      "latencyMs": 108,
+      "formatClass": "genuine_empty",
+      "parseError": null,
+      "rawItemCount": 0,
+      "sanitizedCount": 0,
+      "sanitizeRejections": [],
+      "importanceIgnoredCount": 0,
+      "confidenceIgnoredCount": 0,
+      "grounding": {
+        "accepted": 0,
+        "r1": 0,
+        "r2": 0,
+        "r3": 0
+      },
+      "usefulCount": 0,
+      "reflections": []
+    }
+  },
+  "classification": {
+    "A_evidence_insufficiency": {
+      "supported": false,
+      "note": "grounded fixtures succeed while real content fails AND enrichment rescues the real pool — indicates the real content cannot support reflection",
+      "evidence": {
+        "rates": {
+          "V1": 0,
+          "V2": 0,
+          "V3": 0,
+          "V4a": 0,
+          "V4b": 0
+        }
+      }
+    },
+    "B_candidate_selection_weakness": {
+      "supported": false,
+      "note": "candidate pool or grouping cannot form a viable reflection input",
+      "evidence": {
+        "eligibleCount": 7,
+        "singletonGroupCount": 0,
+        "windowFormed": true,
+        "windowSize": 7
+      }
+    },
+    "C_model_conservatism": {
+      "supported": false,
+      "note": "grounded fixtures succeed but even enriched real content fails — model declines on real topics",
+      "evidence": {
+        "rates": {
+          "V1": 0,
+          "V2": 0,
+          "V3": 0,
+          "V4a": 0,
+          "V4b": 0
+        }
+      }
+    },
+    "D_parser_format": {
+      "supported": false,
+      "note": "truncated/malformed/non-array/bracket-preamble/empty outputs observed",
+      "evidence": {
+        "formatFailureCount": 0,
+        "formatClasses": {
+          "genuine_empty": 25
+        }
+      }
+    },
+    "E_grounding_weakness": {
+      "supported": false,
+      "note": "structural grounding rejections observed (R1/R2/R3); shadow semantic distributions are attached per reflection",
+      "evidence": {
+        "groundingRejections": 0
+      }
+    },
+    "F_cadence_pressure": {
+      "supported": false,
+      "note": "reflection attempts are extraction-gated by design (one attempt per extraction event); cadence wiring deferred — rates recorded only",
+      "evidence": {
+        "totalMessagesHistorical": 251,
+        "totalMemoryJobsHistorical": 5,
+        "distinctObservationIds": 5,
+        "extractionGatedReflectionOpportunities": 5,
+        "reflectionMemoriesProduced": 13,
+        "reflectionsPerOpportunity": 2.6,
+        "attemptsPerMaintenanceInvocationBound": 1,
+        "exactTurnCountsDerivable": false,
+        "note": "Exact turns since last reflection are NOT derivable: the frozen conversation repository exposes no timestamped message query. Measured here as extraction-gated opportunities (distinct observation_ids) over historical memory jobs — a lower bound on message cadence. REFLECT_EVERY_N_TURNS remains unwired by design (deferred)."
+      }
+    }
+  },
+  "limitations": [
+    "K=5 per condition — repeatability indication, not statistical significance.",
+    "V2 enrichment is synthetic and authored for this probe; it never touches the database.",
+    "Shadow semantic similarities via match_memories_v2 are bounded by that RPC's top-K window; unmeasured sources are recorded, never assumed.",
+    "Usefulness lens is a measurement heuristic (grounded + non-duplicate + non-generic), not an architectural gate.",
+    "Empty-array outputs cannot be distinguished from genuine no-insight decisions by structure alone."
+  ]
+}

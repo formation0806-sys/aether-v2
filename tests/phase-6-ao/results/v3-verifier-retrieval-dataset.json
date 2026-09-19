@@ -1,0 +1,1061 @@
+{
+  "experiment": "PHASE 6-AO-V3 controlled diagnostic (verifier vs retrieval vs dataset)",
+  "status": "COMPLETE",
+  "recordedAt": "2026-08-27T04:07:00.560Z",
+  "frozenSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "dataset": {
+    "totalPairs": 43,
+    "sameCount": 22,
+    "differentCount": 21,
+    "factKeys": 19
+  },
+  "models": {
+    "embedding": "nomic-embed-text:latest",
+    "embeddingDim": 768,
+    "verifier": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "ollamaModelsSeen": [
+      "nomic-embed-text:latest",
+      "qwen2.5-coder:7b",
+      "qwen2.5:3b",
+      "qwen3:4b"
+    ]
+  },
+  "thresholds": {
+    "production": 0.85,
+    "experimentalComparisonOnly": 0.8,
+    "retrievalFloorReference": 0.65,
+    "identityCandidateCount": 8
+  },
+  "armDefinitions": {
+    "A-control": {
+      "source": "extracted at runtime from the lib/memory identity source TEXT (Phase 6-AK.1 mechanism)",
+      "promptSha256": "8f11e65b167f7cad95743f6010093830372bb6588772fe3ba779a4bda56894eb",
+      "adoptionStatus": "CONTROL — reference contract"
+    },
+    "P-paraphrase-scope-framing": {
+      "source": "fixed in-harness constant SYS_P (defined once; never tuned during run)",
+      "promptSha256": "6bc1e4c74e965532498b0dbf8fff8006a25c9b3179eea0862a5d345fee7c9f14",
+      "adoptionStatus": "EXPERIMENT ONLY — no production change authorized or performed"
+    },
+    "CONFIG-C": "NOT IMPLEMENTED (authorization §7); if ever added it must be labeled EXPERIMENTAL ONLY — NOT FOR ADOPTION"
+  },
+  "metricLabels": {
+    "conditionalVerifierRecall": "CONDITIONAL VERIFIER RECALL = TP/(TP+FN) over the threshold-eligible EVALUATED set; UNCERTAIN excluded from the confusion matrix; UNCHANGED historical Phase 6-AO definition",
+    "fixedCorpusSameRecall": "FIXED-CORPUS SAME RECALL = TP/22 over the ENTIRE frozen corpus; secondary view always reported separately",
+    "falseCorroborationRate": "FCR = FP / SAME-verdicts over evaluated-eligible (historical definition)",
+    "note": "Forced-decoy evaluations and targeted critical-band runs are reported OUTSIDE the confusion matrix so historical methodology is never redefined."
+  },
+  "retrievalDiagnostic": {
+    "limitation": "Offline corpus-level simulation on the 86 frozen texts; production ranking additionally uses DB-state signals (effective_score, confidence, recency) that a zero-write harness cannot know; ranks are approximate, not a production replay.",
+    "candidates085": 20,
+    "candidates080": 30,
+    "criticalBandCount": 10,
+    "retrievalMisses085": 6,
+    "retrievalMisses080": 2,
+    "embeddingLayerMisses": 2,
+    "verifierMisses085": 4,
+    "rows": [
+      {
+        "pairId": "pair-001",
+        "factKey": "work-location",
+        "humanLabel": "SAME",
+        "similarity": 0.863824,
+        "poolSize065": 7,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 5,
+        "pool080": 5,
+        "rankOfB": 5,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-002",
+        "factKey": "work-location",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.804524,
+        "poolSize065": 7,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 5,
+        "pool080": 6,
+        "rankOfB": 6,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-003",
+        "factKey": "work-location",
+        "humanLabel": "SAME",
+        "similarity": 0.884408,
+        "poolSize065": 7,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 3,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-004",
+        "factKey": "work-location",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.806443,
+        "poolSize065": 7,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 0,
+        "pool080": 1,
+        "rankOfB": 1,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-005",
+        "factKey": "programming-language",
+        "humanLabel": "SAME",
+        "similarity": 0.764026,
+        "poolSize065": 15,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 0,
+        "pool080": 0,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-006",
+        "factKey": "programming-language",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.786214,
+        "poolSize065": 10,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 0,
+        "pool080": 1,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-007",
+        "factKey": "project",
+        "humanLabel": "SAME",
+        "similarity": 0.8045,
+        "poolSize065": 10,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 1,
+        "pool080": 4,
+        "rankOfB": 4,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-008",
+        "factKey": "project",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.714047,
+        "poolSize065": 10,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 4,
+        "pool080": 4,
+        "rankOfB": 7,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-009",
+        "factKey": "work-schedule",
+        "humanLabel": "SAME",
+        "similarity": 0.872078,
+        "poolSize065": 3,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-010",
+        "factKey": "work-schedule",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.816249,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-011",
+        "factKey": "technology-preference",
+        "humanLabel": "SAME",
+        "similarity": 0.850134,
+        "poolSize065": 13,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 4,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-012",
+        "factKey": "technology-preference",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.726911,
+        "poolSize065": 11,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 6,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-013",
+        "factKey": "favorite-food",
+        "humanLabel": "SAME",
+        "similarity": 0.845069,
+        "poolSize065": 2,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 0,
+        "pool080": 2,
+        "rankOfB": 1,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-014",
+        "factKey": "favorite-food",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.750719,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 1,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-015",
+        "factKey": "travel",
+        "humanLabel": "SAME",
+        "similarity": 0.894956,
+        "poolSize065": 3,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-016",
+        "factKey": "travel",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.766645,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-017",
+        "factKey": "coding",
+        "humanLabel": "SAME",
+        "similarity": 0.876453,
+        "poolSize065": 5,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-018",
+        "factKey": "coding",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.71676,
+        "poolSize065": 5,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-019",
+        "factKey": "work-style",
+        "humanLabel": "SAME",
+        "similarity": 0.870669,
+        "poolSize065": 6,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-020",
+        "factKey": "work-style",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.706315,
+        "poolSize065": 6,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-021",
+        "factKey": "AI-project",
+        "humanLabel": "SAME",
+        "similarity": 0.899858,
+        "poolSize065": 13,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-022",
+        "factKey": "AI-project",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.755151,
+        "poolSize065": 13,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 8,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-023",
+        "factKey": "communication",
+        "humanLabel": "SAME",
+        "similarity": 0.857998,
+        "poolSize065": 3,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-024",
+        "factKey": "communication",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.80304,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-025",
+        "factKey": "learning",
+        "humanLabel": "SAME",
+        "similarity": 0.86299,
+        "poolSize065": 16,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-026",
+        "factKey": "learning",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.822768,
+        "poolSize065": 16,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-027",
+        "factKey": "development",
+        "humanLabel": "SAME",
+        "similarity": 0.875336,
+        "poolSize065": 16,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 3,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-028",
+        "factKey": "development",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.85402,
+        "poolSize065": 16,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 3,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-029",
+        "factKey": "database",
+        "humanLabel": "SAME",
+        "similarity": 0.89177,
+        "poolSize065": 3,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-030",
+        "factKey": "database",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.727647,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-031",
+        "factKey": "Aether-memory",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.853711,
+        "poolSize065": 12,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 6,
+        "rankOfB": 4,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-032",
+        "factKey": "Aether-memory",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.89063,
+        "poolSize065": 12,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 6,
+        "rankOfB": 3,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-033",
+        "factKey": "tools",
+        "humanLabel": "SAME",
+        "similarity": 0.881605,
+        "poolSize065": 11,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-034",
+        "factKey": "tools",
+        "humanLabel": "SAME",
+        "similarity": 0.840741,
+        "poolSize065": 11,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-035",
+        "factKey": "deployment",
+        "humanLabel": "SAME",
+        "similarity": 0.892905,
+        "poolSize065": 3,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-036",
+        "factKey": "deployment",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.72845,
+        "poolSize065": 3,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-037",
+        "factKey": "AI",
+        "humanLabel": "SAME",
+        "similarity": 0.853985,
+        "poolSize065": 6,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-038",
+        "factKey": "AI",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.83376,
+        "poolSize065": 6,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 3,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-039",
+        "factKey": "coding",
+        "humanLabel": "SAME",
+        "similarity": 0.84816,
+        "poolSize065": 11,
+        "eligible085": false,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 5,
+        "reachedVerifier085": false,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-040",
+        "factKey": "coding",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.716823,
+        "poolSize065": 11,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 4,
+        "pool080": 5,
+        "rankOfB": 6,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-041",
+        "factKey": "project-management",
+        "humanLabel": "SAME",
+        "similarity": 0.768679,
+        "poolSize065": 5,
+        "eligible085": false,
+        "eligible080": false,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 3,
+        "reachedVerifier085": false,
+        "reachedVerifier080": false
+      },
+      {
+        "pairId": "pair-042",
+        "factKey": "project-management",
+        "humanLabel": "DIFFERENT",
+        "similarity": 0.870898,
+        "poolSize065": 5,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 2,
+        "pool080": 2,
+        "rankOfB": 2,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      },
+      {
+        "pairId": "pair-043",
+        "factKey": "Aether-memory",
+        "humanLabel": "SAME",
+        "similarity": 0.899075,
+        "poolSize065": 12,
+        "eligible085": true,
+        "eligible080": true,
+        "pool085": 4,
+        "pool080": 7,
+        "rankOfB": 3,
+        "reachedVerifier085": true,
+        "reachedVerifier080": true
+      }
+    ]
+  },
+  "verifierDiagnostic": {
+    "A-control": {
+      "metrics085": {
+        "threshold": 0.85,
+        "candidates": 20,
+        "nonCandidates": 23,
+        "verifierRuns": 20,
+        "samePredicted": 12,
+        "differentPredicted": 8,
+        "uncertainPredicted": 0,
+        "tp": 12,
+        "tn": 4,
+        "fp": 0,
+        "fn": 4,
+        "conditionalVerifierRecall": 0.75,
+        "fixedCorpusSameRecall": 0.5455,
+        "precision": 1,
+        "falseCorroborationRate": 0
+      },
+      "safetyPanel": [
+        {
+          "pairId": "pair-028",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-031",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-032",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.89063,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-034",
+          "kind": "FORCED_SEMANTIC_DECOY",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-042",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.870898,
+          "decision": "DIFFERENT",
+          "held": true
+        }
+      ],
+      "criticalBandExtension080": [
+        {
+          "pairId": "pair-007",
+          "humanLabel": "SAME",
+          "similarity": 0.8045,
+          "decision": "SAME",
+          "reason": "The core content and meaning of both statements are aligned, with the NEW OBSERVATION specifying 'main AI project' and the EXISTING CANDIDATE MEMORY stating 'project for persistent memory capabilities'. These are related concepts within the context of Aether, and the NEW OBSERVATION does not contrad"
+        },
+        {
+          "pairId": "pair-013",
+          "humanLabel": "SAME",
+          "similarity": 0.845069,
+          "decision": "SAME",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY express similar sentiments about pizza, just with different wording."
+        },
+        {
+          "pairId": "pair-034",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "decision": "DIFFERENT",
+          "reason": "NEW OBSERVATION mentions GitHub, while EXISTING CANDIDATE MEMORY mentions GitLab."
+        },
+        {
+          "pairId": "pair-039",
+          "humanLabel": "SAME",
+          "similarity": 0.84816,
+          "decision": "SAME",
+          "reason": "The NEW OBSERVATION and EXISTING CANDIDATE MEMORY have similar content and context regarding the use of TypeScript for software development."
+        }
+      ],
+      "repeatability": {
+        "pair-001": {
+          "identical": 20,
+          "total": 20
+        },
+        "pair-011": {
+          "identical": 20,
+          "total": 20
+        },
+        "decoyStability034": {
+          "identical": 20,
+          "total": 20
+        }
+      }
+    },
+    "P-paraphrase-scope-framing": {
+      "metrics085": {
+        "threshold": 0.85,
+        "candidates": 20,
+        "nonCandidates": 23,
+        "verifierRuns": 20,
+        "samePredicted": 13,
+        "differentPredicted": 7,
+        "uncertainPredicted": 0,
+        "tp": 13,
+        "tn": 4,
+        "fp": 0,
+        "fn": 3,
+        "conditionalVerifierRecall": 0.8125,
+        "fixedCorpusSameRecall": 0.5909,
+        "precision": 1,
+        "falseCorroborationRate": 0
+      },
+      "safetyPanel": [
+        {
+          "pairId": "pair-028",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.85402,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-031",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.853711,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-032",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.89063,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-034",
+          "kind": "FORCED_SEMANTIC_DECOY",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "decision": "DIFFERENT",
+          "held": true
+        },
+        {
+          "pairId": "pair-042",
+          "kind": "ELIGIBLE_DIFFERENT",
+          "humanLabel": "DIFFERENT",
+          "similarity": 0.870898,
+          "decision": "DIFFERENT",
+          "held": true
+        }
+      ],
+      "criticalBandExtension080": [
+        {
+          "pairId": "pair-007",
+          "humanLabel": "SAME",
+          "similarity": 0.8045,
+          "decision": "SAME",
+          "reason": "Both statements refer to the same underlying fact that the user is working on Aether as their main AI project, with minor differences in wording and emphasis."
+        },
+        {
+          "pairId": "pair-013",
+          "humanLabel": "SAME",
+          "similarity": 0.845069,
+          "decision": "SAME",
+          "reason": "Both statements express a positive sentiment towards pizza, indicating enjoyment of the food. The underlying fact is the same: the person enjoys eating pizza."
+        },
+        {
+          "pairId": "pair-034",
+          "humanLabel": "SAME",
+          "similarity": 0.840741,
+          "decision": "DIFFERENT",
+          "reason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab."
+        },
+        {
+          "pairId": "pair-039",
+          "humanLabel": "SAME",
+          "similarity": 0.84816,
+          "decision": "SAME",
+          "reason": "Both statements indicate the use of TypeScript for software development, just with different wording."
+        }
+      ],
+      "repeatability": {
+        "pair-001": {
+          "identical": 20,
+          "total": 20
+        },
+        "pair-011": {
+          "identical": 20,
+          "total": 20
+        },
+        "decoyStability034": {
+          "identical": 20,
+          "total": 20
+        }
+      }
+    }
+  },
+  "datasetAnomalies": [
+    {
+      "pairId": "pair-034",
+      "textA": "I use GitHub to store and manage my code.",
+      "textB": "I use GitLab to manage my source code.",
+      "humanLabel": "SAME (PRESERVED — ground truth frozen; dataset untouched)",
+      "similarity": 0.840741,
+      "verifierResultPerArm": {
+        "A-control": "DIFFERENT",
+        "P-paraphrase-scope-framing": "DIFFERENT"
+      },
+      "semanticAssessment": {
+        "expectedUnderAetherIdentitySemantics": "DIFFERENT",
+        "rationale": "GitHub and GitLab are distinct concrete entities/platforms; the production different-concrete-entity rule applies. The human SAME label conflicts with AETHER identity semantics, making this pair a semantic-anomaly / decoy candidate.",
+        "classification": "DATASET_SEMANTIC_ANOMALY",
+        "action": "NONE — dataset not modified, label not changed, verifier not forced, no production tuning"
+      },
+      "decoyRequirement": "MUST NOT verdict SAME in ANY arm (enforced by G_V3_SAFETY)"
+    }
+  ],
+  "attribution": [
+    {
+      "pairId": "pair-001",
+      "factKey": "work-location",
+      "humanLabel": "SAME",
+      "similarity": 0.863824,
+      "eligible085": true,
+      "eligible080": true,
+      "rankOfB": 5,
+      "pool085": 5,
+      "pool080": 5,
+      "reachedVerifier085": true,
+      "reachedVerifier080": true,
+      "armAVerdict085": "DIFFERENT",
+      "armPVerdict085": "DIFFERENT",
+      "targeted080Verdicts": null,
+      "rootCauseLabel": "VERIFIER_LIMITATION",
+      "subLabel": "rejected by control AND experimental arm (contract-insensitive or model-level)",
+      "rationale": "Candidate was eligible at 0.85 and reached the verifier; the production contract returned DIFFERENT on a human-SAME pair."
+    },
+    {
+      "pairId": "pair-005",
+      "factKey": "programming-language",
+      "humanLabel": "SAME",
+      "similarity": 0.764026,
+      "eligible085": false,
+      "eligible080": false,
+      "rankOfB": 3,
+      "pool085": 0,
+      "pool080": 0,
+      "reachedVerifier085": false,
+      "reachedVerifier080": false,
+      "armAVerdict085": null,
+      "armPVerdict085": null,
+      "targeted080Verdicts": null,
+      "rootCauseLabel": "RETRIEVAL_LIMITATION",
+      "subLabel": "below-both-floors (embedding-layer)",
+      "rationale": "Similarity is below 0.85 AND below 0.80: no admissible candidate floor ever presents this pair to the verifier."
+    },
+    {
+      "pairId": "pair-011",
+      "factKey": "technology-preference",
+      "humanLabel": "SAME",
+      "similarity": 0.850134,
+      "eligible085": true,
+      "eligible080": true,
+      "rankOfB": 4,
+      "pool085": 4,
+      "pool080": 5,
+      "reachedVerifier085": true,
+      "reachedVerifier080": true,
+      "armAVerdict085": "DIFFERENT",
+      "armPVerdict085": "DIFFERENT",
+      "targeted080Verdicts": null,
+      "rootCauseLabel": "VERIFIER_LIMITATION",
+      "subLabel": "rejected by control AND experimental arm (contract-insensitive or model-level)",
+      "rationale": "Candidate was eligible at 0.85 and reached the verifier; the production contract returned DIFFERENT on a human-SAME pair."
+    },
+    {
+      "pairId": "pair-034",
+      "factKey": "tools",
+      "humanLabel": "SAME",
+      "similarity": 0.840741,
+      "eligible085": false,
+      "eligible080": true,
+      "rankOfB": 3,
+      "pool085": 2,
+      "pool080": 3,
+      "reachedVerifier085": false,
+      "reachedVerifier080": true,
+      "armAVerdict085": null,
+      "armPVerdict085": null,
+      "targeted080Verdicts": {
+        "A": "DIFFERENT",
+        "P": "DIFFERENT"
+      },
+      "rootCauseLabel": "DATASET_SEMANTIC_ANOMALY",
+      "rationale": "GitHub and GitLab are distinct concrete entities; the human SAME label conflicts with AETHER identity semantics. Preserved as a decoy; never counted as a normal miss."
+    },
+    {
+      "pairId": "pair-041",
+      "factKey": "project-management",
+      "humanLabel": "SAME",
+      "similarity": 0.768679,
+      "eligible085": false,
+      "eligible080": false,
+      "rankOfB": 3,
+      "pool085": 2,
+      "pool080": 2,
+      "reachedVerifier085": false,
+      "reachedVerifier080": false,
+      "armAVerdict085": null,
+      "armPVerdict085": null,
+      "targeted080Verdicts": null,
+      "rootCauseLabel": "RETRIEVAL_LIMITATION",
+      "subLabel": "below-both-floors (embedding-layer)",
+      "rationale": "Similarity is below 0.85 AND below 0.80: no admissible candidate floor ever presents this pair to the verifier."
+    }
+  ],
+  "zeroWriteProof": {
+    "importsAudit": "PASS (only vitest/node:* specifiers)",
+    "forbiddenNeedles": "PASS (runtime-assembled; cannot self-match)",
+    "dbWrites": 0,
+    "supabaseContact": false,
+    "permittedNetworkDestinations": [
+      "127.0.0.1:11434"
+    ],
+    "resultPathWrittenOnlyOnComplete": true,
+    "blockedPathWritesNothing": true,
+    "productionFilesModified": false,
+    "datasetModified": false,
+    "productionThresholdRemained": 0.85,
+    "historicalResultFilesProtected": 16
+  },
+  "integrityManifest": {
+    "pre": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "post": {
+      "diag-run-log.txt": "8027B35D26057AA7261BCF77195F035A7D5D487C0E5ED519056E29960BD7B61E",
+      "diag-run-log2.txt": "11FF3343A6FF8391852F2D9D256BEF9992C73DB9D46F0A619014D443BCC15FD1",
+      "diag-syntax-log.txt": "7187EB677C60C89036DEEA9FD85CE091E48C0E01FC497EB53828BEBEA07DC9F3",
+      "diag-syntax-log2.txt": "D499BC346DC78A42C277F0222C20D8CA1D3A36F49C76604B70225B9DF10D2277",
+      "override-audit-log.txt": "A62B6BA40CB82CA5EF30CBF25AA38D18290A9F39BA710CA82DFCB699E23F4935",
+      "override-run-log.txt": "8BD5A6CC42D07C9E3E903BEA2B49777B548FC95305A4BCC7F90603C6291AE567",
+      "run-log.txt": "DE47312C889B7805F8EAD14402D175BADB20DB73A256694AB4C211CD2E38AC8E",
+      "v2-run-final.txt": "1EAB91B553D135EA41FBB2A99FD9F104E05A3D027CEBB08D93DB96F45D42E14A",
+      "v2-run-log.txt": "A2B46C35CF5C61C5AC6F348836B3EA9C8B0B1184D1E3D94F27C57F7A454F8FD7",
+      "v2-run-log2.txt": "821FD85F591B1A2CA7D1CC5CB1AF44AD80BC9ACFA4720D6A764A4F164D663832",
+      "v2-run-log3.txt": "0A6880ADD9AC5110C15F4F504397EE4F795FEBE58290AF8A01317311807DB729",
+      "v2-syntax-log.txt": "BC8209495E6A963E41BFB90086385C71FD158014878F4DB1CE4A3FEAF5E13FFD",
+      "v2-syntax-log2.txt": "43A8E8D46F17A436B5B1EF7C783FC3E9230139144A1465D010E942D6F7AEB3F2",
+      "verifier-contract-diagnostic.json": "0CF6B6D9AD3015CD4D908F344261ACC6B7EF33027EDAB5B3148AB7E02814E51D",
+      "verifier-contract-v2.json": "EFC45C4DF630226E57A4F1BD0426150832B22757635838995FB140B33C61773A",
+      "verifier-experiment.json": "E6BD61DE86C8ECF810C5F99AC285FFBA7CDB606B2A591C41FA8EE315B0BF76A4"
+    },
+    "identical": true
+  },
+  "gates": {
+    "G_V3_DATASET_FROZEN": "PASS",
+    "G_V3_HISTORICAL_INTACT": "PASS",
+    "G_V3_SAFETY": "PASS",
+    "G_V3_REPEATABILITY": "PASS",
+    "G_V3_ATTRIBUTION": "PASS",
+    "G_V3_ZERO_WRITE": "PASS"
+  }
+}

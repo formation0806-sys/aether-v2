@@ -1,0 +1,40 @@
+{
+  "phase": "6-AO-V23",
+  "purpose": "Separate safety/adversarial decoy corpus, disjoint from the frozen binary SAME-recall corpus. This manifest classifies pair-034 as a safety decoy for independent tracking; it does NOT change the frozen dataset, threshold, denominator, verifier, or production code.",
+  "contract": {
+    "recallCorpusFrozen": true,
+    "recallDenominatorSAME": 22,
+    "threshold": 0.85,
+    "tpGate": 19,
+    "verifier": "SYS_V5",
+    "datasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049"
+  },
+  "decoys": [
+    {
+      "pairId": "pair-034",
+      "factKey": "tools",
+      "frozenLabel": "SAME",
+      "role": "SAFETY_DECOY",
+      "classificationRef": "6-AO-V21",
+      "v21Classification": "CLEAR_DIFFERENT",
+      "caseE": true,
+      "benchmarkValidity": "INVALID_FOR_BINARY_BENCHMARK + VALID_AS_SAFETY_DECOY",
+      "rationale": "GitHub vs GitLab are distinct concrete entities; the frozen SAME label is a documented semantic anomaly/decoy (V3 FORCED_SEMANTIC_DECOY; V6 role=SEMANTIC_DECOY). The verifier deterministically rejects it as DIFFERENT (V4/V5/V6/V11 20-20/V14/V15/V16 20-20/V17/V18/V20). It is invalid as a binary SAME-recall item but valid as an adversarial safety test.",
+      "verifierRejectionRateRecorded": 1.0,
+      "trackedSeparatelyFromRecall": true,
+      "note": "The frozen SAME label in dataset.json is UNCHANGED by this manifest. This file only classifies pair-034 for safety tracking and does not alter the binary recall denominator."
+    }
+  ],
+  "safetyMetric": {
+    "definition": "verifier-rejection rate of decoy pairs = fraction of recorded pair-034 verdicts equal to DIFFERENT",
+    "pair034Recorded": { "different": 23, "same": 0, "rate": 1.0 },
+    "reportingRule": "Reported independently from SAME recall. A decoy rejection rate of 100% is a PASS for the safety metric; it does NOT contribute to or compensate the binary recall gate."
+  },
+  "integrity": {
+    "datasetModified": false,
+    "productionModified": false,
+    "thresholdModified": false,
+    "verifierModified": false,
+    "historicalArtifactsModified": false
+  }
+}

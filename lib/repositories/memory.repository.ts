@@ -29,6 +29,27 @@ export async function getMemoryByTitle(userId: string, title: string) {
     .maybeSingle();
 }
 
+export async function getMemoriesByTitle(
+  userId: string,
+  title: string
+): Promise<{
+  data: Array<{ id: string; content: string }>;
+  error: { message: string } | null;
+}> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("memories")
+    .select("id,content")
+    .eq("user_id", userId)
+    .eq("title", title)
+    .order("created_at", { ascending: false })
+    .limit(10);
+  if (error) {
+    return { data: [], error: { message: (error as { message?: string }).message ?? "lookup error" } };
+  }
+    return { data: (data ?? []) as Array<{ id: string; content: string }>, error: null };
+}
+
 export async function insertMemory(data: {
   user_id: string;
   title: string;
@@ -175,10 +196,13 @@ export interface InsertMemoryV2Input {
 /** Insert a memory using the Memory V2 columns. */
 export async function insertMemoryV2(data: InsertMemoryV2Input) {
   const supabase = await createClient();
-  return supabase.from("memories").insert(data);
+  // F1: return the inserted row id so supersession can complete (mark the old
+  // memory merged). Without `.select(...)`, PostgREST returns no body and the
+  // caller could not obtain the new id (FAILED_TO_OBTAIN_NEW_MEMORY_ID).
+  return supabase.from("memories").insert(data).select("id");
 }
 
-/** V2 update input ΓÇö any subset of the updatable V2 fields. */
+/** V2 update input — any subset of the updatable V2 fields. */
 export interface UpdateMemoryV2Input {
   title?: string;
   content?: string;
@@ -229,7 +253,7 @@ export async function getAllMemories(userId: string) {
 /* DEFERRED: findNearDuplicates -> find_near_duplicates RPC.                    */
 /* 0004_memory_v2_rpcs.sql defines find_near_duplicates without its closing     */
 /* $$; (its body flows into apply_memory_decay), so the RPC definition is      */
-/* malformed until the SQL is fixed ΓÇö a SQL change out of scope here. Will be   */
+/* malformed until the SQL is fixed — a SQL change out of scope here. Will be   */
 /* added once 0004 is corrected. See ENGINEERING_LOG for the full analysis.      */
 /* -------------------------------------------------------------------------- */
 
@@ -257,7 +281,7 @@ export async function purgeArchived(userId: string) { const supabase = await cre
  * `corroborate_memory` RPC (migration 0011). Returns true only when a brand-new
  * corroboration was recorded for this message (and confidence_v2 was bumped by
  * CONFIDENCE_CORROBORATION_STEP inside the RPC, atomically). Duplicate
- * (memory_id, message_id) attempts ΓÇö same message re-processing ΓÇö return false
+ * (memory_id, message_id) attempts — same message re-processing — return false
  * and do not touch confidence.
  */
 export async function corroborateMemory(

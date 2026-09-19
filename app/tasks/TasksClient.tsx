@@ -48,12 +48,12 @@ export default function TasksClient() {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Add a new task…"
           aria-label="New task title"
-          className="min-h-11 min-w-0 flex-1 rounded-xl border border-[var(--input)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition-smooth focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
+          className="min-h-11 min-w-0 flex-1 rounded-xl border border-[#202020] bg-[#0A0A0A] px-4 py-3 text-sm text-[#F5F5F5] placeholder:text-[#707070] transition-colors duration-150 outline-none focus:border-[#2A2A2A] disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={loading || !title.trim()}
-          className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-1.5 rounded-xl bg-[var(--brand)] px-4 py-3 text-sm font-medium text-[var(--brand-foreground)] transition-smooth hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+          className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-1.5 rounded-xl bg-[#F5F5F5] px-4 py-3 text-sm font-medium text-black transition-colors duration-150 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
         >
           {loading ? (
             <>

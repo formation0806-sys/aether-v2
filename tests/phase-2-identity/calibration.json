@@ -1,0 +1,4143 @@
+{
+  "schema": "phase-2-identity/calibration",
+  "timestamp": "2026-08-29T23:25:31.724Z",
+  "zeroWrite": {
+    "productionWrites": 0,
+    "dbOps": [
+      "select:memories",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)",
+      "embed:observation(read-only-model-call)",
+      "rpc:match_memories_v2(read)"
+    ],
+    "assertNoWrites": true
+  },
+  "census": {
+    "totalMemories": 37,
+    "eligibleCount": 7,
+    "byStatus": {
+      "active": 27,
+      "candidate": 6,
+      "merged": 4
+    },
+    "byType": {
+      "project": 9,
+      "semantic": 10,
+      "reflection": 13,
+      "identity": 2,
+      "working": 3
+    }
+  },
+  "observations": [
+    {
+      "observationId": "v1-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "condition": "V1",
+      "memoryId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 1,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.791646823279914,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.747395724989704,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.742947307687035,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.734257189542933,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.724769142242588,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.690403469945241,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.672819913533921,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.654320613837426,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.637874142870223,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.63682496547703,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.629775115780568,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.608177210850055,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.588557863917529,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.588557863917529,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.585851791529738,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.579990898370226,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.574447734555206,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.572371499710493,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.571869373413498,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "condition": "V1",
+      "memoryId": "558ad91c-8802-490d-8497-3c284a5e83d7",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 1,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.775366581220434,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.598311961200258,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.598311961200258,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.584185863483796,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.58245123938598,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.579540593041762,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.569743880002977,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.549579152640482,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.548771771715398,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.548771771715398,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.542056327111299,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.540431683114983,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.534303490436508,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.524560627393648,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.519536016042707,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.517824201713551,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.515628220513862,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.496997684240345,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.486996837260279,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "condition": "V1",
+      "memoryId": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 1,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.791646823279914,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.743676451567335,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.734692303501663,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.733217453998233,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.728992727874863,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.720935483313376,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.717979564124828,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.662393748760266,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.66192189739273,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.660011171104532,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.653293089059917,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.650351004375734,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.649449601605417,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.649449601605417,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.646488859203119,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.62106977262608,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.613152209863726,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.609346820038195,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.595812881242513,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "condition": "V1",
+      "memoryId": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 1,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.850765481819358,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.776278993030153,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.753752322346803,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.724225249794176,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.720935483313376,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.719446592198995,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.717524494829734,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.690403469945241,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.672674776197941,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.665103733539624,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.642428529986302,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.633411721397862,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.589384678771882,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.582566991585519,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.579624621733888,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.567121266420158,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.56156730446134,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.55427925416209,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.554028537629382,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "condition": "V1",
+      "memoryId": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 1,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.66415405273438,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.657717031920898,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.644397735595708,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.63327756721439,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.596388685057525,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.596388685057525,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.590611891454853,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.589656577644929,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.589656577644929,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.586215965707538,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.555378059514415,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.54892891062155,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.544596942937193,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.530813582137489,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.529883551289161,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.526474093164342,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.522864523275438,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.522453035869675,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.522453035869675,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "condition": "V1",
+      "memoryId": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 1,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.850765481819358,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.688020299903177,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.659639178449962,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.655941324216523,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.654320613837426,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.653293089059917,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.628193058263852,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.622205652129997,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.598829936841723,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.594388449526548,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.585679372711032,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.574356411359105,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.540120205301079,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.534540136835002,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.534033123735566,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.523445245808963,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.523445245808963,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.521251385510298,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.504375965707293,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        }
+      ]
+    },
+    {
+      "observationId": "v1-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "condition": "V1",
+      "memoryId": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "candidateCount": 33,
+      "topSimilarity": 1,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 1,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.781601840735032,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.778493470786445,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.778493470786445,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.613152209863726,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.600702226371238,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.593544339748889,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.580769335077375,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.577824931663357,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.5638553392456,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.562032604520413,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.561762992600267,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.559658329425752,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.557349986714127,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.555378059514415,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.554957028767443,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.55427925416209,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.547178951073972,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.54323941469194,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.536035379176646,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "condition": "V2",
+      "memoryId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "candidateCount": 33,
+      "topSimilarity": 0.922273213998908,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.922273213998908,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.763153956124456,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.748478338031703,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.74186753269781,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.736103403072942,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.727753747507261,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.693761802463322,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.680179755698458,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.66508698491687,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.651725694022867,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.647365450859088,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.621006846427935,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.613618456505639,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.586585767276374,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.561502315460812,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.561502315460812,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.554014776222828,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.549311691604655,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.541046651664201,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.533758234939739,
+          "memory_type": "semantic",
+          "title": "Name"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "condition": "V2",
+      "memoryId": "558ad91c-8802-490d-8497-3c284a5e83d7",
+      "candidateCount": 33,
+      "topSimilarity": 0.9530727975195,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 0.9530727975195,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.749877221900655,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.600033926949652,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.600033926949652,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.59422624283247,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.586532266954753,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.580620483049077,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.572505882230235,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.568410575389898,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.567995190620459,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.553122547082774,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.553122547082774,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.54436576366428,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.543742527069447,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.540909528732334,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.529277587662183,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.524271011352573,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.52414070984347,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.510874450206789,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.505949850595137,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "condition": "V2",
+      "memoryId": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "candidateCount": 33,
+      "topSimilarity": 0.901381910670968,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.901381910670968,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.745173421605502,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.735348126499749,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.734170110920988,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.713892834386728,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.705106678668685,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.705047537099853,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.703678501967928,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.677129373288171,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.673424485970788,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.66938964639476,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.668427110662728,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.662399131011591,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.656216795541453,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.652038568987409,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.575119505886792,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.575119505886792,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.561989966506369,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.549478977608087,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.547201509762644,
+          "memory_type": "semantic",
+          "title": "preferences"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "condition": "V2",
+      "memoryId": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "candidateCount": 33,
+      "topSimilarity": 0.986391599079942,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.986391599079942,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.846907510431861,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.764324034098332,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.728127978370659,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.719399027681124,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.703492546497907,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.702131712690816,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.690367945564251,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.667815089636477,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.657361030578655,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.648831364303486,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.629726239957286,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.61183596990539,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.580242039611771,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.574947611997041,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.574642386904616,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.556982871856699,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.548709198447824,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.54860519886722,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.546182789716036,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "condition": "V2",
+      "memoryId": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "candidateCount": 33,
+      "topSimilarity": 0.957607087946362,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.957607087946362,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.70494391292668,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.684280746836439,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.670440395448185,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.651699063485704,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.613247780845848,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.61256887354162,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.589039325714111,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.587077031979211,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.587077031979211,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.581409881283035,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.581409881283035,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.577069536971542,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.560798771476603,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.559508926809902,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.551852324936218,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.54474106697685,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.540862051197169,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.539973189837187,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.539973189837187,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "condition": "V2",
+      "memoryId": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "candidateCount": 33,
+      "topSimilarity": 0.933477322303452,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.933477322303452,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.776972869744135,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.674719449978244,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.64030610572318,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.631354915388196,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.625941381195085,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.622837274751018,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.606129884719887,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.5985039590006,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.597177517077644,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.583248789086578,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.577760442094891,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.57405836272937,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.52494775279267,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.478237847914252,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.477845992656833,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.465230931410472,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.4613098845419,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.460176112641368,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.460176112641368,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v2-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "condition": "V2",
+      "memoryId": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "candidateCount": 33,
+      "topSimilarity": 0.97722899642337,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.97722899642337,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.781351301831168,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.781351301831168,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.775277753223984,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.619625321559675,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.593314753767515,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.581776703490216,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.577956642034255,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.569226460731818,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.561134014197232,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.557700071197753,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.557348648065848,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.557337810755179,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.55527589713501,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.553738773843787,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.551285127035113,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.546142578125,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.544841609327514,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.535471205171494,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.535471205171494,
+          "memory_type": "semantic",
+          "title": "preferences"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "condition": "V4",
+      "memoryId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "candidateCount": 33,
+      "topSimilarity": 0.777094645490134,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.777094645490134,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.772474970457842,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.770267468448656,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.765842478302051,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.725265004477951,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.708393910277074,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.695008542092444,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.691774090879384,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.664874772284189,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.651734076181951,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.643728769381164,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.620722028720684,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.59833114728312,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.591759677460282,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.591759677460282,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.58898601466334,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.572640436072363,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.571207829903863,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.570923924340835,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.568325042077169,
+          "memory_type": "semantic",
+          "title": "Interest"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "condition": "V4",
+      "memoryId": "558ad91c-8802-490d-8497-3c284a5e83d7",
+      "candidateCount": 33,
+      "topSimilarity": 0.783020786518869,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 0.783020786518869,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.687291758166007,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.576762742768902,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.572645186870319,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.572645186870319,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.557327209952787,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.554225822527568,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.553973436355626,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.541395821959415,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.527681046085112,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.521365134634689,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.521365134634689,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.518370032310519,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.512050211429629,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.509538047644137,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.493218929788073,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.47722900456691,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.476745995671048,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.469785302877456,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.469411169991888,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "condition": "V4",
+      "memoryId": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "candidateCount": 33,
+      "topSimilarity": 0.828600980568406,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.828600980568406,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.716490967984666,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.706428120988109,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.70588115734156,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.684677406472585,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.67657341943547,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.655689395830529,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.651101124811713,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.642985714371744,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.62001290798499,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.613018053241166,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.610825293457652,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.597649549597358,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.596745382381549,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.595108399734435,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.595108399734435,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.59467421516143,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.594260847226517,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.594260847226517,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.591841534085798,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "condition": "V4",
+      "memoryId": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "candidateCount": 33,
+      "topSimilarity": 0.766792520936963,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.766792520936963,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.664962430134769,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.593406156524067,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.558082830048875,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.556863712329795,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.554484735028429,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.545426699255873,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.542588846164679,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.542588846164679,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.534472251243916,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.532114028385594,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.530991891322119,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.511739094633115,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.508450852607396,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.499406084152798,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.498559370250551,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.496182306804569,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.495546921424146,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.494842333276125,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.489403020841884,
+          "memory_type": "identity",
+          "title": "Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "condition": "V4",
+      "memoryId": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "candidateCount": 33,
+      "topSimilarity": 0.911107979879173,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.911107979879173,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.669315478001736,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.666640480351649,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.665498971939257,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.657629842678831,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.654325242397318,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.622856267180167,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.618568247130045,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.607192448230974,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.590346617863966,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.590346617863966,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.57281373282014,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.563716391572777,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.553131996285207,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.54593505665545,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.544781110182353,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.544781110182353,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.541474168476459,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.541474168476459,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.531319983320293,
+          "memory_type": "semantic",
+          "title": "Location"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "condition": "V4",
+      "memoryId": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "candidateCount": 33,
+      "topSimilarity": 0.821622792128148,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.821622792128148,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.810108353816234,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.688738652808863,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.649096666195691,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.64774610204169,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.630863051686795,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.629450757189118,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.627901208260914,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.611465641267887,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.609804254478092,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.606569748921106,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.594219057890635,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.587830455924515,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.536860021165611,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.533833447928233,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.523067313889761,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.522254021302105,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.516248453072887,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.506583169298863,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.499674752422492,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v4-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "condition": "V4",
+      "memoryId": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "candidateCount": 33,
+      "topSimilarity": 0.708719233855856,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.708719233855856,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.644833553046116,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.623832940498818,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.623832940498818,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.592622293361252,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.592367788035289,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.579964876175075,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.576894592765062,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.575448292600767,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.572118572032076,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.568211298786041,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.563630648092209,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.563630648092209,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.561458650417805,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.558798598885167,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.532469558252464,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.529509256902701,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.523030587326532,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.515840895576919,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.515840895576919,
+          "memory_type": "semantic",
+          "title": "preferences"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "condition": "V5",
+      "memoryId": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "candidateCount": 33,
+      "topSimilarity": 0.947979102245818,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.947979102245818,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.832548523638571,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.748613409160803,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.7415128859152,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.741402621405663,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.735018482062021,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.687252370544697,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.671177050418849,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.628025804165893,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.623860914226248,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.622430647812403,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.622055853683188,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.59948704824995,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.593246203862303,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.593246203862303,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.589662482309707,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.585555745396414,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.583730938616902,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.581999592363829,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.577903601839694,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "condition": "V5",
+      "memoryId": "558ad91c-8802-490d-8497-3c284a5e83d7",
+      "candidateCount": 33,
+      "topSimilarity": 0.936880024168494,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 0.936880024168494,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.739631220080329,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.600244873711068,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.600244873711068,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.596337932239113,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.591102964481453,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.568493186815158,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.559849617449866,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.5568106506354,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.548611305447119,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.548611305447119,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.547186965653567,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.536714497093614,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.522799124109568,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.515729888804858,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.512070044515432,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.507834807271803,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.506005869568624,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.494814887179275,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.487803361038729,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "condition": "V5",
+      "memoryId": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "candidateCount": 33,
+      "topSimilarity": 0.835642556624741,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.835642556624741,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.733009479433589,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.661842544298494,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.658617477581802,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.652127483613948,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.652127483613948,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.649196582936852,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.644695801175141,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.643373208448096,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.627181068322804,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.62635999132396,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.62635999132396,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.624384321529282,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.618729389830205,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.618729389830205,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.610054767731126,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.607459838712381,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.605156802823735,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.602339697163086,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.594780844605542,
+          "memory_type": "working",
+          "title": "Plans"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "condition": "V5",
+      "memoryId": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "candidateCount": 33,
+      "topSimilarity": 0.882203273904558,
+      "floorMiss": false,
+      "candidates": [
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.882203273904558,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.7854183316231,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.780926490414724,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.764553950104387,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.739679204282904,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.733419823631081,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.717084688966586,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.716681642334591,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.714494483799083,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.698294556344209,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.680931842049409,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.665532588958759,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.645673040329271,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.611895918846148,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.609872169555601,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.600814008421661,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.600814008421661,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.600480771093441,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.600139087426155,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.593753523192991,
+          "memory_type": "working",
+          "title": "Plans"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "condition": "V5",
+      "memoryId": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "candidateCount": 33,
+      "topSimilarity": 0.846530893797888,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.846530893797888,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.676797531175135,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.672553061912812,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.663222928123525,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.649188272292142,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.630013296898817,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.575458153514749,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.575458153514749,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.569693019894682,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.562107374856591,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.561255009510987,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.557261239258011,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.55485779355276,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.548475954836238,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "460fe488-0b1f-4b6b-b59c-e658a62cf202",
+          "similarity": 0.537555306798792,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference Change"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.523330147562989,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.519282197738363,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.515474967125791,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.513941899357561,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.513941899357561,
+          "memory_type": "semantic",
+          "title": "pets"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "condition": "V5",
+      "memoryId": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "candidateCount": 33,
+      "topSimilarity": 0.744752049446127,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.744752049446127,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.650229395905496,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.605738914355002,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.595725750668418,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.584029704083314,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.584029704083314,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.582525168807841,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "717420ed-ea5e-480b-8485-634ab825f631",
+          "similarity": 0.582376343537095,
+          "memory_type": "reflection",
+          "title": "AI Development Focus"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.582004179715616,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.58149311563829,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.579942830210082,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.560412082696706,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+          "similarity": 0.558231387032974,
+          "memory_type": "project",
+          "title": "Aether Secret Test Phrase"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.55722390241053,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "b58fccf7-fb1d-457f-8a14-bf55c8eeaac4",
+          "similarity": 0.539330927173449,
+          "memory_type": "reflection",
+          "title": "Recurring Theme: Aether Development"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.538966238498703,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.537223719854883,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.535764213113286,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.532267423407305,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.530232846736923,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        }
+      ]
+    },
+    {
+      "observationId": "v5-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "condition": "V5",
+      "memoryId": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "candidateCount": 33,
+      "topSimilarity": 0.70173978805544,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.70173978805544,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.653986612199968,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "ad438289-f5af-4334-b1e3-a09d65f52099",
+          "similarity": 0.645748257637042,
+          "memory_type": "reflection",
+          "title": "Professional Role Consistency"
+        },
+        {
+          "id": "0f7188b9-4833-4eeb-b89f-0aaaa44525d9",
+          "similarity": 0.645748257637042,
+          "memory_type": "reflection",
+          "title": "Professional Identity Consistency"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.636146130906398,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.625918842906911,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.622916169837207,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.61773862204363,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.61773862204363,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.612149642449664,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.608136985746149,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.599931204364158,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.59773496375891,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.594663215637825,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.587964927432857,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.578983984478021,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.570647273698312,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.568158030509965,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.568158030509965,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.561893966085087,
+          "memory_type": "identity",
+          "title": "Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v3-0",
+      "condition": "V3",
+      "memoryId": "synthetic",
+      "candidateCount": 33,
+      "topSimilarity": 0.642567928537894,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.642567928537894,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.630839115827297,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.630839115827297,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.627704395876761,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.613203246640015,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.612527774271108,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.575115185948603,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.566568438294061,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "2e5a7d1a-92f0-4c10-a9e2-c94659968e5d",
+          "similarity": 0.553281440352989,
+          "memory_type": "reflection",
+          "title": "Language Preference Change"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.547364775759997,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.547364775759997,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "f0d54afe-f3ff-4071-80e0-ad1fb6560358",
+          "similarity": 0.529683209444644,
+          "memory_type": "reflection",
+          "title": "TypeScript Preference"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.52890908373492,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.525333978891228,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.523339507181763,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.518629054198845,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "14f8ddfa-980b-49a9-a77c-ca51a0da39f5",
+          "similarity": 0.51533394503573,
+          "memory_type": "reflection",
+          "title": "Change in TypeScript Preference"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.513572895824305,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.510522332631869,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "ed7b2884-64a7-4443-a1b1-d01a334e1600",
+          "similarity": 0.505058703394558,
+          "memory_type": "reflection",
+          "title": "Project Details"
+        }
+      ]
+    },
+    {
+      "observationId": "v3-1",
+      "condition": "V3",
+      "memoryId": "synthetic",
+      "candidateCount": 33,
+      "topSimilarity": 0.67013164216748,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.67013164216748,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.67013164216748,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.667812029179327,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.64508428497848,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.638420343399089,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.637056494197786,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.624563455581705,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.623373158566993,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.601383173383312,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.601383173383312,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.594394961026043,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.578780309179975,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 0.578126948326366,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.574771940708197,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.56461143493656,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "9e2288f7-e621-4b6b-be0f-9e01ff88fa86",
+          "similarity": 0.542307605193236,
+          "memory_type": "working",
+          "title": "Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+          "similarity": 0.541482237489114,
+          "memory_type": "identity",
+          "title": "Professional Role"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.533474977794307,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.532750725746189,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.522949511301638,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        }
+      ]
+    },
+    {
+      "observationId": "v3-2",
+      "condition": "V3",
+      "memoryId": "synthetic",
+      "candidateCount": 33,
+      "topSimilarity": 0.629930819581341,
+      "floorMiss": true,
+      "candidates": [
+        {
+          "id": "e0b11442-cb4a-42ce-952f-141607c29291",
+          "similarity": 0.629930819581341,
+          "memory_type": "working",
+          "title": "Plans"
+        },
+        {
+          "id": "bcad8a7e-94b8-4c42-8ea4-86c8b13831a3",
+          "similarity": 0.606766817937251,
+          "memory_type": "semantic",
+          "title": "Location"
+        },
+        {
+          "id": "9be5fdd1-06aa-495b-b0b7-fc2955e5d74e",
+          "similarity": 0.603720651504723,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b03c2b0a-6a43-4b3f-a218-51036d0ced3b",
+          "similarity": 0.603720651504723,
+          "memory_type": "semantic",
+          "title": "Dog Information"
+        },
+        {
+          "id": "558ad91c-8802-490d-8497-3c284a5e83d7",
+          "similarity": 0.592825032991167,
+          "memory_type": "project",
+          "title": "Meal Planning"
+        },
+        {
+          "id": "1737c54f-18f7-4dcf-9e85-2d67c598264f",
+          "similarity": 0.579622522660052,
+          "memory_type": "semantic",
+          "title": "pets"
+        },
+        {
+          "id": "b6735ee2-ae75-4e3e-908e-2444d687d1a0",
+          "similarity": 0.575877070426978,
+          "memory_type": "semantic",
+          "title": "Interest"
+        },
+        {
+          "id": "1b5c1e60-9d98-48b3-9ec8-a3f23691d369",
+          "similarity": 0.572126780133442,
+          "memory_type": "semantic",
+          "title": "Name"
+        },
+        {
+          "id": "abed0cce-93cb-4069-adbd-1e89acb2afbd",
+          "similarity": 0.552182555198705,
+          "memory_type": "reflection",
+          "title": "Current Programming Language Preference for Aether Development"
+        },
+        {
+          "id": "632d72c7-9006-46a6-8d6d-3b017a6c6ace",
+          "similarity": 0.546765446662938,
+          "memory_type": "reflection",
+          "title": "Professional Identity"
+        },
+        {
+          "id": "3e5287d8-60b9-41a1-a934-7f37f067929a",
+          "similarity": 0.539854191567753,
+          "memory_type": "semantic",
+          "title": "city"
+        },
+        {
+          "id": "67b3ce13-432d-4aeb-bd47-6170333141a0",
+          "similarity": 0.537476251287096,
+          "memory_type": "reflection",
+          "title": "Language Preference"
+        },
+        {
+          "id": "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+          "similarity": 0.534308163266911,
+          "memory_type": "project",
+          "title": "Secret Test Phrase"
+        },
+        {
+          "id": "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+          "similarity": 0.530402597140971,
+          "memory_type": "identity",
+          "title": "Preference"
+        },
+        {
+          "id": "731eae31-f903-41d0-ba88-b0b9e88d454d",
+          "similarity": 0.530047752823087,
+          "memory_type": "working",
+          "title": "Programming Language Used for Aether"
+        },
+        {
+          "id": "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+          "similarity": 0.529149949550663,
+          "memory_type": "project",
+          "title": "User Project: Aether [en75rlnh]"
+        },
+        {
+          "id": "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+          "similarity": 0.524538636207614,
+          "memory_type": "project",
+          "title": "Project"
+        },
+        {
+          "id": "c8a32e0a-3a95-4c92-b074-7db653bc3484",
+          "similarity": 0.524456495176201,
+          "memory_type": "reflection",
+          "title": "Programming Language Preference"
+        },
+        {
+          "id": "97513dd8-6e56-4cca-98c5-28e0c0429c70",
+          "similarity": 0.523344604769694,
+          "memory_type": "semantic",
+          "title": "preferences"
+        },
+        {
+          "id": "90cf0eea-d2f7-464b-9005-c7615603f4b9",
+          "similarity": 0.523344604769694,
+          "memory_type": "semantic",
+          "title": "preferences"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "v1v2TopSimilarity": {
+      "min": 0.901381910670968,
+      "max": 1,
+      "mean": 0.9737
+    },
+    "v3v4TopSimilarity": {
+      "min": 0.629930819581341,
+      "max": 0.911107979879173,
+      "mean": 0.754
+    }
+  },
+  "limitations": [
+    "Calibration candidates are captured at minSimilarity=0 for measurement only; they are not fed back into production identity code.",
+    "match_memories_v2 results are bounded by that RPC's top-K window."
+  ]
+}

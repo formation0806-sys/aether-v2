@@ -1,0 +1,12 @@
+import fs from "node:fs";
+import crypto from "node:crypto";
+const src = fs.readFileSync("lib/memory/identity.ts", "utf8");
+const sysIdx = src.indexOf("const system =");
+const sysTermIdx = src.indexOf('";', sysIdx);
+const block = src.slice(sysIdx, sysTermIdx + 2);
+const segs = [...block.matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse('"' + m[1] + '"'));
+const prompt = segs.join("");
+const h = crypto.createHash("sha256").update(prompt).digest("hex");
+console.log("PROMPT_HASH:", h);
+console.log("EXPECTED:  b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d");
+console.log("MATCH:", h === "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d");

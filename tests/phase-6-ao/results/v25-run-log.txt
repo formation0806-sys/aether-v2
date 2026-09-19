@@ -1,0 +1,42 @@
+PHASE 6-AO-V25 RUN LOG (READ-ONLY FORENSIC)
+DATE: 2026-09-01
+BRANCH: feature/memory-v2-foundation
+MODE: ACT (forensic only; no experiment)
+
+[1] PRE-ANALYSIS INTEGRITY
+    dataset.json SHA-256 = 5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049 -> MATCH frozen contract
+    dataset composition verified live: TOTAL=43 SAME=22 DIFFERENT=21 -> denominator 22 unchanged
+    production config verified: lib/ai/embeddings/embed.ts nomic-embed-text:latest (768-dim, bare text);
+      lib/memory/identity.ts IDENTITY_CANDIDATE_MIN_SIMILARITY=0.85, IDENTITY_CANDIDATE_COUNT=8, verifier qwen2.5:3b + SYS_V5
+      (sha256 b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d)
+
+[2] EVIDENCE EXTRACTION (all read-only)
+    pair-005 / pair-007 textA, textB, factKey, label extracted from frozen dataset.json
+    similarity ledgers for both pairs collected from recorded V11/V13/V14/V15/V20/V24 artifacts
+    verifier-evidence sweep across V16/V17/V18/V20/V24 artifacts: pair-005 and pair-007 ABSENT from all
+      verifier pools (never eligible -> never presented to SYS_V5); no verifier rejection inferred
+    contrast set recorded: pair-011 (eligible, DIFFERENT 0/20/0), pair-034 (eligible, DIFFERENT 0/20/0, V21 CASE-E / V23 SAFETY_DECOY)
+    identity contract analyzed from lib/memory/identity.ts (resolveMemoryIdentity L182-363) and SYS_V5 prompt text
+    benchmark construction patterns tabulated across all 43 frozen pairs
+
+[3] ARTIFACT CREATION (additive only)
+    created tests/phase-6-ao/results/v25-pair-005-007-forensic-analysis.json (23194 bytes; JSON.parse OK; 0 non-ASCII chars)
+    created tests/phase-6-ao/results/v25-report.md (13 sections; final matrix included)
+    created tests/phase-6-ao/results/v25-run-log.txt (this file)
+    NOTE: an earlier partial draft of the JSON was discarded and rebuilt via a deterministic Node builder
+      after a truncated write left invalid JSON containing 9 stray non-ASCII chars (U+2014 x4, U+0303 x5);
+      the final artifact is machine-validated.
+
+[4] POST-ANALYSIS INTEGRITY (see final verification output in the V25 execution report)
+    dataset.json SHA-256 re-verified -> MATCH frozen contract
+    no file under lib/, supabase/, tests/phase-6-ao (other than the three v25-* artifacts) modified during V25
+    DB_WRITES = 0; SUPABASE_CONTACT = false; NETWORK_CONTACT = false; OLLAMA_CONTACT = false; MODEL_INSTALLATION = false
+
+FINAL STATE
+    V25_STATUS = COMPLETE
+    FILES_CREATED = 3 (json, report.md, run-log.txt)
+    FILES_MODIFIED = none
+    PRODUCTION_CHANGED = false
+    DATASET_CHANGED = false
+    HISTORICAL_ARTIFACTS_CHANGED = false
+    NEXT_ACTION = HUMAN_REVIEW

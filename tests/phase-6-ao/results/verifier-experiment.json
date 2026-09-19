@@ -1,0 +1,452 @@
+{
+  "status": "COMPLETE",
+  "reason": null,
+  "frozenSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+  "embeddingModel": "nomic-embed-text:latest",
+  "verifierModel": "qwen2.5:3b",
+  "contract": {
+    "model": "qwen2.5:3b",
+    "options": {
+      "temperature": 0,
+      "num_predict": 256,
+      "top_p": 0.9
+    },
+    "timeoutMs": 30000,
+    "promptHash": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d"
+  },
+  "runA": {
+    "threshold": 0.85,
+    "candidates": 20,
+    "nonCandidates": 23,
+    "verifierRuns": 20,
+    "verifierSame": 14,
+    "verifierDifferent": 5,
+    "verifierUncertain": 1,
+    "tp": 14,
+    "tn": 4,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1,
+    "recall": 0.9333,
+    "falseCorroborationRate": 0
+  },
+  "runB": {
+    "threshold": 0.8,
+    "candidates": 30,
+    "nonCandidates": 13,
+    "verifierRuns": 30,
+    "verifierSame": 17,
+    "verifierDifferent": 12,
+    "verifierUncertain": 1,
+    "tp": 17,
+    "tn": 10,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1,
+    "recall": 0.8947,
+    "falseCorroborationRate": 0
+  },
+  "repeatability": null,
+  "gates": null,
+  "dbWrites": 0,
+  "productionThresholdRemained": 0.85,
+  "datasetModified": false,
+  "productionCodeModified": false,
+  "pairs": [
+    {
+      "pairId": "pair-001",
+      "factKey": "work-location",
+      "label": "SAME",
+      "similarity": 0.863824,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "UNCERTAIN",
+      "verdict080": "UNCERTAIN"
+    },
+    {
+      "pairId": "pair-002",
+      "factKey": "work-location",
+      "label": "DIFFERENT",
+      "similarity": 0.804524,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-003",
+      "factKey": "work-location",
+      "label": "SAME",
+      "similarity": 0.884408,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-004",
+      "factKey": "work-location",
+      "label": "DIFFERENT",
+      "similarity": 0.806443,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-005",
+      "factKey": "programming-language",
+      "label": "SAME",
+      "similarity": 0.764026,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-006",
+      "factKey": "programming-language",
+      "label": "DIFFERENT",
+      "similarity": 0.786214,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-007",
+      "factKey": "project",
+      "label": "SAME",
+      "similarity": 0.8045,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-008",
+      "factKey": "project",
+      "label": "DIFFERENT",
+      "similarity": 0.714047,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-009",
+      "factKey": "work-schedule",
+      "label": "SAME",
+      "similarity": 0.872078,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-010",
+      "factKey": "work-schedule",
+      "label": "DIFFERENT",
+      "similarity": 0.816249,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-011",
+      "factKey": "technology-preference",
+      "label": "SAME",
+      "similarity": 0.850134,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-012",
+      "factKey": "technology-preference",
+      "label": "DIFFERENT",
+      "similarity": 0.726911,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-013",
+      "factKey": "favorite-food",
+      "label": "SAME",
+      "similarity": 0.845069,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-014",
+      "factKey": "favorite-food",
+      "label": "DIFFERENT",
+      "similarity": 0.750719,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-015",
+      "factKey": "travel",
+      "label": "SAME",
+      "similarity": 0.894956,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-016",
+      "factKey": "travel",
+      "label": "DIFFERENT",
+      "similarity": 0.766645,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-017",
+      "factKey": "coding",
+      "label": "SAME",
+      "similarity": 0.876453,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-018",
+      "factKey": "coding",
+      "label": "DIFFERENT",
+      "similarity": 0.71676,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-019",
+      "factKey": "work-style",
+      "label": "SAME",
+      "similarity": 0.870669,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-020",
+      "factKey": "work-style",
+      "label": "DIFFERENT",
+      "similarity": 0.706315,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-021",
+      "factKey": "AI-project",
+      "label": "SAME",
+      "similarity": 0.899858,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-022",
+      "factKey": "AI-project",
+      "label": "DIFFERENT",
+      "similarity": 0.755151,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-023",
+      "factKey": "communication",
+      "label": "SAME",
+      "similarity": 0.857998,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-024",
+      "factKey": "communication",
+      "label": "DIFFERENT",
+      "similarity": 0.80304,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-025",
+      "factKey": "learning",
+      "label": "SAME",
+      "similarity": 0.86299,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-026",
+      "factKey": "learning",
+      "label": "DIFFERENT",
+      "similarity": 0.822768,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-027",
+      "factKey": "development",
+      "label": "SAME",
+      "similarity": 0.875336,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-028",
+      "factKey": "development",
+      "label": "DIFFERENT",
+      "similarity": 0.85402,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-029",
+      "factKey": "database",
+      "label": "SAME",
+      "similarity": 0.89177,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-030",
+      "factKey": "database",
+      "label": "DIFFERENT",
+      "similarity": 0.727647,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-031",
+      "factKey": "Aether-memory",
+      "label": "DIFFERENT",
+      "similarity": 0.853711,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-032",
+      "factKey": "Aether-memory",
+      "label": "DIFFERENT",
+      "similarity": 0.89063,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-033",
+      "factKey": "tools",
+      "label": "SAME",
+      "similarity": 0.881605,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-034",
+      "factKey": "tools",
+      "label": "SAME",
+      "similarity": 0.840741,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-035",
+      "factKey": "deployment",
+      "label": "SAME",
+      "similarity": 0.892905,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-036",
+      "factKey": "deployment",
+      "label": "DIFFERENT",
+      "similarity": 0.72845,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-037",
+      "factKey": "AI",
+      "label": "SAME",
+      "similarity": 0.853985,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-038",
+      "factKey": "AI",
+      "label": "DIFFERENT",
+      "similarity": 0.83376,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-039",
+      "factKey": "coding",
+      "label": "SAME",
+      "similarity": 0.84816,
+      "eligible085": false,
+      "eligible080": true,
+      "verdict080": "SAME"
+    },
+    {
+      "pairId": "pair-040",
+      "factKey": "coding",
+      "label": "DIFFERENT",
+      "similarity": 0.716823,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-041",
+      "factKey": "project-management",
+      "label": "SAME",
+      "similarity": 0.768679,
+      "eligible085": false,
+      "eligible080": false
+    },
+    {
+      "pairId": "pair-042",
+      "factKey": "project-management",
+      "label": "DIFFERENT",
+      "similarity": 0.870898,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "DIFFERENT",
+      "verdict080": "DIFFERENT"
+    },
+    {
+      "pairId": "pair-043",
+      "factKey": "Aether-memory",
+      "label": "SAME",
+      "similarity": 0.899075,
+      "eligible085": true,
+      "eligible080": true,
+      "verdict085": "SAME",
+      "verdict080": "SAME"
+    }
+  ],
+  "recordedAt": "2026-09-13T09:35:59.764Z"
+}

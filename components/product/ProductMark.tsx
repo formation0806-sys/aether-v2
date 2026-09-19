@@ -38,9 +38,9 @@ export function ProductMarkFull({
       className={`inline-flex items-center gap-2.5 ${className}`}
       aria-label="Go to home"
     >
-      <ProductIcon className={iconSize} />
+      <ProductIcon className={`${iconSize} text-[#F5F5F5]`} />
       {variant === "full" && (
-        <span className="text-sm font-semibold tracking-[0.18em] text-[var(--foreground)]">
+        <span className="text-sm font-semibold tracking-[0.18em] text-[#F5F5F5]">
           SALPA
         </span>
       )}

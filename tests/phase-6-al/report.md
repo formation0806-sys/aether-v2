@@ -1,6 +1,6 @@
 # Phase 6-AL Acceptance Report — Duplicate-Representation Policy
 
-**Started:** 2026-08-23T18:15:26.330Z
+**Started:** 2026-09-13T09:31:13.327Z
 **Production writes:** 0 (hard invariant; audit-proven)
 **Frozen files changed:** false
 **Deterministic across two runs:** null
@@ -33,4 +33,4 @@
 - This experiment is zero-write: the resolver is a decision layer; corroboration
   execution remains with the pipeline caller and is covered by mocked wiring tests.
 
-**ERROR:** FROZEN FILES CHANGED BEFORE RUN: lib/repositories/memory.repository.ts
+**ERROR:** FROZEN FILES CHANGED BEFORE RUN: lib/memory/identity.ts, lib/memory/aiExtractor.ts, lib/ai/embeddings/embed.ts, lib/repositories/memory.repository.ts, lib/memory/types.ts, lib/memory/retrieve.ts, lib/memory/reflector.ts, lib/core/pipeline.ts, lib/memory/memory.ts

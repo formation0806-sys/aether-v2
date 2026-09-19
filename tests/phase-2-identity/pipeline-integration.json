@@ -1,0 +1,279 @@
+{
+  "schema": "phase-2-identity/pipeline-integration",
+  "timestamp": "2026-09-10T15:34:06.551Z",
+  "zeroWrite": {
+    "productionWrites": 0,
+    "note": "Terminal writes (corroborateMemory, saveMemory) were mocked. No production rows created or modified."
+  },
+  "source": "C:\\Users\\Piyush\\aether-v2\\tests\\phase-2-identity\\decision-measurement.json",
+  "corroborateDecisionCount": 14,
+  "createDecisionCount": 17,
+  "corroborateRoutingTested": true,
+  "warnings": [],
+  "routingResults": [
+    {
+      "observationId": "v1-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+        "msg-v1-0a97a74a-cac6-4b70-ac8c-23f28f951cc0"
+      ]
+    },
+    {
+      "observationId": "v1-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "558ad91c-8802-490d-8497-3c284a5e83d7",
+        "msg-v1-558ad91c-8802-490d-8497-3c284a5e83d7"
+      ]
+    },
+    {
+      "observationId": "v1-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+        "msg-v1-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c"
+      ]
+    },
+    {
+      "observationId": "v1-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+        "msg-v1-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44"
+      ]
+    },
+    {
+      "observationId": "v1-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+        "msg-v1-ab39fc3e-93b2-4880-81c9-9902c55da6c2"
+      ]
+    },
+    {
+      "observationId": "v1-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+        "msg-v1-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+      ]
+    },
+    {
+      "observationId": "v2-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+        "msg-v2-0a97a74a-cac6-4b70-ac8c-23f28f951cc0"
+      ]
+    },
+    {
+      "observationId": "v2-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "558ad91c-8802-490d-8497-3c284a5e83d7",
+        "msg-v2-558ad91c-8802-490d-8497-3c284a5e83d7"
+      ]
+    },
+    {
+      "observationId": "v2-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+        "msg-v2-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c"
+      ]
+    },
+    {
+      "observationId": "v2-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+        "msg-v2-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44"
+      ]
+    },
+    {
+      "observationId": "v2-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+        "msg-v2-ab39fc3e-93b2-4880-81c9-9902c55da6c2"
+      ]
+    },
+    {
+      "observationId": "v2-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+        "msg-v2-eba42f5e-647f-4e5e-9c02-bb48913ea0bc"
+      ]
+    },
+    {
+      "observationId": "v2-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+        "msg-v2-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b"
+      ]
+    },
+    {
+      "observationId": "v5-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "expectedRoute": "corroborate",
+      "corroborateCalled": true,
+      "saveMemoryCalled": false,
+      "corroborateArgs": [
+        "0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+        "msg-v5-0a97a74a-cac6-4b70-ac8c-23f28f951cc0"
+      ]
+    },
+    {
+      "observationId": "v1-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v3-0",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v3-1",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v3-2",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-0a97a74a-cac6-4b70-ac8c-23f28f951cc0",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v4-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-558ad91c-8802-490d-8497-3c284a5e83d7",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-588f81e8-c4e6-4230-8b2e-b8326b6f9d9c",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-0be6f80c-ca34-4713-bf9f-cbe9d18a2b44",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-ab39fc3e-93b2-4880-81c9-9902c55da6c2",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-eba42f5e-647f-4e5e-9c02-bb48913ea0bc",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    },
+    {
+      "observationId": "v5-e31e95a0-c34d-48b7-bcdd-9c3ea939f08b",
+      "expectedRoute": "create",
+      "corroborateCalled": false,
+      "saveMemoryCalled": true,
+      "corroborateArgs": null
+    }
+  ],
+  "limitations": [
+    "Only the identity→routing path runs for real; aiExtractMemories, generateReflections, evaluateLifecycle are mocked.",
+    "corroborateMemory and saveMemory are mocked — RPC internals are not exercised.",
+    "Routing is verified by call assertion, not by inspecting DB state."
+  ]
+}

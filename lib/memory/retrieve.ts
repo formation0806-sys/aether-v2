@@ -4,6 +4,7 @@ import {
   touchMemories,
 } from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
+import { resolveRetrievalQuery } from "@/lib/memory/queryRewrite";
 import { scoreRetrievalCandidate, mmrScore } from "@/lib/memory/score";
 import {
   RETRIEVAL_TOP_K,
@@ -119,13 +120,22 @@ export async function retrieveMemories(
   query: string
 ) {
   const supabase = await createClient();
-  const vector = await embed(query);
+  // Approved M2-D R1: precision-gated declarative rewrite of the retrieval
+  // embedding input ONLY. The original `query` is preserved everywhere else.
+  const retrievalQuery = resolveRetrievalQuery(query);
+  const vector = await embed(retrievalQuery);
 
   // 1-2: V2 retrieval RPC (replaces legacy matchMemories).
+  const tRetrievalStart = performance.now();
   const { data: rows, error } = await matchMemoriesV2(vector.embedding, userId, {
     matchCount: RETRIEVAL_TOP_K,
     minSimilarity: MIN_SIMILARITY,
   });
+
+  console.log(
+    "RETRIEVAL match_memories_v2_ms=" +
+      (performance.now() - tRetrievalStart).toFixed(2)
+  );
 
   if (error) throw error;
 
@@ -215,6 +225,11 @@ export async function retrieveMemories(
   if (surfaced.length > 0) {
     await touchMemories(userId, surfaced.map((m) => m.id));
   }
+
+  console.log(
+    "RETRIEVAL_POSTPROCESS retrieval_ms=" +
+      (performance.now() - tRetrievalStart).toFixed(2)
+  );
 
   return surfaced;
 }

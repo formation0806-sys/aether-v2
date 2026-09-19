@@ -1,0 +1,423 @@
+{
+  "phase": "6-AO-V21",
+  "status": "COMPLETE",
+  "target": "pair-034",
+  "dataset": {
+    "sha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+    "pairCount": 43,
+    "sameCount": 22,
+    "differentCount": 21,
+    "factKeyCount": 19
+  },
+  "pair034": {
+    "label": "SAME",
+    "textA": "I use GitHub to store and manage my code.",
+    "textB": "I use GitLab to manage my source code.",
+    "factKey": "tools"
+  },
+  "semanticAudit": {
+    "entitiesA": [
+      "GitHub"
+    ],
+    "entitiesB": [
+      "GitLab"
+    ],
+    "onlyA": [
+      "GitHub"
+    ],
+    "onlyB": [
+      "GitLab"
+    ],
+    "actionA": [
+      "use",
+      "store",
+      "manage"
+    ],
+    "actionB": [
+      "use",
+      "manage"
+    ],
+    "objectA": "my code (source code under management)",
+    "objectB": "my source code (source code under management)",
+    "valueContrast": true,
+    "distinctPlatformsCorroboratedBy": "v3-controlled-diagnostic.test.ts: 'GitHub vs GitLab are distinct concrete entities'"
+  },
+  "factKeyAnalysis": {
+    "factKeyCounts": [
+      {
+        "factKey": "Aether-memory",
+        "same": 1,
+        "different": 2
+      },
+      {
+        "factKey": "AI",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "AI-project",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "coding",
+        "same": 2,
+        "different": 2
+      },
+      {
+        "factKey": "communication",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "database",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "deployment",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "development",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "favorite-food",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "learning",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "programming-language",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "project",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "project-management",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "technology-preference",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "tools",
+        "same": 2,
+        "different": 0
+      },
+      {
+        "factKey": "travel",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "work-location",
+        "same": 2,
+        "different": 2
+      },
+      {
+        "factKey": "work-schedule",
+        "same": 1,
+        "different": 1
+      },
+      {
+        "factKey": "work-style",
+        "same": 1,
+        "different": 1
+      }
+    ],
+    "toolsSame": 2,
+    "toolsDifferent": 0,
+    "pair033ValueContrast": false,
+    "pair034ValueContrast": true,
+    "differentValueContrastPairs": [
+      "pair-002",
+      "pair-004",
+      "pair-012",
+      "pair-016",
+      "pair-018",
+      "pair-030",
+      "pair-036",
+      "pair-040"
+    ],
+    "sameValueContrastPairs": [
+      "pair-005",
+      "pair-034"
+    ],
+    "patternDeviationNote": "pair-034 is a value-contrast pair (GitHub vs GitLab) yet labeled SAME. The corpus otherwise labels value-contrast pairs DIFFERENT (see differentValueContrastPairs). No DIFFERENT-labeled 'tools' pair exists; the only 'tools' neighbours are pair-033 (GitHub/GitHub, SAME, no contrast) and pair-034."
+  },
+  "documentedIntent": {
+    "primary": "INTENTIONAL_ANOMALY",
+    "probes": [
+      {
+        "artifact": "v3-controlled-diagnostic.test.ts",
+        "location": "header comment",
+        "probe": "distinct concrete entities",
+        "found": true,
+        "evidence": "indexOf=1735"
+      },
+      {
+        "artifact": "v3-controlled-diagnostic.test.ts",
+        "location": "header",
+        "probe": "semantic anomaly / anomaly card",
+        "found": true,
+        "evidence": "found=true"
+      },
+      {
+        "artifact": "v3-verifier-retrieval-dataset.json",
+        "location": "verifierDiagnostic",
+        "probe": "FORCED_SEMANTIC_DECOY + humanLabel=SAME",
+        "found": true,
+        "evidence": "humanLabelSame=true, forcedDecoy=true"
+      },
+      {
+        "artifact": "v6-verifier-adoption-review.test.ts",
+        "location": "body",
+        "probe": "decoy",
+        "found": true,
+        "evidence": "decoy=1592"
+      },
+      {
+        "artifact": "v6-verifier-adoption-review.json",
+        "location": "targetStabilityCases",
+        "probe": "humanLabel=SAME + role=SEMANTIC_DECOY",
+        "found": true,
+        "evidence": "role=SEMANTIC_DECOY,"
+      },
+      {
+        "artifact": "v10-post-adoption-observability.test.ts",
+        "location": "cases",
+        "probe": "anomaly/decoy",
+        "found": true,
+        "evidence": "found=true"
+      },
+      {
+        "artifact": "v16-verifier-forensic-audit.json",
+        "location": "pairAudits",
+        "probe": "label=SAME",
+        "found": true,
+        "evidence": "labels=SAME,"
+      }
+    ],
+    "contradiction": "Repository documents pair-034 as anomaly/decoy (expected DIFFERENT), yet the frozen label is SAME. The label is NOT automatically 'wrong' — it is a deliberately constructed anomaly card; however it is NOT ordinary ground-truth SAME."
+  },
+  "verifierEvidence": {
+    "perArtifact": [
+      {
+        "artifact": "v4-verifier-decision-boundary.json",
+        "different": 7,
+        "same": 0,
+        "hits": 8,
+        "notes": "8 hits"
+      },
+      {
+        "artifact": "v5-contract-validation.json",
+        "different": 2,
+        "same": 0,
+        "hits": 2,
+        "notes": "2 hits"
+      },
+      {
+        "artifact": "v6-verifier-adoption-review.json",
+        "different": 2,
+        "same": 0,
+        "hits": 5,
+        "notes": "5 hits"
+      },
+      {
+        "artifact": "v11-band-probe.json",
+        "different": 1,
+        "same": 0,
+        "hits": 2,
+        "notes": "2 hits"
+      },
+      {
+        "artifact": "v14-embedding-prefix-evaluation.json",
+        "different": 0,
+        "same": 0,
+        "hits": 0,
+        "notes": "0 hits"
+      },
+      {
+        "artifact": "v15-error-boundary-diagnostic.json",
+        "different": 0,
+        "same": 0,
+        "hits": 2,
+        "notes": "2 hits"
+      },
+      {
+        "artifact": "v17-verifier-policy-evaluation.json",
+        "different": 0,
+        "same": 0,
+        "hits": 0,
+        "notes": "0 hits"
+      },
+      {
+        "artifact": "v18-verifier-policy-generalization.json",
+        "different": 0,
+        "same": 0,
+        "hits": 0,
+        "notes": "0 hits"
+      },
+      {
+        "artifact": "v20-asymmetric-instruction-evaluation.json",
+        "different": 0,
+        "same": 0,
+        "hits": 0,
+        "notes": "0 hits"
+      },
+      {
+        "artifact": "v16-verifier-forensic-audit.json",
+        "different": 4,
+        "same": 0,
+        "hits": 5,
+        "notes": "20/20 audit"
+      }
+    ],
+    "recordedDifferentTotal": 16,
+    "recordedSameTotal": 0,
+    "v16Deterministic": true,
+    "v16RuleAligned": true,
+    "v16RuleIndependent": true,
+    "summary": "DIFFERENT in 16 recorded verdicts, SAME in 0. V16: 20/20 DIFFERENT (deterministic=true), ENTITY_MISMATCH-aligned (true), rule-independent under VARIANT_A (true)."
+  },
+  "classification": "CLEAR_DIFFERENT",
+  "benchmarkValidity": "INVALID_FOR_BINARY_BENCHMARK + VALID_AS_SAFETY_DECOY",
+  "potentialLabelIssue": true,
+  "caseE": true,
+  "tpCeilingConsequence": {
+    "inSameDenominator": true,
+    "sameDenominatorSize": 22,
+    "recordedDifferentTotal": 16,
+    "recordedSameTotal": 0,
+    "observation": "Under the frozen production contract the TP ceiling = 18 (v11-report.md §8: fixed-corpus SAME recall TP/22 = 0.8182). pair-034 is a SAME-labeled decoy deterministically rejected by SYS_V5 in 100% of recorded evaluations — a dataset/verifier disagreement. V21 does NOT recompute the gate, change the denominator, relabel, or alter production behavior."
+  },
+  "integrity": {
+    "dbWrites": 0,
+    "persistenceContact": false,
+    "modelRuntimeContact": false,
+    "netContact": false,
+    "productionCodeModified": false,
+    "datasetModified": false,
+    "historicalArtifactsTouched": false,
+    "datasetShaBefore": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+    "datasetShaAfter": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
+    "identityShaBefore": "7e20916ca0f5a9f5e82496b7c55a6e8bee6715627c8f4983ca4e7cb7e63f8353",
+    "identityShaAfter": "7e20916ca0f5a9f5e82496b7c55a6e8bee6715627c8f4983ca4e7cb7e63f8353",
+    "protectedFileCount": 50,
+    "protectedFilesByteIdentical": true
+  },
+  "evidenceTable": [
+    {
+      "criterion": "DATASET_SHA",
+      "result": "sha256=5B0C8493914AAF9A… (matches frozen)",
+      "classification": "FROZEN_FACT",
+      "artifact": "tests/phase-6-ao/dataset.json",
+      "location": "file SHA-256",
+      "evidence": "Measured 5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049 === FROZEN_DATASET_SHA256."
+    },
+    {
+      "criterion": "PAIR034_FACTS",
+      "result": "factKey=tools, label=SAME, textA=GitHub, textB=GitLab",
+      "classification": "FROZEN_FACT",
+      "artifact": "tests/phase-6-ao/dataset.json",
+      "location": "pair-034 entry",
+      "evidence": "\"I use GitHub to store and manage my code.\" / \"I use GitLab to manage my source code.\""
+    },
+    {
+      "criterion": "ENTITY_COMPARISON",
+      "result": "GitHub (textA) vs GitLab (textB) — distinct concrete platforms",
+      "classification": "CONTENT_DIFFERENT_INDICATOR",
+      "artifact": "dataset.json + v3-controlled-diagnostic.test.ts",
+      "location": "pair-034 textA/textB; V3 harness header",
+      "evidence": "Token analysis: onlyA=[GitHub], onlyB=[GitLab]; value-contrast=TRUE. Repository's own words: 'GitHub vs GitLab are distinct concrete entities'."
+    },
+    {
+      "criterion": "FACTKEY_PATTERN",
+      "result": "factKey 'tools': SAME=2, DIFFERENT=0",
+      "classification": "CONSTRUCTION_PATTERN_DEVIATION",
+      "artifact": "tests/phase-6-ao/dataset.json",
+      "location": "pair-033 + pair-034 entries",
+      "evidence": "pair-033 (GitHub/GitHub) = no value-contrast, SAME. pair-034 (GitHub/GitLab) = value-contrast, yet SAME. No DIFFERENT-labeled 'tools' pair exists."
+    },
+    {
+      "criterion": "CORPUS_CONSISTENCY",
+      "result": "8 DIFFERENT-labeled value-contrast pairs; pair-034 is the anomalous SAME-labeled one",
+      "classification": "PAIR_034_MATCHES_DIFFERENT_PATTERN",
+      "artifact": "tests/phase-6-ao/dataset.json",
+      "location": "full-corpus value-contrast scan (deterministic)",
+      "evidence": "Analogous value-conflict constructions (e.g. Mumbai/Delhi) are labeled DIFFERENT. pair-034 is the single SAME-labeled value-contrast entry: [\"pair-005\",\"pair-034\"]."
+    },
+    {
+      "criterion": "DOCUMENTED_INTENT",
+      "result": "primary=INTENTIONAL_ANOMALY",
+      "classification": "INTENTIONAL_ANOMALY",
+      "artifact": "v3/v6/v10/v16 artifacts",
+      "location": "multiple",
+      "evidence": "v3-controlled-diagnostic.test.ts: FOUND; v3-controlled-diagnostic.test.ts: FOUND; v3-verifier-retrieval-dataset.json: FOUND; v6-verifier-adoption-review.test.ts: FOUND; v6-verifier-adoption-review.json: FOUND; v10-post-adoption-observability.test.ts: FOUND; v16-verifier-forensic-audit.json: FOUND"
+    },
+    {
+      "criterion": "VERIFIER_ALIGNMENT",
+      "result": "DIFFERENT=16, SAME=0, V16_det=true",
+      "classification": "VERIFIER_CONSISTENT_DIFFERENT",
+      "artifact": "v4/v5/v6/v11/v14-v18/v20 + v16",
+      "location": "pair-034 verdict fields",
+      "evidence": "V16 reason: 'GitHub vs GitLab' -> ENTITY_MISMATCH (matchesPromptRule=true). VARIANT_A still DIFFERENT 5/5. Distinguished: 'verifier says DIFFERENT' (measurement) vs 'dataset ground truth is SAME' (frozen label)."
+    },
+    {
+      "criterion": "SOURCE_METADATA",
+      "result": "len=49764, corrupted=true",
+      "classification": "METADATA_UNRECOVERABLE",
+      "artifact": "dataset.json",
+      "location": "pair-034 source field",
+      "evidence": "corrupted=true, readablePrefix=Human-vetted by Prince. Corpus-wide 'source' field exhibits severe mojibake (encoding corruption confirmed). Original human labeling rationale cannot be recovered from metadata → NOT_RECOVERABLE (not reconstructed)."
+    },
+    {
+      "criterion": "CLASSIFICATION",
+      "result": "primary=CLEAR_DIFFERENT",
+      "classification": "CLEAR_DIFFERENT",
+      "artifact": "Stages 1-6",
+      "location": "all",
+      "evidence": "derived from semantic+intent+verifier+pattern evidence"
+    },
+    {
+      "criterion": "BENCHMARK_VALIDITY",
+      "result": "INVALID_FOR_BINARY_BENCHMARK + VALID_AS_SAFETY_DECOY",
+      "classification": "INVALID_FOR_BINARY_BENCHMARK + VALID_AS_SAFETY_DECOY",
+      "artifact": "dataset.json",
+      "location": "pair-034",
+      "evidence": "content clearly DIFFERENT; frozen SAME label = anomaly/decoy"
+    },
+    {
+      "criterion": "TP_CEILING",
+      "result": "TP=18 ceiling (frozen, documented)",
+      "classification": "FROZEN_CEILING",
+      "artifact": "v11-report.md §8",
+      "location": "V11 §8",
+      "evidence": "fixed-corpus SAME recall (TP/22) = 0.8182 (81.82%)"
+    },
+    {
+      "criterion": "ZERO_WRITE_CONTRACT",
+      "result": "DB_WRITES=0; SUPABASE/OLLAMA/NETWORK=false; no forbidden imports",
+      "classification": "ZERO_CONTACT",
+      "artifact": "v21 test source + state.integrity",
+      "location": "Stage 8",
+      "evidence": "Runtime scan of __filename assembles forbidden tokens at runtime (app-lib import path, persistence client, model runtime, network sockets, child-process spawn, persistence mutation) and asserts each is absent."
+    }
+  ],
+  "futureAuditObservations": []
+}

@@ -1,0 +1,38 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90mC:/Users/Piyush/aether-v2[39m
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 1 — preflight: dataset + identity pinned, Ollama reachable, inventory, candidate selection
+[22m[39mV24 STAGE1 OK inventory=6 candidates=mxbai-embed-large:latest,nomic-embed-text:latest,bge-m3:latest
+
+ [32m✓[39m tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22mStage 1 — preflight: dataset + identity pinned, Ollama reachable, inventory, candidate selection[33m 18528[2mms[22m[39m
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 2 — control reproduction (mxbai + symmetric 'query: ') — ABORT if drift
+[22m[39mV24 STAGE2 OK controlB TP=18 pair005=0.821145 pair007=0.837367
+
+ [32m✓[39m tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22mStage 2 — control reproduction (mxbai + symmetric 'query: ') — ABORT if drift[33m 106629[2mms[22m[39m
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)
+[22m[39mV24 ARM mxbai_embed_large_latest_armA TP=17 FCR=0 classification=REGRESSION
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)
+[22m[39mV24 ARM mxbai_embed_large_latest_armB TP=9 FCR=0 classification=REGRESSION
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)
+[22m[39mV24 ARM nomic_embed_text_latest_armA TP=15 FCR=0 classification=REGRESSION
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)
+[22m[39mV24 ARM bge_m3_latest_armA TP=12 FCR=0 classification=REGRESSION
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)
+[22m[39mV24 ARM bge_m3_latest_armB TP=0 FCR=err classification=REGRESSION
+
+[90mstdout[2m | tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22m[2mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22m[2mStage 4 — report + integrity (writes V24 artifacts, asserts protected files byte-identical)
+[22m[39mV24 artifacts written: C:\Users\Piyush\aether-v2\tests\phase-6-ao\results\v24-external-embedding-evaluation.json ; C:\Users\Piyush\aether-v2\tests\phase-6-ao\results\v24-report.md
+
+ [32m✓[39m tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22mStage 3 — per-candidate evaluation (at most 3 candidates, arms A + B)[33m 180700[2mms[22m[39m
+ [32m✓[39m tests/phase-6-ao/v24-external-embedding-evaluation.test.ts[2m > [22mPHASE 6-AO-V24 — external embedding model feasibility (read-only measurement)[2m > [22mStage 4 — report + integrity (writes V24 artifacts, asserts protected files byte-identical)
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 10:01:36
+[2m   Duration [22m 314.65s[2m (transform 58ms, setup 0ms, collect 67ms, tests 305.87s, environment 0ms, prepare 96ms)[22m
+

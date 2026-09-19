@@ -1,13 +1,13 @@
 {
-  "startedAt": "2026-08-22T22:26:47.596Z",
+  "startedAt": "2026-09-13T09:30:53.796Z",
   "experiment": {
     "input": {
       "totalMemories": 37,
-      "eligibleCount": 21,
+      "eligibleCount": 17,
       "typeGroups": [
         {
           "memoryType": "project",
-          "count": 9
+          "count": 5
         },
         {
           "memoryType": "reflection",
@@ -28,7 +28,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 76,
+        "latencyMs": 3975,
         "isProductionPath": true,
         "reflections": []
       },
@@ -43,7 +43,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 163,
+        "latencyMs": 3651,
         "isProductionPath": false,
         "reflections": []
       },
@@ -58,7 +58,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 159,
+        "latencyMs": 5256,
         "isProductionPath": false,
         "reflections": []
       },
@@ -73,7 +73,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 148,
+        "latencyMs": 7453,
         "isProductionPath": false,
         "reflections": []
       },
@@ -88,7 +88,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 140,
+        "latencyMs": 6050,
         "isProductionPath": false,
         "reflections": []
       }

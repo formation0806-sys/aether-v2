@@ -12,7 +12,16 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll() {},
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          } catch {
+            // Server Component contexts can have read-only cookies.
+            // Route handlers/server actions can write cookies.
+          }
+        },
       },
     }
   );
