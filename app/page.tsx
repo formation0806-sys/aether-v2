@@ -168,7 +168,7 @@ export default async function Home() {
             <circle cx="16" cy="16" r="6" fill="currentColor" fillOpacity="0.85" />
             <circle cx="16" cy="16" r="2.6" fill="currentColor" />
           </svg>
-          <span>SALPA â€” persistent AI workspace</span>
+          <span>SALPA - persistent AI workspace</span>
         </div>
       </footer>
     </main>
