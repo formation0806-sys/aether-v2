@@ -39,6 +39,10 @@ describe("R1 — retrieval query rewrite reaches embed() only", () => {
     vi.doMock("@/lib/repositories/memory.repository", () => ({
       matchMemoriesV2: mbv2,
       touchMemories: touchMock,
+      getActiveIdentityMemories: vi.fn().mockResolvedValue({
+        data: [],
+        error: null,
+      }),
     }));
     vi.doMock("@/lib/memory/score", () => ({
       scoreRetrievalCandidate: () => 0.6,

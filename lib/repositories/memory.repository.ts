@@ -274,6 +274,34 @@ export async function batchUpdateLifecycle(
   }
   return { updated: updates.length };
 }
+
+/**
+ * Deterministic read-time identity fetch (SALPA identity-recall fix).
+ *
+ * Used ONLY when `isIdentityRetrievalQuery(message)` is true. Bypasses the
+ * vector-similarity floor for the identity layer — interrogative identity
+ * questions (e.g. "what is my name") embed far from declarative stored facts
+ * (e.g. "The user's name is Prince.") and are rejected by `match_memories_v2`
+ * even though the memory exists.
+ *
+ * Scope guarantees (no schema/migration/threshold changes):
+ *  - strictly `.eq("user_id", userId)` — never returns another user's rows;
+ *  - `memory_type = 'identity'` + `status = 'active'` only (fading/candidate
+ *    rows stay on the normal vector path; archived/deleted/merged excluded,
+ *    matching the live `match_memories_v2` filter);
+ *  - read-only SELECT, no writes, no threshold/model/scoring changes.
+ */
+export async function getActiveIdentityMemories(userId: string) {
+  const supabase = await createClient();
+  return supabase
+    .from("memories")
+    .select(
+      "id,title,content,summary,tags,memory_type,status,importance_v2,confidence_v2,effective_score,times_used,last_used"
+    )
+    .eq("user_id", userId)
+    .eq("memory_type", "identity")
+    .eq("status", "active");
+}
 export async function purgeArchived(userId: string) { const supabase = await createClient(); const { data, error } = await supabase.rpc('purge_archived', { p_user_id: userId }); return { count: data ?? 0, error }; }
 
 /**

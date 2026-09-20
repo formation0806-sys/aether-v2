@@ -1,10 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
-import {
-  matchMemoriesV2,
-  touchMemories,
-} from "@/lib/repositories/memory.repository";
+import * as memoryRepository from "@/lib/repositories/memory.repository";
 import { embed } from "@/lib/ai/embeddings/embed";
-import { resolveRetrievalQuery } from "@/lib/memory/queryRewrite";
+import {
+  isIdentityRetrievalQuery,
+  resolveRetrievalQuery,
+} from "@/lib/memory/queryRewrite";
 import { scoreRetrievalCandidate, mmrScore } from "@/lib/memory/score";
 import {
   RETRIEVAL_TOP_K,
@@ -64,6 +64,69 @@ interface MemoryV2Row {
 interface MemoryEmbeddingRow {
   id: string;
   embedding: number[] | null;
+}
+
+/** Row shape returned by the deterministic identity SELECT. */
+interface IdentityMemoryRow {
+  id: string;
+  title: string;
+  content: string;
+  summary: string | null;
+  tags: string[] | null;
+  memory_type: MemoryType;
+  status: string;
+  importance_v2: number | null;
+  confidence_v2: number | null;
+  effective_score: number | null;
+  times_used: number | null;
+  last_used: string | null;
+}
+
+/**
+ * Deterministic identity-layer fetch for identity-scoped questions.
+ *
+ * Runs ONLY when `isIdentityRetrievalQuery(query)` is true. Reads the
+ * caller's own `active` identity rows directly (no embedding, no similarity
+ * floor) and maps them into `RetrievalCandidate`s. Failures degrade to `[]`
+ * so normal vector retrieval is never blocked. The repository query is
+ * user-scoped (`user_id = userId`); RLS scoping is preserved.
+ */
+async function fetchIdentityCandidates(
+  userId: string,
+  query: string
+): Promise<RetrievalCandidate[]> {
+  if (!isIdentityRetrievalQuery(query)) return [];
+  try {
+    const { data, error } = await memoryRepository.getActiveIdentityMemories(userId);
+    if (error || !data) {
+      if (error) {
+        console.warn("retrieveMemories: identity fetch failed; continuing with vector results", error);
+      }
+      return [];
+    }
+    return (data as IdentityMemoryRow[])
+      .filter((row) => row && typeof row.id === "string")
+      .map((row) => ({
+        id: row.id,
+        title: row.title ?? "",
+        content: row.content ?? "",
+        summary: row.summary ?? "",
+        tags: row.tags ?? [],
+        memoryType: (row.memory_type ?? "identity") as MemoryType,
+        // Deterministic leg: not a vector cosine. Set to the production floor
+        // so downstream fused scoring/ordering treats it as a legitimate
+        // candidate without inventing a similarity measurement.
+        similarity: MIN_SIMILARITY,
+        importance: typeof row.importance_v2 === "number" ? row.importance_v2 : 0.5,
+        confidence: typeof row.confidence_v2 === "number" ? row.confidence_v2 : 0.5,
+        effectiveScore: typeof row.effective_score === "number" ? row.effective_score : 0,
+        timesUsed: typeof row.times_used === "number" ? row.times_used : 0,
+        lastUsed: row.last_used ?? null,
+      }));
+  } catch (error) {
+    console.warn("retrieveMemories: identity fetch threw; continuing with vector results", error);
+    return [];
+  }
 }
 
 interface ScoredCandidate {
@@ -127,7 +190,7 @@ export async function retrieveMemories(
 
   // 1-2: V2 retrieval RPC (replaces legacy matchMemories).
   const tRetrievalStart = performance.now();
-  const { data: rows, error } = await matchMemoriesV2(vector.embedding, userId, {
+  const { data: rows, error } = await memoryRepository.matchMemoriesV2(vector.embedding, userId, {
     matchCount: RETRIEVAL_TOP_K,
     minSimilarity: MIN_SIMILARITY,
   });
@@ -153,6 +216,22 @@ export async function retrieveMemories(
     timesUsed: row.times_used,
     lastUsed: row.last_used,
   }));
+
+  // Deterministic identity leg (SALPA identity-recall fix): for gated
+  // identity-scoped questions, union the caller's own active identity rows
+  // with the vector candidates. Dedupe by id (vector leg wins on overlap so
+  // measured cosine is preserved). Global MIN_SIMILARITY, embedding model,
+  // and scoring semantics are unchanged; non-identity queries are untouched.
+  const identityCandidates = await fetchIdentityCandidates(userId, query);
+  if (identityCandidates.length > 0) {
+    const seen = new Set(candidates.map((c) => c.id));
+    for (const identity of identityCandidates) {
+      if (!seen.has(identity.id)) {
+        candidates.push(identity);
+        seen.add(identity.id);
+      }
+    }
+  }
 
   if (candidates.length === 0) return [];
 
@@ -223,7 +302,7 @@ export async function retrieveMemories(
 
   // 7: bump usage for the memories actually surfaced to the prompt.
   if (surfaced.length > 0) {
-    await touchMemories(userId, surfaced.map((m) => m.id));
+    await memoryRepository.touchMemories(userId, surfaced.map((m) => m.id));
   }
 
   console.log(

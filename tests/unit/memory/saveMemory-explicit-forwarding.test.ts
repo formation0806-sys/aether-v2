@@ -33,6 +33,10 @@ vi.mock("@/lib/ai/embeddings/embed", () => ({
 
 vi.mock("@/lib/repositories/memory.repository", () => ({
   getMemoryByTitle: vi.fn(async () => getByTitleResult),
+  // Production getMemoriesByTitle returns { data: Array, error }; the shared
+  // getByTitleResult ({ data: null }) matches the singular maybeSingle shape,
+  // so the plural leg needs an array shape here (test-only fix, no prod change).
+  getMemoriesByTitle: vi.fn(async () => ({ data: [], error: null })),
   insertMemoryV2: vi.fn(async (args: Record<string, unknown>) => {
     capturedInsert = args;
     return { error: null };
