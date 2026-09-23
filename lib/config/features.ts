@@ -34,6 +34,8 @@ export type FeatureFlag =
   | "ENABLE_MULTI_AGENT"
   /** Enables continual-learning signal recording and evaluation (Priority 5). */
   | "ENABLE_CONTINUAL_LEARNING"
+  /** Enables basic world-model snapshots, predictions, and updates (Priority 6). */
+  | "ENABLE_WORLD_MODEL"
   /** Sub-flag of ENABLE_TOOL_USE: enables the external web-search tool only. */
   | "ENABLE_TOOL_WEB_SEARCH";
 
@@ -51,6 +53,7 @@ export const FEATURE_FLAGS: readonly FeatureFlag[] = Object.freeze([
   "ENABLE_PROCEDURAL_MEMORY",
   "ENABLE_MULTI_AGENT",
   "ENABLE_CONTINUAL_LEARNING",
+  "ENABLE_WORLD_MODEL",
   "ENABLE_TOOL_WEB_SEARCH",
 ]);
 
