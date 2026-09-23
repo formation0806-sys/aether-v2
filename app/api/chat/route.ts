@@ -13,6 +13,8 @@ import {
 import { getProvider } from "@/lib/ai/provider";
 import { saveAssistantMessage } from "@/lib/ai/conversation/manager";
 
+import { isAgentModeEnabled, isFeatureEnabled } from "@/lib/config/features";
+
 const CHAT_TIMING_PREFIX = "CHAT_TIMING";
 
 function chatTiming(stage: string, ms: number, extra?: string): void {
@@ -145,6 +147,61 @@ export async function POST(req: Request) {
         );
       })
     );
+
+    // AI planning (flag-gated, OFF by default): schedules background planning
+    // only when ENABLE_AI_PLANNER is on. With the flag OFF this block is dead
+    // code, so no callback is registered and the path below is unchanged.
+    // `after(...)` runs post-response, so planning never delays a reply, and
+    // schedulePlanningJob never throws or rejects.
+    if (isFeatureEnabled("ENABLE_AI_PLANNER")) {
+      // Narrowed copy: `message` is a non-empty string past the guards above.
+      const userMessage = message;
+
+      after(() =>
+        import("@/lib/agent/planner/background")
+          .then((mod) =>
+            mod.schedulePlanningJob({
+              userId: preResult.userId,
+              message: userMessage,
+            })
+          )
+          .catch(() => {
+            // Best-effort background work: never surface a planning failure.
+          })
+      );
+    }
+
+    // Agent loop (flag-gated, OFF by default). With flags OFF this branch is
+    // dead code and the executed path below is identical to production today.
+    // runAgentTurn never throws: fallback (or anything unexpected) falls
+    // through to the existing single-call chat path unchanged.
+    if (isAgentModeEnabled()) {
+      try {
+        const tAgentStart = nowMs();
+        const { runAgentTurn } = await import("@/lib/agent/runner");
+        const outcome = await runAgentTurn(preResult);
+        chatTiming("agent", nowMs() - tAgentStart, `request_token=${requestToken}`);
+
+        if (outcome?.kind === "answered" && typeof outcome.response === "string") {
+          const tAssistantStart = nowMs();
+          await saveAssistantMessage(
+            preResult.userId,
+            outcome.response,
+            preResult.conversationId
+          );
+          chatTiming("assistant_save", nowMs() - tAssistantStart, `request_token=${requestToken}`);
+
+          chatTiming("total", nowMs() - t0, `request_token=${requestToken}`);
+
+          return NextResponse.json({
+            response: outcome.response,
+            conversationId: preResult.conversationId ?? null,
+          });
+        }
+      } catch {
+        // Intentionally fall through to the legacy path below.
+      }
+    }
 
     const ai = getProvider();
     const tGenerationStart = nowMs();
