@@ -1,7 +1,8 @@
 # Feature Flags - Operator Runbook
 
 Feature flags let Salpa ship new capabilities (agent loop, tool use, AI planner,
-procedural memory) while keeping the live chat path untouched. Every flag
+procedural memory, multi-agent orchestration, continual learning) while keeping
+the live chat path untouched. Every flag
 defaults to **OFF**, so the product behaves exactly as it does today until a flag
 is deliberately enabled in the environment.
 
@@ -40,6 +41,7 @@ Consequences:
 | `ENABLE_AI_PLANNER` | OFF | AI plan generation, in the background job worker only | No - reserved |
 | `ENABLE_PROCEDURAL_MEMORY` | OFF | Procedural-memory extraction and writing rules | No - reserved |
 | `ENABLE_MULTI_AGENT` | OFF | Multi-agent orchestration planning (Priority 4 foundation only) | No - reserved |
+| `ENABLE_CONTINUAL_LEARNING` | OFF | Continual-learning signal recording and evaluation (Priority 5 foundation only) | No - reserved |
 | `ENABLE_TOOL_WEB_SEARCH` | OFF | The external web-search tool only (sub-flag of `ENABLE_TOOL_USE`) | No - reserved |
 
 **Agent mode** requires **both** `ENABLE_AGENT_LOOP` and `ENABLE_TOOL_USE`

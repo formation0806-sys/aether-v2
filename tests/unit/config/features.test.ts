@@ -118,6 +118,7 @@ describe("feature flags - unrecognized values stay OFF", () => {
     expect(isFeatureEnabled("ENABLE_PROCEDURAL_MEMORY")).toBe(false);
     expect(isFeatureEnabled("ENABLE_TOOL_WEB_SEARCH")).toBe(false);
     expect(isFeatureEnabled("ENABLE_MULTI_AGENT")).toBe(false);
+    expect(isFeatureEnabled("ENABLE_CONTINUAL_LEARNING")).toBe(false);
   });
 });
 
