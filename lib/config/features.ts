@@ -30,6 +30,8 @@ export type FeatureFlag =
   | "ENABLE_AI_PLANNER"
   /** Enables procedural-memory extraction and writing rules. */
   | "ENABLE_PROCEDURAL_MEMORY"
+  /** Enables multi-agent orchestration planning. Reserved for Priority 4. */
+  | "ENABLE_MULTI_AGENT"
   /** Sub-flag of ENABLE_TOOL_USE: enables the external web-search tool only. */
   | "ENABLE_TOOL_WEB_SEARCH";
 
@@ -45,6 +47,7 @@ export const FEATURE_FLAGS: readonly FeatureFlag[] = Object.freeze([
   "ENABLE_TOOL_USE",
   "ENABLE_AI_PLANNER",
   "ENABLE_PROCEDURAL_MEMORY",
+  "ENABLE_MULTI_AGENT",
   "ENABLE_TOOL_WEB_SEARCH",
 ]);
 

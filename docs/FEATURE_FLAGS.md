@@ -39,6 +39,7 @@ Consequences:
 | `ENABLE_TOOL_USE` | OFF | Tool registry: registration and execution of tools for the loop | No - reserved |
 | `ENABLE_AI_PLANNER` | OFF | AI plan generation, in the background job worker only | No - reserved |
 | `ENABLE_PROCEDURAL_MEMORY` | OFF | Procedural-memory extraction and writing rules | No - reserved |
+| `ENABLE_MULTI_AGENT` | OFF | Multi-agent orchestration planning (Priority 4 foundation only) | No - reserved |
 | `ENABLE_TOOL_WEB_SEARCH` | OFF | The external web-search tool only (sub-flag of `ENABLE_TOOL_USE`) | No - reserved |
 
 **Agent mode** requires **both** `ENABLE_AGENT_LOOP` and `ENABLE_TOOL_USE`
