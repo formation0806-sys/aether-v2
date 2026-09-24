@@ -45,6 +45,8 @@ Consequences:
 | `ENABLE_CONTINUAL_LEARNING` | OFF | Continual-learning signal recording and evaluation (Priority 5 foundation only) | No - reserved |
 | `ENABLE_WORLD_MODEL` | OFF | Basic world-model snapshots, effect predictions, and update proposals (Priority 6 foundation only) | No - reserved |
 | `ENABLE_TOOL_WEB_SEARCH` | OFF | The external web-search tool only (sub-flag of `ENABLE_TOOL_USE`) | No - reserved |
+| `ENABLE_LONG_HORIZON` | OFF | Long-horizon goal-run autonomy runtime (Priority L1 foundation only) | No - reserved for a later reviewed step |
+
 
 **Agent mode** requires **both** `ENABLE_AGENT_LOOP` and `ENABLE_TOOL_USE`
 (`isAgentModeEnabled()`). If either one is off or unset, the existing single-call

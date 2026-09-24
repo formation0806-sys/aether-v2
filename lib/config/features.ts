@@ -36,6 +36,8 @@ export type FeatureFlag =
   | "ENABLE_CONTINUAL_LEARNING"
   /** Enables basic world-model snapshots, predictions, and updates (Priority 6). */
   | "ENABLE_WORLD_MODEL"
+  /** Enables long-horizon goal-run autonomy runtime (Priority L1 foundation only). */
+  | "ENABLE_LONG_HORIZON"
   /** Sub-flag of ENABLE_TOOL_USE: enables the external web-search tool only. */
   | "ENABLE_TOOL_WEB_SEARCH";
 
@@ -55,6 +57,7 @@ export const FEATURE_FLAGS: readonly FeatureFlag[] = Object.freeze([
   "ENABLE_CONTINUAL_LEARNING",
   "ENABLE_WORLD_MODEL",
   "ENABLE_TOOL_WEB_SEARCH",
+  "ENABLE_LONG_HORIZON",
 ]);
 
 /** Safe defaults for the numeric flags, used when a variable is unset or unparsable. */
