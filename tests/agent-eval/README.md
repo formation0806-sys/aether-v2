@@ -1,4 +1,13 @@
-# Agent evaluation harness - Rung 1
+# Agent evaluation harness
+
+Three rungs, all additive and non-invasive:
+
+| Rung | File | What it covers | Live deps |
+| --- | --- | --- | --- |
+| 1 | `agent-eval.test.ts` + `cases.json` | Hermetic dataset-driven evaluation of the agent loop, with metrics | none |
+| 2 | `route-guard.test.ts` | Static + contract guard on the chat route's agent branch | none |
+| 3 | `live-smoke.test.ts` | Opt-in end-to-end smoke of the real route with agent mode on | app + model + session |
+
 
 Dataset-driven, hermetic evaluation of the agent loop (`lib/agent/loop.ts`).
 
@@ -20,8 +29,43 @@ npx vitest run tests/agent-eval/agent-eval.test.ts
 | File | Purpose |
 | --- | --- |
 | `cases.json` | The dataset: one object per case, plus a dataset version |
-| `agent-eval.test.ts` | The harness: dataset validation, scripted provider, probe tools, metrics, assertions |
-| `measurement.json` | Report artifact written by every run (metrics + per-case detail) |
+| `agent-eval.test.ts` | Rung 1 harness: dataset validation, scripted provider, probe tools, metrics, assertions |
+| `route-guard.test.ts` | Rung 2: route agent-branch wiring guard (static + contract) |
+| `live-smoke.test.ts` | Rung 3: opt-in live smoke (skipped unless `AGENT_EVAL_LIVE=1`) |
+| `measurement.json` | Report artifact written by every Rung 1 run (metrics + per-case detail) |
+
+## Rung 3: opt-in live smoke
+
+Proves the REAL route enters and serves the agent branch when agent mode is on.
+**Skipped by default**, so `npm test` stays offline-safe.
+
+```
+# Spawns its own `next dev` on port 3123 with ENABLE_AGENT_LOOP/ENABLE_TOOL_USE
+# set for that child process only. Nothing is written to .env.local.
+AGENT_EVAL_LIVE=1 npx vitest run tests/agent-eval/live-smoke.test.ts
+```
+
+Environment knobs (all optional):
+
+| Variable | Meaning |
+| --- | --- |
+| `AGENT_EVAL_LIVE` | `1` enables the suite; anything else skips it |
+| `AGENT_EVAL_LIVE_COOKIE` | Pre-built `sb-<ref>-auth-token` cookie value, so no sign-in is needed |
+| `AGENT_EVAL_LIVE_EMAIL` / `_PASSWORD` | Sign-in credentials (falls back to `AETHER_SMOKE_*`, then `M2_SMOKE_*`) |
+| `AGENT_EVAL_LIVE_BASE_URL` | Attach to a server you already run instead of spawning one |
+| `AGENT_EVAL_LIVE_PORT` | Port for the spawned dev server (default `3123`) |
+| `AGENT_EVAL_LIVE_LOG` | Path to the server log, used for the agent-branch evidence |
+
+What it asserts: HTTP 200, the exact `{ response, conversationId }` shape, a
+non-empty string response, for a calculator-style and a current-time-style turn.
+Then, when a log source exists (the spawned server's output, or
+`AGENT_EVAL_LIVE_LOG`), it asserts `CHAT_TIMING agent_ms=` appears once per
+request with a matching completed `total_ms=` for the same `request_token`.
+
+It **skips cleanly, never fails**, when a live dependency is missing: app
+unreachable, model runtime unreachable, no credentials, or sign-in refused.
+Flags are set on the test process and on the spawned server child, then
+restored — `.env.local` is never modified, and no production default changes.
 
 ## Hermetic by construction
 
@@ -98,9 +142,10 @@ The suite fails when any case
 `afterAll` additionally requires every dataset case to be recorded and
 `casesFailed === 0`, then writes `measurement.json` and prints the metrics.
 
-## Limits (what Rung 1 does not do)
+## Limits
 
-Not an end-to-end test: it does not exercise the chat route, the planner,
-procedural memory, orchestration, learning or the world model, and it says
-nothing about live model quality, durability, or cost. Those are later rungs.
-Extend the dataset first; extend the schema only when a metric genuinely needs it.
+Rungs 1 and 2 are hermetic by design. Rung 3 covers the live route end to end,
+but only when explicitly opted in and only for the agent branch: it does not
+evaluate the planner, procedural memory, orchestration, learning or the world
+model, and it says nothing about durability or cost. Extend the dataset first;
+extend the schema only when a metric genuinely needs it.
