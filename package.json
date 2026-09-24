@@ -7,8 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run tests/unit tests/pipeline tests/repositories tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",
+    "test:watch": "vitest",
+    "test:unit": "vitest run tests/unit tests/pipeline tests/repositories",
+    "test:agent-eval": "vitest run tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",
+    "test:hermetic": "vitest run tests/unit tests/pipeline tests/repositories tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",
+    "test:live": "vitest run tests/agent-eval/live-smoke.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

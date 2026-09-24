@@ -21,8 +21,20 @@ from tool failures, and return the expected answer - or does it fall back?**
 npx vitest run tests/agent-eval/agent-eval.test.ts
 ```
 
+or via the named scripts:
+
+```
+npm run test:agent-eval   # hermetic agent-eval only (Rung 1 + Rung 2 guard)
+npm run test:hermetic     # full hermetic path (unit + pipeline + repositories + agent-eval)
+npm run test:live         # opt-in live smoke (skips unless AGENT_EVAL_LIVE=1)
+npm test                  # same as test:hermetic (default green path, offline-safe)
+```
+
 `npm test` also picks it up, because `vitest.config.ts` includes
-`tests/**/*.test.ts`.
+`tests/**/*.test.ts`. Historical `tests/phase-*` experiments and the live
+smoke are NOT on the default path: the smoke self-skips without
+`AGENT_EVAL_LIVE=1`, and the phase probes stay out of every `test:*` script
+above (run them explicitly by path if needed).
 
 ## Files
 
