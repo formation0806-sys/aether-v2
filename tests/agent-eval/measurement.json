@@ -1,0 +1,250 @@
+{
+  "harness": "agent-eval-rung1",
+  "generatedAt": "2026-09-24T19:00:14.598Z",
+  "hermetic": true,
+  "injected": [
+    "provider",
+    "registry",
+    "budget",
+    "clock"
+  ],
+  "dataset": {
+    "path": "tests/agent-eval/cases.json",
+    "version": 1,
+    "sha256": "e8fd6b42f280c1a21bd0f3307a4b93b08bf7b748121db24ac3a68f12da607f15",
+    "cases": 12
+  },
+  "metrics": {
+    "total": 12,
+    "answered": 11,
+    "answeredRate": 0.9167,
+    "fallbackReasons": {
+      "provider_error": 1
+    },
+    "toolSelection": {
+      "casesWithExpectation": 9,
+      "casesMatched": 9,
+      "accuracy": 1
+    },
+    "toolErrors": {
+      "actSteps": 9,
+      "failed": 2,
+      "failureRate": 0.2222,
+      "timeouts": 1,
+      "failures": 1
+    },
+    "truncatedObservations": 1,
+    "turns": {
+      "total": 20,
+      "mean": 1.6667,
+      "max": 3
+    },
+    "durationMs": {
+      "mean": 15.8333,
+      "max": 35,
+      "p50": 20,
+      "p95": 35
+    },
+    "casesPassed": 12,
+    "casesFailed": 0
+  },
+  "cases": [
+    {
+      "id": "answer_no_tool",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Hello there.",
+      "tools": [],
+      "turns": 1,
+      "durationMs": 5,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 1,
+      "ok": true
+    },
+    {
+      "id": "calculator_single",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "The answer is 42.",
+      "tools": [
+        "calculator"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "current_time_single",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "It is currently the afternoon in UTC.",
+      "tools": [
+        "current_time"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "calculator_then_current_time",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Both done: 42 and the current time.",
+      "tools": [
+        "calculator",
+        "current_time"
+      ],
+      "turns": 3,
+      "durationMs": 35,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 7,
+      "ok": true
+    },
+    {
+      "id": "probe_ok_round_trip",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Probe complete.",
+      "tools": [
+        "eval_probe_ok"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "probe_large_observation",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Handled the large observation.",
+      "tools": [
+        "eval_probe_large"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 1,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "probe_tool_failure_recovers",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Recovered from the tool failure.",
+      "tools": [
+        "eval_probe_fail"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 1,
+      "toolTimeouts": 0,
+      "toolFailures": 1,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "probe_tool_timeout_recovers",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Recovered after the timeout.",
+      "tools": [
+        "eval_probe_hang"
+      ],
+      "turns": 2,
+      "durationMs": 20,
+      "toolErrors": 1,
+      "toolTimeouts": 1,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "turn_cap_forces_final_answer",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "Final answer from the turn cap.",
+      "tools": [
+        "calculator"
+      ],
+      "turns": 1,
+      "durationMs": 15,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 4,
+      "ok": true
+    },
+    {
+      "id": "unknown_tool_is_answer",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "{\"tool\": \"no_such_tool\", \"args\": {}}",
+      "tools": [],
+      "turns": 1,
+      "durationMs": 5,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 1,
+      "ok": true
+    },
+    {
+      "id": "malformed_tool_json_is_answer",
+      "outcomeKind": "answered",
+      "fallbackReason": null,
+      "response": "{\"tool\": \"calculator\", \"args\": ",
+      "tools": [],
+      "turns": 1,
+      "durationMs": 5,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 1,
+      "ok": true
+    },
+    {
+      "id": "provider_error_falls_back",
+      "outcomeKind": "fallback",
+      "fallbackReason": "provider_error",
+      "response": null,
+      "tools": [],
+      "turns": 1,
+      "durationMs": 5,
+      "toolErrors": 0,
+      "toolTimeouts": 0,
+      "toolFailures": 0,
+      "truncatedObservations": 0,
+      "steps": 1,
+      "ok": true
+    }
+  ]
+}

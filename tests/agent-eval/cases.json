@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "description": "Hermetic agent-loop evaluation dataset (Rung 1). Each case scripts the model replies the loop will receive and declares the outcome, tool sequence, turn cap and answer fragment that must hold. No network, no database, no feature flags: the harness injects the provider, the tool registry, the budget and the clock.",
+  "cases": [
+    {
+      "id": "answer_no_tool",
+      "message": "Say hello.",
+      "scriptedModelReplies": ["Hello there."],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": [],
+      "maxTurns": 1,
+      "expectedAnswerSubstring": "Hello there."
+    },
+    {
+      "id": "calculator_single",
+      "message": "What is 6 times 7?",
+      "scriptedModelReplies": [
+        "{\"tool\": \"calculator\", \"args\": {\"expression\": \"6*7\"}}",
+        "The answer is 42."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["calculator"],
+      "maxTurns": 2,
+      "expectedAnswerSubstring": "42"
+    },
+    {
+      "id": "current_time_single",
+      "message": "What time is it right now?",
+      "scriptedModelReplies": [
+        "{\"tool\": \"current_time\", \"args\": {}}",
+        "It is currently the afternoon in UTC."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["current_time"],
+      "maxTurns": 2,
+      "expectedAnswerSubstring": "afternoon in UTC"
+    },
+    {
+      "id": "calculator_then_current_time",
+      "message": "What is 12 plus 30, and what time is it?",
+      "scriptedModelReplies": [
+        "{\"tool\": \"calculator\", \"args\": {\"expression\": \"12+30\"}}",
+        "{\"tool\": \"current_time\", \"args\": {}}",
+        "Both done: 42 and the current time."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["calculator", "current_time"],
+      "maxTurns": 3,
+      "expectedAnswerSubstring": "Both done"
+    },
+    {
+      "id": "probe_ok_round_trip",
+      "message": "Run the healthy probe.",
+      "scriptedModelReplies": [
+        "{\"tool\": \"eval_probe_ok\", \"args\": {}}",
+        "Probe complete."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["eval_probe_ok"],
+      "maxTurns": 2,
+      "expectedAnswerSubstring": "Probe complete."
+    },
+    {
+      "id": "probe_large_observation",
+      "message": "Run the large-output probe.",
+      "scriptedModelReplies": [
+        "{\"tool\": \"eval_probe_large\", \"args\": {}}",
+        "Handled the large observation."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["eval_probe_large"],
+      "maxTurns": 2,
+      "expectedAnswerSubstring": "large observation"
+    },
+    {
+      "id": "probe_tool_failure_recovers",
+      "message": "Run the failing probe.",
+      "scriptedModelReplies": [
+        "{\"tool\": \"eval_probe_fail\", \"args\": {}}",
+        "Recovered from the tool failure."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["eval_probe_fail"],
+      "maxTurns": 3,
+      "expectedAnswerSubstring": "Recovered from the tool failure."
+    },
+    {
+      "id": "probe_tool_timeout_recovers",
+      "message": "Run the hanging probe.",
+      "scriptedModelReplies": [
+        "{\"tool\": \"eval_probe_hang\", \"args\": {}}",
+        "Recovered after the timeout."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["eval_probe_hang"],
+      "maxTurns": 3,
+      "expectedAnswerSubstring": "Recovered after the timeout."
+    },
+    {
+      "id": "turn_cap_forces_final_answer",
+      "message": "What is 2 plus 2?",
+      "scriptedModelReplies": [
+        "{\"tool\": \"calculator\", \"args\": {\"expression\": \"2+2\"}}",
+        "Final answer from the turn cap."
+      ],
+      "expectedOutcome": "answered",
+      "expectedToolSequence": ["calculator"],
+      "maxTurns": 1,
+      "expectedAnswerSubstring": "Final answer from the turn cap."
+    },
+    {
+      "id": "unknown_tool_is_answer",
+      "message": "Call a tool that does not exist.",
+      "scriptedModelReplies": ["{\"tool\": \"no_such_tool\", \"args\": {}}"],
+      "expectedOutcome": "answered",
+      "maxTurns": 1,
+      "expectedAnswerSubstring": "no_such_tool"
+    },
+    {
+      "id": "malformed_tool_json_is_answer",
+      "message": "Emit a broken tool call.",
+      "scriptedModelReplies": ["{\"tool\": \"calculator\", \"args\": "],
+      "expectedOutcome": "answered",
+      "maxTurns": 1,
+      "expectedAnswerSubstring": "calculator"
+    },
+    {
+      "id": "provider_error_falls_back",
+      "message": "This turn must hand control back to the legacy chat path.",
+      "scriptedModelReplies": ["__THROW__"],
+      "expectedOutcome": "fallback",
+      "maxTurns": 1
+    }
+  ]
+}
