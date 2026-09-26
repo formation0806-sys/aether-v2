@@ -3,7 +3,13 @@ import {
   ChatMessage,
   EmbeddingResult,
 } from "../types";
-import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "../config";
+import {
+  CHAT_AUTH_HEADER,
+  CHAT_BASE_URL,
+  CHAT_MODEL,
+  OLLAMA_AUTH_HEADER,
+  OLLAMA_BASE_URL,
+} from "../config";
 
 export class OllamaProvider implements AIProvider {
     /**
@@ -17,16 +23,16 @@ export class OllamaProvider implements AIProvider {
 
     let response: Response;
     try {
-      response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
+      response = await fetch(`${CHAT_BASE_URL}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(OLLAMA_AUTH_HEADER
-            ? { Authorization: OLLAMA_AUTH_HEADER }
+          ...(CHAT_AUTH_HEADER
+            ? { Authorization: CHAT_AUTH_HEADER }
             : {}),
         },
         body: JSON.stringify({
-          model: "qwen2.5:3b",
+          model: CHAT_MODEL,
           stream: true,
           options: {
             temperature: 0.2,
@@ -163,15 +169,15 @@ export class OllamaProvider implements AIProvider {
 
     try {
       const response = await fetch(
-        `${OLLAMA_BASE_URL}/api/chat`,
+        `${CHAT_BASE_URL}/api/chat`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
+            ...(CHAT_AUTH_HEADER ? { Authorization: CHAT_AUTH_HEADER } : {}),
           },
           body: JSON.stringify({
-            model: "qwen2.5:3b",
+            model: CHAT_MODEL,
 
             stream: false,
 
