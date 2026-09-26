@@ -1,5 +1,5 @@
 import type { ExtractedMemory } from "./types";
-import { OLLAMA_BASE_URL, OLLAMA_AUTH_HEADER } from "@/lib/ai/config";
+import { MEMORY_AUTH_HEADER, MEMORY_BASE_URL, MEMORY_MODEL } from "@/lib/ai/config";
 
 /** Input shape produced by `runReflection` in lib/core/pipeline.ts. */
 export interface ReflectionInput {
@@ -390,15 +390,15 @@ export async function generateReflections(
   let response: Response;
   try {
     response = await fetch(
-      `${OLLAMA_BASE_URL}/api/chat`,
+      `${MEMORY_BASE_URL}/api/chat`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(OLLAMA_AUTH_HEADER ? { Authorization: OLLAMA_AUTH_HEADER } : {}),
+          ...(MEMORY_AUTH_HEADER ? { Authorization: MEMORY_AUTH_HEADER } : {}),
         },
         body: JSON.stringify({
-          model: "qwen2.5:3b",
+          model: MEMORY_MODEL,
           stream: false,
 
           options: {

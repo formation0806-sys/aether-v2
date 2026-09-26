@@ -24,3 +24,24 @@ export const CHAT_AUTH_HEADER =
 
 export const CHAT_MODEL =
   process.env.OLLAMA_CHAT_MODEL?.trim() || "qwen2.5:3b";
+
+/**
+ * Memory-reasoning configuration.
+ *
+ * Currently consumed by the reflector only. Embeddings, the chat provider,
+ * the extractor, the identity verifier and the consolidation verifier all keep
+ * using OLLAMA_BASE_URL / OLLAMA_AUTH_HEADER above and are unaffected.
+ *
+ * Each value falls back to the legacy configuration (and, for the model, to the
+ * frozen local default), so behaviour is identical whenever the new variables
+ * are unset. The complete `Authorization` header value is passed through
+ * verbatim, so OLLAMA_MEMORY_AUTH carries e.g. "Bearer <key>" for Ollama Cloud.
+ */
+export const MEMORY_BASE_URL =
+  process.env.OLLAMA_MEMORY_BASE_URL?.trim() || OLLAMA_BASE_URL;
+
+export const MEMORY_AUTH_HEADER =
+  process.env.OLLAMA_MEMORY_AUTH?.trim() || OLLAMA_AUTH_HEADER;
+
+export const MEMORY_MODEL =
+  process.env.OLLAMA_MEMORY_MODEL?.trim() || "qwen2.5:3b";
