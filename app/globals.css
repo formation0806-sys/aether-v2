@@ -242,6 +242,134 @@
   50% { opacity: 1; transform: scale(1); }
 }
 
+/* ---------------------------------------------------------------------------
+   Salpa pangolin companion.
+   Defined here, with the rest of the product's motion, so the companion's
+   animation is a single stylesheet-backed definition rather than a block
+   duplicated inside every rendered message.
+
+   Every rule below is gated behind `prefers-reduced-motion: no-preference`,
+   which is exactly what Tailwind's `motion-safe:` compiles to. A user who
+   asks for reduced motion gets a completely static pangolin: no transforms,
+   no blinking and no sweeping glow.
+
+   Amplitudes are expressed in viewBox units of the companion's 100x62 grid,
+   where 1 unit renders as roughly 1px at the 96px display size. The body
+   therefore travels about 2.5px, the head lifts and turns about 1.5px, and
+   the tail sweeps about 3.5px - large enough to read as a living animal
+   within a second or two, but far too small to read as cartoon motion.
+--------------------------------------------------------------------------- */
+
+@keyframes salpa-breathe {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-2.5px) scaleY(1.02); }
+}
+
+@keyframes salpa-breathe-active {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-3.5px) scaleY(1.03); }
+}
+
+@keyframes salpa-head {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  35% { transform: rotate(-4.5deg) translateY(-1.5px); }
+  70% { transform: rotate(1.2deg) translateY(0); }
+}
+
+@keyframes salpa-head-active {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  30% { transform: rotate(-6deg) translateY(-2px); }
+  65% { transform: rotate(2deg) translateY(0); }
+}
+
+@keyframes salpa-tail {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(6deg); }
+}
+
+@keyframes salpa-tail-active {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(9deg); }
+}
+
+@keyframes salpa-scales {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-1.5px); opacity: 0.6; }
+}
+
+@keyframes salpa-scales-active {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-2px); opacity: 0.45; }
+}
+
+/* A single quick blink per cycle; the eye is open the rest of the time. */
+@keyframes salpa-blink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.08); }
+  96% { transform: scaleY(0.08); }
+}
+
+/* A soft band of light travelling across the armour while working. */
+@keyframes salpa-sweep {
+  0% { transform: translateX(-46px); }
+  100% { transform: translateX(146px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .salpa-body {
+    animation: salpa-breathe 4.5s ease-in-out infinite;
+    transform-box: view-box;
+    transform-origin: 48px 64px;
+  }
+  .salpa-head {
+    animation: salpa-head 5s ease-in-out infinite;
+    transform-box: view-box;
+    transform-origin: 77px 28px;
+  }
+  .salpa-tail {
+    animation: salpa-tail 6.5s ease-in-out infinite;
+    transform-box: view-box;
+    transform-origin: 31px 30px;
+  }
+  .salpa-scales {
+    animation: salpa-scales 4.5s ease-in-out infinite;
+  }
+  .salpa-eye {
+    animation: salpa-blink 7s ease-in-out infinite;
+    transform-box: view-box;
+    transform-origin: 82px 26px;
+  }
+
+  /* Thinking / working: the same animal, visibly livelier. */
+  .salpa-active .salpa-body {
+    animation-name: salpa-breathe-active;
+    animation-duration: 3s;
+  }
+  .salpa-active .salpa-head {
+    animation-name: salpa-head-active;
+    animation-duration: 3.2s;
+  }
+  .salpa-active .salpa-tail {
+    animation-name: salpa-tail-active;
+    animation-duration: 4.2s;
+  }
+  .salpa-active .salpa-scales {
+    animation-name: salpa-scales-active;
+    animation-duration: 3s;
+  }
+  .salpa-active .salpa-eye { animation-duration: 5s; }
+  .salpa-active .salpa-sweep {
+    animation: salpa-sweep 3.4s linear infinite;
+  }
+
+  /* Idle: the animal is still resting, just barely breathing. */
+  .salpa-resting .salpa-body { animation-duration: 8.5s; }
+  .salpa-resting .salpa-head { animation-duration: 10s; }
+  .salpa-resting .salpa-tail { animation-duration: 12s; }
+  .salpa-resting .salpa-scales { animation-duration: 8.5s; }
+  .salpa-resting .salpa-eye { animation-duration: 11s; }
+}
+
 /* Subtle message hover for interactivity */
 .message-hover {
   transition: background-color 200ms ease;

@@ -530,7 +530,7 @@ export default function Chat() {
             ))}
             {loading && (
               <div
-                className="flex items-center gap-2.5 py-1"
+                className="flex items-start gap-3 py-1"
                 role="status"
                 aria-live="polite"
               >
@@ -539,9 +539,9 @@ export default function Chat() {
                     it carries the only screen-reader announcement. */}
                 <SalpaCompanion
                   variant="holographic"
-                  className="size-12 shrink-0 text-[#A0A0A0]"
+                  className="-mt-1 size-28 shrink-0 text-[#A0A0A0]"
                 />
-                <span className="text-xs font-medium text-[#707070]">
+                <span className="mt-4 text-xs font-medium text-[#707070]">
                   {isThinking ? "Thinking…" : "Responding…"}
                 </span>
               </div>

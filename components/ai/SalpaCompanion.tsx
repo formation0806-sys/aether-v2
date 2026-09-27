@@ -15,51 +15,57 @@ type SalpaCompanionProps = {
 };
 
 /**
- * The pangolin body outline, in a 24x24 grid, drawn in profile and facing
- * right: scalloped scale arcs across the back, a small snout, a tapering
- * tail to the left, and two short feet.
+ * The pangolin, drawn in profile facing right on a 100x62 grid that is fitted
+ * closely to the artwork, so the animal fills roughly 90% of the box instead
+ * of floating in empty space.
  *
- * One shared path for every variant so the silhouette stays identical and
- * only the treatment changes.
- */
-/**
- * The pangolin, drawn in profile facing right inside a 64x46 grid that is
- * fitted tightly to the artwork, so the animal fills roughly 90% of the
- * available area instead of floating in empty space.
+ * Anatomy, front to back: a small pointed head and snout, a deep domed and
+ * arched back, a heavy tail tapering to a point, and two short clawed feet.
+ * Four curved plates across the back read as the overlapping armour that
+ * makes a pangolin recognisable, and a filled eye completes the read.
  *
- * Read from front to back, the silhouette carries the four features that make
- * a pangolin recognisable at a glance: a pointed snout, a domed and arched
- * back, a heavy tapering tail, and short clawed feet. The overlapping armour
- * is expressed by the three SCALE_BANDS, which follow the curve of the back
- * and read as the layered plates that give a pangolin its texture.
+ * The head is a separate group that deliberately OVERLAPS the body across
+ * x 67..73. That overlap is wider than the gap a few degrees of neck rotation
+ * can open, so the animal turns its head without the outline ever splitting.
  *
- * All geometry is shared by every variant, so the silhouette stays identical
- * and only the treatment changes.
+ * Overall extent: x 5..96, y 7..65.
  */
 const BODY_PATH =
-  "M 60.5 20 C 56.5 14 49.5 8.5 41.5 6 C 31 3 20 6 13 12 " +
-  "C 7 17 2.5 25 1.5 32 C 1 35 2.5 38.5 5 39 C 7 39.5 8.5 37 8 34.5 " +
-  "C 9 38 12 39.5 15 39 C 20 38.5 27 37.5 33 36 C 40 34.5 46 32 50 29 " +
-  "C 54 26 57.5 23 60.5 20 Z";
+  "M 30 26 C 34 14 48 8 60 10 C 66 11 71 16 74 23 " +
+  "C 76 30 74 38 69 45 C 62 54 50 58 41 54 C 33 50 29 39 30 26 Z";
 
-/** Three curved plates across the back: the pangolin's overlapping armour. */
+/** Small head with a pointed snout; overlaps the body across x 67..73. */
+const HEAD_PATH =
+  "M 66 24 C 68 16 75 11 83 12 C 89 13 94 18 96 24 " +
+  "C 95 30 90 35 84 37 C 77 38 70 35 68 30 C 67 28 66 26 66 24 Z";
+
+/** Heavy tapering tail sweeping down and left, tucked behind the body. */
+const TAIL_PATH =
+  "M 33 27 C 25 31 17 40 11 51 C 8 56 6 61 5 64 " +
+  "C 7 63 10 59 13 54 C 17 48 21 42 25 37 C 28 33 31 30 33 27 Z";
+
+/** Four curved plates across the back: the pangolin's overlapping armour. */
 const SCALE_BANDS = [
-  "M 24 13.5 C 21 20 20 27 22 33.5",
-  "M 33 8.5 C 30.5 16 30 24 32 33",
-  "M 42 8 C 40.5 15 41 23 44 30.5",
+  "M 70 16 C 68 26 68 36 70 44",
+  "M 58 12 C 55 23 55 35 57 46",
+  "M 46 12 C 43 23 43 35 45 47",
+  "M 36 18 C 33 28 33 38 35 47",
 ];
 
 /** Two rings banding the tapering tail. */
 const TAIL_BANDS = [
-  "M 6.5 23 C 8 26 8.5 29 8 32",
-  "M 11.5 17 C 13 20.5 13.5 24 13 28",
+  "M 18 41 C 20 46 20 50 19 54",
+  "M 27 33 C 29 37 29 41 28 45",
 ];
 
-/** Two short feet under the body. */
-const LEGS = ["M 26 37 L 24.5 43", "M 40 34.5 L 41.5 41.5"];
+/** Two short feet under the belly. */
+const LEGS = [
+  "M 66 52 C 66 56 66 60 65 63",
+  "M 42 53 C 42 57 42 61 41 64",
+];
 
 /** The eye: a single filled dot, the detail that makes it read as an animal. */
-const EYE = { cx: 52.5, cy: 18, r: 1.05 };
+const EYE = { cx: 82, cy: 26, r: 1.8 };
 
 /**
  * Shared stroke geometry so all three variants line up exactly.
@@ -74,8 +80,8 @@ const strokeProps = {
 };
 
 /** Outline weight for the body, and the lighter weight for interior detail. */
-const BODY_WIDTH = 1.8;
-const DETAIL_WIDTH = 1.35;
+const BODY_WIDTH = 1.9;
+const DETAIL_WIDTH = 1.4;
 
 /**
  * SalpaCompanion - the Salpa pangolin companion.
@@ -106,7 +112,7 @@ export default function SalpaCompanion({
 }: SalpaCompanionProps) {
   return (
     <svg
-      viewBox="0 0 64 46"
+      viewBox="0 4 100 62"
       fill="none"
       role="presentation"
       aria-hidden="true"
@@ -129,29 +135,57 @@ export default function SalpaCompanion({
  * Variant B - minimal 2D pangolin.
  *
  * The primary Salpa companion identity: clean, premium, monochrome. Used for
- * normal chat, listening, responding and welcome. Completely still, so it
- * never competes with message content.
+ * normal chat, listening, responding and welcome.
+ *
+ * Five independently animated groups make the companion read as a living
+ * animal rather than a static glyph. The body breathes, the head turns about
+ * the neck, the tail sways about the tail root, the scale plates shift, and
+ * the eye blinks once per cycle. All five classes are defined in
+ * `app/globals.css` and are gated behind `prefers-reduced-motion`.
  */
 function MinimalPangolin() {
   return (
-    <g stroke="currentColor" strokeOpacity={0.92} {...strokeProps}>
+    <g
+      className="salpa-body"
+      stroke="currentColor"
+      strokeOpacity={0.92}
+      {...strokeProps}
+    >
+      {/* Tail: sways about the tail root. */}
+      <g className="salpa-tail">
+        <path d={TAIL_PATH} strokeWidth={BODY_WIDTH} />
+        {TAIL_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.5} strokeWidth={DETAIL_WIDTH} />
+        ))}
+      </g>
+
+      {/* Body: rises and falls with the breathing motion. */}
       <path d={BODY_PATH} strokeWidth={BODY_WIDTH} />
-      {SCALE_BANDS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.6} strokeWidth={DETAIL_WIDTH} />
-      ))}
-      {TAIL_BANDS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.5} strokeWidth={DETAIL_WIDTH} />
-      ))}
       {LEGS.map((d) => (
         <path key={d} d={d} strokeOpacity={0.6} strokeWidth={DETAIL_WIDTH} />
       ))}
+
+      {/* Head: turns about the neck, inside the body's overlap. */}
+      <g className="salpa-head">
+        <path d={HEAD_PATH} strokeWidth={BODY_WIDTH} />
+      </g>
+
+      {/* Eye: blinks on its own long cycle. */}
       <circle
+        className="salpa-eye"
         cx={EYE.cx}
         cy={EYE.cy}
         r={EYE.r}
         fill="currentColor"
         stroke="none"
       />
+
+      {/* Scales: the armour plates shift gently. */}
+      <g className="salpa-scales">
+        {SCALE_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.6} strokeWidth={DETAIL_WIDTH} />
+        ))}
+      </g>
     </g>
   );
 }
@@ -160,16 +194,18 @@ function MinimalPangolin() {
  * Variant F - holographic pangolin.
  *
  * Reserved for when Salpa is genuinely active (thinking, long-running work).
- * The effect is a slow, low-amplitude opacity breath plus a faint same-hue
- * sheen and a soft edge glow, all derived from `currentColor`. There is no
+ * It shares the exact same grouped anatomy as the minimal variant and adds a
+ * faint same-hue sheen plus a soft edge glow, both derived from
+ * `currentColor`.
+ *
+ * The `salpa-active` class shortens every animation duration, so while working
+ * the animal breathes and sways noticeably faster than at rest. There is no
  * rainbow, no chromatic aberration and no rapid motion, so it stays premium
  * rather than gaming-like.
- *
- * Not wired to any application state in the current chat experience.
  */
 function HolographicPangolin() {
   return (
-    <g className="motion-safe:animate-pulse motion-safe:[animation-duration:6s]">
+    <g className="salpa-active salpa-body" stroke="currentColor" strokeOpacity={0.95}>
       <defs>
         <linearGradient id="salpa-holo-sheen" x1="0" y1="1" x2="1" y2="0">
           <stop offset="0%" stopColor="currentColor" stopOpacity={0.45} />
@@ -177,63 +213,63 @@ function HolographicPangolin() {
           <stop offset="100%" stopColor="currentColor" stopOpacity={0.5} />
         </linearGradient>
         <filter id="salpa-holo-glow" x="-25%" y="-25%" width="150%" height="150%">
-          <feGaussianBlur stdDeviation="0.7" />
+          <feGaussianBlur stdDeviation="0.8" />
         </filter>
       </defs>
 
-      {/* Soft same-hue halo. */}
-      <path
-        d={BODY_PATH}
-        stroke="currentColor"
-        strokeOpacity={0.22}
-        strokeWidth={3}
-        filter="url(#salpa-holo-glow)"
-        {...strokeProps}
-      />
+      {/* Soft same-hue halo, drawn behind the animal. */}
+      <g filter="url(#salpa-holo-glow)" {...strokeProps} strokeWidth={3}>
+        <path d={TAIL_PATH} strokeOpacity={0.16} />
+        <path d={BODY_PATH} strokeOpacity={0.22} />
+        <path d={HEAD_PATH} strokeOpacity={0.22} />
+      </g>
+
+      <g className="salpa-tail" {...strokeProps}>
+        <path d={TAIL_PATH} strokeWidth={BODY_WIDTH} />
+        {TAIL_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.5} strokeWidth={DETAIL_WIDTH} />
+        ))}
+      </g>
+
       {/* Sheened body. */}
       <path
         d={BODY_PATH}
         stroke="url(#salpa-holo-sheen)"
-        strokeWidth={2}
+        strokeWidth={BODY_WIDTH + 0.15}
         {...strokeProps}
       />
-      {SCALE_BANDS.map((d) => (
-        <path
-          key={d}
-          d={d}
-          stroke="currentColor"
-          strokeOpacity={0.6}
-          strokeWidth={DETAIL_WIDTH}
-          {...strokeProps}
-        />
-      ))}
-      {TAIL_BANDS.map((d) => (
-        <path
-          key={d}
-          d={d}
-          stroke="currentColor"
-          strokeOpacity={0.5}
-          strokeWidth={DETAIL_WIDTH}
-          {...strokeProps}
-        />
-      ))}
       {LEGS.map((d) => (
-        <path
-          key={d}
-          d={d}
-          stroke="currentColor"
-          strokeOpacity={0.55}
-          strokeWidth={DETAIL_WIDTH}
-          {...strokeProps}
-        />
+        <path key={d} d={d} strokeOpacity={0.55} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
       ))}
-      <circle
-        cx={EYE.cx}
-        cy={EYE.cy}
-        r={EYE.r}
-        fill="currentColor"
-        stroke="none"
-      />
+
+      <g className="salpa-head" {...strokeProps}>
+        <path
+          d={HEAD_PATH}
+          stroke="url(#salpa-holo-sheen)"
+          strokeWidth={BODY_WIDTH + 0.15}
+        />
+        <circle
+          className="salpa-eye"
+          cx={EYE.cx}
+          cy={EYE.cy}
+          r={EYE.r}
+          fill="currentColor"
+          stroke="none"
+        />
+      </g>
+
+      <g className="salpa-scales">
+        {SCALE_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.65} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
+        ))}
+      </g>
+
+      {/* A restrained band of light travelling across the armour. */}
+      <g className="salpa-sweep" {...strokeProps} strokeWidth={DETAIL_WIDTH + 0.4}>
+        {SCALE_BANDS.map((d) => (
+          <path key={d} d={d} stroke="url(#salpa-holo-sheen)" strokeOpacity={0.9} />
+        ))}
+      </g>
     </g>
   );
 }
@@ -242,28 +278,51 @@ function HolographicPangolin() {
  * Variant G - shadow pangolin.
  *
  * Reserved for the quiet, idle state: a very dark silhouette that recedes
- * into the black surface. The motion is the slowest of the three and stays
- * within a barely perceptible opacity band.
+ * into the black surface. The `salpa-resting` class stretches every animation
+ * to roughly twice the length of the normal variant, so the animal still
+ * breathes but only barely registers - appropriate for a resting creature.
  *
  * Not wired to any application state in the current chat experience.
  */
 function ShadowPangolin() {
   return (
     <g
-      className="motion-safe:animate-pulse motion-safe:[animation-duration:9s]"
+      className="salpa-resting salpa-body"
       stroke="currentColor"
     >
+      <g className="salpa-tail" {...strokeProps}>
+        <path d={TAIL_PATH} strokeOpacity={0.34} strokeWidth={BODY_WIDTH} />
+        {TAIL_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.2} strokeWidth={DETAIL_WIDTH} />
+        ))}
+      </g>
+
       <path d={BODY_PATH} strokeOpacity={0.38} strokeWidth={BODY_WIDTH} {...strokeProps} />
-      {SCALE_BANDS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.24} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
-      ))}
-      {TAIL_BANDS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.2} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
-      ))}
       {LEGS.map((d) => (
         <path key={d} d={d} strokeOpacity={0.22} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
       ))}
+
+      <g className="salpa-head" {...strokeProps}>
+        <path d={HEAD_PATH} strokeOpacity={0.38} strokeWidth={BODY_WIDTH} />
+        <circle
+          cx={EYE.cx}
+          cy={EYE.cy}
+          r={EYE.r}
+          fill="currentColor"
+          fillOpacity={0.3}
+          stroke="none"
+        />
+      </g>
+
+      <g className="salpa-scales">
+        {SCALE_BANDS.map((d) => (
+          <path key={d} d={d} strokeOpacity={0.24} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
+        ))}
+      </g>
+
+      {/* Eye: still blinks, just far more slowly while resting. */}
       <circle
+        className="salpa-eye"
         cx={EYE.cx}
         cy={EYE.cy}
         r={EYE.r}
