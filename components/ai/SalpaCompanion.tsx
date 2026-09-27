@@ -15,67 +15,56 @@ type SalpaCompanionProps = {
 };
 
 /**
- * The pangolin: a filled, solid side-profile character.
+ * SALPA - the Humanoid Bust companion.
  *
- * A pangolin reads as a pangolin because of four things, and the geometry is
- * built around exactly those: a SMALL pointed head, a LARGE domed and heavily
- * armoured torso, a LONG thick tail that tapers to a point, and layered
- * plates across the back. Everything else is restraint.
+ * A faceless, sculpted bust: a smooth ovoid head, a short neck, and broad
+ * shoulders. There are no eyes, no mouth, and no hair. The character's entire
+ * emotional language comes from posture, breathing, and the drift of light
+ * across the form - which is what makes it read as a presence rather than a
+ * mascot.
  *
- * Proportions across the 96-unit animal, front to back:
- *   head  x 72..96  (~25%)  small, low, snout angled forward and down
- *   body  x 34..80  (~48%)  the big rounded armour mass; the clear centre
- *   tail  x  3..48  (~46%)  thick at the root, sweeping back and tapering
+ * The form is built from overlapping filled shapes with layered gradients, so
+ * it reads as a softly modelled solid under a single key light from the upper
+ * left, rather than as a flat glyph.
  *
- * The tail root (x 38..48) and the neck (x 72..78) both sit well INSIDE the
- * neighbouring mass, so the few degrees of rotation the animation applies can
- * never tear a visible gap along the joint.
- *
- * The back rises to y 11 and the belly sits at y 50, so the torso is taller
- * than it is long - a domed, hunched animal rather than a flat slug.
- *
- * Overall extent: x 3..96, y 11..59.
+ * Proportions in the 112x166 grid: the head occupies the upper third, the neck
+ * is short, and the shoulders are the broadest mass, fading out at the base so
+ * the bust reads as cropped rather than as a floating shape.
  */
-const BODY_PATH =
-  "M 36 47 C 36 27 48 11 60 11 C 71 11 79 22 80 34 " +
-  "C 81 44 73 50 61 50 C 48 50 38 50 36 47 Z";
-
-/** Small head with a pointed snout; overlaps the body across x 67..73. */
 const HEAD_PATH =
-  "M 74 30 C 74 23 79 19 85 20 C 89 21 93 25 96 28 " +
-  "C 97 30 96 32 93 33 C 89 35 84 37 79 37 C 75 37 73 34 74 30 Z";
+  "M 60 8 C 78 8 90 24 90 46 C 90 64 80 78 60 78 " +
+  "C 40 78 30 64 30 46 C 30 24 42 8 60 8 Z";
 
-/** Heavy tapering tail sweeping down and left, tucked behind the body. */
-const TAIL_PATH =
-  "M 48 26 C 36 28 24 33 14 40 C 8 44 4 49 3 52 " +
-  "C 8 51 14 48 20 44 C 29 38 38 34 45 33 C 48 32 49 29 48 26 Z";
+/** A short neck, mostly in the shadow cast by the head above it. */
+const NECK_PATH =
+  "M 45 66 C 45 82 45 90 44 101 L 76 101 C 75 90 75 82 75 66 Z";
 
-/** Five large armour plates laid over the domed back, overlapping each other. */
-const ARMOUR_PLATES = [
-  "M 40 47 C 38 30 40 17 45 12 C 50 17 52 30 50 47 C 47 42 43 42 40 47 Z",
-  "M 50 48 C 48 30 50 15 55 11 C 60 15 62 30 60 48 C 57 43 53 43 50 48 Z",
-  "M 60 48 C 58 30 60 15 65 12 C 70 15 72 30 70 48 C 67 43 63 43 60 48 Z",
-  "M 70 47 C 68 31 70 20 75 17 C 80 20 82 31 80 47 C 77 42 73 42 70 47 Z",
-  "M 46 47 C 44 32 46 21 50 17 C 54 21 56 32 55 47 C 52 42 49 42 46 47 Z",
-  "M 34 46 C 33 34 35 25 39 22 C 43 25 45 34 44 46 C 41 42 37 42 34 46 Z",
-];
+/** Shoulders and upper torso, fading to the base of the frame. */
+const TORSO_PATH =
+  "M 12 166 C 12 133 30 106 44 98 C 48 95 54 94 60 94 " +
+  "C 66 94 72 95 76 98 C 90 106 108 133 108 166 Z";
 
-/** Two short, stubby feet beneath the belly. */
-const FEET = [
-  "M 64 47 C 64 52 63 56 64 58 L 71 58 C 71 55 71 51 70 47 Z",
-  "M 48 48 C 48 53 47 57 48 59 L 55 59 C 55 56 55 52 54 48 Z",
-];
+/** Soft key-light highlight across the upper left of the skull. */
+const HEAD_HIGHLIGHT =
+  "M 41 32 C 45 17 55 11 63 12 C 53 17 45 27 43 41 " +
+  "C 42 38 41 35 41 32 Z";
 
-/** The eye: small, dark, and the detail that makes it read as an animal. */
-const EYE = { cx: 86, cy: 27, r: 2.4 };
+/** A narrower highlight along the lit edge of the left shoulder. */
+const TORSO_HIGHLIGHT =
+  "M 20 152 C 22 128 34 111 46 103 C 40 114 30 129 26 152 Z";
 
 /**
- * Shared fill geometry so all three variants line up exactly.
- *
- * The companion is FILLED character art, not line art: the silhouette carries
- * the recognition, and the only strokes anywhere are the soft joins on the
- * feet. `fillRule` is declared here so the overlapping masses compose
- * predictably rather than punching holes in one another.
+ * The viewBox is cropped tight to the artwork so the bust fills the whole
+ * rendered box: at the 224px welcome size the character is a large, dominant
+ * presence rather than a small mark floating in empty space.
+ */
+const VIEWBOX = "4 4 112 166";
+
+/**
+ * Shared fill geometry so all three variants line up exactly. The bust is
+ * entirely fill-based: no stroke appears anywhere, so the form reads as a
+ * softly modelled solid rather than as line art. `fillRule` is declared here
+ * so the overlapping masses compose predictably.
  */
 const fillProps = {
   fill: "currentColor",
@@ -84,40 +73,35 @@ const fillProps = {
 };
 
 /**
- * The armour is a LIGHTER neutral than the body, never black.
- *
- * On a black UI a black plate is simply invisible, and the overlapping scales
- * are precisely the detail that makes the silhouette read as a pangolin. A
- * near-white at low opacity sits just above the body's tone, so each plate
- * catches the eye as a distinct overlapping shell rather than as a stripe.
+ * Material: soft ivory, slightly warmer and lighter than the greys Salpa
+ * already uses, so the bust reads as a lit solid rather than as UI chrome.
  */
-const ARMOUR_TONE = "#F5F5F5";
+const IVORY = "#EDEAE4";
+const IVORY_LIT = "#FBF9F5";
+const IVORY_SHADE = "#8E8A84";
 
-/** The eye is the one genuinely dark mark: a small punch-out on the head. */
-const EYE_TONE = "#0A0A0A";
+/** The neck sits in the head's cast shadow, one step below the lit ivory. */
+const NECK_TONE = "#6E6B66";
 
 /**
- * SalpaCompanion - the Salpa pangolin companion.
+ * SalpaCompanion - the Salpa Humanoid Bust.
  *
  * Purely presentational and decorative:
  *   - no hooks, no application state, no data fetching, no effects;
- *   - inline SVG only, no external asset and no animation dependency;
- *   - `aria-hidden`, because the companion conveys no information that the
- *     surrounding text does not already carry.
+ *   - inline SVG only, no external asset, no 3D and no animation dependency;
+ *   - `aria-hidden`, so the bust is never focusable and never announced: it
+ *     conveys nothing the surrounding text does not already carry.
  *
- * Design language: monochrome and FILLED, inheriting `currentColor` for the
- * body, head, tail and feet, with the armour a step lighter in the same neutral
- * family. There is no stroke anywhere, no saturated colour, and no cartoon
- * detail, so it sits naturally inside the existing black Salpa surfaces
- * (`#F5F5F5` / `#A0A0A0` / `#707070` on `#000000` / `#0A0A0A`).
+ * The character is intentionally FACELESS - no eyes, no mouth, no hair. Its
+ * expression comes only from posture, breathing and lighting, which is what
+ * separates it from a mascot.
  *
- * Motion: calm and small, defined in `app/globals.css` under
+ * Motion: slow and small, defined in `app/globals.css` under
  * `prefers-reduced-motion: no-preference`, so a user who asks for reduced
- * motion receives a completely static companion.
+ * motion receives a completely static bust.
  *
- * The component renders one glyph at the caller's requested size and adds no
- * layout box of its own, so it can be dropped into an existing identity slot
- * without shifting alignment or spacing.
+ * The component adds no layout box of its own, so the same component can be
+ * rendered large in the welcome state and small in a message header.
  */
 export default function SalpaCompanion({
   variant = "minimal",
@@ -125,7 +109,7 @@ export default function SalpaCompanion({
 }: SalpaCompanionProps) {
   return (
     <svg
-      viewBox="2 9 96 52"
+      viewBox={VIEWBOX}
       fill="none"
       role="presentation"
       aria-hidden="true"
@@ -134,181 +118,168 @@ export default function SalpaCompanion({
       data-salpa-companion={variant}
     >
       {variant === "holographic" ? (
-        <HolographicPangolin />
+        <HolographicBust />
       ) : variant === "shadow" ? (
-        <ShadowPangolin />
+        <ShadowBust />
       ) : (
-        <MinimalPangolin />
+        <MinimalBust />
       )}
     </svg>
   );
 }
 
 /**
- * Variant B - minimal 2D pangolin.
+ * Variant B - the resting bust.
  *
- * The primary Salpa companion identity: clean, premium, monochrome, filled.
- * Used for normal chat, listening, responding and welcome.
+ * The default Salpa presence: faceless, calm, and quietly lit. Layered fills
+ * and gradients model the form under a single key light from the upper left, so
+ * the bust reads as a sculpted solid rather than a flat glyph.
  *
- * The animal is built from five independently animated groups, so it reads as
- * a living character rather than a static glyph: the body breathes, the head
- * turns about the neck, the tail sways about the tail root, the armour shifts
- * faintly, and the eye blinks once per cycle. All five classes live in
- * `app/globals.css` and are gated behind `prefers-reduced-motion`.
+ * Three independently animated groups keep it alive without any UI tell: the
+ * torso breathes, the head drifts a degree or so, and the light breathes across
+ * the surface. All three classes live in `app/globals.css` and are gated behind
+ * `prefers-reduced-motion`.
  */
-function MinimalPangolin() {
+function MinimalBust() {
   return (
-    <g className="salpa-body" {...fillProps}>
-      {/* Tail: long and thick at the root, sweeping back to a fine point. */}
-      <g className="salpa-tail">
-        <path d={TAIL_PATH} fillOpacity={0.88} />
-      </g>
+    <g className="salpa-torso" {...fillProps}>
+      <defs>
+        {/* A soft vertical falloff gives the shoulders volume. */}
+        <linearGradient id="salpa-shoulder-grad" x1="0.2" y1="0" x2="0.75" y2="1">
+          <stop offset="0%" stopColor={IVORY_LIT} />
+          <stop offset="48%" stopColor={IVORY} />
+          <stop offset="100%" stopColor={IVORY_SHADE} />
+        </linearGradient>
+        {/* The skull is lit hardest at the crown, falling to the jaw. */}
+        <linearGradient id="salpa-head-grad" x1="0.3" y1="0" x2="0.7" y2="1">
+          <stop offset="0%" stopColor={IVORY_LIT} />
+          <stop offset="55%" stopColor={IVORY} />
+          <stop offset="100%" stopColor={IVORY_SHADE} />
+        </linearGradient>
+        {/* A narrow rim of light down the trailing edge. */}
+        <linearGradient id="salpa-rim-grad" x1="1" y1="0" x2="0" y2="0.4">
+          <stop offset="0%" stopColor={IVORY_LIT} stopOpacity="0.55" />
+          <stop offset="60%" stopColor={IVORY_LIT} stopOpacity="0" />
+        </linearGradient>
+      </defs>
 
-      {/* Body: the large domed armour mass the silhouette is built around. */}
-      <path d={BODY_PATH} fillOpacity={0.95} />
+      {/* Shoulders and upper torso. */}
+      <path d={TORSO_PATH} fill="url(#salpa-shoulder-grad)" />
 
-      {/* Head: small, snout angled forward and down. */}
+      {/* Neck, in the shadow cast by the head. Drawn before the head so the
+          head overlaps it cleanly. */}
+      <path d={NECK_PATH} fill={NECK_TONE} />
+
+      {/* Head: a smooth, entirely featureless ovoid. */}
       <g className="salpa-head">
-        <path d={HEAD_PATH} fillOpacity={0.95} />
+        <path d={HEAD_PATH} fill="url(#salpa-head-grad)" />
+        {/* Key light on the upper left of the skull. */}
+        <path d={HEAD_HIGHLIGHT} fill={IVORY_LIT} fillOpacity={0.32} />
       </g>
 
-      {/* Feet: short and stubby, just enough to ground the animal. */}
-      <g fillOpacity={0.72}>
-        {FEET.map((d) => (
-          <path key={d} d={d} />
-        ))}
+      {/* Light drifting slowly across the form. */}
+      <g className="salpa-light">
+        <path d={TORSO_PATH} fill="url(#salpa-rim-grad)" />
+        <path d={HEAD_PATH} fill="url(#salpa-rim-grad)" />
+        <path d={TORSO_HIGHLIGHT} fill={IVORY_LIT} fillOpacity={0.12} />
       </g>
-
-      {/* Armour: lighter plates shingled over the back, shifting faintly. */}
-      <g className="salpa-scales" fill={ARMOUR_TONE} fillOpacity={0.2}>
-        {ARMOUR_PLATES.map((d) => (
-          <path key={d} d={d} />
-        ))}
-      </g>
-
-      {/* Eye: a small dark mark that makes the head read as a face. */}
-      <circle className="salpa-eye" cx={EYE.cx} cy={EYE.cy} r={EYE.r} fill={EYE_TONE} />
     </g>
   );
 }
 
 /**
- * Variant F - holographic pangolin.
+ * Variant F - the thinking bust.
  *
- * Reserved for when Salpa is genuinely active (thinking, long-running work).
- * It shares the exact same grouped anatomy as the minimal variant and adds a
- * faint same-hue sheen plus a soft edge glow, both derived from
- * `currentColor`.
+ * The same faceless character, bound to the existing `isThinking` state. It
+ * does not morph, spin, or pulse as a blob: the form is identical, and only
+ * the motion and the light change. Breathing quickens, the head tilts a
+ * fraction further, and the illumination strengthens, which reads as
+ * concentration rather than as a loading indicator.
  *
- * The `salpa-active` class shortens every animation duration, so while working
- * the animal breathes and sways noticeably faster than at rest. There is no
+ * The `salpa-active` class shortens every animation duration. There is no
  * rainbow, no chromatic aberration and no rapid motion, so it stays premium
  * rather than gaming-like.
  */
-function HolographicPangolin() {
+function HolographicBust() {
   return (
-    <g className="salpa-active salpa-body" {...fillProps}>
+    <g className="salpa-active salpa-torso" {...fillProps}>
       <defs>
-        <linearGradient id="salpa-holo-sheen" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="currentColor" stopOpacity={0.55} />
-          <stop offset="50%" stopColor="currentColor" stopOpacity={1} />
-          <stop offset="100%" stopColor="currentColor" stopOpacity={0.55} />
+        <linearGradient id="salpa-think-shoulder" x1="0.2" y1="0" x2="0.75" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="50%" stopColor={IVORY_LIT} />
+          <stop offset="100%" stopColor={IVORY_SHADE} />
         </linearGradient>
-        <filter id="salpa-holo-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="1.6" />
+        <linearGradient id="salpa-think-head" x1="0.3" y1="0" x2="0.7" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="55%" stopColor={IVORY_LIT} />
+          <stop offset="100%" stopColor={IVORY_SHADE} />
+        </linearGradient>
+        <linearGradient id="salpa-think-rim" x1="1" y1="0" x2="0" y2="0.4">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+          <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+        <filter id="salpa-think-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="2.4" />
         </filter>
-        <clipPath id="salpa-holo-clip">
-          <path d={BODY_PATH} />
+        <clipPath id="salpa-think-clip">
+          <path d={TORSO_PATH} />
+          <path d={NECK_PATH} />
           <path d={HEAD_PATH} />
-          <path d={TAIL_PATH} />
         </clipPath>
       </defs>
 
-      {/* A soft same-hue halo behind the animal. */}
-      <g filter="url(#salpa-holo-glow)" opacity={0.4}>
-        <path d={TAIL_PATH} />
-        <path d={BODY_PATH} />
+      {/* A restrained bloom behind the form. */}
+      <g filter="url(#salpa-think-glow)" opacity={0.32}>
+        <path d={TORSO_PATH} />
         <path d={HEAD_PATH} />
       </g>
 
-      {/* Tail. */}
-      <g className="salpa-tail">
-        <path d={TAIL_PATH} fillOpacity={0.88} />
-      </g>
+      {/* Shoulders. */}
+      <path d={TORSO_PATH} fill="url(#salpa-think-shoulder)" />
 
-      {/* Body, sheened. */}
-      <path d={BODY_PATH} fill="url(#salpa-holo-sheen)" />
+      {/* Neck. */}
+      <path d={NECK_PATH} fill={NECK_TONE} />
 
       {/* Head. */}
       <g className="salpa-head">
-        <path d={HEAD_PATH} fill="url(#salpa-holo-sheen)" />
+        <path d={HEAD_PATH} fill="url(#salpa-think-head)" />
+        <path d={HEAD_HIGHLIGHT} fill="#FFFFFF" fillOpacity={0.4} />
       </g>
 
-      {/* Feet. */}
-      <g fillOpacity={0.72}>
-        {FEET.map((d) => (
-          <path key={d} d={d} />
-        ))}
+      {/* Light sweeping slowly across the form as it processes. */}
+      <g className="salpa-light">
+        <path d={TORSO_PATH} fill="url(#salpa-think-rim)" />
+        <path d={HEAD_PATH} fill="url(#salpa-think-rim)" />
+        <path d={TORSO_HIGHLIGHT} fill="#FFFFFF" fillOpacity={0.16} />
       </g>
-
-      {/* Armour plates, and a band of light travelling across them. */}
-      <g className="salpa-scales" fill={ARMOUR_TONE} fillOpacity={0.22}>
-        {ARMOUR_PLATES.map((d) => (
-          <path key={d} d={d} />
-        ))}
-      </g>
-      <g className="salpa-sweep" fill={ARMOUR_TONE} fillOpacity={0.18} clipPath="url(#salpa-holo-clip)">
-        <rect x={10} y={0} width={18} height={70} fill={ARMOUR_TONE} />
-      </g>
-
-      {/* Eye. */}
-      <circle className="salpa-eye" cx={EYE.cx} cy={EYE.cy} r={EYE.r} fill={EYE_TONE} />
     </g>
   );
 }
 
 /**
- * Variant G - shadow pangolin.
+ * Variant G - the quiet bust.
  *
- * Reserved for the quiet, idle state: a very dark silhouette that recedes
- * into the black surface. The `salpa-resting` class stretches every animation
- * to roughly twice the length of the normal variant, so the animal still
- * breathes but only barely registers - appropriate for a resting creature.
+ * For the calm, idle reading of the character: the same form held at low
+ * contrast so it recedes into the black surface. The `salpa-resting` class
+ * stretches every animation to roughly twice the length of the default, so it
+ * still breathes but only barely registers.
  *
  * Not wired to any application state in the current chat experience.
  */
-function ShadowPangolin() {
+function ShadowBust() {
   return (
-    <g className="salpa-resting salpa-body" {...fillProps}>
-      {/* Tail. */}
-      <g className="salpa-tail">
-        <path d={TAIL_PATH} fillOpacity={0.3} />
-      </g>
+    <g className="salpa-resting salpa-torso" {...fillProps}>
+      {/* Shoulders. */}
+      <path d={TORSO_PATH} fill={IVORY} fillOpacity={0.3} />
 
-      {/* Body. */}
-      <path d={BODY_PATH} fillOpacity={0.34} />
+      {/* Neck. */}
+      <path d={NECK_PATH} fill={NECK_TONE} fillOpacity={0.7} />
 
       {/* Head. */}
       <g className="salpa-head">
-        <path d={HEAD_PATH} fillOpacity={0.34} />
+        <path d={HEAD_PATH} fill={IVORY} fillOpacity={0.34} />
+        <path d={HEAD_HIGHLIGHT} fill={IVORY_LIT} fillOpacity={0.1} />
       </g>
-
-      {/* Feet. */}
-      <g fillOpacity={0.26}>
-        {FEET.map((d) => (
-          <path key={d} d={d} />
-        ))}
-      </g>
-
-      {/* Armour. */}
-      <g className="salpa-scales" fill={ARMOUR_TONE} fillOpacity={0.07}>
-        {ARMOUR_PLATES.map((d) => (
-          <path key={d} d={d} />
-        ))}
-      </g>
-
-      {/* Eye: still blinks, just far more slowly while resting. */}
-      <circle className="salpa-eye" cx={EYE.cx} cy={EYE.cy} r={EYE.r} fill="#000" fillOpacity={0.45} />
     </g>
   );
 }

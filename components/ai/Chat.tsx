@@ -3,15 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  ArrowDown,
-  Brain,
-  MemoryStick,
-  Plus,
-  Send,
-  Sparkles,
-  Zap,
-} from "lucide-react";
+import { ArrowDown, Plus, Send } from "lucide-react";
 import Message from "./Message";
 import SalpaCompanion from "./SalpaCompanion";
 
@@ -70,71 +62,23 @@ function WorkspaceHeader({
   );
 }
 
-const SUGGESTIONS = [
-  "Help me plan my week",
-  "Analyze an idea",
-  "Remember something important",
-  "Help me build something",
-];
-
-function EmptyState({
-  onSuggestion,
-}: {
-  onSuggestion: (suggestion: string) => void;
-}) {
+function EmptyState() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-black px-4 py-6 text-center">
-      {/* Mobile: AETHER logo and simple message */}
-      <div className="mb-6 flex flex-col items-center lg:flex-row lg:items-center lg:justify-center">
-        <div className="text-center lg:text-left">
-          <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
-            SALPA
-          </h1>
-          <p className="mt-1 text-sm text-[#A0A0A0] sm:text-[15px]">
-            Your AI that doesn&apos;t forget.
-          </p>
-          <p className="mt-1 text-sm text-[#707070]">
-            Remember. Understand. Build together.
-          </p>
-        </div>
+      <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
+        SALPA
+      </h1>
+
+      {/* The bust is the presence, not an illustration beside the copy. It is
+          sized from the viewport width so it stays large on desktop and scales
+          down proportionally on narrow screens without ever overflowing. */}
+      <div className="my-7 w-[min(62vw,15rem)] sm:my-9 sm:w-[min(58vw,17rem)] md:w-[min(46vw,20rem)] lg:w-[min(38vw,22rem)]">
+        <SalpaCompanion className="h-auto w-full" />
       </div>
 
-      {/* Desktop-only: capability list */}
-      <div className="hidden w-full max-w-md overflow-hidden rounded-xl border border-[#202020] bg-[#0A0A0A] lg:block">
-        <div className="flex items-center gap-2.5 border-b border-[#1A1A1A] px-4 py-2.5">
-          <Sparkles size={14} className="shrink-0 text-[#707070]" aria-hidden />
-          <p className="text-xs font-medium text-[#A0A0A0]">What your AI does under the hood</p>
-        </div>
-        {[
-          { icon: Zap, title: "Learn", body: "Extracts facts, preferences, and goals from your conversations." },
-          { icon: MemoryStick, title: "Remember", body: "Stores context as durable, retrievable memory." },
-          { icon: Brain, title: "Recall", body: "Injects what is relevant into every new response." },
-        ].map((cap) => (
-          <div key={cap.title} className="flex items-start gap-3 border-b border-[#1A1A1A] px-4 py-3 last:border-b-0">
-            <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#141414]">
-              <cap.icon size={13} className="text-[#A0A0A0]" aria-hidden />
-            </div>
-            <div className="min-w-0 flex-1 text-left">
-              <p className="text-sm font-medium text-[#F5F5F5]">{cap.title}</p>
-              <p className="mt-0.5 text-xs leading-relaxed text-[#A0A0A0]">{cap.body}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Suggestions - visible on both, but different styling */}
-      <div className="mt-4 w-full max-w-md flex flex-wrap items-center justify-center gap-2 sm:mt-6 lg:mt-8">
-        {SUGGESTIONS.map((suggestion) => (
-          <button
-            key={suggestion}
-            type="button"
-            onClick={() => onSuggestion(suggestion)}
-            className="min-h-11 rounded-full border border-[#202020] bg-[#0A0A0A] px-4 text-sm font-medium text-[#A0A0A0] transition-colors duration-150 hover:border-[#2A2A2A] hover:text-[#F5F5F5] sm:py-2 sm:text-xs"
-          >
-            {suggestion}
-          </button>
-        ))}
-      </div>
+      <p className="text-sm text-[#A0A0A0] sm:text-[15px]">
+        A quiet presence that remembers.
+      </p>
     </div>
   );
 }
@@ -400,11 +344,6 @@ export default function Chat() {
     router.replace(`/chat?c=${encodeURIComponent(fresh)}`);
   }
 
-  function handleSuggestion(suggestion: string) {
-    setDraft(suggestion);
-    requestAnimationFrame(() => composerRef.current?.focus());
-  }
-
   async function sendMessage(content: string) {
     if (!content.trim() || loading) return;
 
@@ -500,7 +439,7 @@ export default function Chat() {
       <WorkspaceHeader memoryCount={memoryCount} onNewChat={handleNewChat} />
 
       {messages.length === 0 ? (
-        <EmptyState onSuggestion={handleSuggestion} />
+        <EmptyState />
       ) : (
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
           <div
@@ -530,18 +469,15 @@ export default function Chat() {
             ))}
             {loading && (
               <div
-                className="flex items-start gap-3 py-1"
+                className="flex items-center gap-3 py-1"
                 role="status"
                 aria-live="polite"
               >
-                {/* Thinking uses the holographic (F) companion in place of the
-                    former three-dot indicator. The label is retained because
-                    it carries the only screen-reader announcement. */}
-                <SalpaCompanion
-                  variant="holographic"
-                  className="-mt-1 size-28 shrink-0 text-[#A0A0A0]"
-                />
-                <span className="mt-4 text-xs font-medium text-[#707070]">
+                {/* Thinking shows the same faceless bust in its active reading,
+                    bound to the existing `isThinking` state. The label is kept
+                    because it carries the only screen-reader announcement. */}
+                <SalpaCompanion variant="holographic" className="size-16 shrink-0" />
+                <span className="text-xs font-medium text-[#707070]">
                   {isThinking ? "Thinking…" : "Responding…"}
                 </span>
               </div>

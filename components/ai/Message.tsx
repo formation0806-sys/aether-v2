@@ -85,9 +85,9 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
   return (
     <div className="flex flex-col gap-2 py-1">
       <div className="flex items-center justify-between">
-        <div className="flex items-start gap-2">
-          <SalpaCompanion className="-mt-1 size-24 shrink-0 text-[#A0A0A0]" />
-          <span className="mt-3 text-xs font-medium text-[#707070]">Salpa</span>
+        <div className="flex items-center gap-2">
+          <SalpaCompanion className="size-9 shrink-0" />
+          <span className="text-xs font-medium text-[#707070]">Salpa</span>
         </div>
         {!isError && (
           <div className="md:opacity-0 md:group-hover:opacity-100">
