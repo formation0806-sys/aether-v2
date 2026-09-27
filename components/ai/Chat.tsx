@@ -13,6 +13,7 @@ import {
   Zap,
 } from "lucide-react";
 import Message from "./Message";
+import SalpaCompanion from "./SalpaCompanion";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -528,17 +529,21 @@ export default function Chat() {
               </div>
             ))}
             {loading && (
-              <div className="flex items-start gap-3" role="status" aria-live="polite">
-                <div className="flex flex-col gap-1 pt-1">
-                  <p className="text-xs font-medium text-[#707070]">
-                    {isThinking ? "Thinking…" : "Responding…"}
-                  </p>
-                  <div className="flex gap-1.5 pt-0.5" aria-hidden>
-                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "0ms" }} />
-                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "200ms" }} />
-                    <span className="size-1.5 rounded-full bg-[#707070] thinking-dot" style={{ animationDelay: "400ms" }} />
-                  </div>
-                </div>
+              <div
+                className="flex items-center gap-2.5 py-1"
+                role="status"
+                aria-live="polite"
+              >
+                {/* Thinking uses the holographic (F) companion in place of the
+                    former three-dot indicator. The label is retained because
+                    it carries the only screen-reader announcement. */}
+                <SalpaCompanion
+                  variant="holographic"
+                  className="size-8 shrink-0 text-[#A0A0A0]"
+                />
+                <span className="text-xs font-medium text-[#707070]">
+                  {isThinking ? "Thinking…" : "Responding…"}
+                </span>
               </div>
             )}
           </div>
