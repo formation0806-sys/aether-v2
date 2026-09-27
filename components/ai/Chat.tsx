@@ -198,6 +198,23 @@ export default function Chat() {
   const [isTyping, setIsTyping] = useState(false);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  /**
+   * Whether the companion should be holding its subtle responding smile.
+   *
+   * The chat response is non-streaming: the whole reply arrives in a single
+   * payload, so `setIsThinking(false)` and `setLoading(false)` run in the same
+   * synchronous continuation and React batches them into one render. That meant
+   * `responding` was never actually painted - the companion jumped straight from
+   * `thinking` to `idle`.
+   *
+   * This is a deliberate, timed hold instead. `beginResponding()` sets the flag
+   * and clears it on a timer ~900ms later, which lands in a SEPARATE task that
+   * automatic batching cannot merge, so the smile is genuinely rendered and
+   * then eases back to neutral on its own.
+   */
+  const [isResponding, setIsResponding] = useState(false);
+  const respondingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     if (typingTimerRef.current) {
       clearTimeout(typingTimerRef.current);
@@ -218,10 +235,11 @@ export default function Chat() {
     };
   }, [draft]);
 
-  // Clear the pending timer on unmount so no state update lands after teardown.
+  // Clear the pending timers on unmount so no state update lands after teardown.
   useEffect(
     () => () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+      if (respondingTimerRef.current) clearTimeout(respondingTimerRef.current);
     },
     []
   );
@@ -238,7 +256,7 @@ export default function Chat() {
       ? "typing"
       : isThinking
         ? "thinking"
-        : loading
+        : isResponding
           ? "responding"
           : "idle";
 
@@ -405,6 +423,29 @@ export default function Chat() {
     router.replace(`/chat?c=${encodeURIComponent(fresh)}`);
   }
 
+  /**
+   * Hold the companion's subtle responding smile for ~900ms after a successful
+   * reply, then release it back to neutral.
+   *
+   * Only ever called on the SUCCESS path. A failed request must never show a
+   * smile, so the error branch and the catch deliberately do not call this.
+   *
+   * Any in-flight hold is cleared first, so a second response arriving inside
+   * the window restarts the hold cleanly instead of stacking timers.
+   */
+  function beginResponding() {
+    if (respondingTimerRef.current) {
+      clearTimeout(respondingTimerRef.current);
+      respondingTimerRef.current = null;
+    }
+
+    setIsResponding(true);
+    respondingTimerRef.current = setTimeout(() => {
+      setIsResponding(false);
+      respondingTimerRef.current = null;
+    }, 900);
+  }
+
   async function sendMessage(content: string) {
     if (!content.trim() || loading) return;
 
@@ -463,6 +504,7 @@ export default function Chat() {
           : "Something went wrong.";
 
       setIsThinking(false);
+      beginResponding();
       setMessages((prev) => [...prev, { role: "assistant", content: aiContent }]);
       requestAnimationFrame(() => scrollToBottom("smooth"));
 
@@ -528,7 +570,10 @@ export default function Chat() {
                 />
               </div>
             ))}
-            {loading && (
+            {/* Held open for the responding window as well as the request
+                itself, so the companion is not unmounted the instant the reply
+                lands and its responding smile is actually painted. */}
+            {(loading || isResponding) && (
               <div
                 className="flex items-center gap-3 py-1"
                 role="status"

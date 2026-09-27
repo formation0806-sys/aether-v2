@@ -9,7 +9,6 @@ import {
   CheckSquare,
   Compass,
   Settings,
-  LogOut,
   Menu,
   Plus,
   X,
@@ -88,18 +87,6 @@ function DesktopUser({ email }: { email: string }) {
             isActive={pathname === item.href}
           />
         ))}
-        <Link
-          href="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] font-medium text-[#A0A0A0] transition-colors duration-150 hover:bg-[#0F0F0F] hover:text-[#F5F5F5]"
-        >
-          <LogOut
-            size={18}
-            strokeWidth={1.8}
-            className="shrink-0"
-            aria-hidden
-          />
-          <span>Sign out</span>
-        </Link>
       </div>
     </div>
   );
@@ -257,19 +244,6 @@ function MobileNav({
                 onNavigate={onClose}
               />
             ))}
-            <Link
-              href="/"
-              onClick={onClose}
-              className="flex items-center gap-3 rounded-lg px-3 py-3 text-[14px] font-medium text-[#A0A0A0] transition-colors duration-150 hover:bg-[#0F0F0F] hover:text-[#F5F5F5] lg:py-2.5"
-            >
-              <LogOut
-                size={18}
-                strokeWidth={1.8}
-                className="shrink-0"
-                aria-hidden
-              />
-              <span>Sign out</span>
-            </Link>
           </div>
         </nav>
 
