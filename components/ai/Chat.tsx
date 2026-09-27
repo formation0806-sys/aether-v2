@@ -544,6 +544,7 @@ export default function Chat() {
       {messages.length === 0 ? (
         <EmptyState salpaState={salpaState} />
       ) : (
+        <>
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
           <div
             ref={scrollRef}
@@ -570,24 +571,6 @@ export default function Chat() {
                 />
               </div>
             ))}
-            {/* Held open for the responding window as well as the request
-                itself, so the companion is not unmounted the instant the reply
-                lands and its responding smile is actually painted. */}
-            {(loading || isResponding) && (
-              <div
-                className="flex items-center gap-3 py-1"
-                role="status"
-                aria-live="polite"
-              >
-                {/* The companion takes its expression from the existing
-                    `isThinking` state, and the text label is always present so
-                    the state is never communicated by the figure alone. */}
-                <SalpaCompanion state={salpaState} className="size-16 shrink-0" />
-                <span className="text-xs font-medium text-[#707070]">
-                  {isThinking ? "Thinking…" : "Responding…"}
-                </span>
-              </div>
-            )}
           </div>
         </div>
 
@@ -607,6 +590,38 @@ export default function Chat() {
             </button>
           )}
         </div>
+
+        {/* Persistent companion slot.
+            It lives OUTSIDE the scrolling transcript and directly above the
+            composer, so its vertical position is anchored to the composer
+            instead of to the flow of messages. Appending an assistant message
+            can therefore no longer push the figure downward - the jump was
+            caused by the companion being the last child of the message stack.
+            Being persistent also means the slot has a constant height, so the
+            conversation area never resizes between idle/typing/thinking/
+            responding, and the neutral face stays on screen after responding
+            ends instead of being unmounted.
+            The live region is always mounted so state changes are announced
+            reliably, but it renders no text at idle - so mounting the slot and
+            the return to idle stay silent while "Thinking…"/"Responding…" are
+            still announced. */}
+        <div className="bg-black">
+          <div className="mx-auto w-full max-w-[768px] px-4 pt-2 lg:px-6">
+            <div
+              className="flex items-center gap-3"
+              role="status"
+              aria-live="polite"
+            >
+              <SalpaCompanion state={salpaState} className="size-16 shrink-0" />
+              {(salpaState === "thinking" || salpaState === "responding") && (
+                <span className="text-xs font-medium text-[#707070]">
+                  {salpaState === "thinking" ? "Thinking…" : "Responding…"}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+        </>
       )}
 
 <RefinedComposer
