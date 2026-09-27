@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Copy, RefreshCw } from "lucide-react";
 import Markdown from "./Markdown";
+import SalpaCompanion from "./SalpaCompanion";
 
 type MessageProps = {
   role: "user" | "assistant";
@@ -85,7 +86,7 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
     <div className="flex flex-col gap-2 py-1">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <AetherMark className="size-5 text-[#A0A0A0]" />
+          <SalpaCompanion className="size-5 text-[#A0A0A0]" />
           <span className="text-xs font-medium text-[#707070]">Salpa</span>
         </div>
         {!isError && (
