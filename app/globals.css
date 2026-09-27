@@ -308,6 +308,28 @@
     transform-origin: 60px 47px;
   }
 
+  /* Gaze and head angle. The per-state `transform` is set inline on these
+     groups, so the transition is what turns a state change into a slow, eased
+     glance rather than a snap. Durations are deliberately long and the easing
+     is soft, which keeps the movement premium rather than mechanical; the
+     ~450ms typing debounce in Chat.tsx means this runs on real state changes
+     only, never once per keystroke. */
+  .salpa-gaze {
+    transition: transform 520ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform-box: view-box;
+  }
+
+  .salpa-head-tilt {
+    transition: transform 620ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform-box: view-box;
+    transform-origin: 60px 88px;
+  }
+
+  /* The mouth eases between the flat line and the responding smile. */
+  .salpa-mouth {
+    transition: d 480ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   .salpa-light {
     animation: salpa-light 12s ease-in-out infinite;
     transform-box: view-box;

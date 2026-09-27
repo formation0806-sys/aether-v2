@@ -1,13 +1,17 @@
+/** The four expression states the companion can be rendered in. */
+type SalpaState = "idle" | "typing" | "thinking" | "responding";
+
 type SalpaCompanionProps = {
   /**
-   * Expression state. The character is the same form in all three; only the
-   * eyes, the mouth curve and the head angle change.
+   * Expression state. The character is the same form in every state; only the
+   * eyes, the mouth curve, the head angle and the lighting change.
    *
-   *   idle       - direct eye contact, neutral mouth. The default.
-   *   thinking   - gaze lifted and turned slightly aside, a small head tilt.
+   *   idle       - direct eye contact, perfectly flat mouth. The default.
+   *   typing     - gaze drops toward the composer the user is typing into.
+   *   thinking   - gaze lifted and turned slightly aside, small head tilt.
    *   responding - gaze returns to the viewer, mouth warmed very slightly.
    */
-  state?: "idle" | "thinking" | "responding";
+  state?: SalpaState;
   /**
    * Tailwind classes supplied by the caller. The companion supplies its own
    * ivory material, so callers control SIZE ONLY - a colour here would fight
@@ -70,10 +74,13 @@ const TORSO_HIGHLIGHT =
 const EYE = { rx: 5.6, ry: 3.7, leftX: 46.5, rightX: 73.5, y: 47 };
 
 /**
- * The mouth: one shallow curve. Neutral is almost flat; responding lifts the
- * ends by under a pixel of stroke. There is no lip volume and no open mouth.
+ * The mouth: one shallow line. `smileLift` raises the ends and `smileDepth`
+ * drops the control points, so a lift of 0 puts every point on the same y and
+ * the cubic degenerates into a genuinely straight, serious line. Only
+ * `responding` uses a lift, so only `responding` is ever curved. There is no lip
+ * volume and no open mouth.
  */
-const MOUTH = { x: 60, y: 66, neutralSpan: 15, smileLift: 2.1 };
+const MOUTH = { x: 60, y: 66, neutralSpan: 15, smileLift: 2.1, smileDepth: 2.4 };
 
 /**
  * A viewBox cropped tight to the artwork, so the head fills the rendered box
@@ -119,9 +126,13 @@ type StateSpec = {
   lit: number;
 };
 
-const STATE: Record<"idle" | "thinking" | "responding", StateSpec> = {
-  // Direct eye contact, relaxed mouth, level head.
+const STATE: Record<SalpaState, StateSpec> = {
+  // Direct eye contact, level head, and a perfectly flat mouth.
   idle: { eyeDX: 0, eyeDY: 0, mouthLift: 0, headTilt: 0, lit: 0.34 },
+  // The user is typing. ONLY the gaze moves: it drops toward the composer they
+  // are typing into. The head stays level so this reads as looking down rather
+  // than as bowing, and the mouth stays flat so it never reads as amused.
+  typing: { eyeDX: 0, eyeDY: 3.4, mouthLift: 0, headTilt: 0, lit: 0.34 },
   // Gaze lifted and turned slightly aside, with a small head tilt.
   thinking: { eyeDX: 2.2, eyeDY: -1.9, mouthLift: 0, headTilt: -2.6, lit: 0.46 },
   // Gaze returns to the viewer; the mouth warms by well under a millimetre.
@@ -155,13 +166,16 @@ export default function SalpaCompanion({
 }: SalpaCompanionProps) {
   const s = STATE[state];
 
-  // A shallow arc: nearly flat when neutral, ends lifted when responding.
+  // Flat in every state except `responding`: with a lift of 0 the ends and the
+  // control points share one y, so the cubic is a straight line. A lift raises
+  // the ends and drops the controls together, which is what curves a smile.
   const lift = MOUTH.smileLift * s.mouthLift;
+  const depth = MOUTH.smileDepth * s.mouthLift;
   const half = MOUTH.neutralSpan / 2;
   const mouthPath =
     `M ${MOUTH.x - half} ${MOUTH.y - lift} ` +
-    `C ${MOUTH.x - 5} ${MOUTH.y + 2.4 + lift} ` +
-    `${MOUTH.x + 5} ${MOUTH.y + 2.4 + lift} ` +
+    `C ${MOUTH.x - 5} ${MOUTH.y + depth} ` +
+    `${MOUTH.x + 5} ${MOUTH.y + depth} ` +
     `${MOUTH.x + half} ${MOUTH.y - lift}`;
 
   return (
@@ -199,27 +213,41 @@ export default function SalpaCompanion({
 
         <path d={NECK_PATH} fill={NECK_TONE} />
 
-        {/* The head tilts a degree or two about the base of the neck. */}
-        <g className="salpa-head" style={{ transform: `rotate(${s.headTilt}deg)` }}>
-          <path d={HEAD_PATH} fill="url(#salpa-c-head)" />
-          <path d={HEAD_HIGHLIGHT} fill={IVORY_LIT} fillOpacity={s.lit} />
+        {/* The head tilts a degree or two about the base of the neck. The tilt
+            lives on an OUTER group because the `salpa-head` class below runs a
+            `transform` animation, and a CSS animation overrides an inline
+            `transform`. Keeping the two on separate groups is what lets the
+            per-state tilt actually be visible underneath the ambient sway. */}
+        <g
+          className="salpa-head-tilt"
+          style={{ transform: `rotate(${s.headTilt}deg)` }}
+        >
+          <g className="salpa-head">
+            <path d={HEAD_PATH} fill="url(#salpa-c-head)" />
+            <path d={HEAD_HIGHLIGHT} fill={IVORY_LIT} fillOpacity={s.lit} />
 
-          {/* The face: two small eyes and one shallow mouth line. */}
-          <g
-            className="salpa-eyes"
-            style={{ transform: `translate(${s.eyeDX}px, ${s.eyeDY}px)` }}
-          >
-            <ellipse cx={EYE.leftX} cy={EYE.y} rx={EYE.rx} ry={EYE.ry} fill={FEATURE_TONE} />
-            <ellipse cx={EYE.rightX} cy={EYE.y} rx={EYE.rx} ry={EYE.ry} fill={FEATURE_TONE} />
+            {/* The face: two small eyes and one shallow mouth line. As with the
+                head, the gaze translate sits on an outer group so the `salpa-blink`
+                animation on the inner group cannot swallow it. */}
+            <g
+              className="salpa-gaze"
+              style={{ transform: `translate(${s.eyeDX}px, ${s.eyeDY}px)` }}
+            >
+              <g className="salpa-eyes">
+                <ellipse cx={EYE.leftX} cy={EYE.y} rx={EYE.rx} ry={EYE.ry} fill={FEATURE_TONE} />
+                <ellipse cx={EYE.rightX} cy={EYE.y} rx={EYE.rx} ry={EYE.ry} fill={FEATURE_TONE} />
+              </g>
+            </g>
+
+            <path
+              className="salpa-mouth"
+              d={mouthPath}
+              stroke={FEATURE_TONE}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              fill="none"
+            />
           </g>
-
-          <path
-            d={mouthPath}
-            stroke={FEATURE_TONE}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            fill="none"
-          />
         </g>
 
         {/* Light drifting slowly across the form. */}

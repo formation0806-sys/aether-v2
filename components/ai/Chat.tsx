@@ -62,7 +62,7 @@ function WorkspaceHeader({
   );
 }
 
-function EmptyState() {
+function EmptyState({ salpaState }: { salpaState: "idle" | "typing" | "thinking" | "responding" }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-black px-4 py-6 text-center">
       <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
@@ -73,7 +73,7 @@ function EmptyState() {
           sized from the viewport width so it stays large on desktop and scales
           down proportionally on narrow screens without ever overflowing. */}
       <div className="my-7 w-[min(62vw,15rem)] sm:my-9 sm:w-[min(58vw,17rem)] md:w-[min(46vw,20rem)] lg:w-[min(38vw,22rem)]">
-        <SalpaCompanion className="h-auto w-full" />
+        <SalpaCompanion state={salpaState} className="h-auto w-full" />
       </div>
 
       <p className="text-sm text-[#A0A0A0] sm:text-[15px]">
@@ -180,6 +180,67 @@ export default function Chat() {
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const [showScrollHint, setShowScrollHint] = useState(false);
   const lastUserContentRef = useRef<string>("");
+
+  /**
+   * Whether the companion should be watching the composer.
+   *
+   * Derived from the EXISTING `draft` state rather than a second source of
+   * truth: `draft.length > 0` means the user has text in the composer, which is
+   * the signal that they are typing. The companion drops its gaze the moment the
+   * first character lands.
+   *
+   * `draft` alone is not enough, because it stays non-empty after the user stops
+   * typing. A debounce converts "has text" into "is typing RIGHT NOW": the
+   * companion looks down as soon as typing starts and drifts back up
+   * ~450ms after the last keystroke. This also means the gaze is driven by real
+   * state changes only, so it never animates per character.
+   */
+  const [isTyping, setIsTyping] = useState(false);
+  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (typingTimerRef.current) {
+      clearTimeout(typingTimerRef.current);
+      typingTimerRef.current = null;
+    }
+
+    if (draft.length > 0) {
+      setIsTyping(true);
+      return;
+    }
+
+    typingTimerRef.current = setTimeout(() => setIsTyping(false), 450);
+    return () => {
+      if (typingTimerRef.current) {
+        clearTimeout(typingTimerRef.current);
+        typingTimerRef.current = null;
+      }
+    };
+  }, [draft]);
+
+  // Clear the pending timer on unmount so no state update lands after teardown.
+  useEffect(
+    () => () => {
+      if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+    },
+    []
+  );
+
+  /**
+   * Companion expression, in strict priority order:
+   * TYPING > THINKING > RESPONDING > IDLE.
+   *
+   * Typing wins because it is the most immediate evidence of where the user's
+   * attention is. Everything below it is only observable while no one is typing.
+   */
+  const salpaState: "idle" | "typing" | "thinking" | "responding" =
+    isTyping
+      ? "typing"
+      : isThinking
+        ? "thinking"
+        : loading
+          ? "responding"
+          : "idle";
 
   /**
    * Active conversation id (durable). Sources of truth, in priority order:
@@ -439,7 +500,7 @@ export default function Chat() {
       <WorkspaceHeader memoryCount={memoryCount} onNewChat={handleNewChat} />
 
       {messages.length === 0 ? (
-        <EmptyState />
+        <EmptyState salpaState={salpaState} />
       ) : (
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
           <div
@@ -476,10 +537,7 @@ export default function Chat() {
                 {/* The companion takes its expression from the existing
                     `isThinking` state, and the text label is always present so
                     the state is never communicated by the figure alone. */}
-                <SalpaCompanion
-                  state={isThinking ? "thinking" : "responding"}
-                  className="size-16 shrink-0"
-                />
+                <SalpaCompanion state={salpaState} className="size-16 shrink-0" />
                 <span className="text-xs font-medium text-[#707070]">
                   {isThinking ? "Thinking…" : "Responding…"}
                 </span>
