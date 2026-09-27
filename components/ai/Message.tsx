@@ -86,7 +86,7 @@ export default function Message({ role, content, error, detail, onRetry }: Messa
     <div className="flex flex-col gap-2 py-1">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <SalpaCompanion className="size-8 shrink-0 text-[#A0A0A0]" />
+          <SalpaCompanion className="size-12 shrink-0 text-[#A0A0A0]" />
           <span className="text-xs font-medium text-[#707070]">Salpa</span>
         </div>
         {!isError && (

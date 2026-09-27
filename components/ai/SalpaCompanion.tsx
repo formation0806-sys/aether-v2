@@ -22,21 +22,44 @@ type SalpaCompanionProps = {
  * One shared path for every variant so the silhouette stays identical and
  * only the treatment changes.
  */
+/**
+ * The pangolin, drawn in profile facing right inside a 64x46 grid that is
+ * fitted tightly to the artwork, so the animal fills roughly 90% of the
+ * available area instead of floating in empty space.
+ *
+ * Read from front to back, the silhouette carries the four features that make
+ * a pangolin recognisable at a glance: a pointed snout, a domed and arched
+ * back, a heavy tapering tail, and short clawed feet. The overlapping armour
+ * is expressed by the three SCALE_BANDS, which follow the curve of the back
+ * and read as the layered plates that give a pangolin its texture.
+ *
+ * All geometry is shared by every variant, so the silhouette stays identical
+ * and only the treatment changes.
+ */
 const BODY_PATH =
-  "M 4.6 15.4 C 5.4 12.8 7.2 10.9 9.8 9.9 C 12.0 9.0 14.6 8.8 16.8 9.4 " +
-  "C 18.4 9.8 19.8 10.4 20.9 11.1 C 20.2 12.0 19.0 12.5 17.6 12.7 " +
-  "C 15.4 13.0 13.0 13.2 10.8 13.7 C 8.8 14.2 6.8 14.8 4.6 15.4 " +
-  "C 3.6 14.6 2.9 13.5 2.7 12.3 C 2.9 13.2 3.5 14.4 4.6 15.4 Z";
+  "M 60.5 20 C 56.5 14 49.5 8.5 41.5 6 C 31 3 20 6 13 12 " +
+  "C 7 17 2.5 25 1.5 32 C 1 35 2.5 38.5 5 39 C 7 39.5 8.5 37 8 34.5 " +
+  "C 9 38 12 39.5 15 39 C 20 38.5 27 37.5 33 36 C 40 34.5 46 32 50 29 " +
+  "C 54 26 57.5 23 60.5 20 Z";
 
-/** Three overlapping scale arcs along the back. */
-const SCALE_ARCS = [
-  "M 7.6 13.0 C 8.0 11.9 8.6 10.9 9.4 10.1",
-  "M 10.6 11.6 C 11.0 10.5 11.6 9.6 12.4 9.0",
-  "M 13.8 10.9 C 14.1 10.0 14.6 9.2 15.2 8.6",
+/** Three curved plates across the back: the pangolin's overlapping armour. */
+const SCALE_BANDS = [
+  "M 24 13.5 C 21 20 20 27 22 33.5",
+  "M 33 8.5 C 30.5 16 30 24 32 33",
+  "M 42 8 C 40.5 15 41 23 44 30.5",
 ];
 
-/** Two short feet beneath the belly. */
-const FEET = ["M 9.4 14.2 L 9.4 15.6", "M 14.0 13.4 L 14.0 14.8"];
+/** Two rings banding the tapering tail. */
+const TAIL_BANDS = [
+  "M 6.5 23 C 8 26 8.5 29 8 32",
+  "M 11.5 17 C 13 20.5 13.5 24 13 28",
+];
+
+/** Two short feet under the body. */
+const LEGS = ["M 26 37 L 24.5 43", "M 40 34.5 L 41.5 41.5"];
+
+/** The eye: a single filled dot, the detail that makes it read as an animal. */
+const EYE = { cx: 52.5, cy: 18, r: 1.05 };
 
 /**
  * Shared stroke geometry so all three variants line up exactly.
@@ -50,9 +73,9 @@ const strokeProps = {
   fill: "none",
 };
 
-/** Base stroke width for the minimal variant. */
-const MINIMAL_BODY_WIDTH = 1.15;
-const MINIMAL_DETAIL_WIDTH = 1;
+/** Outline weight for the body, and the lighter weight for interior detail. */
+const BODY_WIDTH = 1.8;
+const DETAIL_WIDTH = 1.35;
 
 /**
  * SalpaCompanion - the Salpa pangolin companion.
@@ -83,7 +106,7 @@ export default function SalpaCompanion({
 }: SalpaCompanionProps) {
   return (
     <svg
-      viewBox="0 0 24 24"
+      viewBox="0 0 64 46"
       fill="none"
       role="presentation"
       aria-hidden="true"
@@ -111,14 +134,24 @@ export default function SalpaCompanion({
  */
 function MinimalPangolin() {
   return (
-    <g stroke="currentColor" strokeOpacity={0.9} {...strokeProps}>
-      <path d={BODY_PATH} strokeWidth={MINIMAL_BODY_WIDTH} />
-      {SCALE_ARCS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.5} strokeWidth={MINIMAL_DETAIL_WIDTH} />
+    <g stroke="currentColor" strokeOpacity={0.92} {...strokeProps}>
+      <path d={BODY_PATH} strokeWidth={BODY_WIDTH} />
+      {SCALE_BANDS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.6} strokeWidth={DETAIL_WIDTH} />
       ))}
-      {FEET.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.45} strokeWidth={MINIMAL_DETAIL_WIDTH} />
+      {TAIL_BANDS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.5} strokeWidth={DETAIL_WIDTH} />
       ))}
+      {LEGS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.6} strokeWidth={DETAIL_WIDTH} />
+      ))}
+      <circle
+        cx={EYE.cx}
+        cy={EYE.cy}
+        r={EYE.r}
+        fill="currentColor"
+        stroke="none"
+      />
     </g>
   );
 }
@@ -153,7 +186,7 @@ function HolographicPangolin() {
         d={BODY_PATH}
         stroke="currentColor"
         strokeOpacity={0.22}
-        strokeWidth={2.1}
+        strokeWidth={3}
         filter="url(#salpa-holo-glow)"
         {...strokeProps}
       />
@@ -161,29 +194,46 @@ function HolographicPangolin() {
       <path
         d={BODY_PATH}
         stroke="url(#salpa-holo-sheen)"
-        strokeWidth={1.3}
+        strokeWidth={2}
         {...strokeProps}
       />
-      {SCALE_ARCS.map((d) => (
+      {SCALE_BANDS.map((d) => (
+        <path
+          key={d}
+          d={d}
+          stroke="currentColor"
+          strokeOpacity={0.6}
+          strokeWidth={DETAIL_WIDTH}
+          {...strokeProps}
+        />
+      ))}
+      {TAIL_BANDS.map((d) => (
+        <path
+          key={d}
+          d={d}
+          stroke="currentColor"
+          strokeOpacity={0.5}
+          strokeWidth={DETAIL_WIDTH}
+          {...strokeProps}
+        />
+      ))}
+      {LEGS.map((d) => (
         <path
           key={d}
           d={d}
           stroke="currentColor"
           strokeOpacity={0.55}
-          strokeWidth={0.95}
+          strokeWidth={DETAIL_WIDTH}
           {...strokeProps}
         />
       ))}
-      {FEET.map((d) => (
-        <path
-          key={d}
-          d={d}
-          stroke="currentColor"
-          strokeOpacity={0.4}
-          strokeWidth={0.95}
-          {...strokeProps}
-        />
-      ))}
+      <circle
+        cx={EYE.cx}
+        cy={EYE.cy}
+        r={EYE.r}
+        fill="currentColor"
+        stroke="none"
+      />
     </g>
   );
 }
@@ -203,13 +253,24 @@ function ShadowPangolin() {
       className="motion-safe:animate-pulse motion-safe:[animation-duration:9s]"
       stroke="currentColor"
     >
-      <path d={BODY_PATH} strokeOpacity={0.38} strokeWidth={1.2} {...strokeProps} />
-      {SCALE_ARCS.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.22} strokeWidth={0.9} {...strokeProps} />
+      <path d={BODY_PATH} strokeOpacity={0.38} strokeWidth={BODY_WIDTH} {...strokeProps} />
+      {SCALE_BANDS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.24} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
       ))}
-      {FEET.map((d) => (
-        <path key={d} d={d} strokeOpacity={0.2} strokeWidth={0.9} {...strokeProps} />
+      {TAIL_BANDS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.2} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
       ))}
+      {LEGS.map((d) => (
+        <path key={d} d={d} strokeOpacity={0.22} strokeWidth={DETAIL_WIDTH} {...strokeProps} />
+      ))}
+      <circle
+        cx={EYE.cx}
+        cy={EYE.cy}
+        r={EYE.r}
+        fill="currentColor"
+        fillOpacity={0.3}
+        stroke="none"
+      />
     </g>
   );
 }

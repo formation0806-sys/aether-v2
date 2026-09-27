@@ -539,7 +539,7 @@ export default function Chat() {
                     it carries the only screen-reader announcement. */}
                 <SalpaCompanion
                   variant="holographic"
-                  className="size-8 shrink-0 text-[#A0A0A0]"
+                  className="size-12 shrink-0 text-[#A0A0A0]"
                 />
                 <span className="text-xs font-medium text-[#707070]">
                   {isThinking ? "Thinking…" : "Responding…"}
