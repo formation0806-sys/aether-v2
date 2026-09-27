@@ -473,10 +473,13 @@ export default function Chat() {
                 role="status"
                 aria-live="polite"
               >
-                {/* Thinking shows the same faceless bust in its active reading,
-                    bound to the existing `isThinking` state. The label is kept
-                    because it carries the only screen-reader announcement. */}
-                <SalpaCompanion variant="holographic" className="size-16 shrink-0" />
+                {/* The companion takes its expression from the existing
+                    `isThinking` state, and the text label is always present so
+                    the state is never communicated by the figure alone. */}
+                <SalpaCompanion
+                  state={isThinking ? "thinking" : "responding"}
+                  className="size-16 shrink-0"
+                />
                 <span className="text-xs font-medium text-[#707070]">
                   {isThinking ? "Thinking…" : "Responding…"}
                 </span>
