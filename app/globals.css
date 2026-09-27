@@ -253,10 +253,10 @@
    asks for reduced motion gets a completely static pangolin: no transforms,
    no blinking and no sweeping glow.
 
-   Amplitudes are expressed in viewBox units of the companion's 100x62 grid,
+   Amplitudes are expressed in viewBox units of the companion's 96x52 grid,
    where 1 unit renders as roughly 1px at the 96px display size. The body
    therefore travels about 2.5px, the head lifts and turns about 1.5px, and
-   the tail sweeps about 3.5px - large enough to read as a living animal
+   the tail sweeps about 4px - large enough to read as a living animal
    within a second or two, but far too small to read as cartoon motion.
 --------------------------------------------------------------------------- */
 
@@ -311,25 +311,25 @@
 
 /* A soft band of light travelling across the armour while working. */
 @keyframes salpa-sweep {
-  0% { transform: translateX(-46px); }
-  100% { transform: translateX(146px); }
+  0% { transform: translateX(-24px); }
+  100% { transform: translateX(96px); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .salpa-body {
     animation: salpa-breathe 4.5s ease-in-out infinite;
     transform-box: view-box;
-    transform-origin: 48px 64px;
+    transform-origin: 57px 58px;
   }
   .salpa-head {
-    animation: salpa-head 5s ease-in-out infinite;
+    animation: salpa-head 5.5s ease-in-out infinite;
     transform-box: view-box;
-    transform-origin: 77px 28px;
+    transform-origin: 76px 33px;
   }
   .salpa-tail {
-    animation: salpa-tail 6.5s ease-in-out infinite;
+    animation: salpa-tail 7s ease-in-out infinite;
     transform-box: view-box;
-    transform-origin: 31px 30px;
+    transform-origin: 45px 32px;
   }
   .salpa-scales {
     animation: salpa-scales 4.5s ease-in-out infinite;
@@ -337,7 +337,7 @@
   .salpa-eye {
     animation: salpa-blink 7s ease-in-out infinite;
     transform-box: view-box;
-    transform-origin: 82px 26px;
+    transform-origin: 86px 27px;
   }
 
   /* Thinking / working: the same animal, visibly livelier. */
