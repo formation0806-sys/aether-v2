@@ -9,15 +9,30 @@
 import { calculatorTool } from "./calculator";
 import { currentTimeTool } from "./current-time";
 import { memorySearchTool } from "./memory-search";
+import { blenderTool } from "./blender";
 import { ToolRegistry } from "./registry";
 import type { FlagPredicate } from "./registry";
 import type { ToolDefinition } from "./types";
 
-/** The v1 tool set. Every tool is read-only. */
+/**
+ * The agent tools available to the loop.
+ *
+ * `current_time`, `calculator`, and `memory_search` are the original read-only
+ * set and remain read-only. `blender` is a controlled, scene-mutating tool: its
+ * `create_object` operation changes a live Blender scene through a loopback
+ * bridge, so unlike the others it is not read-only. It is still confined to a
+ * closed operation allowlist and writes no files.
+ *
+ * blenderTool is appended last, so the three original tools keep their existing
+ * order and stay registered whenever only ENABLE_TOOL_USE is on. Blender
+ * additionally requires ENABLE_TOOL_BLENDER, so it can never bypass the global
+ * tool flag and is absent from this registry by default.
+ */
 export const AGENT_TOOLS: ToolDefinition[] = [
   currentTimeTool,
   calculatorTool,
   memorySearchTool,
+  blenderTool,
 ];
 
 /**

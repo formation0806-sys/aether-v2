@@ -28,6 +28,7 @@
  */
 
 import type { ChatMessage } from "@/lib/ai/types";
+import type { ChatCompletion, ProviderToolSchema } from "@/lib/ai/types";
 import {
   checkLoopDeadline,
   checkTurnLimit,
@@ -35,8 +36,14 @@ import {
 } from "./budget";
 import type { TurnBudget } from "./budget";
 import { createFallback } from "./fallback";
+import {
+  normalizeNativeToolCall,
+  supportsNativeTools,
+  toProviderToolSchemas,
+} from "./native-tools";
 import { buildAgentConversation } from "./prompt";
 import { parseToolCall } from "./protocol";
+import type { ToolCallParseResult } from "./protocol";
 import { addStep, emptyTrace } from "./trace";
 import type { TurnTrace } from "./trace";
 import { buildAgentToolRegistry } from "./tools/index";
@@ -63,6 +70,17 @@ export const OBSERVATION_TRUNCATED_NOTE = "observation_truncated";
 /** Minimal provider surface the loop needs. Mirrors AIProvider.chat. */
 export interface LoopChatProvider {
   chat(messages: ChatMessage[]): Promise<string>;
+  /**
+   * Optional native tool calling, present on providers that support it.
+   *
+   * The loop uses it when available and falls back to `chat()` plus the
+   * prompt-based contract when it is not, so a provider without it keeps
+   * working unchanged.
+   */
+  chatWithTools?(
+    messages: ChatMessage[],
+    tools: ProviderToolSchema[]
+  ): Promise<ChatCompletion>;
 }
 
 /** Injectable dependencies. Every field is optional; defaults are production. */
@@ -196,10 +214,26 @@ export async function runAgentLoop(
     const now = deps.now ?? Date.now;
     const startedAt = safeNow(now);
 
+    // Resolved once, before the conversation is built, because the system prompt
+    // has to know which contract is in force: when the tools are offered through
+    // the provider's own API, the JSON-imitation block is left out so it cannot
+    // compete with them.
+    const nativeTools = supportsNativeTools(provider)
+      ? toProviderToolSchemas(registry)
+      : [];
+
+    // Captured once, so the call below is known to exist and keeps its `this`. A
+    // provider without native tool calling yields null and the prompt-based path
+    // runs exactly as it always has.
+    const nativeChat =
+      nativeTools.length > 0 && typeof provider.chatWithTools === "function"
+        ? provider.chatWithTools.bind(provider)
+        : null;
+
     let messages: ChatMessage[];
 
     try {
-      messages = buildAgentConversation(input, registry);
+      messages = buildAgentConversation(input, registry, nativeChat !== null);
     } catch {
       return createFallback("unexpected_error", toOutcomeTrace(trace));
     }
@@ -217,11 +251,25 @@ export async function runAgentLoop(
       }
 
       let response: string;
+      let nativeCompletion: ChatCompletion | null = null;
+      let nativeParsed: ToolCallParseResult | null = null;
+      let usedNativeCall = false;
 
       const thinkStarted = safeNow(now);
 
       try {
-        response = await provider.chat(messages);
+        if (nativeChat !== null) {
+          // Native path: the tools are offered through the provider's own tool
+          // API, so choosing one is structural rather than something the model
+          // has to remember to imitate.
+          nativeCompletion = await nativeChat(messages, nativeTools);
+          response =
+            typeof nativeCompletion?.text === "string" ? nativeCompletion.text : "";
+          nativeParsed = normalizeNativeToolCall(nativeCompletion, registry);
+          usedNativeCall = nativeParsed !== null && nativeParsed.kind === "tool_call";
+        } else {
+          response = await provider.chat(messages);
+        }
       } catch {
         trace = addStep(trace, "think", elapsedSince(now, thinkStarted), {
           ok: false,
@@ -240,7 +288,10 @@ export async function runAgentLoop(
       let parsed;
 
       try {
-        parsed = parseToolCall(response, registry);
+        // A native call is already normalised. With no native call the text is
+        // parsed exactly as before, so the prompt-based contract still works.
+        parsed =
+          nativeParsed !== null ? nativeParsed : parseToolCall(response, registry);
       } catch {
         return answered(response, trace);
       }
@@ -292,11 +343,22 @@ export async function runAgentLoop(
       const observationText =
         OBSERVATION_PREFIX + capped.text;
 
-      messages = [
-        ...messages,
-        { role: "assistant", content: response },
-        { role: "user", content: observationText },
-      ];
+      messages =
+        usedNativeCall && nativeCompletion !== null
+          ? [
+              ...messages,
+              {
+                role: "assistant",
+                content: response,
+                tool_calls: nativeCompletion.toolCalls,
+              },
+              { role: "tool", content: observationText, tool_name: parsed.tool },
+            ]
+          : [
+              ...messages,
+              { role: "assistant", content: response },
+              { role: "user", content: observationText },
+            ];
 
       trace = addStep(trace, "observe", elapsedSince(now, observeStarted), {
         tool: parsed.tool,

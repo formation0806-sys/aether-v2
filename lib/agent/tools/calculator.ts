@@ -303,6 +303,16 @@ export const calculatorTool: ToolDefinition<CalculatorArgs> = {
     "Evaluates a basic arithmetic expression using +, -, *, /, %, ^ and parentheses.",
   requiredFlags: ["ENABLE_TOOL_USE"],
   timeoutMs: 2000,
+  parameters: {
+    type: "object",
+    properties: {
+      expression: {
+        type: "string",
+        description: "The arithmetic expression to evaluate, for example 6*7.",
+      },
+    },
+    required: ["expression"],
+  },
   parseArgs,
   async execute(args: CalculatorArgs, ctx: ToolContext): Promise<ToolResult> {
     const startedAt = Date.now();

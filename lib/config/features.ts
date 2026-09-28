@@ -39,7 +39,9 @@ export type FeatureFlag =
   /** Enables long-horizon goal-run autonomy runtime (Priority L1 foundation only). */
   | "ENABLE_LONG_HORIZON"
   /** Sub-flag of ENABLE_TOOL_USE: enables the external web-search tool only. */
-  | "ENABLE_TOOL_WEB_SEARCH";
+  | "ENABLE_TOOL_WEB_SEARCH"
+  /** Sub-flag of ENABLE_TOOL_USE: enables the Blender bridge tool only. */
+  | "ENABLE_TOOL_BLENDER";
 
 /** Numeric tuning flags. Missing or invalid values fall back to the defaults below. */
 export type NumericFlag =
@@ -58,6 +60,7 @@ export const FEATURE_FLAGS: readonly FeatureFlag[] = Object.freeze([
   "ENABLE_WORLD_MODEL",
   "ENABLE_TOOL_WEB_SEARCH",
   "ENABLE_LONG_HORIZON",
+  "ENABLE_TOOL_BLENDER",
 ]);
 
 /** Safe defaults for the numeric flags, used when a variable is unset or unparsable. */

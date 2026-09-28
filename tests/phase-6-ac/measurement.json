@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-13T09:30:51.637Z",
+  "startedAt": "2026-09-23T18:47:28.151Z",
   "experiment": "phase-6-ac-prompt-decision-audit",
   "productionWrites": 0,
   "reflectorInvocations": 0,
@@ -247,8 +247,8 @@
     "assessment": "Historical reflections were produced from inputs that are not fully reconstructable. The current input differs structurally by including reflection memories as input, which may change the model's decision boundary."
   },
   "rawModelResponse": {
-    "text": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-13T09:30:56.7999527Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4947438800,\"load_duration\":12422400,\"prompt_eval_count\":3077,\"prompt_eval_duration\":806173000,\"eval_count\":2,\"eval_duration\":19480000}",
-    "length": 296,
+    "text": "{\"model\":\"qwen2.5:3b\",\"created_at\":\"2026-09-23T18:47:33.3899598Z\",\"message\":{\"role\":\"assistant\",\"content\":\"[]\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4651902900,\"load_duration\":5248600,\"prompt_eval_count\":3077,\"prompt_eval_duration\":19652000,\"eval_count\":2,\"eval_duration\":20770000}",
+    "length": 294,
     "isEmpty": false,
     "isLiteralEmptyArray": true,
     "parseSuccess": true,

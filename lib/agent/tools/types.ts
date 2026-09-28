@@ -42,12 +42,50 @@ export interface ToolResult {
  */
 export type ToolArgsParser<A> = (raw: unknown) => A | null;
 
+/**
+ * Declarative description of one tool parameter.
+ *
+ * This is a DESCRIPTION for the model, never a validation surface: it is sent
+ * to the provider as a native tool schema so a model that supports native tool
+ * calling can choose arguments correctly. Every argument the model produces is
+ * still validated by `parseArgs` below, which remains the only authority on
+ * what a tool accepts.
+ */
+export interface ToolPropertySchema {
+  type: "string" | "number" | "integer" | "boolean" | "array" | "object";
+  description?: string;
+  /** Closed value set. Mirrors an allowlist; never widens one. */
+  enum?: readonly string[];
+  /** Element schema for an array parameter, for example a 3-component vector. */
+  items?: { type: "string" | "number" | "integer" | "boolean" };
+  minItems?: number;
+  maxItems?: number;
+}
+
+/**
+ * Minimal JSON Schema subset for a tool's arguments.
+ *
+ * Deliberately tiny and dependency-free. It exists only so a provider can
+ * advertise arguments natively; it grants no capability and performs no check.
+ */
+export interface ToolParameterSchema {
+  type: "object";
+  properties: Record<string, ToolPropertySchema>;
+  required?: string[];
+}
+
 /** Declarative description of one tool. */
 export interface ToolDefinition<A = Record<string, unknown>> {
   /** Stable identifier used by the model protocol, for example "current_time". */
   name: string;
   /** One-line description shown in the tool manifest. */
   description: string;
+  /**
+   * Optional argument schema advertised to a provider that supports native tool
+   * calling. A tool without one is still fully usable through the prompt-based
+   * contract; it simply cannot be offered natively.
+   */
+  parameters?: ToolParameterSchema;
   /**
    * Flags that must all be enabled for the tool to be registered. A tool whose
    * flags are off is absent from the registry: it cannot be called, and it is

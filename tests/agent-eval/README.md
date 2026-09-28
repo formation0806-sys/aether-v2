@@ -44,6 +44,7 @@ above (run them explicitly by path if needed).
 | `agent-eval.test.ts` | Rung 1 harness: dataset validation, scripted provider, probe tools, metrics, assertions |
 | `route-guard.test.ts` | Rung 2: route agent-branch wiring guard (static + contract) |
 | `live-smoke.test.ts` | Rung 3: opt-in live smoke (skipped unless `AGENT_EVAL_LIVE=1`) |
+| `blender-live-e2e.test.ts` | Step 6: opt-in REAL Blender E2E (skipped unless `BLENDER_E2E_LIVE=1`) |
 | `measurement.json` | Report artifact written by every Rung 1 run (metrics + per-case detail) |
 
 ## Rung 3: opt-in live smoke
@@ -78,6 +79,50 @@ It **skips cleanly, never fails**, when a live dependency is missing: app
 unreachable, model runtime unreachable, no credentials, or sign-in refused.
 Flags are set on the test process and on the spawned server child, then
 restored — `.env.local` is never modified, and no production default changes.
+
+## Blender live E2E (opt-in)
+
+`blender-live-e2e.test.ts` is the **real** end-to-end proof of the Blender
+integration: SALPA chat → `/api/chat` → authenticated Supabase user → agent →
+Blender tool → local bridge → real `bpy` → real Blender scene → response.
+**Skipped by default** and not part of the `npm test` path list, so the default
+suite stays offline-safe and green.
+
+The one acceptance request is the canonical first loop, `Create a cube in
+Blender.` — one supported operation, one allowlisted primitive, nothing richer.
+
+```
+# Starts a real Blender bridge (Blender 5.2.1 LTS on a standard install) and its
+# own `next dev` on port 3124, with ENABLE_AGENT_LOOP/ENABLE_TOOL_USE/
+# ENABLE_TOOL_BLENDER and the two bridge variables set for that run only.
+# Nothing is written to .env.local.
+BLENDER_E2E_LIVE=1 npm run test:live:blender
+```
+
+Environment knobs (all optional):
+
+| Variable | Meaning |
+| --- | --- |
+| `BLENDER_E2E_LIVE` | `1` enables the suite; anything else skips it |
+| `BLENDER_E2E_COOKIE` | Pre-built `sb-<ref>-auth-token` cookie value, so no sign-in is needed |
+| `BLENDER_E2E_EMAIL` / `_PASSWORD` | Sign-in credentials (falls back to `M2_SMOKE_*`) |
+| `BLENDER_E2E_BASE_URL` | Attach to a server you already run instead of spawning one |
+| `BLENDER_E2E_PORT` | Port for the spawned dev server (default `3124`) |
+| `BLENDER_E2E_LOG` | Path to the server log, used for the agent-branch evidence |
+| `BLENDER_E2E_BLENDER_EXE` | Path to `blender.exe` (auto-detected otherwise) |
+| `BLENDER_BRIDGE_PORT` | Loopback bridge port (default `8765`) |
+
+What it asserts: HTTP 200 and the exact `{ response, conversationId }` shape for
+the canonical request; `CHAT_TIMING agent_ms=` (the agent branch was entered) and
+`CHAT_TRACE ... tool=blender` (the Blender tool really ran); and a cube present
+in the real scene, read back from the running bridge.
+
+It **skips cleanly, never fails**, when a live dependency is missing: Blender not
+installed, bridge port already busy, model runtime unreachable, app unreachable,
+no credentials, or sign-in refused. The bridge token is generated per run, held
+in memory only, and never printed. The bridge keeps its existing loopback-only
+bind, bearer check, allowlist, and protocol validation — the suite adds no
+capability of any kind.
 
 ## Hermetic by construction
 

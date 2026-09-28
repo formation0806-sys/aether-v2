@@ -168,6 +168,17 @@ export function createMemorySearchTool(
       "Searches the user long-term memories and returns the most relevant stored entries.",
     requiredFlags: ["ENABLE_TOOL_USE"],
     timeoutMs: 8000,
+    parameters: {
+      type: "object",
+      properties: {
+        query: {
+          type: "string",
+          description:
+            "What to look for in the user's stored memories, phrased as a search.",
+        },
+      },
+      required: ["query"],
+    },
     parseArgs,
     async execute(
       args: MemorySearchArgs,

@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-13T09:30:53.796Z",
+  "startedAt": "2026-09-23T18:47:29.359Z",
   "experiment": {
     "input": {
       "totalMemories": 37,
@@ -28,7 +28,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 3975,
+        "latencyMs": 4542,
         "isProductionPath": true,
         "reflections": []
       },
@@ -43,7 +43,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 3651,
+        "latencyMs": 5186,
         "isProductionPath": false,
         "reflections": []
       },
@@ -58,7 +58,7 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 5256,
+        "latencyMs": 7022,
         "isProductionPath": false,
         "reflections": []
       },
@@ -73,27 +73,37 @@
         "sanitizedAccepted": 0,
         "sanitizedRejected": 0,
         "finalResult": 0,
-        "latencyMs": 7453,
+        "latencyMs": 7251,
         "isProductionPath": false,
         "reflections": []
       },
       "E": {
         "name": "Minimal combined (B+C+D)",
-        "rawModelTextLength": 2,
+        "rawModelTextLength": 256,
         "isEmptyText": false,
-        "isLiteralEmptyArray": true,
+        "isLiteralEmptyArray": false,
         "parseSuccess": true,
         "rootType": "array",
-        "candidateCount": 0,
-        "sanitizedAccepted": 0,
+        "candidateCount": 1,
+        "sanitizedAccepted": 1,
         "sanitizedRejected": 0,
-        "finalResult": 0,
-        "latencyMs": 6050,
+        "finalResult": 1,
+        "latencyMs": 8913,
         "isProductionPath": false,
-        "reflections": []
+        "reflections": [
+          {
+            "title": "Change in TypeScript Preference for Aether Development",
+            "content": "Multiple memories consistently indicate a change in preference from TypeScript to Python for Aether development.",
+            "importance": 6,
+            "confidence": 0.9,
+            "classification": "USEFUL_GROUNDED"
+          }
+        ]
       }
     },
-    "nonemptyVariants": [],
+    "nonemptyVariants": [
+      "E"
+    ],
     "invocationBudget": {
       "primary": 5,
       "confirmation": 0,
@@ -123,7 +133,7 @@
     "expectedHash": "24aa25c19b439cb5fa988729535a90ebf756498e132e4c5c6157a7a516970975",
     "hashMatch": true
   },
-  "causalClassification": "INPUT_DOMINANT",
-  "classification": "INPUT_DOMINANT",
+  "causalClassification": "COMBINED_PROMPT_EFFECT",
+  "classification": "COMBINED_PROMPT_EFFECT",
   "productionChangeJustified": false
 }

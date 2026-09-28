@@ -3,7 +3,7 @@
   "title": "Verifier forensic audit for pair-011 and pair-034 rejection diagnosis",
   "status": "PENDING",
   "reason": null,
-  "recordedAt": "2026-09-13T09:41:05.521Z",
+  "recordedAt": "2026-09-23T18:56:54.003Z",
   "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
   "frozenPromptSha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
   "prompt": {
@@ -108,10 +108,10 @@
         {
           "runIndex": 6,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and motivations.",
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 292
+          "rawOutputLength": 294
         },
         {
           "runIndex": 7,
@@ -124,10 +124,10 @@
         {
           "runIndex": 8,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and motivations.",
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 292
+          "rawOutputLength": 294
         },
         {
           "runIndex": 9,
@@ -140,10 +140,10 @@
         {
           "runIndex": 10,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and motivations.",
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 292
+          "rawOutputLength": 294
         },
         {
           "runIndex": 11,
@@ -172,10 +172,10 @@
         {
           "runIndex": 14,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and motivations.",
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 292
+          "rawOutputLength": 294
         },
         {
           "runIndex": 15,
@@ -212,10 +212,10 @@
         {
           "runIndex": 19,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities.",
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and motivations.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 294
+          "rawOutputLength": 292
         }
       ]
     },
@@ -235,8 +235,8 @@
       "agreement": 20,
       "determinism": "HIGH",
       "sampleReasons": [
-        "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
-        "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab."
+        "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+        "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab."
       ],
       "complianceNotes": [
         "ENTITY_MISMATCH: Prompt explicitly lists 'different concrete entities' as DIFFERENT; GitHub vs GitLab is a different concrete entity (different platforms/services). (matchesPromptRule=true)",
@@ -246,18 +246,18 @@
         {
           "runIndex": 0,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
+          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 117
+          "rawOutputLength": 133
         },
         {
           "runIndex": 1,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
+          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 117
+          "rawOutputLength": 133
         },
         {
           "runIndex": 2,
@@ -278,10 +278,10 @@
         {
           "runIndex": 4,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 5,
@@ -294,18 +294,18 @@
         {
           "runIndex": 6,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
-          "modelJsonCandidate": true,
-          "transportFailure": false,
-          "rawOutputLength": 133
-        },
-        {
-          "runIndex": 7,
-          "decision": "DIFFERENT",
           "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
           "rawOutputLength": 117
+        },
+        {
+          "runIndex": 7,
+          "decision": "DIFFERENT",
+          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "modelJsonCandidate": true,
+          "transportFailure": false,
+          "rawOutputLength": 133
         },
         {
           "runIndex": 8,
@@ -326,18 +326,18 @@
         {
           "runIndex": 10,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 11,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 12,
@@ -350,18 +350,18 @@
         {
           "runIndex": 13,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 14,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 15,
@@ -390,10 +390,10 @@
         {
           "runIndex": 18,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION states using GitHub, while the EXISTING CANDIDATE MEMORY states using GitLab.",
+          "parsedReason": "The NEW OBSERVATION uses GitHub, while the EXISTING CANDIDATE MEMORY uses GitLab.",
           "modelJsonCandidate": true,
           "transportFailure": false,
-          "rawOutputLength": 133
+          "rawOutputLength": 117
         },
         {
           "runIndex": 19,
@@ -658,7 +658,7 @@
         {
           "runIndex": 1,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities."
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities."
         },
         {
           "runIndex": 2,
@@ -668,7 +668,7 @@
         {
           "runIndex": 3,
           "decision": "DIFFERENT",
-          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities."
+          "parsedReason": "The NEW OBSERVATION focuses on a personal preference for TypeScript when starting application projects, while the EXISTING CANDIDATE MEMORY is about the author's general use of TypeScript in software development. These are different scopes and specificities."
         },
         {
           "runIndex": 4,

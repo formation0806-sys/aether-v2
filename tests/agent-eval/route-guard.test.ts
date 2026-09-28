@@ -323,6 +323,138 @@ describe("route-guard: an answered outcome returns and persists the agent answer
 });
 
 /* -------------------------------------------------------------------------- */
+/* Static guarantees: the agent trace logger is content-free                   */
+/* -------------------------------------------------------------------------- */
+
+const TRACE_LOGGER = "function logAgentTrace(trace: unknown, requestToken: string): void {";
+const ROUTE_HANDLER = "export async function POST(req: Request) {";
+
+/** The fields the agent trace contract permits a log line to carry. */
+const TRACE_LOG_FIELDS = [
+  "step",
+  "phase",
+  "tool",
+  "durationMs",
+  "ok",
+  "note",
+] as const;
+
+/** The logger body: from its declaration up to the request handler. */
+function traceLogger(source: string = ROUTE_SOURCE): string {
+  const start = indexOrFail(source, TRACE_LOGGER);
+  const end = indexOrFail(source, ROUTE_HANDLER);
+
+  expect(end, "the request handler must follow the trace logger").toBeGreaterThan(
+    start,
+  );
+
+  return source.slice(start, end);
+}
+
+describe("route-guard: the agent trace logger emits only content-free fields", () => {
+  it("reads exactly the six permitted fields and no other property", () => {
+    const read = Array.from(
+      traceLogger().matchAll(/step\["([^"]+)"\]/g),
+      (match) => match[1],
+    );
+
+    expect(read.length).toBeGreaterThan(0);
+    expect(new Set(read)).toEqual(new Set(TRACE_LOG_FIELDS));
+  });
+
+  it("never stringifies the trace or any whole object", () => {
+    const logger = traceLogger();
+
+    expect(logger).not.toContain("JSON.stringify");
+    expect(logger).not.toMatch(/console\.log\(\s*(trace|outcome|step|entry)\b/);
+  });
+
+  it("logs no message, response, observation, credential, or environment value", () => {
+    const logger = traceLogger();
+
+    for (const forbidden of [
+      "observation",
+      "outcome.response",
+      "preResult.message",
+      "preResult.conversation",
+      "preResult.prompt",
+      "request_token=",
+      "Authorization",
+      "Cookie",
+      "BLENDER_BRIDGE",
+      "process.env",
+      "req.",
+      "body.",
+    ]) {
+      // `request_token=` is asserted separately below; it is the safe
+      // correlation token that already appears in every CHAT_TIMING line.
+      if (forbidden === "request_token=") continue;
+
+      expect(
+        logger.includes(forbidden),
+        `trace logger must not contain ${forbidden}`,
+      ).toBe(false);
+    }
+  });
+
+  it("emits one machine-readable line carrying only the permitted keys", () => {
+    const logger = traceLogger();
+    // The line is assembled from several template literals joined with "+",
+    // so the whole console.log argument is captured, not the first fragment.
+    const call = logger.match(/console\.log\(([\s\S]*?)\);/);
+
+    expect(call, "the logger must build its line with one console.log").not.toBeNull();
+
+    const keys = Array.from(
+      (call as RegExpMatchArray)[1].matchAll(/([a-z_]+)=\$\{/g),
+      (match) => match[1],
+    );
+
+    expect(keys).toEqual([
+      "request_token",
+      "step",
+      "phase",
+      "tool",
+      "duration_ms",
+      "ok",
+      "note",
+    ]);
+  });
+
+  it("is called from the agent branch without changing control flow", () => {
+    const branch = agentBranch();
+
+    expect(branch).toContain("logAgentTrace(outcome?.trace, requestToken)");
+
+    // The call is observability only: it must not sit in front of the guard,
+    // and the branch must still hold exactly one early return.
+    expect(
+      branch.indexOf("logAgentTrace("),
+    ).toBeGreaterThan(branch.indexOf("const outcome = await runAgentTurn("));
+    expect(branch.match(/\breturn\b/g) ?? []).toHaveLength(1);
+  });
+
+  it("keeps the response contract free of any trace data", () => {
+    const literal = returnLiteralFor("response: outcome.response,");
+
+    expect(topLevelKeys(literal)).toEqual(["response", "conversationId"]);
+    expect(literal).not.toContain("trace");
+  });
+
+  it("detects a synthetic logger that leaks a forbidden field", () => {
+    const leaky = [
+      TRACE_LOGGER,
+      '  console.log(JSON.stringify(outcome.trace));',
+      "}",
+      "",
+      ROUTE_HANDLER,
+    ].join("\n");
+
+    expect(traceLogger(leaky)).toContain("JSON.stringify");
+  });
+});
+
+/* -------------------------------------------------------------------------- */
 /* Static guarantees: fall-through                                            */
 /* -------------------------------------------------------------------------- */
 

@@ -117,6 +117,7 @@ describe("feature flags - unrecognized values stay OFF", () => {
     expect(isFeatureEnabled("ENABLE_AI_PLANNER")).toBe(false);
     expect(isFeatureEnabled("ENABLE_PROCEDURAL_MEMORY")).toBe(false);
     expect(isFeatureEnabled("ENABLE_TOOL_WEB_SEARCH")).toBe(false);
+    expect(isFeatureEnabled("ENABLE_TOOL_BLENDER")).toBe(false);
     expect(isFeatureEnabled("ENABLE_MULTI_AGENT")).toBe(false);
     expect(isFeatureEnabled("ENABLE_CONTINUAL_LEARNING")).toBe(false);
     expect(isFeatureEnabled("ENABLE_WORLD_MODEL")).toBe(false);
@@ -204,5 +205,35 @@ describe("numeric flags", () => {
     process.env.ENABLE_AGENT_LOOP = "true";
 
     expect(readNumericFlag("AGENT_MAX_TOOL_TURNS")).toBe(1);
+  });
+});
+
+describe("feature flag - ENABLE_TOOL_BLENDER", () => {
+  it("is declared in FEATURE_FLAGS", () => {
+    expect(FEATURE_FLAGS).toContain("ENABLE_TOOL_BLENDER");
+  });
+
+  it("is OFF when its variable is unset", () => {
+    expect(process.env.ENABLE_TOOL_BLENDER).toBeUndefined();
+
+    expect(isFeatureEnabled("ENABLE_TOOL_BLENDER")).toBe(false);
+  });
+
+  it("is ON for the truthy token \"true\"", () => {
+    process.env.ENABLE_TOOL_BLENDER = "true";
+
+    expect(isFeatureEnabled("ENABLE_TOOL_BLENDER")).toBe(true);
+  });
+
+  it("is OFF for the explicit value \"false\"", () => {
+    process.env.ENABLE_TOOL_BLENDER = "false";
+
+    expect(isFeatureEnabled("ENABLE_TOOL_BLENDER")).toBe(false);
+  });
+
+  it("does not enable agent mode on its own", () => {
+    process.env.ENABLE_TOOL_BLENDER = "true";
+
+    expect(isAgentModeEnabled()).toBe(false);
   });
 });

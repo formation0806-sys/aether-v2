@@ -1,4 +1,12 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -31,6 +39,43 @@ const CHAT_VARS = [
 ] as const;
 
 const ALL_VARS = [...MEMORY_VARS, ...LEGACY_VARS, ...CHAT_VARS];
+
+/**
+ * Determinism settings for this file.
+ *
+ * Every case calls vi.resetModules() and dynamically re-imports the module under
+ * test, because lib/ai/config.ts reads process.env at module scope. That module
+ * graph (config -> provider -> reflector/extractor/identity/consolidate) is
+ * re-transformed and re-evaluated for each of the 17 cases, and the file takes
+ * roughly 15 seconds in total. Vitest's default per-test timeout is 5000ms, so
+ * under the CPU contention of a full parallel `npm test` a single case could
+ * cross that wall-clock cap purely because of machine load, and fail as
+ * "Test timed out in 5000ms" while passing in isolation.
+ *
+ * The timeout is raised so the result is deterministic regardless of test
+ * ordering or machine load. This asserts nothing extra and relaxes no assertion:
+ * it only removes an arbitrary 5s cap on module loading.
+ */
+vi.setConfig({ testTimeout: 30_000 });
+
+/**
+ * Snapshot of the Ollama variables as they were before this file ran.
+ * process.env is shared across Vitest worker threads, so any variable this file
+ * sets would otherwise leak into whatever test file runs next in the same worker.
+ * Restored in afterAll to keep the suite order-independent.
+ */
+const ORIGINAL_ENV: ReadonlyArray<readonly [string, string | undefined]> =
+  Object.freeze(ALL_VARS.map((name) => [name, process.env[name]] as const));
+
+function restoreOllamaEnv(): void {
+  for (const [name, value] of ORIGINAL_ENV) {
+    if (value === undefined) {
+      delete process.env[name];
+    } else {
+      process.env[name] = value;
+    }
+  }
+}
 
 const MEMORY_SENTINEL = "Bearer memory-sentinel-secret-value";
 const LEGACY_SENTINEL = "Basic legacy-sentinel-secret-value";
@@ -192,6 +237,13 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.resetModules();
+});
+
+// Restore the Ollama variables this file set back to their pre-file values, so
+// the sentinel credentials used above cannot leak into another test file sharing
+// this worker process. Keeps the suite order-independent.
+afterAll(() => {
+  restoreOllamaEnv();
 });
 
 describe("1-3. MEMORY_* configuration resolution", () => {

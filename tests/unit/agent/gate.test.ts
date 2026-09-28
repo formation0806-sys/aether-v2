@@ -59,6 +59,17 @@ const AGENT_CASES: Array<[string, AgentIntentCategory]> = [
   ["remind me what i said about the deadline", "memory"],
   ["what do you have stored about me?", "memory"],
   ["search your memory for my preferences", "memory"],
+  ["Create a cube in Blender.", "blender"],
+  ["create a cube in blender", "blender"],
+  ["Create a sphere in Blender.", "blender"],
+  ["Inspect the Blender scene.", "blender"],
+  ["add a cylinder in blender", "blender"],
+  ["CREATE A CUBE IN BLENDER.", "blender"],
+  ["CrEaTe A CuBe In BlEnDeR.", "blender"],
+  ["blender", "blender"],
+  ["please open blender and show me the scene", "blender"],
+  // The existing time category still wins when it matches first.
+  ["what's the time in blender", "time"],
 ];
 
 /** Messages that must stay on the existing chat path. */
@@ -94,6 +105,17 @@ const CHAT_CASES: string[] = [
   "should i raise a seed round?",
   "summarize this document for me",
   "what do you think about remote work?",
+  // A bare 3D request must NOT become Blender intent.
+  "Create a cube.",
+  "create a sphere",
+  "add a cylinder to the scene",
+  "make me a torus",
+  "inspect the scene",
+  // Words that merely contain the letters must not match.
+  "i work as a blendersmith",
+  "that is blenderish",
+  "my sublender notes",
+  "the blenderr is broken",
 ];
 
 const SOURCE = readFileSync(

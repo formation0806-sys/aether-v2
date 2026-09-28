@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-13T09:30:39.676Z",
+  "startedAt": "2026-09-23T18:47:11.977Z",
   "experiment": "phase-6-aj-fresh-identity-candidate-e2e",
   "productionWrites": 0,
   "safety": {
@@ -100,15 +100,15 @@
       "extractedItemCount": 1,
       "extractedItems": [
         {
-          "title": "Aether Project Development",
-          "memoryType": "project"
+          "title": "Project Development",
+          "memoryType": "working"
         }
       ],
       "extractionFallbackUsed": false,
       "traceItem": {
-        "title": "Aether Project Development",
+        "title": "Project Development",
         "content": "The Aether project is being developed using Next.js, with Supabase handling its backend and data layer.",
-        "memoryType": "project"
+        "memoryType": "working"
       }
     },
     "probe3": {
@@ -239,7 +239,7 @@
       "aetherCandidateCount": 1
     },
     "probe5": {
-      "latencyMs": 4097,
+      "latencyMs": 5453,
       "verifierCalls": 1,
       "finalDecision": "corroborate",
       "reason": "verified SAME (similarity 0.878)",

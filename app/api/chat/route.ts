@@ -26,6 +26,83 @@ function chatTiming(stage: string, ms: number, extra?: string): void {
   console.log(line);
 }
 
+const CHAT_TRACE_PREFIX = "CHAT_TRACE";
+
+/** Upper bound on a logged tool name or note, so one value can never flood a line. */
+const MAX_TRACE_FIELD_CHARS = 40;
+
+/**
+ * Sanitises one trace field for logging.
+ *
+ * Control characters are collapsed, the value is truncated, and anything
+ * outside a conservative character class becomes "_". A tool name comes from
+ * the registry and a note is a fixed loop constant, so this is defence in
+ * depth rather than a sanitiser the current code depends on.
+ */
+function safeTraceField(value: string): string {
+  const cleaned = value
+    .replace(/[\u0000-\u001f\u007f]/g, " ")
+    .trim()
+    .slice(0, MAX_TRACE_FIELD_CHARS)
+    .replace(/[^A-Za-z0-9_.-]/g, "_");
+
+  return cleaned === "" ? "-" : cleaned;
+}
+
+/**
+ * Safe-logs the content-free agent turn trace.
+ *
+ * The loop already builds a trace that carries only a step index, a phase
+ * label, a tool name, a duration, an outcome flag, and a short note
+ * (lib/agent/trace.ts, lib/agent/types.ts:38-50). This function emits those
+ * six fields and nothing else.
+ *
+ * The trace is selected field by field and never stringified as an object, so
+ * a field added to AgentTraceStep later cannot leak by accident. Nothing
+ * reachable from these six fields is user content: no message, response,
+ * memory, observation, tool argument, request body, bridge URL, token, cookie,
+ * or environment value. It is a server log line only: never persisted, never
+ * returned to the client, and never added to the response contract.
+ *
+ * Typed as `unknown` on purpose, so this needs no static import of an agent
+ * module and keeps the route's agent code dynamically imported only.
+ */
+function logAgentTrace(trace: unknown, requestToken: string): void {
+  try {
+    if (!Array.isArray(trace)) return;
+
+    for (const entry of trace) {
+      if (entry === null || typeof entry !== "object") continue;
+
+      const step = entry as Record<string, unknown>;
+
+      const stepIndex =
+        typeof step["step"] === "number" && Number.isFinite(step["step"])
+          ? String(step["step"])
+          : "-";
+      const phase =
+        typeof step["phase"] === "string" ? safeTraceField(step["phase"]) : "-";
+      const tool =
+        typeof step["tool"] === "string" ? safeTraceField(step["tool"]) : "-";
+      const duration =
+        typeof step["durationMs"] === "number" && Number.isFinite(step["durationMs"])
+          ? step["durationMs"].toFixed(2)
+          : "-";
+      const ok = typeof step["ok"] === "boolean" ? String(step["ok"]) : "-";
+      const note =
+        typeof step["note"] === "string" ? safeTraceField(step["note"]) : "-";
+
+      console.log(
+        `${CHAT_TRACE_PREFIX} request_token=${requestToken} ` +
+          `step=${stepIndex} phase=${phase} tool=${tool} ` +
+          `duration_ms=${duration} ok=${ok} note=${note}`,
+      );
+    }
+  } catch {
+    // Observability must never break a reply.
+  }
+}
+
 function nowMs(): number {
   return Date.now();
 }
@@ -181,6 +258,10 @@ export async function POST(req: Request) {
         const { runAgentTurn } = await import("@/lib/agent/runner");
         const outcome = await runAgentTurn(preResult);
         chatTiming("agent", nowMs() - tAgentStart, `request_token=${requestToken}`);
+
+        // Observability only: a content-free, server-side line per trace step.
+        // Never persisted, never returned, and never part of the response.
+        logAgentTrace(outcome?.trace, requestToken);
 
         if (outcome?.kind === "answered" && typeof outcome.response === "string") {
           const tAssistantStart = nowMs();

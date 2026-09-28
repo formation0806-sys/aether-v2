@@ -3,7 +3,7 @@
   "title": "Verifier policy / identity-equivalence evaluation",
   "status": "PENDING",
   "reason": null,
-  "recordedAt": "2026-09-13T09:30:39.699Z",
+  "recordedAt": "2026-09-23T18:47:12.033Z",
   "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
   "frozenPromptSha256": "b999aa8fa91d272251123082ab437a5f748585b4fc994cf2f6378c9c53993e2d",
   "prompt": {

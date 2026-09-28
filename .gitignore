@@ -42,3 +42,7 @@ next-env.d.ts
 
 # agent tooling
 .kilo/
+
+# python bytecode (blender-bridge)
+__pycache__/
+*.pyc

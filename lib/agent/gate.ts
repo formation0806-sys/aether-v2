@@ -35,6 +35,7 @@ export type AgentIntentCategory =
   | "arithmetic"
   | "search"
   | "memory"
+  | "blender"
   | "none";
 
 /** Messages longer than this are treated as ordinary chat. */
@@ -79,6 +80,23 @@ const MEMORY_PATTERNS: RegExp[] = [
   /\bwhat\s+do\s+you\s+have\s+(?:stored|saved)\b/,
   /\bsearch\s+your\s+(?:memory|memories)\b/,
 ];
+
+/**
+ * Blender requests.
+ *
+ * Deliberately narrow: the literal word "blender", on a word boundary. A bare
+ * 3D request such as "create a cube" does NOT match, so it keeps its existing
+ * behaviour; only a message that names Blender is offered to the agent.
+ *
+ * Word boundaries keep unrelated words that merely contain the letters from
+ * matching: "blenders", "blenderish" and "sublender" are not Blender intent.
+ *
+ * The gate classifies only. It never consults feature flags, so whether the
+ * Blender tool may actually run is decided by the registry: with
+ * ENABLE_TOOL_BLENDER off the tool is not registered, the protocol reports
+ * unknown_tool, and the loop answers from what it already knows.
+ */
+const BLENDER_PATTERNS: RegExp[] = [/\bblender\b/];
 
 /** Lowercases and collapses whitespace. Both apostrophe forms are preserved. */
 function normalize(message: string): string {
@@ -141,6 +159,8 @@ export function classifyIntentCategory(message: string): AgentIntentCategory {
   if (matchesAny(SEARCH_PATTERNS, normalized)) return "search";
 
   if (matchesAny(MEMORY_PATTERNS, normalized)) return "memory";
+
+  if (matchesAny(BLENDER_PATTERNS, normalized)) return "blender";
 
   return "none";
 }

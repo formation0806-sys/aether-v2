@@ -1,6 +1,6 @@
 # Phase 6-AJ Report — Fresh Identity Candidate E2E Verification
 
-**Started:** 2026-09-13T09:30:39.676Z
+**Started:** 2026-09-23T18:47:11.977Z
 **Classification:** `C`
 **Note:** candidate retrieval AND verifier both work; identity resolves to corroborate
 **Production writes:** 0
@@ -47,7 +47,7 @@
 - finalDecision: `corroborate`
 - reason: `verified SAME (similarity 0.878)`
 - targetId: `0a97a74a`
-- latencyMs: `4097`
+- latencyMs: `5453`
 
 ## 7. Comparison
 | phase | observed |

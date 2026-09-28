@@ -2,9 +2,27 @@ import { ChatMessage } from "../types";
 import { createClient } from "@/lib/supabase/server";
 
 /**
+ * Upper bound on the messages replayed to the model for one turn.
+ *
+ * The chat endpoint runs with num_ctx = 8192 (lib/ai/providers/ollama.ts), and
+ * the prompt must also hold the brain prompt, the agent tool manifest, and —
+ * when native tool calling is on — the provider's tool schemas. An unbounded
+ * history silently consumed that window: with no session filter and no limit a
+ * single request carried 333 messages and 7,684 of 8,192 tokens, leaving the
+ * model no room for the tool framing, so it answered in prose instead of
+ * calling a tool.
+ *
+ * 40 messages is about twenty turns: far more than any real conversational
+ * window, and small enough to keep the whole prompt near 2k tokens.
+ */
+export const MAX_HISTORY_MESSAGES = 40;
+
+/**
  * Loads the message history for a SINGLE conversation. When `conversationId`
- * is provided the query is scoped by `session_id`. When omitted it returns
- * every message for the user (legacy / pre-isolation data).
+ * is provided the query is scoped by `session_id`. When omitted it still
+ * returns this user's most recent messages (legacy / pre-isolation data)
+ * rather than the whole table. Either way the result is bounded by
+ * MAX_HISTORY_MESSAGES and returned oldest-first.
  */
 export async function getHistory(
   userId: string,
@@ -16,7 +34,10 @@ export async function getHistory(
     .from("messages")
     .select("role,content")
     .eq("user_id", userId)
-    .order("created_at", { ascending: true });
+    // Newest first, so the limit keeps the most recent turns; reversed below so
+    // the model still reads the conversation in order.
+    .order("created_at", { ascending: false })
+    .limit(MAX_HISTORY_MESSAGES);
   if (conversationId) {
     query = query.eq("session_id", conversationId);
   }
@@ -28,7 +49,7 @@ export async function getHistory(
     return [];
   }
 
-  return (data ?? []) as ChatMessage[];
+  return ((data ?? []) as ChatMessage[]).slice().reverse();
 }
 
 export async function addMessage(

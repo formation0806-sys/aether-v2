@@ -2,7 +2,7 @@
 
 **Status:** `PENDING`
 **Mode:** Read-only audit. Zero-write to production. **DB_WRITES: 0.**
-**Recorded:** 2026-09-13 · harness `tests/phase-6-ao/v19-embedding-hypothesis-audit.test.ts`
+**Recorded:** 2026-09-23 · harness `tests/phase-6-ao/v19-embedding-hypothesis-audit.test.ts`
 **Result:** `tests/phase-6-ao/results/v19-embedding-hypothesis-audit.json`
 
 ## 1. Evidence summary

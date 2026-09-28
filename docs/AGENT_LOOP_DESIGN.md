@@ -136,13 +136,25 @@ pipeline. The gate decides whether tools are offered, never whether they are use
 
 ### 4.6 Model protocol
 
+> **Superseded (2026-09-28, Step 8).** The original design below chose the
+> prompt-JSON protocol deliberately, stating it was "preferred over native
+> function calling". That decision has been reversed. The loop is now
+> **native-first**: when the provider exposes `chatWithTools` and the intent gate
+> allows tools, registry tools are converted to the provider's native tool schema
+> and structured tool calls are returned by the model
+> (`lib/agent/native-tools.ts`; selection at `lib/agent/loop.ts:221-230`).
+> The prompt-JSON `parseToolCall` path in `lib/agent/protocol.ts` is retained
+> only as a fallback for providers without native tool support. The live E2Es
+> (`calculator`, `current_time`, `blender`, `memory_search`) all execute on the
+> native path. The original rationale is preserved below for history.
+
 The prompt instructs the model to reply with only `{"tool": "name", "args": { }}`
 to call a tool, and to answer in plain text once it has enough information.
 `protocol.ts` extracts the first balanced JSON object with the same string-aware
 scanning pattern the memory extractor already uses, then validates the tool name
 against the registry and the arguments with the tool `parseArgs`. Anything
-unparsable is a final answer. This is preferred over native function calling
-because the local 3B model is already handled this way elsewhere in the codebase.
+unparsable is a final answer. This is the fallback path, used only when the
+provider does not support native tool calling.
 
 ## 5. Tool registry
 

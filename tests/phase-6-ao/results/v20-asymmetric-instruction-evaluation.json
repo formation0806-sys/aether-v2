@@ -2,9 +2,9 @@
   "phase": "PHASE 6-AO-V20",
   "title": "Asymmetric instruction evaluation (documented role-based query/document embedding protocols)",
   "status": "BLOCKED",
-  "reason": "MXBAI_DIM_UNEXPECTED:null",
-  "recordedAt": "2026-09-13T09:30:52.099Z",
-  "startedAt": "2026-09-13T09:30:36.857Z",
+  "reason": "NOMIC_DIM_UNEXPECTED:null",
+  "recordedAt": "2026-09-23T18:47:29.686Z",
+  "startedAt": "2026-09-23T18:47:09.214Z",
   "finishedAt": null,
   "frozenDatasetSha256": "5B0C8493914AAF9A1E58358292DB8ADBF55B598D225692F1915DC49502DAF049",
   "dataset": {
@@ -25,7 +25,7 @@
   },
   "models": {
     "baselineEmbedding": "nomic-embed-text:latest",
-    "baselineDim": 768,
+    "baselineDim": null,
     "candidateEmbedding": "mxbai-embed-large:latest",
     "candidateDim": null,
     "verifier": "qwen2.5:3b",

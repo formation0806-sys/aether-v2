@@ -81,21 +81,18 @@ sudo systemctl daemon-reload
 sudo systemctl restart ollama
 echo "[2/10] Ollama is running (bound to localhost only)."
 
-# 3. Pull models
-echo "[3/10] Pulling qwen2.5:3b (this may take several minutes)..."
-ollama pull qwen2.5:3b
-
-echo "[3/10] Pulling nomic-embed-text..."
-ollama pull nomic-embed-text
+# 3. Pull models (EMBEDDING-ONLY host: nomic-embed-text:latest is the only model)
+echo "[3/10] Pulling nomic-embed-text:latest (this may take a few minutes)..."
+ollama pull nomic-embed-text:latest
 
 echo "Models loaded:"
 ollama list
 
 # 4. Test locally
-echo "[4/10] Testing Ollama locally..."
-curl -s http://localhost:11434/api/chat \
-  -d '{"model":"qwen2.5:3b","messages":[{"role":"user","content":"say hi"}],"stream":false}' \
-  | head -c 200
+echo "[4/10] Testing the embedding endpoint locally..."
+curl -s http://localhost:11434/api/embed \
+  -d '{"model":"nomic-embed-text:latest","input":"embedding smoke test","keep_alive":"5m"}' \
+  | python3 -c 'import json,sys,math; v=json.load(sys.stdin)["embeddings"][0]; print("dimension=%d finite=%s non_zero=%s non_constant=%s" % (len(v), all(math.isfinite(x) for x in v), any(x!=0 for x in v), len(set(v))>1))'
 echo ""
 
 # 5. Install nginx + security tools
@@ -104,7 +101,7 @@ sudo apt-get install -y nginx certbot python3-certbot-nginx fail2ban apache2-uti
 
 # 6. Create basic auth password file
 echo "[6/10] Configuring basic auth..."
-sudo htpasswd -cb /etc/nginx/.ollama_passwd aether "$OLLAMA_AUTH_PASSWORD"
+printf '%s\n' "$OLLAMA_AUTH_PASSWORD" | sudo htpasswd -c -i /etc/nginx/.ollama_passwd aether
 sudo chmod 640 /etc/nginx/.ollama_passwd
 sudo chown root:www-data /etc/nginx/.ollama_passwd
 
@@ -120,6 +117,39 @@ if [[ "$OLLAMA_ALLOWED_IPS" != "0.0.0.0/0" ]]; then
         ALLOW_BLOCK="${ALLOW_BLOCK}        allow ${ip};"$'\n'
     done
     ALLOW_BLOCK="${ALLOW_BLOCK}        deny all;"$'\n'
+fi
+
+# --- TLS bootstrap ------------------------------------------------------
+# The hardened configuration below references
+# /etc/letsencrypt/live/__DOMAIN__/*.pem, which do not exist until certbot has
+# run. Serving a temporary HTTP-only site first lets certbot complete the
+# HTTP-01 challenge, so the hardened config is only ever activated against a
+# certificate that already exists. nginx -t below is deliberately fatal.
+if [[ "$ENABLE_HTTPS" == true ]]; then
+    sudo tee /etc/nginx/sites-available/ollama > /dev/null <<'NGINX_CONFIG'
+server {
+    listen 80;
+    server_name __DOMAIN__;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 404;
+    }
+}
+NGINX_CONFIG
+
+    sudo sed -i "s/__DOMAIN__/$OLLAMA_DOMAIN/g" /etc/nginx/sites-available/ollama
+    sudo rm -f /etc/nginx/sites-enabled/default
+    sudo ln -sf /etc/nginx/sites-available/ollama /etc/nginx/sites-enabled/
+    sudo nginx -t
+    sudo systemctl restart nginx
+
+    echo "[7/10] Bootstrap HTTP site live; requesting certificate..."
+    sudo certbot --nginx -d "$OLLAMA_DOMAIN"
+    echo "[7/10] Certificate issued; installing hardened HTTPS configuration..."
 fi
 
 # Write nginx config using a quoted heredoc (no bash variable expansion of $nginx_vars)
@@ -319,24 +349,26 @@ echo "  - HTTPS: $([ "$ENABLE_HTTPS" == true ] && echo "enabled via Let's Encryp
 echo ""
 echo "NEXT STEPS:"
 if [[ "$ENABLE_HTTPS" == true ]]; then
-    echo "  1. Ensure DNS points ${OLLAMA_DOMAIN} to this VM's public IP"
-    echo "  2. Obtain HTTPS certificate:"
-    echo "     sudo certbot --nginx -d ${OLLAMA_DOMAIN}"
-    echo "  3. Reload nginx: sudo systemctl reload nginx"
+    echo "  1. Ensure DNS points ${OLLAMA_DOMAIN} to this VM's public IP (must resolve BEFORE running this script)"
+    echo "  2. The TLS certificate was obtained automatically during setup."
+    echo "  3. Verify automated renewal: sudo certbot renew --dry-run"
 else
     echo "  WARNING: Running without HTTPS. Data transmitted in plaintext."
     echo "  To enable HTTPS, set OLLAMA_DOMAIN and rerun, or run:"
     echo "     sudo certbot --nginx -d <your-domain>"
 fi
 echo ""
-echo "  Test with authentication:"
-echo "     curl -u aether:<PASSWORD> https://${OLLAMA_DOMAIN:-<IP>}/api/chat -d '{\"model\":\"qwen2.5:3b\",\"messages\":[{\"role\":\"user\",\"content\":\"hello\"}],\"stream\":false}'"
-echo "     curl -u aether:<PASSWORD> https://${OLLAMA_DOMAIN:-<IP>}/api/embed -d '{\"model\":\"nomic-embed-text\",\"input\":\"test\"}'"
+echo "  Test with authentication (embedding endpoint):"
+echo "     curl -u aether:<PASSWORD> https://${OLLAMA_DOMAIN:-<IP>}/api/embed -d '{\"model\":\"nomic-embed-text:latest\",\"input\":\"test\"}'"
 echo ""
-echo "  Set Vercel environment variables:"
-echo "     OLLAMA_BASE_URL=https://${OLLAMA_DOMAIN:-<IP>}"
-echo "     OLLAMA_AUTH_USER=aether"
-echo "     OLLAMA_AUTH_PASSWORD=<your-password>"
+echo "  Set Vercel environment variables (embed transport only):"
+echo "     OLLAMA_EMBED_BASE_URL=https://${OLLAMA_DOMAIN:-<IP>}"
+echo "     OLLAMA_EMBED_AUTH=Basic <base64(aether:<password>)>"
+echo ""
+echo "  NOTE: Salpa reads ONE complete Authorization value via OLLAMA_EMBED_AUTH."
+echo "  OLLAMA_AUTH_USER / OLLAMA_AUTH_PASSWORD are NOT consumed by Salpa and yield 401."
+echo "  Generate the value on the VM (no secret echoed, root-only file):"
+echo "     umask 077; printf 'aether:%s' \"\$OLLAMA_AUTH_PASSWORD\" | base64 -w0 > /root/.ollama-embed-auth"
 echo ""
 echo "PUBLIC IP:"
 curl -s ifconfig.me

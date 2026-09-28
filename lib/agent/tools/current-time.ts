@@ -96,6 +96,16 @@ export function createCurrentTimeTool(
       "Returns the current date and time in UTC, and optionally in a named IANA time zone.",
     requiredFlags: ["ENABLE_TOOL_USE"],
     timeoutMs: 2000,
+    parameters: {
+      type: "object",
+      properties: {
+        timeZone: {
+          type: "string",
+          description:
+            "Optional IANA time zone name, for example Europe/Berlin. Omit it when the user did not name one.",
+        },
+      },
+    },
     parseArgs,
     async execute(args: CurrentTimeArgs, ctx: ToolContext): Promise<ToolResult> {
       const startedAt = Date.now();
