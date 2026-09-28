@@ -1312,3 +1312,60 @@ it("S12 repeatability: deterministic winners + stable cosine + no duplicates", a
     console.log(`[MVP-E2E] counts: ${JSON.stringify(counts)}`);
   }, 120000);
 });
+
+/* -------------------------------------------------------------------------- */
+/* Disposable-account teardown                                                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Deletes exactly the auth accounts this run created, and nothing else.
+ *
+ * createSession() mints one disposable user per tag (isob / empty / main) and
+ * records each id in `usersCreated`, but that array was never used for cleanup.
+ * This file therefore left three `mvp-e2e-*@aether.dev` accounts behind on every
+ * run, which is how the live project accumulated dozens of them.
+ *
+ * Scope: only ids this process created, in this file, and only rows carrying
+ * that id. No real user is referenced, and no delete is ever unscoped. Mirrors
+ * the teardown in tests/agent-eval/agent-memory-e2e.test.ts.
+ */
+async function cleanupCreatedUsers(): Promise<string[]> {
+  const removed: string[] = [];
+
+  for (const id of usersCreated) {
+    if (!id) continue;
+
+    for (const table of ["memories", "messages", "memory_jobs"]) {
+      const { error } = await admin
+        .from(table)
+        .delete()
+        .eq("user_id", id);
+
+      if (error === null) removed.push(table);
+      else removed.push(`${table}(failed)`);
+    }
+
+    const { error: authError } = await admin.auth.admin.deleteUser(id);
+
+    removed.push(authError === null ? "auth-user" : "auth-user(failed)");
+  }
+
+  return removed;
+}
+
+// File-level teardown: runs once, after every describe above. Never allowed to
+// fail the suite, since it only cleans up after itself.
+afterAll(async () => {
+  if (usersCreated.length === 0) {
+    console.log("MVP_E2E_CLEANUP removed=nothing");
+    return;
+  }
+
+  try {
+    const removed = await cleanupCreatedUsers();
+
+    console.log(`MVP_E2E_CLEANUP removed=${removed.join(",")}`);
+  } catch (e) {
+    console.log(`MVP_E2E_CLEANUP failed: ${String((e as Error)?.message ?? e)}`);
+  }
+});

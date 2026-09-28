@@ -14,7 +14,7 @@ vi.setConfig({ testTimeout: 30_000 });
  * admin client for one disposable test user. Mirrors scripts/mvp-smoke.mjs.
  */
 
-import { describe, it, expect, beforeAll, vi } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import * as fs from "node:fs";
 
@@ -155,6 +155,48 @@ async function loginTestUser(): Promise<void> {
     data.session as unknown as Record<string, unknown>
   );
 }
+
+/**
+ * Removes exactly what this run created, and nothing else.
+ *
+ * TEST_USER embeds Date.now(), so every run used to mint a brand new auth
+ * account. This file had no teardown at all, so each run permanently leaked one
+ * account (the live project accumulated a `fix-phase-*@aether.dev` per run).
+ * `createUser` above also swallows an "already exists" error, so re-running
+ * could never reclaim the previous account either.
+ *
+ * Scope: the single user id captured at sign-in, and only rows carrying that id.
+ * No real user is ever referenced, and no delete is ever unscoped. Mirrors the
+ * teardown in tests/agent-eval/agent-memory-e2e.test.ts.
+ */
+async function cleanupTestUser(): Promise<string[]> {
+  const removed: string[] = [];
+
+  if (userId === "" || admin === undefined) return removed;
+
+  for (const table of ["memories", "messages", "memory_jobs"]) {
+    const { error } = await admin
+      .from(table)
+      .delete()
+      .eq("user_id", userId);
+
+    removed.push(error === null ? table : `${table}(failed)`);
+  }
+
+  const { error: authError } = await admin.auth.admin.deleteUser(userId);
+
+  removed.push(authError === null ? "auth-user" : `auth-user(failed)`);
+
+  return removed;
+}
+
+// File-level teardown: runs once, after every describe above. Without this the
+// disposable account survived the process.
+afterAll(async () => {
+  const removed = await cleanupTestUser();
+
+  console.log(`FIX_PHASE_CLEANUP removed=${removed.join(",") || "nothing"}`);
+});
 
 // ============================================================================
 // F1: insertMemoryV2 returns the inserted memory ID

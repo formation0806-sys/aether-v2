@@ -46,3 +46,8 @@ next-env.d.ts
 # python bytecode (blender-bridge)
 __pycache__/
 *.pyc
+
+# generated evaluation artifact: rewritten (new generatedAt) on every `npm test`,
+# written by tests/agent-eval/agent-eval.test.ts and read by nothing. Tracking it
+# made every test run dirty the working tree for a timestamp-only change.
+tests/agent-eval/measurement.json
