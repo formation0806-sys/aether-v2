@@ -16,7 +16,11 @@ import {
   recordLearning,
 } from "@/lib/agent/learning/index";
 import { EMPTY_JOURNAL, journalSize } from "@/lib/agent/learning/signals";
-import type { LearningRequest } from "@/lib/agent/learning/types";
+import type {
+  LearningDeferReason,
+  LearningOutcome,
+  LearningRequest,
+} from "@/lib/agent/learning/types";
 
 const USER_ID = "11111111-1111-4111-8111-111111111111";
 const FLAG = "ENABLE_CONTINUAL_LEARNING";
@@ -40,6 +44,24 @@ function learningOff() {
   return { isFlagEnabled: () => false };
 }
 
+/**
+ * Narrows a LearningOutcome to its deferred member, so `reason` is read as a
+ * typed property instead of an untyped index.
+ *
+ * A non-deferred outcome throws here, which fails the test exactly as a
+ * mismatched expectation would have. The value compared is unchanged: it is
+ * still the outcome's own `reason`, read at runtime.
+ */
+function deferReason(outcome: LearningOutcome): LearningDeferReason {
+  if (outcome.kind !== "deferred") {
+    throw new Error(
+      `expected a deferred outcome, received kind "${outcome.kind}"`,
+    );
+  }
+
+  return outcome.reason;
+}
+
 /** A failing act step exactly as the agent trace records one. */
 const FAILED_TOOL_TRACE = [{ phase: "act", tool: "calculator", ok: false }];
 
@@ -59,7 +81,7 @@ describe("recordLearning - flag gating", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("learning_disabled");
+    expect(deferReason(outcome)).toBe("learning_disabled");
   });
 
   it("checks the flag before classifying anything", async () => {
@@ -80,7 +102,7 @@ describe("recordLearning - flag gating", () => {
     const outcome = await recordLearning(request("no, that's wrong"));
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("learning_disabled");
+    expect(deferReason(outcome)).toBe("learning_disabled");
   });
 
   it("fails closed when the flag reader throws", async () => {
@@ -91,7 +113,7 @@ describe("recordLearning - flag gating", () => {
     });
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("learning_disabled");
+    expect(deferReason(outcome)).toBe("learning_disabled");
   });
 
   it("reads exactly the continual-learning flag", async () => {
@@ -125,14 +147,14 @@ describe("recordLearning - flag gating", () => {
 describe("recordLearning - request validation", () => {
   it("defers invalid for a missing, non-string, or oversized message", async () => {
     const missing = await recordLearning({ userId: USER_ID } as LearningRequest, learningOn());
-    expect(missing["reason"]).toBe("invalid_request");
+    expect(deferReason(missing)).toBe("invalid_request");
 
     const numeric = await recordLearning(request(42), learningOn());
-    expect(numeric["reason"]).toBe("invalid_request");
+    expect(deferReason(numeric)).toBe("invalid_request");
 
     const long = "that's wrong " + "x".repeat(2000);
     const oversized = await recordLearning(request(long), learningOn());
-    expect(oversized["reason"]).toBe("invalid_request");
+    expect(deferReason(oversized)).toBe("invalid_request");
   });
 
   it("defers invalid for a malformed trace", async () => {
@@ -141,20 +163,20 @@ describe("recordLearning - request validation", () => {
       learningOn(),
     );
 
-    expect(outcome["reason"]).toBe("invalid_request");
+    expect(deferReason(outcome)).toBe("invalid_request");
   });
 
   it("defers no_learning_signal for a blank message with no trace", async () => {
     const outcome = await recordLearning(request("   "), learningOn());
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("no_learning_signal");
+    expect(deferReason(outcome)).toBe("no_learning_signal");
   });
 
   it("defers no_learning_signal for ordinary chat", async () => {
     const outcome = await recordLearning(request("how are you today"), learningOn());
 
-    expect(outcome["reason"]).toBe("no_learning_signal");
+    expect(deferReason(outcome)).toBe("no_learning_signal");
   });
 
   it("defers no_learning_signal when the classifier throws", async () => {
@@ -165,7 +187,7 @@ describe("recordLearning - request validation", () => {
       },
     });
 
-    expect(outcome["reason"]).toBe("no_learning_signal");
+    expect(deferReason(outcome)).toBe("no_learning_signal");
   });
 
   it("defers no_learning_signal when the classifier returns junk", async () => {
@@ -174,7 +196,7 @@ describe("recordLearning - request validation", () => {
       classify: () => ["not_a_kind"] as never,
     });
 
-    expect(outcome["reason"]).toBe("no_learning_signal");
+    expect(deferReason(outcome)).toBe("no_learning_signal");
   });
 
   it("treats a missing trace as no trace", async () => {

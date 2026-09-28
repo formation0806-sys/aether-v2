@@ -1,0 +1,43 @@
+{
+  // TypeScript program for the test suite only.
+  //
+  // Why this file exists. tsconfig.json excludes "tests/" so that no test
+  // file enters the production build, which is what `next build` type-checks
+  // and what .vercelignore keeps out of the deployment. That exclusion is
+  // deliberate and is left exactly as it is. Its side effect is that nothing
+  // type-checks the tests: `npx tsc --noEmit` reports 0 errors while covering
+  // none of them, and Vitest transpiles without checking types.
+  //
+  // This config supplies that missing check without touching the production
+  // one. Next.js reads only tsconfig.json, so this file cannot affect
+  // `next build`. Being a .json file it also does not match tsconfig.json's
+  // own "**/*.ts" include, so it is never pulled into the production program.
+  //
+  // It extends the production config, so the tests are checked under the same
+  // compiler options, the same strictness, and the same `@/*` path alias.
+
+  "extends": "./tsconfig.json",
+
+  "compilerOptions": {
+    // tsconfig.json sets incremental true. Inherited, `tsc -p` would write a
+    // .tsbuildinfo file into the repository on every run, dirtying the working
+    // tree. Forced off so this check is side-effect free.
+    "incremental": false
+  },
+
+  "include": [
+    "tests/**/*.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+
+    // tests/phase-6-ao/ is a frozen, opt-in evaluation sandbox. It appears in
+    // no package script, its own headers declare a frozen contract that must
+    // not change, and its 37 type errors were already recorded as pre-existing
+    // debt in docs/MVP_E2E_RESULTS.md. Its tests stay runnable and untouched;
+    // only this type-check gate skips them. Dropping this exclusion means
+    // fixing those 37 errors first.
+    "tests/phase-6-ao"
+  ]
+}

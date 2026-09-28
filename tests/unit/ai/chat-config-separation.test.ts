@@ -290,6 +290,12 @@ describe("credentials are never logged", () => {
       .catch((e: unknown) => e as Error);
 
     expect(error).toBeInstanceOf(Error);
+    // The catch produces `string | Error`; narrow it so `.message` is typed.
+    // The guard only fires when the value is not an Error, which is exactly the
+    // case the assertion above already reports.
+    if (!(error instanceof Error)) {
+      throw new Error("expected the provider to reject with an Error");
+    }
     expect(error.message).toContain("Failed to talk to Ollama");
     expect(error.message).not.toContain(SENTINEL_SECRET);
 

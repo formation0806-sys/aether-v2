@@ -67,7 +67,11 @@ const PLANNING_MESSAGE = "make a plan to launch the private beta";
 const CHAT_MESSAGE = "how are you doing today";
 
 interface Harness {
-  deps: Parameters<typeof runPlanningJob>[1];
+  // runPlanningJob gives its deps parameter a default, so Parameters<> resolves to
+  // `PlanningJobDeps | undefined`. makeHarness always populates it, so the
+  // harness holds the non-nullable object. Type-level refinement only: no
+  // runtime value changes.
+  deps: NonNullable<Parameters<typeof runPlanningJob>[1]>;
   gateCalls: string[];
   modelCalls: number;
   logs: string[];

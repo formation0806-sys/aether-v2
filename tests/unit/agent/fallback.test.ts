@@ -249,8 +249,18 @@ describe("fallback - fallbackFromError", () => {
     const secret = "secret-user-content-12345";
     const outcome = fallbackFromError(new Error(secret), []);
 
+    const fromRawSecret = fallbackFromError(secret, []);
+
     expect(JSON.stringify(outcome).includes(secret)).toBe(false);
-    expect(fallbackFromError(secret, []).reason).toBe("unexpected_error");
+    // Narrow the outcome union so `reason` is a typed property. The guard only
+    // fires when the outcome was not a fallback, which is the same failure the
+    // expectation below would already have reported.
+    if (fromRawSecret.kind !== "fallback") {
+      throw new Error(
+        `expected a fallback outcome, received "${fromRawSecret.kind}"`,
+      );
+    }
+    expect(fromRawSecret.reason).toBe("unexpected_error");
   });
 
   it("never throws, for any input", () => {

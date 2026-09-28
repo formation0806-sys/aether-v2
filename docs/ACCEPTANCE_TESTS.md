@@ -147,6 +147,45 @@ The pre-existing test user's memory count was confirmed unchanged at 6.
   which path is taken for a provider lacking `chatWithTools`.
 - Phases 6-10 of `docs/MASTER_PLAN.md` are not started and are out of MVP scope.
 
+## 6. Test type-checking (`npm run typecheck:test`)
+
+`tsconfig.json` excludes `tests/` so that no test file enters the production
+build, which is what `next build` type-checks and what `.vercelignore` keeps out
+of the deployment. That exclusion is deliberate and is left unchanged. Its side
+effect was that nothing type-checked the tests: `npx tsc --noEmit` reported 0
+errors while covering none of them, and Vitest transpiles without checking types.
+
+`tsconfig.test.json` supplies that missing check without touching the production
+configuration. Next.js reads only `tsconfig.json`, so this cannot affect
+`next build`. The same command name and gate:
+
+    npm run typecheck:test      # tsc -p tsconfig.test.json --noEmit
+
+| Scope | TypeScript errors |
+| --- | --- |
+| `lib/`, `app/` (production) | 0 |
+| Active test scope (`tests/**` excluding `tests/phase-6-ao/`) | 0 |
+| `tests/phase-6-ao/` (excluded) | 37 |
+
+### 6.1 Why `tests/phase-6-ao/` is excluded
+
+Established from repository evidence, not from the directory name:
+
+- it appears in no `package.json` script,
+- its own headers declare a frozen contract that "must not change" and state it
+  does not modify the dataset, production code, or historical artifacts,
+- its 37 errors were already recorded as pre-existing debt in
+  `docs/MVP_E2E_RESULTS.md` ("37 pre-existing errors confined to
+  tests/phase-6-ao/*"), and that count still matches today,
+- the directory also holds experiment scripts (`measure-embeddings.cjs`,
+  `measure-one.cjs`, `ipo.py`) and diagnostic log dumps.
+
+Its tests remain runnable and untouched. Only the type-check gate skips them.
+Removing the exclusion means fixing those 37 errors first.
+
+Note: `vitest.config.ts` includes `tests/**/*.test.ts`, so a bare
+`npm run test:watch` still collects those files. That behaviour is unchanged.
+
 The file takes roughly 15 seconds in total, so one case could cross vitest's 5s
 default per-test timeout purely from CPU contention during a full parallel run,
 while passing in isolation. Fixes, both test-side:

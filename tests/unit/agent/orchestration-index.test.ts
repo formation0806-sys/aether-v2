@@ -12,7 +12,11 @@ import {
   planOrDefer,
   skeletonPlan,
 } from "@/lib/agent/orchestration/index";
-import type { OrchestrationRequest } from "@/lib/agent/orchestration/types";
+import type {
+  OrchestrationDeferReason,
+  OrchestrationOutcome,
+  OrchestrationRequest,
+} from "@/lib/agent/orchestration/types";
 
 const USER_ID = "11111111-1111-4111-8111-111111111111";
 
@@ -26,6 +30,26 @@ function orchestrationOff() {
   return { isFlagEnabled: () => false };
 }
 
+/**
+ * Narrows an OrchestrationOutcome to its deferred member, so `reason` is
+ * read as a typed property instead of an untyped index.
+ *
+ * A non-deferred outcome throws here, which fails the test exactly as a
+ * mismatched expectation would have. The value compared is unchanged:
+ * it is still the outcome's own `reason`, read at runtime.
+ */
+function deferReason(
+  outcome: OrchestrationOutcome,
+): OrchestrationDeferReason {
+  if (outcome.kind !== "deferred") {
+    throw new Error(
+      `expected a deferred outcome, received kind "${outcome.kind}"`,
+    );
+  }
+
+  return outcome.reason;
+}
+
 describe("planOrDefer - flag gating", () => {
   it("defers with orchestration_disabled when off", async () => {
     const outcome = await planOrDefer(
@@ -33,7 +57,7 @@ describe("planOrDefer - flag gating", () => {
       orchestrationOff(),
     );
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("orchestration_disabled");
+    expect(deferReason(outcome)).toBe("orchestration_disabled");
   });
   it("checks flag before gate, classifies nothing when disabled", async () => {
     let gateCalls = 0;
@@ -53,7 +77,7 @@ describe("planOrDefer - flag gating", () => {
   it("stays disabled in real env where flag is unset", async () => {
     const outcome = await planOrDefer(request("compare tea and coffee"));
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("orchestration_disabled");
+    expect(deferReason(outcome)).toBe("orchestration_disabled");
   });
   it("fails closed when flag reader throws", async () => {
     const outcome = await planOrDefer(request("compare tea and coffee"), {
@@ -62,7 +86,7 @@ describe("planOrDefer - flag gating", () => {
       },
     });
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("orchestration_disabled");
+    expect(deferReason(outcome)).toBe("orchestration_disabled");
   });
   it("reads exactly ENABLE_MULTI_AGENT", async () => {
     const seen: string[] = [];
@@ -83,20 +107,20 @@ describe("planOrDefer - request validation", () => {
       { userId: USER_ID } as OrchestrationRequest,
       orchestrationOn(),
     );
-    expect(missing["reason"]).toBe("invalid_request");
+    expect(deferReason(missing)).toBe("invalid_request");
     const blank = await planOrDefer(request("   "), orchestrationOn());
-    expect(blank["reason"]).toBe("invalid_request");
+    expect(deferReason(blank)).toBe("invalid_request");
     const long = `compare a and b ${"x".repeat(MAX_ORCHESTRATION_GOAL_CHARS)}`;
     expect(long.length).toBeGreaterThan(MAX_ORCHESTRATION_GOAL_CHARS);
     const big = await planOrDefer(request(long), orchestrationOn());
-    expect(big["reason"]).toBe("invalid_request");
+    expect(deferReason(big)).toBe("invalid_request");
   });
   it("defers not_multi_agent_request for ordinary chat", async () => {
     const outcome = await planOrDefer(
       request("how are you doing today"),
       orchestrationOn(),
     );
-    expect(outcome["reason"]).toBe("not_multi_agent_request");
+    expect(deferReason(outcome)).toBe("not_multi_agent_request");
   });
   it("defers not_multi_agent_request when gate throws", async () => {
     const outcome = await planOrDefer(request("compare tea and coffee"), {
@@ -105,7 +129,7 @@ describe("planOrDefer - request validation", () => {
         throw new Error("gate down");
       },
     });
-    expect(outcome["reason"]).toBe("not_multi_agent_request");
+    expect(deferReason(outcome)).toBe("not_multi_agent_request");
   });
 });
 

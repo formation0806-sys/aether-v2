@@ -873,6 +873,14 @@ describe("ai planner persist - generateAndPersistPlan", () => {
     );
 
     expect(throwing.kind).toBe("deferred");
+    // Narrow the outcome union so `reason` is a typed property. The guard only
+    // fires when the outcome was not deferred, which is the same failure the
+    // expectation above would already have reported.
+    if (throwing.kind !== "deferred") {
+      throw new Error(
+        `expected a deferred outcome, received "${throwing.kind}"`,
+      );
+    }
     expect(throwing.reason).toBe("planner_disabled");
   });
 });

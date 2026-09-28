@@ -60,7 +60,13 @@ function journalOf(kinds: LearningSignalKind[]): LearningJournal {
 
 /** An injected touchUsage writer plus its spy. */
 function writer() {
-  return vi.fn(async () => undefined);
+  // Typed with the production LearningTouchUsageWriter signature
+  // (userId, memoryIds) so `mock.calls` is a two-element tuple. The body still
+  // ignores both arguments and resolves to undefined, exactly as before.
+  return vi.fn(
+    async (_userId: string, _memoryIds: string[]): Promise<unknown> =>
+      undefined,
+  );
 }
 
 const FLAG_ON = { isFlagEnabled: () => true };
@@ -148,7 +154,14 @@ describe("applyLearningUpdates - flag and write gating", () => {
     for (const allowWrites of ["true", 1, {}] as unknown[]) {
       const result = await applyLearningUpdates(
         { userId: USER_ID, memoryIds: [MEM_ID], updates: [update()] },
-        { ...FLAG_ON, allowWrites, writers: { touchUsage: writer() } },
+        {
+          ...FLAG_ON,
+          // Deliberately invalid input: the option is typed `boolean | undefined`,
+          // and this case exists to prove the non-boolean values are rejected at
+          // runtime. The cast states that intent; the values passed are unchanged.
+          allowWrites: allowWrites as boolean,
+          writers: { touchUsage: writer() },
+        },
       );
       expect(result).toEqual({ kind: "deferred", reason: "writes_disabled" });
     }

@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test": "vitest run tests/unit tests/pipeline tests/repositories tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",
     "test:watch": "vitest",
+    "typecheck:test": "tsc -p tsconfig.test.json --noEmit",
     "test:unit": "vitest run tests/unit tests/pipeline tests/repositories",
     "test:agent-eval": "vitest run tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",
     "test:hermetic": "vitest run tests/unit tests/pipeline tests/repositories tests/agent-eval/agent-eval.test.ts tests/agent-eval/route-guard.test.ts",

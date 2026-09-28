@@ -27,7 +27,11 @@ import {
   isExtractedOutcome,
   skeletonMemory,
 } from "@/lib/agent/procedural/index";
-import type { ProceduralRequest } from "@/lib/agent/procedural/types";
+import type {
+  ProceduralDeferReason,
+  ProceduralOutcome,
+  ProceduralRequest,
+} from "@/lib/agent/procedural/types";
 
 function readSource(...segments: string[]): string {
   return readFileSync(path.join(process.cwd(), ...segments), "utf8");
@@ -52,6 +56,24 @@ function proceduralOn() {
 
 function proceduralOff() {
   return { isFlagEnabled: () => false };
+}
+
+/**
+ * Narrows a ProceduralOutcome to its deferred member, so `reason` is read
+ * as a typed property instead of an untyped index.
+ *
+ * A non-deferred outcome throws here, which fails the test exactly as a
+ * mismatched expectation would have. The value compared is unchanged: it is
+ * still the outcome's own `reason`, read at runtime.
+ */
+function deferReason(outcome: ProceduralOutcome): ProceduralDeferReason {
+  if (outcome.kind !== "deferred") {
+    throw new Error(
+      `expected a deferred outcome, received kind "${outcome.kind}"`,
+    );
+  }
+
+  return outcome.reason;
 }
 
 describe("procedural gate - workflow phrasing", () => {
@@ -211,7 +233,7 @@ describe("extractOrDefer - flag gating", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("procedural_disabled");
+    expect(deferReason(outcome)).toBe("procedural_disabled");
   });
 
   it("checks the flag before the gate, so a disabled run classifies nothing", async () => {
@@ -239,7 +261,7 @@ describe("extractOrDefer - flag gating", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("procedural_disabled");
+    expect(deferReason(outcome)).toBe("procedural_disabled");
   });
 
   it("fails closed when the flag reader throws", async () => {
@@ -253,7 +275,7 @@ describe("extractOrDefer - flag gating", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("procedural_disabled");
+    expect(deferReason(outcome)).toBe("procedural_disabled");
   });
 
   it("treats a non-boolean truthy flag result as disabled", async () => {
@@ -262,7 +284,7 @@ describe("extractOrDefer - flag gating", () => {
     });
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("procedural_disabled");
+    expect(deferReason(outcome)).toBe("procedural_disabled");
   });
 
   it("reads exactly ENABLE_PROCEDURAL_MEMORY", async () => {
@@ -296,7 +318,7 @@ describe("extractOrDefer - request validity precedes classification", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("invalid_request");
+    expect(deferReason(outcome)).toBe("invalid_request");
   });
 
   it("rejects an oversized message before classifying it", async () => {
@@ -315,7 +337,7 @@ describe("extractOrDefer - request validity precedes classification", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("invalid_request");
+    expect(deferReason(outcome)).toBe("invalid_request");
     expect(gateCalls).toBe(0);
   });
 
@@ -326,7 +348,7 @@ describe("extractOrDefer - request validity precedes classification", () => {
     );
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("not_procedural");
+    expect(deferReason(outcome)).toBe("not_procedural");
   });
 
   it("defers with not_procedural when an injected gate rejects", async () => {
@@ -336,7 +358,7 @@ describe("extractOrDefer - request validity precedes classification", () => {
     });
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("not_procedural");
+    expect(deferReason(outcome)).toBe("not_procedural");
   });
 
   it("defers with not_procedural when an injected gate throws", async () => {
@@ -348,7 +370,7 @@ describe("extractOrDefer - request validity precedes classification", () => {
     });
 
     expect(outcome.kind).toBe("deferred");
-    expect(outcome["reason"]).toBe("not_procedural");
+    expect(deferReason(outcome)).toBe("not_procedural");
   });
 });
 

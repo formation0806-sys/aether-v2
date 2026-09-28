@@ -77,7 +77,7 @@ describe("loop - native tool calling is selected when the provider supports it",
       // the native branch.
       chat: async (_messages: ChatMessage[]) => {
         chatCalls += 1;
-        return answer("LEGACY_PATH_WAS_USED");
+        return "LEGACY_PATH_WAS_USED";
       },
       chatWithTools: async (
         messages: ChatMessage[],
@@ -144,7 +144,7 @@ describe("loop - native tool calling is selected when the provider supports it",
     let seenSystem = "";
 
     const provider = {
-      chat: async (_messages: ChatMessage[]) => answer("unused"),
+      chat: async (_messages: ChatMessage[]) => "unused",
       chatWithTools: async (messages: ChatMessage[]) => {
         seenSystem = systemText(messages);
         return answer("done");
