@@ -12,8 +12,15 @@
 -- this migration (it only defines machinery).
 -- ============================================================
 
--- 1. Exclude 'merged' from normal retrieval (signature unchanged).
-create or replace function match_memories_v2(
+-- 1. Exclude 'merged' from normal retrieval; add `tags` to the return
+-- contract (the application retrieval type expects it). Changing the
+-- RETURNS TABLE shape requires DROP + CREATE (CREATE OR REPLACE cannot
+-- change a return type). Signature (name + arguments) is unchanged, so
+-- existing callers require no changes. Default PUBLIC execute is
+-- preserved (no explicit grants existed on this overload); the
+-- security-hardening track stays separate.
+drop function if exists match_memories_v2(uuid, vector, float, int);
+create function match_memories_v2(
     p_user_id uuid,
     p_query_embedding vector(768),
     p_match_threshold float default 0.75,
@@ -24,6 +31,7 @@ returns table (
     title text,
     content text,
     summary text,
+    tags text[],
     similarity float,
     memory_type memory_type,
     status memory_status,
@@ -41,6 +49,7 @@ select
     m.title,
     m.content,
     m.summary,
+    m.tags,
     1 - (m.embedding <=> p_query_embedding) as similarity,
     m.memory_type,
     m.status,
@@ -90,7 +99,7 @@ begin
     end if;
 
     -- Prevent concurrent consolidation for the same user.
-    perform pg_advisory_xact_lock(hashtextextended(p_user_id::text, 'consolidate'::text));
+    perform pg_advisory_xact_lock(hashtextextended(p_user_id::text, hashtext('consolidate')));
 
     -- Keep must not already be a consolidation target.
     select exists(
@@ -241,7 +250,7 @@ begin
         raise exception 'not authorized';
     end if;
 
-    perform pg_advisory_xact_lock(hashtextextended(p_user_id::text, 'consolidate'::text));
+    perform pg_advisory_xact_lock(hashtextextended(p_user_id::text, hashtext('consolidate')));
 
     -- Capture losers from edges BEFORE any delete.
     select array_agg(source_id) into v_loser_ids

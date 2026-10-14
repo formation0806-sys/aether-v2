@@ -6,6 +6,7 @@
 -- ============================================================
 
 create extension if not exists vector;
+create extension if not exists pgcrypto;
 
 -- ---------- legacy: memories ----------
 create table if not exists memories (

@@ -36,7 +36,10 @@ checks AS (
     EXISTS (SELECT 1 FROM supabase_migrations.schema_migrations WHERE version = '0014') AS migration_0014,
     EXISTS (SELECT 1 FROM supabase_migrations.schema_migrations WHERE version = '0015') AS migration_0015,
     EXISTS (SELECT 1 FROM supabase_migrations.schema_migrations WHERE version = '0016') AS migration_0016,
-    pg_get_functiondef('match_memories_v2'::regproc) LIKE '%merged%' AS match_excludes_merged,
+    -- Signature-qualified on purpose: this asserts the live production 4-arg retrieval
+    -- overload (status filter from 0009, tags from 0015). A bare name cast to regproc is
+    -- ambiguous because 0004 also defines a legacy 7-arg match_memories_v2 overload.
+    pg_get_functiondef('match_memories_v2(uuid,vector,double precision,integer)'::regprocedure) LIKE '%merged%' AS match_excludes_merged,
     (SELECT id FROM fixture ORDER BY times_used DESC, effective_score DESC, confidence_v2 DESC, id ASC LIMIT 1) = '0a97a74a-cac6-4b70-ac8c-23f28f951cc0' AS canonical_correct,
     (SELECT ids FROM losers) = '["7fcdac75-6365-4b6c-a0ff-bb82e6a62581","962f14fa-c2a8-4021-a4a0-89146ceaa6a5","dcf0c503-7c1b-479c-9370-97b4cf742a54","f7c5b99b-dc2d-4edd-87f4-36a69672a023"]'::jsonb AS losers_exact,
     pg_get_functiondef('consolidate_memories'::regproc) LIKE '%hashtextextended(p_user_id::text, hashtext(''consolidate''))%' AS rpc_exists_and_fixed,

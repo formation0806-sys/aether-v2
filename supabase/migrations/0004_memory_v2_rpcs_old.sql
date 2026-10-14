@@ -19,13 +19,13 @@ create or replace function match_memories_v2(
   similarity float, effective_score numeric, times_used int, last_used timestamptz
 ) language plpgsql security definer as $$
 begin
-  if auth.uid() <> p_user_id then
+  if auth.uid() is null or auth.uid() <> p_user_id then
     raise exception 'not authorized';
   end if;
   return query
   select
     m.id, m.title, m.content, m.summary, m.tags,
-    m.memory_type::text, m.importance, m.confidence,
+    m.memory_type::text, m.importance_v2, m.confidence_v2,
     1 - (m.embedding <=> query_embedding) as similarity,
     m.effective_score, m.times_used, m.last_used
   from memories m
@@ -54,14 +54,17 @@ language sql security definer stable as $$
   order by similarity desc
   limit 50;
 $$;
-  -- ---------- Decay sweep: recompute effective_score ----------
-create or replace function apply_memory_decay(p_user_id uuid default null)
+  -- ---------- Decay sweep: recompute effective_score (user-scoped only) ----------
+create or replace function apply_memory_decay(p_user_id uuid)
 returns int language plpgsql security definer as $$
-declare n int := 0; half_life_days numeric;
+declare n int := 0; half_life_days numeric; m record;
 begin
+  if auth.uid() is null or auth.uid() <> p_user_id then
+    raise exception 'not authorized';
+  end if;
   for m in
     select * from memories
-    where (p_user_id is null or user_id = p_user_id)
+    where user_id = p_user_id
       and status in ('active','fading')
       and memory_type <> 'identity'
   loop
@@ -76,7 +79,7 @@ begin
       else 180 end;
     update memories
       set effective_score = round(
-            (m.importance::float * 0.7
+            (m.importance_v2::float * 0.7
            + (case when m.last_used is null then 0.2
                    else 0.2 * exp(-ln(2) * extract(epoch from (now()-m.last_used))/86400 / half_life_days) end)
             )::numeric, 3),

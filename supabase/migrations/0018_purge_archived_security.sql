@@ -1,6 +1,6 @@
 -- =============================================================
 -- 0018_purge_archived_security.sql
--- Aether Memory V2 | Phase 6-AO — Step 3 (DRAFT ONLY — do NOT apply)
+-- Aether Memory V2 | Phase 6-AO — Step 3 (SECURITY REPAIR — validated & applied+recorded locally in M7-A36..A38; part of the reviewed 0000–0024 fresh-apply chain)
 --
 -- SECURITY REPAIR: public.purge_archived(uuid, integer)
 --
@@ -103,5 +103,5 @@ end $$;
 -- Privilege repair (posture mirrors 0015:307-311 / 0016 exactly):
 -- revoke execute from PUBLIC and anon, grant execute to authenticated only.
 -- No service_role grant added (see SERVICE_ROLE CONCLUSION above).
-revoke execute on function public.purge_archived(uuid, int) from public, anon;
+revoke execute on function public.purge_archived(uuid, int) from public, anon, service_role;
 grant execute on function public.purge_archived(uuid, int) to authenticated;

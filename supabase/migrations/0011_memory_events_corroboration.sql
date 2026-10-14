@@ -100,4 +100,5 @@ begin
     return inserted;
 end $$;
 
-grant execute on function corroborate_memory(uuid, uuid) to anon, authenticated;
+revoke all on function public.corroborate_memory(uuid, uuid) from public, anon;
+grant execute on function corroborate_memory(uuid, uuid) to authenticated;

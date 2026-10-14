@@ -16,9 +16,11 @@
 --     session_id = NULL (the legacy bucket). The sidebar enumerates those
 --     messages as a separate "Earlier conversations" group rather than
 --     merging them with new conversations.
---   - The GRANT line is updated for the new signature only; old grants for
---     the 2-arg signature are implicitly dropped on CREATE OR REPLACE because
---     the function identity changes.
+--   - The GRANT lines cover the new 3-argument signature. The legacy 2-argument
+--     overload created in 0013 is a DISTINCT function identity and is NOT
+--     affected by the CREATE below: it survives with its 0013 grants unless
+--     explicitly dropped. It is intentionally kept for backward compatibility
+--     (old clients calling with 2 arguments continue to work).
 -- =============================================================================
 
 create or replace function create_message_and_job(

@@ -41,7 +41,7 @@ create or replace function forget_archived(
 ) returns int language plpgsql security definer as $$
 declare n int := 0;
 begin
-  if auth.uid() <> p_user_id then
+  if auth.uid() is null or auth.uid() <> p_user_id then
     raise exception 'not authorized';
   end if;
   update memories set status = 'deleted'
@@ -61,7 +61,7 @@ create or replace function apply_memory_decay(p_user_id uuid)
 returns int language plpgsql security definer as $$
 declare n int := 0; half_life_days numeric; m record;
 begin
-  if auth.uid() <> p_user_id then
+  if auth.uid() is null or auth.uid() <> p_user_id then
     raise exception 'not authorized';
   end if;
   for m in
@@ -81,7 +81,7 @@ begin
       else 180 end;
     update memories
       set effective_score = round(
-            (m.importance::float * 0.7
+            (m.importance_v2::float * 0.7
            + (case when m.last_used is null then 0.2
                    else 0.2 * exp(-ln(2) * extract(epoch from (now()-m.last_used))/86400 / half_life_days) end)
             )::numeric, 3),
