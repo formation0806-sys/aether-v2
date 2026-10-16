@@ -1,0 +1,684 @@
+/* ============================================================
+   SALPA public homepage — scoped motion + presentation.
+   Monochrome only (#000 / #fff / grays). Compositor-friendly
+   properties (transform, opacity) throughout. No scroll hijacking.
+   ============================================================ */
+
+/* ---------- Scroll reveal ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+.salpa-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.salpa-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- Hero companion presence ----------
+   Wrapper for the homepage's own circular figure (HomeCompanionFigure.tsx).
+   Its ambient motion is defined at the bottom of this file, scoped to
+   `.salpa-hero-companion`. This rule adds only a faint grounding fade on top of
+   that — opacity only, so it can never disturb layout or scrolling. */
+.salpa-hero-companion {
+  animation: salpa-hero-settle 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.salpa-hero-companion svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Homepage-only: the hero face is two eyes and nothing else.
+
+   The figure in `HomeCompanionFigure.tsx` draws a circular head, a circular body
+   and two glossy eyes - there is no mouth, nose, ear or brow to hide, and no
+   expression vocabulary to silence. That absence is structural rather than
+   suppressed, which is why the previous `.salpa-mouth { display: none }` rule is
+   gone from this file: it targeted an element the hero no longer renders, and a
+   rule aimed at nothing is a rule nobody can trust.
+
+   The shared companion is untouched, so /chat keeps its mouth, its expressions
+   and its announcements exactly as they were.
+
+   The one structural hook this stylesheet DOES need still exists in the figure:
+   `.salpa-gaze`, the group the cursor offset is written to. */
+
+/* The glide the eyes use while following the cursor.
+
+   The figure's own `.salpa-gaze` group is given a short eased transform
+   transition instead of a JavaScript interpolator: the browser owns the tween, so
+   it stays smooth when the pointer is moving fast and costs no main-thread work
+   per frame, and it is what eases the eyes back to centre when the pointer leaves
+   the window.
+
+   Scoped to the hero. The shared companion's own gaze timing in `app/globals.css`
+   is untouched, so /chat is unchanged.
+
+   `will-change` is deliberately NOT set: this is an SVG group travelling at most
+   ~4.4 viewBox units, and promoting it to a permanent compositing layer would
+   risk a rasterised layer for no benefit. */
+.salpa-hero-companion .salpa-gaze {
+  transition: transform 320ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@keyframes salpa-hero-settle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Hero figure: ambient motion ----------
+
+   The approved companion's motion, re-expressed for the homepage's circular
+   figure. Amplitudes, periods and easing are the ones `app/globals.css` already
+   uses for the companion, so the homepage figure breathes at the same rate and
+   with the same restraint as the product character.
+
+   Three deliberate differences from the companion's block, all forced by the new
+   geometry:
+
+     1. The breath is a pure `translateY`. The companion also applies
+        `scaleY(1.008)`; here that would stretch a circle into an ellipse, and
+        this figure's whole point is that the geometry stays exact.
+     2. There is no head SWAY. A rotation about a circle's own centre is
+        invisible, so it would be an animation nobody could see. The head instead
+        floats a fraction of a unit against the body, which is the one motion a
+        circle can actually express.
+     3. Every transform origin is written here, in viewBox units, rather than
+        inherited: the companion's own origins (60px 88px / 60px 112px) were
+        chosen for ITS head and neck, and reusing them would scale the blink about
+        the wrong y and make the eyes appear to drop while closing.
+
+   All of it is `transform` and `opacity` only, so nothing here can trigger layout
+   or slow a scroll. Every transform is on an SVG group, so `transform-box:
+   view-box` is stated explicitly rather than left to a browser default. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The whole figure rises and settles. */
+  .salpa-hero-companion .salpa-home-figure {
+    animation: salpa-home-breathe 5s ease-in-out infinite;
+    transform-box: view-box;
+  }
+
+  /* The head drifts against the body: the gap opens and closes by half a unit.
+     This is a pure translate, so there is deliberately no `transform-origin` here
+     - an origin only affects rotation and scaling, and stating one would imply a
+     motion this rule does not have. `transform-box` is kept because it is what
+     makes the translate resolve in viewBox units rather than the element's own. */
+  .salpa-hero-companion .salpa-home-head {
+    animation: salpa-home-float 9s ease-in-out infinite;
+    transform-box: view-box;
+  }
+
+  /* The blink. Both eyes share one origin on the eye line (y=43), so they close
+     together and neither one shifts as it shuts. */
+  .salpa-hero-companion .salpa-home-eyes {
+    animation: salpa-home-blink 8s ease-in-out infinite;
+    transform-box: view-box;
+    transform-origin: 60px 43px;
+  }
+
+  /* Light gathering on the ivory and fading again - the circular figure's
+     equivalent of light travelling across the companion's surface.
+
+     Two elements carry this class (the body's light and the head's), because each
+     must sit under its own form's face rather than over the whole figure. They
+     mount together, so they share one animation clock and stay in phase.
+
+     Opacity only: the highlight cannot leave the silhouette, so there is no ghost
+     edge to see. */
+  .salpa-hero-companion .salpa-home-keylight {
+    animation: salpa-home-key 12s ease-in-out infinite;
+  }
+}
+
+@keyframes salpa-home-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.8px);
+  }
+}
+
+@keyframes salpa-home-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.6px);
+  }
+}
+
+/* Open for most of a long cycle, closed briefly - a blink, not a wink. */
+@keyframes salpa-home-blink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  95.5%,
+  97% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes salpa-home-key {
+  0%,
+  100% {
+    opacity: 0.78;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Memory strata shimmer (subtle, one pass per loop) ---------- */
+.salpa-stratum-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.salpa-stratum-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: salpa-sheen 8s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes salpa-sheen {
+  0%,
+  55% {
+    transform: translateX(-100%);
+  }
+  85%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ---------- Continuity pulse travelling down the timeline ---------- */
+.salpa-thread {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.salpa-thread::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 244, 226, 0.6),
+    transparent
+  );
+  animation: salpa-thread 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes salpa-thread {
+  0% {
+    transform: translateY(-100%);
+  }
+  70%,
+  100% {
+    transform: translateY(370%);
+  }
+}
+
+/* ---------- Living brain hero (real anatomy + sulci light) ---------- */
+.salpa-hero {
+  background:
+    radial-gradient(55% 42% at 76% 34%, rgba(255, 244, 228, 0.06), transparent 70%),
+    radial-gradient(45% 36% at 50% 108%, rgba(120, 125, 145, 0.05), transparent 70%);
+}
+
+/* ---------- Section continuity: faint neural trace between stories ---------- */
+.salpa-trace {
+  position: relative;
+  height: 72px;
+  overflow: hidden;
+}
+.salpa-trace::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.09), transparent);
+}
+.salpa-trace::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: rgba(255, 244, 226, 0.85);
+  box-shadow: 0 0 12px rgba(255, 236, 200, 0.5);
+  animation: salpa-trace-travel 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes salpa-trace-travel {
+  0% { top: 8px; opacity: 0; }
+  18% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { top: calc(100% - 12px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .salpa-trace::after {
+    animation: none;
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+.salpa-brain-wrap {
+  max-width: 620px;
+  width: 100%;
+  aspect-ratio: 1024 / 732;
+  animation: salpa-brain-settle 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.salpa-brain-anatomy {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: drop-shadow(0 0 60px rgba(255, 240, 214, 0.05)) brightness(1.14) contrast(1.04);
+}
+
+.salpa-brain-canvas {
+  mix-blend-mode: screen;
+}
+
+.salpa-brain-labels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.salpa-brain-label {
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.salpa-brain-label-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 244, 226, 0.9);
+  box-shadow: 0 0 8px rgba(255, 236, 200, 0.8);
+}
+
+.salpa-brain-label-text {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: rgba(205, 205, 212, 0.62);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   SALPA design tokens (marketing homepage only) — appended.
+   Near-black / deep navy backgrounds, crisp white and cool-blue
+   secondary text, fine blue-grey borders, soft glows.
+   ============================================================ */
+:root {
+  --salpa-bg: #05080D;
+  --salpa-bg-charcoal: #0A1019;
+  --salpa-surface: #0F1724;
+  --salpa-border: rgba(148, 163, 184, 0.16);
+  --salpa-border-strong: rgba(148, 163, 184, 0.32);
+  --salpa-border-soft: rgba(148, 163, 184, 0.07);
+  --salpa-text: #F4F7FC;
+  --salpa-text-secondary: #A7B5C8;
+  --salpa-text-muted: #74849A;
+  --salpa-text-dim: #64748B;
+  --salpa-glow: rgba(148, 163, 184, 0.16);
+  --salpa-glow-strong: rgba(99, 102, 241, 0.18);
+  --salpa-glow-soft: rgba(148, 163, 184, 0.08);
+}
+
+/* ---------- Section trace: blue-grey divider ---------- */
+.salpa-trace::before {
+  background: linear-gradient(to bottom, transparent, var(--salpa-border-strong), transparent);
+}
+.salpa-trace::after {
+  background: rgba(203, 213, 225, 0.9);
+  box-shadow: 0 0 12px rgba(203, 213, 225, 0.4);
+}
+
+/* ---------- Hero: cool charcoal/blue gradients ---------- */
+.salpa-hero {
+  background:
+    radial-gradient(55% 42% at 76% 34%, rgba(148, 163, 184, 0.06), transparent 70%),
+    radial-gradient(45% 36% at 50% 108%, rgba(99, 102, 241, 0.05), transparent 70%);
+}
+
+/* ---------- Brain anatomy labels: cool blue-grey ---------- */
+.salpa-brain-label-dot {
+  background: rgba(203, 213, 225, 0.9);
+  box-shadow: 0 0 8px rgba(203, 213, 225, 0.8);
+}
+.salpa-brain-label-text {
+  color: rgba(148, 163, 184, 0.62);
+}
+.salpa-brain-anatomy {
+  filter: drop-shadow(0 0 60px rgba(148, 163, 184, 0.05)) brightness(1.14) contrast(1.04);
+}
+
+/* ---------- Stratum sheen: blue-grey ---------- */
+.salpa-stratum-sheen::after {
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.06), transparent);
+}
+
+/* ---------- Hero: atmospheric background elements ---------- */
+
+/* Soft diffused blue illumination behind the hero content. */
+.salpa-hero-glow {
+  position: absolute;
+  top: 20%;
+  right: 8%;
+  width: 30%;
+  height: 30%;
+  background: radial-gradient(60% 50% at 50% 40%, rgba(99, 102, 241, 0.10), transparent 60%);
+  transform: translate(-50%, -50%);
+  filter: blur(64px);
+  opacity: 0.4;
+  pointer-events: none;
+  animation: salpa-hero-glow-drift 10s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Fine horizontal light horizon behind the hero content. */
+.salpa-hero-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.35), transparent);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Journey / closing section: distant illuminated horizon ---------- */
+.salpa-journey-horizon {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, var(--salpa-bg) 40%, var(--salpa-bg-charcoal) 100%);
+  pointer-events: none;
+}
+
+.salpa-journey-horizon::before,
+.salpa-journey-horizon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+.salpa-journey-horizon::before {
+  bottom: 36%;
+  background: linear-gradient(to right, transparent, rgba(203, 213, 225, 0.45), transparent);
+  opacity: 0.6;
+}
+
+.salpa-journey-horizon::after {
+  bottom: 31%;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.28), transparent);
+  opacity: 0.45;
+  transform: translateY(1px);
+}
+
+.salpa-journey-glow {
+  position: absolute;
+  bottom: 26%;
+  left: 10%;
+  right: 10%;
+  height: 240px;
+  background: radial-gradient(60% 30% at 50% 35%, rgba(203, 213, 225, 0.10), transparent 60%);
+  filter: blur(52px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---------- Feature block hover (Why Salpa) ---------- */
+.salpa-feature {
+  position: relative;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid var(--salpa-border);
+  background: var(--salpa-bg-charcoal);
+  border-radius: 12px;
+}
+.salpa-feature:hover {
+  border-color: var(--salpa-border-strong);
+  background: rgba(148, 163, 184, 0.03);
+  transform: translateY(-2px);
+}
+
+.salpa-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--salpa-border-strong);
+  background: rgba(148, 163, 184, 0.05);
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+.salpa-feature:hover .salpa-feature-icon {
+  border-color: var(--salpa-text-secondary);
+  background: rgba(148, 163, 184, 0.10);
+}
+
+/* ---------- Step connector (How it works) ---------- */
+.salpa-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+.salpa-step-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--salpa-border-strong);
+  background: var(--salpa-bg-charcoal);
+  color: var(--salpa-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+.salpa-step-connector {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  width: 1px;
+  height: 28px;
+  background: var(--salpa-border);
+  transform: translateX(-50%);
+}
+.salpa-steps-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+}
+.salpa-steps-row::before {
+  content: "";
+  position: absolute;
+  top: 52px;
+  left: 22px;
+  right: 22px;
+  height: 1px;
+  background: var(--salpa-border);
+  z-index: 1;
+}
+@media (max-width: 767px) {
+  .salpa-steps-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .salpa-steps-row::before {
+    display: none;
+  }
+  .salpa-step-connector {
+    top: auto;
+    bottom: -16px;
+    left: 50%;
+    width: 1px;
+    height: 28px;
+  }
+  .salpa-step {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 14px 0;
+  }
+  .salpa-step-node {
+    margin-right: 14px;
+  }
+}
+
+/* ---------- Product mockup surface ---------- */
+.salpa-mock {
+  position: relative;
+  border: 1px solid var(--salpa-border);
+  background: var(--salpa-bg-charcoal);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.08),
+    0 24px 48px -12px rgba(0, 0, 0, 0.5);
+}
+.salpa-mock-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.4), rgba(99, 102, 241, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- Pillar cards (Why Salpa / Building) ---------- */
+.salpa-pillar {
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid var(--salpa-border);
+  background: var(--salpa-bg-charcoal);
+}
+.salpa-pillar:hover {
+  border-color: var(--salpa-border-strong);
+  background: rgba(148, 163, 184, 0.03);
+  transform: translateY(-2px);
+}
+
+/* ---------- Reduced motion overrides for new classes ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .salpa-hero-glow { animation: none; opacity: 0.4; }
+  .salpa-hero-horizon { animation: none; opacity: 0.4; }
+  .salpa-journey-glow { animation: none; opacity: 0.3; }
+  .salpa-stratum-sheen::after { display: none; }
+  .salpa-step-node { transition: none; }
+  .salpa-pillar { transition: none; }
+  .salpa-pillar:hover { transform: none; }
+  .salpa-feature { transition: none; }
+  .salpa-feature:hover { transform: none; }
+}
+
+@keyframes salpa-hero-glow-drift {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+}
+.salpa-hero-brain {
+  order: -1;
+  margin-inline: auto;
+  width: min(100%, 480px);
+}
+
+@media (min-width: 768px) {
+  .salpa-hero-brain {
+    order: 0;
+    width: 100%;
+  }
+  .salpa-brain-wrap {
+    margin-inline: 0;
+    margin-left: auto;
+  }
+}
+
+@keyframes salpa-brain-settle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

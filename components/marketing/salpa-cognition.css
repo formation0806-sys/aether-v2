@@ -1,0 +1,174 @@
+/* ============================================================
+   SALPA additions — cognition story (monochrome, quiet motion)
+   Compositor-friendly only. Respects prefers-reduced-motion.
+   ============================================================ */
+
+/* ---------- Beginning: horizontal cognitive chain ----------
+   (Legacy .salpa-steps/.salpa-step-* rules retained below for compat.) */
+.salpa-chain { list-style: none; margin: 0; padding: 0; }
+.salpa-chain-node {
+  width: 76px; height: 76px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(60% 60% at 50% 40%, rgba(255,255,255,0.03), #0a0a0a 75%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; flex-shrink: 0;
+  opacity: 0.55;
+  transition: opacity 0.9s ease, border-color 0.9s ease, box-shadow 0.9s ease;
+}
+.salpa-chain-node::after {
+  content: "";
+  width: 5px; height: 5px; border-radius: 999px;
+  background: rgba(255,255,255,0.25);
+  transition: background 0.9s ease, box-shadow 0.9s ease;
+}
+.salpa-chain-item.is-active .salpa-chain-node {
+  opacity: 1;
+  border-color: rgba(255,244,226,0.32);
+  box-shadow: 0 0 24px rgba(255,236,200,0.10), inset 0 0 18px rgba(255,244,226,0.04);
+}
+.salpa-chain-item.is-active .salpa-chain-node::after {
+  background: rgba(255,244,226,0.95);
+  box-shadow: 0 0 10px rgba(255,236,200,0.7);
+}
+.salpa-chain-link {
+  height: 1px; flex: 1 1 100%; min-width: 20px;
+  background: rgba(255,255,255,0.08);
+  position: relative; overflow: hidden;
+  align-self: flex-start;
+}
+.salpa-chain-link::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(255,244,226,0.0), rgba(255,244,226,0.55), rgba(255,244,226,0.0));
+  background-size: 60% 100%;
+  background-repeat: no-repeat;
+  animation: salpa-chain-drift 6s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+@keyframes salpa-chain-drift {
+  0% { background-position: -60% 0; }
+  60%, 100% { background-position: 160% 0; }
+}
+.salpa-chain-label { opacity: 0.55; transition: opacity 0.9s ease; }
+.salpa-chain-item.is-active .salpa-chain-label { opacity: 1; }
+.salpa-steps { list-style: none; margin: 0; padding: 0; }
+.salpa-step-node {
+  width: 10px; height: 10px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: transparent;
+  transition: background 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+  flex-shrink: 0; margin-top: 4px;
+}
+.salpa-step-row.is-active .salpa-step-node {
+  background: rgba(255,244,226,0.95);
+  border-color: rgba(255,244,226,0.95);
+  box-shadow: 0 0 14px rgba(255,236,200,0.45);
+}
+.salpa-step-row { opacity: 0.45; transition: opacity 0.8s ease; }
+.salpa-step-row.is-active { opacity: 1; }
+.salpa-step-line {
+  width: 1px; align-self: stretch; min-height: 22px; margin-left: 4.5px;
+  background: rgba(255,255,255,0.08);
+  position: relative; overflow: hidden;
+}
+.salpa-step-row.is-active .salpa-step-line::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(255,244,226,0.7), transparent);
+}
+
+/* ---------- Inner-state rings ---------- */
+.salpa-ring { transform: rotate(-90deg); }
+.salpa-ring-track { stroke: rgba(255,255,255,0.08); }
+.salpa-ring-fill {
+  stroke: rgba(240,238,230,0.85);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22,1,0.36,1);
+}
+.salpa-ring-card {
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.salpa-ring-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+}
+
+/* ---------- Journey (REMEMBER → CONTINUE) ---------- */
+.salpa-journey-line {
+  position: absolute; top: 0; bottom: 0; left: 5px; width: 1px;
+  background: rgba(255,255,255,0.08); overflow: hidden;
+}
+.salpa-journey-line::after {
+  content: ""; position: absolute; top: -30%; left: 0; width: 100%; height: 30%;
+  background: linear-gradient(to bottom, transparent, rgba(255,244,226,0.65), transparent);
+  animation: salpa-thread 8s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+.salpa-journey-dot {
+  transition: background 0.9s ease, box-shadow 0.9s ease;
+}
+li:last-child .salpa-journey-dot {
+  background: rgba(255,244,226,0.95);
+  box-shadow: 0 0 14px rgba(255,236,200,0.55);
+}
+
+/* ---------- Cinematic interlude ---------- */
+.salpa-interlude { position: relative; overflow: hidden; background: #050505; }
+.salpa-interlude canvas { display: block; width: 100%; height: 100%; }
+.salpa-interlude-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.8)),
+    radial-gradient(60% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ---------- Human presence ---------- */
+.salpa-human-frame { position: relative; overflow: hidden; }
+.salpa-human-frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 45% at 50% 42%, transparent 55%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.32) 100%);
+}
+.salpa-human-gaze {
+  animation: salpa-gaze-breathe 7s ease-in-out infinite;
+}
+@keyframes salpa-gaze-breathe {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+/* ---------- Building pillars: premium research cards ---------- */
+.salpa-pillar {
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.salpa-pillar:hover {
+  border-color: rgba(255,244,226,0.18);
+  background: rgba(255,244,226,0.015);
+  transform: translateY(-2px);
+}
+
+/* ---------- Remembered illumination ---------- */
+.salpa-remembered li {
+  transition: border-color 1.2s ease, background 1.2s ease;
+}
+.salpa-remembered.is-lit li {
+  border-color: rgba(255,244,226,0.22);
+}
+.salpa-remembered.is-lit li:first-child {
+  background: rgba(255,244,226,0.045);
+  border-color: rgba(255,244,226,0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .salpa-step-row, .salpa-step-node { transition: none; }
+  .salpa-step-row { opacity: 1; }
+  .salpa-chain-node, .salpa-chain-label { transition: none; opacity: 1; }
+  .salpa-chain-node::after { background: rgba(255,244,226,0.9); box-shadow: none; }
+  .salpa-chain-link::after { animation: none; display: none; }
+  .salpa-ring-fill { transition: none; }
+  .salpa-ring-card { transition: none; }
+  .salpa-ring-card:hover { transform: none; }
+  .salpa-pillar { transition: none; }
+  .salpa-pillar:hover { transform: none; }
+  .salpa-human-gaze { animation: none; }
+  .salpa-journey-line::after { display: none; }
+  .salpa-interlude canvas { display: none; }
+  .salpa-interlude-fallback { display: block !important; }
+}
