@@ -82,6 +82,36 @@ if (mindRect && svgRect) {
       lastTime: 0,
     };
 
+    let cursorGazeTarget: { x: number; y: number } | null = null;
+    let currentEyeX = 0;
+    let currentEyeY = 0;
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const target = event.target;
+      const interactive = target instanceof Element
+        ? target.closest("a[href], button:not(:disabled), [role='button']")
+        : null;
+
+      if (!interactive || !eyeBounceGroup) {
+        cursorGazeTarget = null;
+        return;
+      }
+
+      const targetRect = interactive.getBoundingClientRect();
+      const eyeRect = eyeBounceGroup.getBoundingClientRect();
+      const dx = targetRect.left + targetRect.width / 2 -
+        (eyeRect.left + eyeRect.width / 2);
+      const dy = targetRect.top + targetRect.height / 2 -
+        (eyeRect.top + eyeRect.height / 2);
+      const length = Math.max(1, Math.hypot(dx, dy));
+
+      cursorGazeTarget = {
+        x: (dx / length) * 9,
+        y: (dy / length) * 9
+      };
+    };
+
+    document.addEventListener("pointermove", handlePointerMove, { passive: true });
     const animate = (now: number) => {
       if (start === 0) start = now;
       const elapsed = now - start;
@@ -228,12 +258,17 @@ if (mindRect && svgRect) {
           const targetY = 104 + verticalPosBody - verticalPos;
           const targetLength = Math.max(1, Math.hypot(targetX, targetY));
           const gazeStrength = 9;
-          const eyeX = (targetX / targetLength) * gazeStrength * gazeActivation;
-          const eyeY = (targetY / targetLength) * gazeStrength * gazeActivation;
+          const bodyEyeX = (targetX / targetLength) * gazeStrength * gazeActivation;
+          const bodyEyeY = (targetY / targetLength) * gazeStrength * gazeActivation;
+          const desiredEyeX = cursorGazeTarget?.x ?? bodyEyeX;
+          const desiredEyeY = cursorGazeTarget?.y ?? bodyEyeY;
+
+          currentEyeX += (desiredEyeX - currentEyeX) * 0.16;
+          currentEyeY += (desiredEyeY - currentEyeY) * 0.16;
 
           eyeBounceGroup.setAttribute(
             "transform",
-            "translate(" + eyeX + ", " + eyeY + ")"
+            "translate(" + currentEyeX + ", " + currentEyeY + ")"
           );
         }
       }
@@ -430,6 +465,7 @@ if (mindRect && svgRect) {
         observerRef.current.disconnect();
         observerRef.current = null;
       }
+      document.removeEventListener("pointermove", handlePointerMove);
       if (animationTimeoutRef.current !== null) {
         clearTimeout(animationTimeoutRef.current);
         animationTimeoutRef.current = null;
