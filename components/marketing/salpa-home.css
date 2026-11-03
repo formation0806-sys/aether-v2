@@ -30,7 +30,12 @@ html {
    `.salpa-hero-companion`. This rule adds only a faint grounding fade on top of
    that — opacity only, so it can never disturb layout or scrolling. */
 .salpa-hero-companion {
-  animation: salpa-hero-settle 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: absolute;
+  top: 35%;
+  right: 35%;
+  width: clamp(140px, 16vw, 320px);
+  transform: translateY(-30%);
+
 }
 
 .salpa-hero-companion svg {
@@ -121,7 +126,6 @@ html {
      motion this rule does not have. `transform-box` is kept because it is what
      makes the translate resolve in viewBox units rather than the element's own. */
   .salpa-hero-companion .salpa-home-head {
-    animation: salpa-home-float 9s ease-in-out infinite;
     transform-box: view-box;
   }
 
@@ -304,7 +308,7 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .salpa-trace::after {
     animation: none;
-    top: 50%;
+    top: 50%; transform: translateY(-50%);
     opacity: 1;
   }
 }
@@ -430,18 +434,6 @@ html {
   z-index: 0;
 }
 
-/* Fine horizontal light horizon behind the hero content. */
-.salpa-hero-horizon {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.35), transparent);
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ---------- Journey / closing section: distant illuminated horizon ---------- */
 .salpa-journey-horizon {
@@ -478,7 +470,7 @@ html {
   position: absolute;
   bottom: 26%;
   left: 10%;
-  right: 10%;
+  left: 40%;
   height: 240px;
   background: radial-gradient(60% 30% at 50% 35%, rgba(203, 213, 225, 0.10), transparent 60%);
   filter: blur(52px);
