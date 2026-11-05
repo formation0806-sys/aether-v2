@@ -1,29 +1,27 @@
 import AuthenticatedRedirect from "@/components/auth/AuthenticatedRedirect";
 import HomeNav from "@/components/marketing/HomeNav";
 import HomeHero from "@/components/marketing/HomeHero";
-import HomeIdea from "@/components/marketing/HomeIdea";
-import HomeBeginning from "@/components/marketing/HomeBeginning";
-import HomeCognition from "@/components/marketing/HomeCognition";
-import HomeInnerState from "@/components/marketing/HomeInnerState";
-import HomeHuman from "@/components/marketing/HomeHuman";
-import HomeInterlude from "@/components/marketing/HomeInterlude";
 import HomeMemory from "@/components/marketing/HomeMemory";
-import HomeJourney from "@/components/marketing/HomeJourney";
-import HomeContinuity from "@/components/marketing/HomeContinuity";
-import HomeExperience from "@/components/marketing/HomeExperience";
-import HomePrinciples from "@/components/marketing/HomePrinciples";
-import HomeBuilding from "@/components/marketing/HomeBuilding";
-import HomeFinalCta from "@/components/marketing/HomeFinalCta";
-import HomeClosing from "@/components/marketing/HomeClosing";
+import HomeMind from "@/components/marketing/HomeMind";
+import HomeRoadmap from "@/components/marketing/HomeRoadmap";
+import HomeFuture from "@/components/marketing/HomeFuture";
 import HomeFooter from "@/components/marketing/HomeFooter";
 import "@/components/marketing/salpa-home.css";
-import "@/components/marketing/salpa-cognition.css";
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Public SALPA homepage (`/`) — presentation only.
+ * Public SALPA homepage (`/`) ΓÇö presentation only.
  *
- * Server component: checks the session (unchanged auth behavior —
+ * Composition:
+ *   1. Hero        (#hero)         ΓÇö headline, CTAs, humanoid companion
+ *   2. Memory      (#memory)       ΓÇö what Salpa does with memory today
+ *   3. The mind    (#mind)         ΓÇö human-inspired cognition direction
+ *   4. Roadmap     (#how-it-works) ΓÇö live vs. exploring vs. long-term
+ *   5. Closing     (#future)       ΓÇö final CTA with a small static figure
+ *
+ * Followed by the existing navigation (mounted above) and footer.
+ *
+ * Server component: checks the session (unchanged auth behavior ΓÇö
  * signed-in visitors are redirected to their workspace) and renders
  * the static marketing composition for everyone else.
  */
@@ -39,7 +37,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-dvh overflow-x-clip bg-[#05080D] text-white antialiased">
+    <div className="min-h-dvh overflow-x-clip bg-[#000000] text-white antialiased">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
@@ -49,24 +47,10 @@ export default async function Home() {
       <HomeNav />
       <main id="main">
         <HomeHero />
-        <HomeIdea />
-        <div aria-hidden className="salpa-trace" />
-        <HomeBeginning />
-        <HomeCognition />
-        <div aria-hidden className="salpa-trace" />
-        <HomeInnerState />
-        <HomeHuman />
-        <HomeInterlude />
-        <div aria-hidden className="salpa-trace" />
         <HomeMemory />
-        <HomeJourney />
-        <div aria-hidden className="salpa-trace" />
-        <HomeContinuity />
-        <HomeExperience />
-        <HomePrinciples />
-        <HomeBuilding />
-        <HomeFinalCta />
-        <HomeClosing />
+        <HomeMind />
+        <HomeRoadmap />
+        <HomeFuture />
       </main>
       <HomeFooter />
     </div>

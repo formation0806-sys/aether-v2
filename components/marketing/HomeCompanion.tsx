@@ -25,16 +25,16 @@ export default function HomeCompanion({ className }: { className?: string }) {
     // Respect reduced motion preference
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const svg = bodyRef.current?.querySelector("svg");
-    if (!svg) return;
-    const bodyGroup = svg.querySelector("[data-part='body']") as SVGGElement | null;
+    const companionSvg = bodyRef.current?.querySelector("svg");
+    if (!companionSvg) return;
+    const bodyGroup = companionSvg.querySelector("[data-part='body']") as SVGGElement | null;
     bodyGroupRef.current = bodyGroup as SVGGElement | null;
-    const eyeBounceGroup = svg.querySelector("[data-part='eyes-bounce']") as SVGGElement | null;
+    const eyeBounceGroup = companionSvg.querySelector("[data-part='eyes-bounce']") as SVGGElement | null;
 
     // --- Determine travel distance from actual rendered geometry ---
     const hero = document.getElementById("hero");
-    const heroRect = hero ? hero.getBoundingClientRect() : svg.getBoundingClientRect();
-    const svgRect = svg.getBoundingClientRect();
+    const heroRect = hero ? hero.getBoundingClientRect() : companionSvg.getBoundingClientRect();
+    const svgRect = companionSvg.getBoundingClientRect();
     const viewBoxUnitsPerScreenPx = 128 / (svgRect.width || 140);
 
     // 35% of hero width, clamped 300-450px, then adjusted for overshoot
@@ -53,14 +53,61 @@ const mindRect = mindHeading ? mindHeading.getBoundingClientRect() : null;
 
 // Calculate safe final landing position in viewBox units
 // Default fallback: 80% of travelVb if heading cannot be measured
-let safeFinalXVb = travelVb * 0.8;
+let safeFinalXVb = travelVb;
+const bodyDiameterVb = 56; // body circle diameter (r=28 => diameter=56); verified from SVG geometry
 if (mindRect && svgRect) {
-  const bodyDiameterVb = 56; // body circle diameter (r=28 => diameter=56)
   const marginVb = 8; // safe margin in viewBox units
   const headingLeftVb = (mindRect.left - svgRect.left) / (svgRect.width || 140) * 128;
   const maxLandingVb = headingLeftVb - bodyDiameterVb - marginVb;
-  safeFinalXVb = Math.max(0, Math.min(travelVb * 0.95, maxLandingVb));
+  safeFinalXVb = Math.max(0, Math.min(travelVb, maxLandingVb));
 }
+// Body starts to the left of the head, with a clear gap.
+// 96 = head_radius(64) + body_radius(28) + 4px gap — ensures body is
+// clearly to the left of head, not underneath, matching October 23 reference.
+// Horizontal travel (700ms) catches the body up to alignment with the head.
+const initialBodyOffsetVb = 96;
+// Additional rightward shift from the anatomically correct body offset:
+// 32 viewBox units positions the body toward the Product navigation area,
+// keeping it clear of the headline while maintaining separation from the head.
+const BODY_ANCHOR_ADJUST_VB = 32;
+
+// --- Measure navigation link centers for body horizontal boundaries ---
+// The body oscillates horizontally between the centers of two nav links:
+//   LEFT  -> a[href="#how-it-works"]  (How it works)
+//   RIGHT -> a[href="#experience"]   (Product)
+// Screen coordinates are converted to SVG viewBox units relative to the
+// companion SVG element so the movement scales correctly with the viewport.
+// If either link is unavailable, fall back to the current anchored position.
+const fallbackAnchorVb = -(initialBodyOffsetVb - BODY_ANCHOR_ADJUST_VB);
+let navLeftVb = fallbackAnchorVb;
+let navRightVb = fallbackAnchorVb;
+
+const linkEls = [
+  document.querySelector('a[href="#how-it-works"]'),
+  document.querySelector('a[href="#experience"]'),
+] as (Element | null)[];
+
+const linkRects = linkEls.map(el => el ? el.getBoundingClientRect() : null);
+
+const linkCenterVbs = linkRects.map(rect => {
+  if (!rect) return null;
+  const centerX = rect.left + rect.width / 2;
+  return (centerX - svgRect.left) * viewBoxUnitsPerScreenPx;
+});
+
+if (linkCenterVbs[0] !== null) navLeftVb = linkCenterVbs[0]!;
+if (linkCenterVbs[1] !== null) navRightVb = linkCenterVbs[1]!;
+
+// Ensure left < right
+if (navRightVb < navLeftVb) {
+  const tmp = navLeftVb;
+  navLeftVb = navRightVb;
+  navRightVb = tmp;
+}
+
+// Horizontal oscillation timing
+const BODY_HORIZONTAL_CYCLE_MS = 4000; // full left→right→left cycle
+
     const horizontalDuration = 700;
     const bounceDuration = 2000; // 2000ms for the vertical bounce phase
     const animationTotalDuration = horizontalDuration + bounceDuration; // 2700ms total
@@ -187,7 +234,11 @@ if (mindRect && svgRect) {
       if (headRef.current) {
         headRef.current.setAttribute("transform", "translate(" + horizontalPos + ", " + verticalPos + ")");
       }
-      // --- Multi-jump body animation toward "The mind" heading ---
+    // Body starts to the left of the head (body diameter offset) and stays anchored horizontally.
+// Vertical movement is handled independently by the body jump sequence below.
+if (bodyGroupRef.current && !bodyJumpStartedRef.current) {
+  bodyGroupRef.current.setAttribute("transform", "translate(" + navLeftVb + ", 0)");
+}// --- Multi-jump body animation toward "The mind" heading ---
       const JUMP_COUNT = 3;
       const JUMP_DURATION_MS = 1210;  // 1000ms / 3 jumps
       const JUMP_APEX = 152;  // body jump height, increased by another 30%
@@ -204,7 +255,15 @@ if (mindRect && svgRect) {
       if (bodyJumpStartedRef.current && bodyGroupRef.current) {
         const bodyT = Math.max(0, elapsed - bodyJumpStartRef.current);
         const travelDuration = JUMP_COUNT * JUMP_DURATION_MS;
-        let horizontalPosBody = safeFinalXVb;
+        // Horizontal oscillation between nav link boundaries (left→right→left)
+        const bodyHorizontalCycleT = Math.max(0, elapsed - bodyJumpStartRef.current);
+        const cycleProgress =
+          (bodyHorizontalCycleT % BODY_HORIZONTAL_CYCLE_MS) /
+          BODY_HORIZONTAL_CYCLE_MS;
+        const sineProgress =
+          0.5 + 0.5 * Math.sin(2 * Math.PI * cycleProgress - Math.PI / 2);
+        let horizontalPosBody =
+          navLeftVb + (navRightVb - navLeftVb) * sineProgress;
         let verticalPosBody = 0;
 
         if (bodyT < travelDuration) {
@@ -221,11 +280,8 @@ if (mindRect && svgRect) {
             )
           );
 
-          horizontalPosBody =
-            safeFinalXVb *
-            (jumpIndex + p) /
-            JUMP_COUNT;
-
+          // Body oscillates horizontally between nav links;
+          // only vertical position changes during the jump sequence.
           verticalPosBody = -4 * JUMP_APEX * p * (1 - p);
         } else {
           // Continue bouncing vertically at the destination indefinitely.

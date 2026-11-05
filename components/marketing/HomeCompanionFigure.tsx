@@ -85,6 +85,7 @@ export const HomeCompanionFigure = forwardRef<HTMLDivElement, HomeCompanionFigur
         style={{ width: "clamp(140px, 16vw, 320px)", overflow: "visible" }}
         ref={bodyref}
         data-part="wrapper"
+        data-salpa-home-figure="circle"
         className={props.className}
       >
         <svg
