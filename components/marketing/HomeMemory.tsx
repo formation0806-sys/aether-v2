@@ -22,7 +22,7 @@ const STRATA = [
 export default function HomeMemory() {
   return (
     <section id="memory" aria-labelledby="memory-heading" className="scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-5 py-28 sm:px-8 md:py-44">
+      <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8 md:py-24">
         <div className="grid items-start gap-14 md:grid-cols-2 md:gap-16">
           <div className="md:sticky md:top-24">
             <Reveal>
@@ -57,7 +57,7 @@ export default function HomeMemory() {
             {STRATA.map((s, i) => (
               <li key={s.title}>
                 <Reveal delay={i * 110}>
-                  <div className="salpa-stratum-sheen rounded-2xl border border-white/[0.08] bg-[#0A0A0A] p-6 sm:p-7">
+                  <div className="salpa-stratum-sheen rounded-2xl border-b border-white/[0.04] border-white/[0.08] bg-[#0A0A0A] p-6 sm:p-7">
                     <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#94a3b8]">
                       {String(i + 1).padStart(2, "0")}
                     </p>
@@ -74,7 +74,6 @@ export default function HomeMemory() {
           </ol>
         </div>
       </div>
-      <div aria-hidden className="mx-auto h-px max-w-6xl bg-white/[0.06]" />
     </section>
   );
 }

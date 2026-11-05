@@ -1,25 +1,11 @@
-"use client";
+      "use client";
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { SalpaWordmark } from "@/components/marketing/SalpaMark";
 
-/**
- * Refined public navigation.
- *
- * Destinations (unchanged):
- *   Why Salpa   -> #idea
- *   Memory      -> #memory
- *   How it works -> #continuity
- *   Product     -> #experience
- *   Sign in     -> /signin
- *   Get started -> /signup
- *
- * A functional, keyboard-accessible mobile menu is rendered below the
- * breakpoint. Anchor targets use scroll-mt-20 on their sections so they are
- * never hidden behind the sticky header.
- */
+/** Refined public navigation. */
 const NAV_LINKS = [
   { href: "#why-salpa", label: "Why Salpa" },
   { href: "#memory", label: "Memory" },
@@ -39,6 +25,7 @@ export default function HomeNav() {
   }, []);
 
   const toggle = useCallback(() => setOpen((o) => !o), []);
+
   // Close the mobile menu on Escape so keyboard users can dismiss it.
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -52,7 +39,7 @@ export default function HomeNav() {
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b border-white/[0.06] bg-black/80 backdrop-blur-md transition-colors duration-300 ${scrolled ? "border-white/[0.14] bg-black/95" : "border-white/[0.06] bg-black/80"}`}
+      className={`sticky top-0 z-40 bg-black/80 backdrop-blur-md transition-colors duration-300 ${scrolled ? "bg-black/95" : "bg-black/80"}`}
     >
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <SalpaWordmark className="mr-2" />
@@ -70,7 +57,7 @@ export default function HomeNav() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2">
           <Link
             href="/signin"
             className="inline-flex h-9 items-center rounded-lg px-3 text-sm text-[#94a3b8] transition-colors duration-200 hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
@@ -79,10 +66,16 @@ export default function HomeNav() {
           </Link>
           <Link
             href="/signup"
-            className="group inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-medium text-black transition-all duration-200 hover:bg-[#E5E5E5] hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="group inline-flex h-9 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-gray-950 transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >
             Get started
-            <ArrowRight size={15} aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            <span className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-900">
+              <ArrowRight
+                size={12}
+                aria-hidden
+                className="text-white transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+              />
+            </span>
           </Link>
 
           {/* Mobile menu button */}
@@ -117,7 +110,7 @@ export default function HomeNav() {
             }}
           />
           <div
-            className="absolute inset-y-0 left-0 w-full max-w-xs flex flex-col border-r border-white/[0.06] bg-black/95 backdrop-blur-md p-6 sm:px-8"
+            className="absolute inset-y-0 left-0 w-full max-w-xs flex flex-col bg-black/95 backdrop-blur-md p-6 sm:px-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-8">
@@ -141,7 +134,7 @@ export default function HomeNav() {
                   {link.label}
                 </a>
               ))}
-              <div className="mt-8 pt-6 border-t border-white/[0.06] flex flex-col gap-2">
+              <div className="mt-8 flex flex-col gap-2">
                 <Link
                   href="/signin"
                   className="block py-3 text-[#94a3b8] transition-colors hover:text-white rounded-lg"
