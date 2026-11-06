@@ -27,6 +27,27 @@ export const HomeCompanionFigure = forwardRef<HTMLDivElement, HomeCompanionFigur
       let targetY = 0;
       let frame = 0;
 
+      const handleFocus = () => {
+        const focused = document.activeElement;
+        if (!focused || !(focused instanceof HTMLAnchorElement)) return;
+        if (focused.getAttribute("href") !== "/signup") return;
+        const buttonRect = focused.getBoundingClientRect();
+        const eyesRect = eyes.getBoundingClientRect();
+        const dx = buttonRect.left + buttonRect.width / 2 - (eyesRect.left + eyesRect.width / 2);
+        const dy = buttonRect.top + buttonRect.height / 2 - (eyesRect.top + eyesRect.height / 2);
+        const distance = Math.max(1, Math.hypot(dx, dy));
+
+        targetX = (dx / distance) * 9;
+        targetY = (dy / distance) * 9;
+        if (!frame) frame = requestAnimationFrame(animateGaze);
+      };
+
+      const handleBlur = () => {
+        targetX = 0;
+        targetY = 0;
+        if (!frame) frame = requestAnimationFrame(animateGaze);
+      };
+
       const animateGaze = () => {
         currentX += (targetX - currentX) * 0.16;
         currentY += (targetY - currentY) * 0.16;
@@ -49,7 +70,7 @@ export const HomeCompanionFigure = forwardRef<HTMLDivElement, HomeCompanionFigur
       const handlePointerMove = (event: PointerEvent) => {
         const target = event.target;
         const cta = target instanceof Element
-          ? target.closest("#future a[href='/signup']")
+          ? target.closest("a[href='/signup']")
           : null;
 
         if (!cta) {

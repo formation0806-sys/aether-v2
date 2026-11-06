@@ -76,6 +76,7 @@ export default function HomeNav() {
                 className="text-white transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
               />
             </span>
+
           </Link>
 
           {/* Mobile menu button */}

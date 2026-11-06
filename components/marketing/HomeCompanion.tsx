@@ -144,6 +144,12 @@ const BODY_HORIZONTAL_CYCLE_MS = 4000; // full left→right→left cycle
         return;
       }
 
+      // Allow navigation links and buttons to drive the first humanoid gaze.
+      if (!interactive.closest("header, nav")) {
+        cursorGazeTarget = null;
+        return;
+      }
+
       const targetRect = interactive.getBoundingClientRect();
       const eyeRect = eyeBounceGroup.getBoundingClientRect();
       const dx = targetRect.left + targetRect.width / 2 -
@@ -153,8 +159,8 @@ const BODY_HORIZONTAL_CYCLE_MS = 4000; // full left→right→left cycle
       const length = Math.max(1, Math.hypot(dx, dy));
 
       cursorGazeTarget = {
-        x: (dx / length) * 9,
-        y: (dy / length) * 9
+        x: (dx / length) * 15,
+        y: (dy / length) * 15
       };
     };
 
@@ -510,9 +516,7 @@ if (bodyGroupRef.current && !bodyJumpStartedRef.current) {
     if (hero) {
       // If initially visible, start exactly once with the 700ms pause.
       // If initially outside viewport, remain at rest.
-      if (initialIntersecting) {
-        startAnimation();
-      }
+      startAnimation();
       observer.observe(hero);
     }
 

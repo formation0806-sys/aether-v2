@@ -30,11 +30,11 @@ html {
    `.salpa-hero-companion`. This rule adds only a faint grounding fade on top of
    that — opacity only, so it can never disturb layout or scrolling. */
 .salpa-hero-companion {
-  position: absolute;
-  top: 35%;
-  right: 35%;
+
+
+
   width: clamp(140px, 16vw, 320px);
-  transform: translateY(-30%);
+
 
 }
 
@@ -202,7 +202,7 @@ html {
 
 .salpa-stratum-sheen::after {
   content: "";
-  position: absolute;
+
   inset: 0;
   background: linear-gradient(
     100deg,
@@ -228,7 +228,7 @@ html {
 
 /* ---------- Continuity pulse travelling down the timeline ---------- */
 .salpa-thread {
-  position: absolute;
+
   top: 0;
   bottom: 0;
   left: 5px;
@@ -239,7 +239,7 @@ html {
 
 .salpa-thread::after {
   content: "";
-  position: absolute;
+
   top: -30%;
   left: 0;
   width: 100%;
@@ -278,7 +278,7 @@ html {
 }
 .salpa-trace::before {
   content: "";
-  position: absolute;
+
   left: 50%;
   top: 0;
   bottom: 0;
@@ -288,7 +288,7 @@ html {
 }
 .salpa-trace::after {
   content: "";
-  position: absolute;
+
   left: 50%;
   top: 12px;
   width: 5px;
@@ -420,7 +420,7 @@ html {
 
 /* Soft diffused blue illumination behind the hero content. */
 .salpa-hero-glow {
-  position: absolute;
+
   top: 20%;
   right: 8%;
   width: 30%;
@@ -437,7 +437,7 @@ html {
 
 /* ---------- Journey / closing section: distant illuminated horizon ---------- */
 .salpa-journey-horizon {
-  position: absolute;
+
   inset: 0;
   background: linear-gradient(to bottom, transparent 0%, var(--salpa-bg) 40%, var(--salpa-bg-charcoal) 100%);
   pointer-events: none;
@@ -446,7 +446,7 @@ html {
 .salpa-journey-horizon::before,
 .salpa-journey-horizon::after {
   content: "";
-  position: absolute;
+
   left: 0;
   right: 0;
   height: 1px;
@@ -467,7 +467,7 @@ html {
 }
 
 .salpa-journey-glow {
-  position: absolute;
+
   bottom: 26%;
   left: 10%;
   left: 40%;
@@ -544,7 +544,7 @@ html {
     color 0.3s ease;
 }
 .salpa-step-connector {
-  position: absolute;
+
   top: 52px;
   left: 50%;
   width: 1px;
@@ -561,7 +561,7 @@ html {
 }
 .salpa-steps-row::before {
   content: "";
-  position: absolute;
+
   top: 52px;
   left: 22px;
   right: 22px;
@@ -606,7 +606,7 @@ html {
     0 24px 48px -12px rgba(0, 0, 0, 0.5);
 }
 .salpa-mock-glow {
-  position: absolute;
+
   inset: 0;
   border-radius: 16px;
   padding: 1px;
