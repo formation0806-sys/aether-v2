@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowDown, Plus, Send } from "lucide-react";
 import Message from "./Message";
-import SalpaCompanion from "./SalpaCompanion";
+import { ChatHumanoid } from "@/components/chat/ChatHumanoid";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -37,7 +37,7 @@ function WorkspaceHeader({
   onNewChat: () => void;
 }) {
   return (
-    <div className="hidden shrink-0 items-center gap-3 border-b border-[#1A1A1A] bg-black px-6 py-2.5 lg:flex">
+    <div className="hidden shrink-0 items-center gap-3 bg-black px-6 py-2.5 lg:flex">
       <div className="flex items-center gap-2.5">
         <p className="text-sm font-medium leading-tight text-[#F5F5F5]">Chat</p>
         <p className="flex items-center gap-1.5 text-xs text-[#707070]">
@@ -62,27 +62,72 @@ function WorkspaceHeader({
   );
 }
 
-function EmptyState({ salpaState }: { salpaState: "idle" | "typing" | "thinking" | "responding" }) {
+function EmptyState({
+  onComposerReveal,
+}: {
+  onComposerReveal: () => void;
+}) {
+  const [entranceComplete, setEntranceComplete] = useState(false);
+  const [greeting, setGreeting] = useState("");
+  const [typedGreeting, setTypedGreeting] = useState("");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+
+    if (hour < 12) setGreeting("Good morning");
+    else if (hour < 17) setGreeting("Good afternoon");
+    else setGreeting("Good evening");
+  }, []);
+
+
+  useEffect(() => {
+    if (!entranceComplete || !greeting) return;
+
+    const fullGreeting = `${greeting}, what's going on today?`;
+    let index = 0;
+    let revealTimer: number | undefined;
+
+    setTypedGreeting("");
+
+    const typingTimer = window.setInterval(() => {
+      index += 1;
+      setTypedGreeting(fullGreeting.slice(0, index));
+
+      if (index >= fullGreeting.length) {
+        window.clearInterval(typingTimer);
+        revealTimer = window.setTimeout(onComposerReveal, 450);
+      }
+    }, 38);
+
+    return () => {
+      window.clearInterval(typingTimer);
+      if (revealTimer !== undefined) window.clearTimeout(revealTimer);
+    };
+  }, [entranceComplete, greeting, onComposerReveal]);
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-black px-4 py-6 text-center">
-      <h1 className="text-xl font-semibold tracking-tight text-[#F5F5F5] sm:text-2xl">
-        SALPA
-      </h1>
+    <div className="flex min-h-0 flex-1 flex-col items-center bg-black px-4 text-center translate-y-[30vh]">
+      <div className="flex w-full flex-1 flex-col items-center justify-center">
+        <div data-salpa-welcome-target className="w-[min(34vw,128px)] aspect-[128/196]">
+          <ChatHumanoid
+            className="w-full"
+            animateEntrance={!entranceComplete}
+            onEntranceComplete={() => setEntranceComplete(true)}
+          />
+        </div>
+        {typedGreeting && (
+          <p aria-live="polite" className="mt-5 text-sm text-[#b8b8b8]">
+            {typedGreeting}
+            {typedGreeting.length < `${greeting}, what's going on today?`.length && (
+              <span className="ml-0.5 animate-pulse">|</span>
+            )}
+          </p>
+        )}
 
-      {/* The bust is the presence, not an illustration beside the copy. It is
-          sized from the viewport width so it stays large on desktop and scales
-          down proportionally on narrow screens without ever overflowing. */}
-      <div className="my-7 w-[min(62vw,15rem)] sm:my-9 sm:w-[min(58vw,17rem)] md:w-[min(46vw,20rem)] lg:w-[min(38vw,22rem)]">
-        <SalpaCompanion state={salpaState} className="h-auto w-full" />
       </div>
-
-      <p className="text-sm text-[#A0A0A0] sm:text-[15px]">
-        A quiet presence that remembers.
-      </p>
     </div>
   );
 }
-
 function RefinedComposer({
   value,
   onChange,
@@ -162,15 +207,16 @@ function RefinedComposer({
             <Send size={15} aria-hidden />
           </button>
         </form>
-        <p className="mt-2 hidden text-center text-xs text-[#707070] md:block">
-          Enter to send · Shift+Enter for a new line
-        </p>
+        </div>
       </div>
-    </div>
   );
 }
 
-export default function Chat() {
+export default function Chat({
+  demoMode = false,
+}: {
+  demoMode?: boolean;
+}) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [memoryCount, setMemoryCount] = useState(0);
@@ -179,6 +225,19 @@ export default function Chat() {
   const [draft, setDraft] = useState("");
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const [showScrollHint, setShowScrollHint] = useState(false);
+  const [showEmptyComposer, setShowEmptyComposer] = useState(false);
+  const [composerVisible, setComposerVisible] = useState(false);
+  const handleComposerReveal = useCallback(() => setShowEmptyComposer(true), []);
+
+  useEffect(() => {
+    if (!showEmptyComposer) {
+      setComposerVisible(false);
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => setComposerVisible(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [showEmptyComposer]);
   const lastUserContentRef = useRef<string>("");
 
   /**
@@ -405,6 +464,7 @@ export default function Chat() {
   }, []);
 
   function handleNewChat() {
+    setShowEmptyComposer(false);
     const fresh = generateConversationId();
     activeConversationIdRef.current = fresh;
     setActiveConversationId(fresh);
@@ -468,6 +528,23 @@ export default function Chat() {
     setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
     setIsThinking(true);
+
+    // Local demo only: do not call the authenticated API or persist test messages.
+    if (demoMode) {
+      setIsThinking(false);
+      beginResponding();
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "Local demo mode is active. Your message was not sent to the AI backend or saved. Sign in to use your real SALPA conversations.",
+        },
+      ]);
+      requestAnimationFrame(() => scrollToBottom("smooth"));
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/chat", {
@@ -542,7 +619,7 @@ export default function Chat() {
       <WorkspaceHeader memoryCount={memoryCount} onNewChat={handleNewChat} />
 
       {messages.length === 0 ? (
-        <EmptyState salpaState={salpaState} />
+                <EmptyState onComposerReveal={handleComposerReveal} />
       ) : (
         <>
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
@@ -612,25 +689,33 @@ export default function Chat() {
               role="status"
               aria-live="polite"
             >
-              <SalpaCompanion state={salpaState} className="size-16 shrink-0" />
-              {(salpaState === "thinking" || salpaState === "responding") && (
-                <span className="text-xs font-medium text-[#707070]">
-                  {salpaState === "thinking" ? "Thinking…" : "Responding…"}
-                </span>
-              )}
+              <ChatHumanoid
+              className="shrink-0 w-[109px]"
+            />
+            {(salpaState === "thinking" || salpaState === "responding") && (
+              <span className="text-xs font-medium text-[#707070]">
+                {salpaState === "thinking" ? "Thinking…" : "Responding…"}
+              </span>
+            )}
             </div>
           </div>
         </div>
         </>
       )}
 
-<RefinedComposer
-        value={draft}
-        onChange={setDraft}
-        onSend={sendMessage}
-        disabled={loading}
-        composerRef={composerRef}
-      />
+      {(messages.length > 0 || showEmptyComposer) && (
+        <div className={`translate-y-[30vh] transition-opacity duration-700 ease-out ${
+          messages.length > 0 || composerVisible ? "opacity-100" : "opacity-0"
+        }`}>
+        <RefinedComposer
+          value={draft}
+          onChange={setDraft}
+          onSend={sendMessage}
+          disabled={loading}
+          composerRef={composerRef}
+        />
+        </div>
+      )}
     </div>
   );
 }

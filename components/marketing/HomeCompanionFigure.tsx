@@ -4,6 +4,7 @@ import { useId, forwardRef, ReactNode, useEffect, useRef } from "react";
 
 export type HomeCompanionFigureProps = {
   className?: string;
+  width?: string;
   headRef?: React.RefObject<SVGGElement | null> | null;
   trackInteractiveGaze?: boolean;
 };
@@ -103,7 +104,7 @@ export const HomeCompanionFigure = forwardRef<HTMLDivElement, HomeCompanionFigur
 
     return (
       <div
-        style={{ width: "clamp(140px, 16vw, 320px)", overflow: "visible" }}
+        style={{ width: props.width ?? "clamp(140px, 16vw, 320px)", overflow: "visible" }}
         ref={bodyref}
         data-part="wrapper"
         data-salpa-home-figure="circle"

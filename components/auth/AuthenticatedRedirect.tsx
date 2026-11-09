@@ -11,8 +11,7 @@ export default function AuthenticatedRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-    router.replace(isMobile ? '/chat' : '/dashboard');
+    router.replace('/welcome');
   }, [router]);
 
   return null;
